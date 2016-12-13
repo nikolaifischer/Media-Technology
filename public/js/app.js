@@ -1,8 +1,8 @@
-angular.module('MediaTechnology',
+angular.module('mtPlanr',
     ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'NerdCtrl', 'NerdService', 'GeekCtrl', 'GeekService', 'LoginCtrl','ngMaterial']);
 
 
-angular.module('MediaTechnology').config(function(LoopBackResourceProvider) {
+angular.module('mtPlanr').config(function(LoopBackResourceProvider) {
 
     // From example - Do we need this?
     // Use a custom auth header instead of the default 'Authorization'
@@ -12,7 +12,7 @@ angular.module('MediaTechnology').config(function(LoopBackResourceProvider) {
     LoopBackResourceProvider.setUrlBase('http://localhost:3000/api');
 });
 
-angular.module('MediaTechnology')
+angular.module('mtPlanr')
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('teal');
