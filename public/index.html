@@ -85,6 +85,10 @@
                           ng-click="toggleLeft()"></span>
                     <span>MT-PLANR </span>
                     <span flex></span>
+                    <!-- TODO: hide on login page -->
+                    <md-button ng-click="logout()" id="logout-button" aria-label="Logout">
+                        Logout
+                    </md-button>
                     <md-button href="/profile" id="profile-button" class="md-fab md-mini" aria-label="Mein Profil">
                         <md-icon>person</md-icon>
                     </md-button>

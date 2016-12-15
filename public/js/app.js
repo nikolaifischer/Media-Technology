@@ -16,5 +16,18 @@ angular.module('mtPlanr')
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('teal')
-            .accentPalette('red');;
+            .accentPalette('red');
     });
+
+// when route changes, check if user is logged in and redirect
+angular.module('mtPlanr')
+    .run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+        $rootScope.$on('$routeChangeStart', function () {
+            if ($window.sessionStorage.token != null) {
+                //$location.path('/home');
+            }
+            else {
+                $location.path('/login');
+            }
+        });
+    }]);
