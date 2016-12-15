@@ -1,5 +1,15 @@
-body { padding-top:30px; }
 
 .loginContainer{
     margin-top:50px;
+}
+
+.container-fluid {
+    padding:0px !important;
+}
+
+#navigation-burger{
+    margin-right:20px;
+}
+#profile-button{
+    margin-right:10px;
 }

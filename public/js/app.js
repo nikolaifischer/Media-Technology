@@ -15,5 +15,6 @@ angular.module('mtPlanr').config(function(LoopBackResourceProvider) {
 angular.module('mtPlanr')
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('teal');
+            .primaryPalette('teal')
+            .accentPalette('red');;
     });
