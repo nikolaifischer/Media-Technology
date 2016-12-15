@@ -1,13 +1,11 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, Lab) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $timeout, $mdSidenav) {
 
-	$scope.tagline = 'To the moon and back!';
-
-	// Find all Labs and output the date of the first one to the console:
-    $scope.labs = Lab.find({},
-        function(list) {
-            console.log($scope.labs[0].date);
-    },
-        function(errorResponse) { console.log(errorResponse); }
-    );
+    // Controls the side navigation
+    $scope.toggleLeft = buildToggler('left');
+    function buildToggler(componentId) {
+        return function() {
+            $mdSidenav(componentId).toggle();
+        }
+    }
 
 });
