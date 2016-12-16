@@ -1,5 +1,81 @@
-<div class="jumbotron text-center">
-	<h1>Hallo<!--, {{ user.first_name }}  // wo bekommt man den User her?? -->!</h1>
+<div class="jumbotron text-center" ng-controller="HomeController">
+    <h2>Hallo, {{currentUser.first_name}}</h2>
 
-	<p>{{ tagline }}</p>
+
+    <div class="row boxesContainer">
+        <div class="col-md-4 col-sm-12">
+            <md-card class="groupBox">
+                <md-card-title>
+                    <md-card-title-text><h2>Gruppenname</h2></md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <md-list class ="list-left">
+                        <md-list-item
+                                class="noright">
+                            <md-icon class="md-avatar white-icon">person</md-icon>
+                            <p>Kevin</p>
+                            <md-icon
+
+                                    aria-label="Send Email" class="white-icon">email
+                            </md-icon>
+
+                        </md-list-item>
+                        <md-list-item
+                                class="noright">
+                            <md-icon class="md-avatar white-icon">person</md-icon>
+                            <p>Jeremy-Pascal</p>
+                            <md-icon
+
+                                    aria-label="Send Email" class="white-icon">email
+                            </md-icon>
+
+                        </md-list-item>
+                        <md-list-item
+                                class="noright">
+                            <md-icon class="md-avatar white-icon">person</md-icon>
+                            <p>Dakota</p>
+
+                            <md-icon
+
+                                    aria-label="Send Email" class="white-icon">email
+                            </md-icon>
+
+                        </md-list-item>
+                        <md-list-item
+                                class="noright">
+                            <md-icon class="md-avatar white-icon">person</md-icon>
+                            <p>Max</p>
+                            <md-icon
+
+                                    aria-label="Send Email" class="white-icon">email
+                            </md-icon>
+
+                        </md-list-item>
+                    </md-list>
+
+                </md-card-content>
+                <md-card-actions layout="column" layout-align="start">
+                    <md-button>Austreten</md-button>
+
+                </md-card-actions>
+            </md-card>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <md-card class="newsBox">
+                <h2>News</h2>
+                <ul class="list-left">
+                    <li>Vorlesung entfällt <br> <span class="li-subsection">Aufgrund von Krankheit muss die nächste Vorlesung entfallen.</span>
+                    </li>
+                    <li>Raumänderung <br> <span
+                            class="li-subsection">Die Übung diesen Dienstag findet in Raum 42 statt.</span></li>
+                </ul>
+            </md-card>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <md-card class="calendarBox">
+                <h2>Kalender</h2>
+                <img style="width:90%" src="../images/calendar.png">
+            </md-card>
+        </div>
+    </div>
 </div>

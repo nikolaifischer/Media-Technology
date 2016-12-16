@@ -29,6 +29,7 @@
     <script src="js/controllers/GeekCtrl.js"></script>
     <script src="js/services/GeekService.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/HomeCtrl.js"></script>
 
     <script src="js/appRoutes.js"></script>
     <script src="js/app.js"></script>
@@ -48,14 +49,14 @@
 <body ng-app="mtPlanr" ng-controller="MainController">
 
 <!-- START Side Navi - Only visible on mobile -->
-<md-sidenav class="md-sidenav-left " md-component-id="left" md-disable-backdrop md-whiteframe="4">
+<md-sidenav ng-hide="$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop md-whiteframe="4">
 
     <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Menu</h1>
     </md-toolbar>
 
     <md-content layout-margin>
-        <md-button ng-click="toggleLeft()" href="/dashboard" name="dashboard">Übersicht</md-button>
+        <md-button ng-click="toggleLeft()" href="/" name="home">Übersicht</md-button>
         <br>
         <md-button ng-click="toggleLeft()" href="/audio" name="audio">Audiopraktikum</md-button>
         <br>
@@ -81,9 +82,9 @@
 
             <md-toolbar class="md-hue-2">
                 <div class="md-toolbar-tools">
-                    <span id="navigation-burger" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"
+                    <span ng-hide="$root.hideNav" id="navigation-burger" class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"
                           ng-click="toggleLeft()"></span>
-                    <span>MT-PLANR </span>
+                    <img class="menubar-image" src="images/mtPlanr2.png"/>
                     <span flex></span>
                     <!-- TODO: hide on login page -->
                     <md-button ng-click="logout()" id="logout-button" aria-label="Logout">
@@ -92,17 +93,18 @@
                     <md-button href="/profile" id="profile-button" class="md-fab md-mini" aria-label="Mein Profil">
                         <md-icon>person</md-icon>
                     </md-button>
+                    </md-button>
                 </div>
             </md-toolbar>
         </div>
     </div>
     <!-- END Main Toolbar -->
     <!-- START Desktop Menu -->
-    <div class="row hidden-sm hidden-xs">
+    <div ng-hide="$root.hideNav" class="row hidden-sm hidden-xs">
         <div class="col-sm-12">
 
             <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-                <md-nav-item md-nav-href="dashboard" name="dashboard">Übersicht</md-nav-item>
+                <md-nav-item md-nav-href="/" name="home">Übersicht</md-nav-item>
                 <md-nav-item md-nav-href="audio" name="audio">Audiopraktikum</md-nav-item>
                 <md-nav-item md-nav-href="video" name="video">Videopraktikum</md-nav-item>
                 <md-nav-item md-nav-href="photo" name="photo">Fotopraktikum</md-nav-item>

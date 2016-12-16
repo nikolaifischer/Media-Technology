@@ -1,8 +1,8 @@
 angular.module('mtPlanr',
-    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'NerdCtrl', 'NerdService', 'GeekCtrl', 'GeekService', 'LoginCtrl','ngMaterial']);
+    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'NerdCtrl', 'NerdService', 'GeekCtrl', 'HomeCtrl', 'GeekService', 'LoginCtrl', 'ngMaterial']);
 
 
-angular.module('mtPlanr').config(function(LoopBackResourceProvider) {
+angular.module('mtPlanr').config(function (LoopBackResourceProvider) {
 
     // From example - Do we need this?
     // Use a custom auth header instead of the default 'Authorization'
@@ -13,7 +13,7 @@ angular.module('mtPlanr').config(function(LoopBackResourceProvider) {
 });
 
 angular.module('mtPlanr')
-    .config(function($mdThemingProvider) {
+    .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('teal')
             .accentPalette('red');

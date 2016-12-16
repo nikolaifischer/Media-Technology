@@ -1,5 +1,6 @@
-angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', function($scope, PlatformUser, $window) {
+angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', function($scope, PlatformUser, $window,$mdToast) {
 
+    $scope.$root.hideNav=true;
     // if user is logged in, redirect to home
     if ($window.sessionStorage.token != null){
         $window.location.href = '/';
@@ -27,6 +28,14 @@ angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', funct
             },
             function(errorResponse) {
                 console.log(errorResponse);
+
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Falsche E-Mail/Passwort')
+                        .hideDelay(3000)
+                        .toastClass("toast")
+                );
+
                 delete $window.sessionStorage.token;
             }
         );
