@@ -49,10 +49,12 @@
 .list-left {
     text-align: -webkit-left;
     text-align: left;
+    color: rgb(255, 255, 255);
 }
 
 .list-left li {
     margin-bottom: 5px;
+
 }
 
 
@@ -83,9 +85,19 @@
     }
 }
 
+
+
 @media (min-width:768px)  {
     .jumbotron {
         padding-top: 30px;
         padding-bottom: 30px;
     }
+}
+
+.white-icon{
+    color:white !important;
+}
+
+.toast{
+    color:red !important;
 }
