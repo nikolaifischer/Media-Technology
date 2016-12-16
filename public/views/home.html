@@ -1,5 +1,43 @@
 <div class="jumbotron text-center">
-	<h1>Hallo<!--, {{ user.first_name }}  // wo bekommt man den User her?? -->!</h1>
+	<h2>Hallo Kevin<!--, {{ user.first_name }}  // wo bekommt man den User her?? -->!</h2>
 
 	<p>{{ tagline }}</p>
+
+	<div class="row boxesContainer">
+		<div class="col-md-4 col-sm-12">
+			<div class="groupBox">
+				<h2>Gruppenname</h2>
+				<ul class="list-left">
+					<li>
+						<md-icon class="ng-scope material-icons">person</md-icon>
+						Name1
+					</li>
+					<li>
+						<md-icon class="ng-scope material-icons">person</md-icon>
+						Name2
+					</li>
+					<li>
+						<md-icon class="ng-scope material-icons">person</md-icon>
+						Name3
+					</li>
+				</ul>
+				<a class = "link-right">Austreten</a>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-12">
+			<div class = "newsBox">
+				<h2>News</h2>
+				<ul class="list-left">
+					<li>Vorlesung entfällt <br> <span class="li-subsection">Aufgrund von Krankheit muss die nächste Vorlesung entfallen.</span></li>
+					<li>Raumänderung <br> <span class="li-subsection">Die Übung diesen Dienstag findet in Raum 42 statt.</span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-12">
+			<div class="calendarBox">
+				<h2>Kalender</h2>
+				<img style="width:90%" src="../images/calendar.png">
+			</div>
+		</div>
+	</div>
 </div>

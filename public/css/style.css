@@ -1,8 +1,3 @@
-
-.loginContainer{
-    margin-top:50px;
-}
-
 .container-fluid {
     padding:0px !important;
 }
@@ -12,4 +7,85 @@
 }
 #profile-button{
     margin-right:10px;
+}
+
+.menubar-image {
+    height:56px;
+}
+
+.login-block {
+    margin-top: 50px;
+    background-color: white;
+}
+
+.jumbotron {
+    background-color: white;
+}
+
+.boxesContainer>.col-md-4 {
+    padding: 10px;
+
+}
+
+.groupBox, .newsBox, .calendarBox {
+    color: white;
+    font-size: 1.4em;
+    padding: 10px;
+    height: 440px;
+}
+
+.groupBox {
+    background-color: 	#00635a;
+}
+
+.newsBox {
+    background-color: #004a43;
+}
+
+.calendarBox {
+    background-color: 	#007d71;
+}
+
+.list-left {
+    text-align: -webkit-left;
+    text-align: left;
+}
+
+.list-left li {
+    margin-bottom: 5px;
+}
+
+
+.link-right {
+    text-align: -webkit-right;
+    text-align: right;
+    vertical-align: bottom;
+    color: white;
+    text-decoration: none;
+}
+
+.link-right:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.li-subsection {
+    font-size: 0.8em;
+    color: #ddd;
+}
+@media screen and (max-width:992px)  {
+    .menubar-image{
+        height:45px;
+    }
+
+    .groupBox, .newsBox, .calendarBox {
+        height: auto;
+    }
+}
+
+@media (min-width:768px)  {
+    .jumbotron {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
 }
