@@ -9,6 +9,29 @@ angular.module('ProfileCtrl', ['ngMaterial' ]).controller('ProfileController', f
         })
     }
 
+    $scope.save = function () {
+        if (PlatformUser.isAuthenticated) {
+            if ($scope.currentUser.first_name !== '') {
+                PlatformUser.prototype$updateAttributes({id: $scope.currentUser.id}, {first_name: $scope.currentUser.first_name},
+                    function() {
+                        $window.location.href = '/profile';
+                    },
+                    function(error) {
+                        console.log(error)
+                    });
+            }
+            if ($scope.currentUser.name !== '') {
+                PlatformUser.prototype$updateAttributes({id: $scope.currentUser.id}, {name: $scope.currentUser.name},
+                    function() {
+                        $window.location.href = '/profile';
+                    },
+                    function(error) {
+                        console.log(error)
+                    });
+            }
+        }
+    }
+
     $scope.changePassword = function () {
         // TODO: old password is not being checked (the only way to check it is to login the user with that pw, but is this necessary?)
         if (PlatformUser.isAuthenticated) {
@@ -30,8 +53,6 @@ angular.module('ProfileCtrl', ['ngMaterial' ]).controller('ProfileController', f
                     console.log(error)
                 });
         }
-
-
     }
 
 });

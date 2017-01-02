@@ -3,6 +3,28 @@
     <table class="table">
         <tbody>
             <tr>
+                <th scope="row" width="100">Vorname:</th>
+                <td>
+                    <span id="currentUser.first_name" ng-if="!editModeFirstname">{{currentUser.first_name}}</span>
+                    <md-icon ng-click="editKeyword(currentUser); editModeFirstname = true">mode_edit</md-icon>
+                    <span ng-if="editModeFirstname">
+                        <input ng-model="currentUser.first_name" />
+                        <md-icon ng-click="save(); editModeFirstname = false">save</md-icon>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row" width="100">Name:</th>
+                <td>
+                    <span id="currentUser.name" ng-if="!editModeName">{{currentUser.name}}</span>
+                    <md-icon ng-click="editKeyword(currentUser); editModeName = true">mode_edit</md-icon>
+                    <span ng-if="editModeName">
+                        <input ng-model="currentUser.name" />
+                        <md-icon ng-click="save(); editModeName = false">save</md-icon>
+                    </span>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row" width="100">Email:</th>
                 <td>{{currentUser.email}}</td>
             </tr>
