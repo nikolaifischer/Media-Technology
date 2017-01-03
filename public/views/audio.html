@@ -1,0 +1,30 @@
+<div class="jumbotron" ng-controller="AudioController">
+    <h2>Audio Praktikum</h2>
+    <div class="col-sm-12 description">
+        Wähle für deine Gruppe <span class="highlight-text"> {{group.name}}</span> eure Prioritäten für das Audio Praktikum aus.
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <calendar-md flex layout layout-fill
+                     calendar-direction="direction"
+                     on-prev-month="prevMonth"
+                     on-next-month="nextMonth"
+                     on-day-click="dayClick"
+                     title-format="'MMMM y'"
+                     ng-model='selectedDate'
+                     week-starts-on="1"
+
+                     data-start-month="0"
+
+                     data-start-year="2017"
+                     tooltips="tooltips"
+                     day-format="dayFormat"
+                     day-label-format="'EEE'"
+                     day-label-tooltip-format="'EEEE'"
+                     day-tooltip-format="'fullDate'"
+                     day-content="setDayContent"
+                     disable-future-selection="false"
+        ></calendar-md>
+    </div>
+    <h3 class="col-md-4 col-sm-12">{{ clickedDay }}</h3>
+    <pre>$scope.selectedDate = {{ selectedDate | json }}</pre>
+</div>

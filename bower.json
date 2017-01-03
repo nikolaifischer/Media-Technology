@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "angular": "latest",
+    "angular": "^1.6.1",
     "angular-route": "latest",
     "angular-material": "^1.1.1",
     "angular-ui-router": "^0.3.2",
     "angular-resource": "^1.6.0",
     "material-calendar": "^0.2.14",
-    "textAngular": "^1.5.16"
+    "textAngular": "^1.5.16",
+    "jquery": "^3.1.1",
+    "material": "^0.1.1"
   },
   "resolutions": {
     "angular": "1.6.1"
