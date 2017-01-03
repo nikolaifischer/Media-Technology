@@ -8,7 +8,8 @@
     "angular-material": "^1.1.1",
     "angular-ui-router": "^0.3.2",
     "angular-resource": "^1.6.0",
-    "material-calendar": "^0.2.14"
+    "material-calendar": "^0.2.14",
+    "textAngular": "^1.5.16"
   },
   "resolutions": {
     "angular": "1.6.1"

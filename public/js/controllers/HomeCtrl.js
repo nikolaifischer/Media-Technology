@@ -1,6 +1,5 @@
 angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window) {
 
-
     // Get current User to show its name
     $scope.currentUser;
     if (PlatformUser.isAuthenticated) {
@@ -13,6 +12,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
         })
     }
+
 
     // Find the Group the User is part of
     $scope.group;
@@ -27,7 +27,16 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
     }, function (error) {
         //Error Callback
         console.log(error);
-    })
+    });
+
+    // News Editor
+    $scope.hideEditor = false;
+    $scope.news = " <br> <ul> <li> Die Übung entfällt heute</li> <li>Die Prüfung findet am 24.12.17 statt</li> </ul>";
+    $scope.saveEditor = function(){
+        console.log("Saving the editor!");
+
+        //TODO Save in Backend DB
+    }
 
 
     // CALENDAR CODE

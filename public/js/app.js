@@ -1,8 +1,8 @@
 angular.module('mtPlanr',
-    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'HomeCtrl', 'LoginCtrl', 'ProfileCtrl', 'ngMaterial', 'materialCalendar']);
+    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'HomeCtrl', 'LoginCtrl', 'ProfileCtrl', 'ngMaterial', 'materialCalendar', 'textAngular']);
 
 
-angular.module('mtPlanr').config(function (LoopBackResourceProvider) {
+angular.module('mtPlanr').config(function (LoopBackResourceProvider, $provide) {
 
     // From example - Do we need this?
     // Use a custom auth header instead of the default 'Authorization'
@@ -10,6 +10,18 @@ angular.module('mtPlanr').config(function (LoopBackResourceProvider) {
 
     // Change the URL where to access the LoopBack REST API server
     LoopBackResourceProvider.setUrlBase('http://localhost:3000/api');
+
+
+    // This globally configures the toolbar elements shown in the frontend editor
+    // do not add to many, because the design might break if the toolbar is too high!
+    $provide.decorator('taOptions', ['$delegate', function (taOptions) {
+        taOptions.toolbar = [
+            ['h1', 'h2', 'h3', 'h4', 'italics', 'bold', 'p', 'ol', 'ul'],
+            ['justifyLeft','justifyCenter','justifyRight']
+        ];
+        return taOptions; // whatever you return will be the taOptions
+    }]);
+
 });
 
 angular.module('mtPlanr')
