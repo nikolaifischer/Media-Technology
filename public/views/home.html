@@ -5,11 +5,11 @@
     <div class="row boxesContainer">
         <div class="col-md-4 col-sm-12">
             <md-card class="groupBox">
-                <md-card-title>
-                    <md-card-title-text><h2>Gruppenname</h2></md-card-title-text>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader">Gruppenname</h2></md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <md-list class ="list-left">
+                    <md-list class="list-left">
                         <md-list-item
                                 class="noright">
                             <md-icon class="md-avatar white-icon">person</md-icon>
@@ -62,20 +62,49 @@
         </div>
         <div class="col-md-4 col-sm-12">
             <md-card class="newsBox">
-                <h2>News</h2>
-                <ul class="list-left">
-                    <li>Vorlesung entfällt <br> <span class="li-subsection">Aufgrund von Krankheit muss die nächste Vorlesung entfallen.</span>
-                    </li>
-                    <li>Raumänderung <br> <span
-                            class="li-subsection">Die Übung diesen Dienstag findet in Raum 42 statt.</span></li>
-                </ul>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader">News</h2></md-card-title-text>
+                </md-card-title>
+                <md-content>
+                    <ul class = "rssList" >
+                        <li>Vorlesung entfällt <br> <span class="li-subsection">Aufgrund von Krankheit muss die nächste Vorlesung entfallen.</span>
+                        </li>
+                        <li>Raumänderung <br> <span
+                                class="li-subsection">Die Übung diesen Dienstag findet in Raum 42 statt.</span></li>
+                    </ul>
+                </md-content>
             </md-card>
+
         </div>
+        <!-- START CALENDAR -->
         <div class="col-md-4 col-sm-12">
             <md-card class="calendarBox">
-                <h2>Kalender</h2>
-                <img style="width:90%" src="../images/calendar.png">
+                <calendar-md flex layout layout-fill
+                             calendar-direction="direction"
+                             on-prev-month="prevMonth"
+                             on-next-month="nextMonth"
+                             on-day-click="dayClick"
+                             title-format="'MMMM y'"
+                             ng-model='selectedDate'
+                             week-starts-on="1"
+
+                             data-start-month="0"
+
+                             data-start-year="2017"
+                             tooltips="tooltips"
+                             day-format="dayFormat"
+                             day-label-format="'EEE'"
+                             day-label-tooltip-format="'EEEE'"
+                             day-tooltip-format="'fullDate'"
+                             day-content="setDayContent"
+                             disable-future-selection="false"
+                ></calendar-md>
+
+
             </md-card>
         </div>
+        <!-- STOP CALENDAR -->
+
+
     </div>
 </div>

@@ -1,10 +1,7 @@
 angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', function($scope, PlatformUser, $window,$mdToast) {
 
     $scope.$root.hideNav=true;
-    // if user is logged in, redirect to home
-    if ($window.sessionStorage.token != null){
-        $window.location.href = '/';
-    }
+
 
     $scope.user = {
         first_name: 'Kevin',
@@ -23,7 +20,6 @@ angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', funct
         PlatformUser.login($scope.registeredUser,
             function(response) {
                 console.log(response.id);
-                $window.sessionStorage.token = response.id;
                 $window.location.href = '/';
             },
             function(errorResponse) {
@@ -36,7 +32,7 @@ angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', funct
                         .toastClass("toast")
                 );
 
-                delete $window.sessionStorage.token;
+
             }
         );
     }

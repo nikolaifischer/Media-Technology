@@ -21,18 +21,5 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ti
         );
     };
 
-    // TODO: needed?
-    // listen if the user state changes and react with a redirection
-    $scope.$watch(($window.sessionStorage.token != null), function (value, oldValue) {
-        if(!value && oldValue) {
-            $location.path('/login');
-
-        }
-
-        if(value) {
-            console.log("Connect");
-            // do sth
-        }
-    }, true);
 
 });

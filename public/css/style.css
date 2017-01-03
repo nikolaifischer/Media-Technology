@@ -28,28 +28,17 @@
 }
 
 .groupBox, .newsBox, .calendarBox {
-    color: white;
+    color: black;
     font-size: 1.4em;
-    padding: 10px;
+
     height: 440px;
 }
 
-.groupBox {
-    background-color: 	#00635a;
-}
 
-.newsBox {
-    background-color: #004a43;
-}
-
-.calendarBox {
-    background-color: 	#007d71;
-}
 
 .list-left {
     text-align: -webkit-left;
     text-align: left;
-    color: rgb(255, 255, 255);
 }
 
 .list-left li {
@@ -73,7 +62,7 @@
 
 .li-subsection {
     font-size: 0.8em;
-    color: #ddd;
+    color: black;
 }
 @media screen and (max-width:992px)  {
     .menubar-image{
@@ -94,10 +83,24 @@
     }
 }
 
-.white-icon{
-    color:white !important;
-}
+
 
 .toast{
     color:red !important;
+}
+
+.dashboardCardTitle{
+    max-height:64px;
+    color: white;
+    background-color: #009688;
+    padding: 0px;
+
+}
+
+.cardHeader {
+    font-size: 22px !important;
+}
+
+.rssList {
+    margin-top: 20px;
 }
