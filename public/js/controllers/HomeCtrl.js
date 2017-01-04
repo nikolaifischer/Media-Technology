@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window) {
+angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window, $resource, $mdDialog) {
 
     // Get current User to show its name
     $scope.currentUser;
@@ -16,23 +16,17 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
     // Find the Group the User is part of
     $scope.group;
-    // This cannot be done with a filter, so it fetches all Groups
-    Group.find({}, function (groups) {
-        // Success Callback
-        for (var i = 0; i < groups.length; i++) {
-            if (groups[i].groupMemberIds.indexOf($scope.currentUser.id) > -1) {
-                $scope.group = groups[i];
-            }
-        }
-    }, function (error) {
-        //Error Callback
-        console.log(error);
-    });
+    $scope.groupMembers;
+
+    loadGroup();
+
+
+
 
     // News Editor
     $scope.hideEditor = false;
     $scope.news = " <br> <ul> <li> Die Übung entfällt heute</li> <li>Die Prüfung findet am 24.12.17 statt</li> </ul>";
-    $scope.saveEditor = function(){
+    $scope.saveEditor = function () {
         console.log("Saving the editor!");
 
         //TODO Save in Backend DB
@@ -85,5 +79,98 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
         return deferred.promise;
 
     };
+
+
+
+
+    function loadGroup () {
+
+        //TODO: Das kann doch mit einer Relation von Platform User aus gemacht werden, wenn die Berechtigungen irgendwann stimmen => Effizienter
+        Group.find({}, function (groups) {
+            console.log("loading");
+            // Success Callback
+            var found = false;
+            for (var i = 0; i < groups.length; i++) {
+                if (groups[i].groupMemberIds.indexOf($scope.currentUser.id) > -1) {
+                    $scope.group = groups[i];
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found){
+                console.log("found nothing");
+                $scope.group=undefined;
+                $scope.groupMembers=undefined;
+            }
+
+
+            // Get all the Users in the Group to show in the group card
+
+            Group.groupMembers({
+
+                    id: $scope.group.id
+
+                }, function (members) {
+                    $scope.groupMembers = members;
+                    console.log(members);
+
+                }, function (error) {
+                    console.log(error);
+
+                }
+            );
+
+
+        }, function (error) {
+            //Error Callback
+            console.log(error);
+        });
+
+        return;
+
+    }
+
+
+    // Leave Group
+
+    $scope.showLeaveGroupConfirm = function (ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('Willst du die Gruppe wirklich verlassen?')
+            .textContent('Dies kann nicht mehr rückgängig gemacht werden')
+            .ariaLabel('Gruppe verlassen')
+            .targetEvent(ev)
+            .ok('Ja')
+            .cancel('Nein');
+
+        $mdDialog.show(confirm).then(function () {
+            //ok-callback
+
+            Group.groupMembers.unlink({
+
+                    id: $scope.group.id,
+                    fk: $scope.currentUser.id
+
+                }, null, function (success) {
+                    console.log("Gruppe verlassen");
+                    // reload group
+                    loadGroup()
+
+
+                }, function (error) {
+                    console.log(error);
+
+                }
+            );
+
+
+            // TODO: Im Backend Gruppe verlassen
+        }, function () {
+            // Do nothing
+
+        });
+    };
+
 
 });

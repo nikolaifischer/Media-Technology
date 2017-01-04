@@ -16,7 +16,8 @@ angular.module('mtPlanr').config(function (LoopBackResourceProvider, $provide) {
     // do not add to many, because the design might break if the toolbar is too high!
     $provide.decorator('taOptions', ['$delegate', function (taOptions) {
         taOptions.toolbar = [
-            ['h1', 'h2', 'h3', 'h4', 'italics', 'bold', 'p', 'ol', 'ul'],
+            ['h1', 'h2', 'h3'],
+            ['italics', 'bold', 'p', 'ol', 'ul'],
             ['justifyLeft','justifyCenter','justifyRight']
         ];
         return taOptions; // whatever you return will be the taOptions

@@ -1,10 +1,12 @@
 angular.module('LoginCtrl', ['ngMaterial' ]).controller('LoginController', function($scope, PlatformUser, $window,$mdToast) {
 
     $scope.$root.hideNav=true;
+    /*
     // if user is logged in, redirect to home
     if ($window.sessionStorage.token != null){
         $window.location.href = '/';
     }
+    */
 
     $scope.user = {
         first_name: 'Kevin',
