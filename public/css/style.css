@@ -30,11 +30,12 @@
 .groupBox, .newsBox, .calendarBox {
     color: black;
     font-size: 1.4em;
-
     height: 550px;
 }
 
-
+.highlight-text {
+    color: teal;
+}
 
 .list-left {
     text-align: -webkit-left;
@@ -64,6 +65,7 @@
     font-size: 0.8em;
     color: black;
 }
+
 @media screen and (max-width:992px)  {
     .menubar-image{
         height:45px;
@@ -74,16 +76,12 @@
     }
 }
 
-
-
 @media (min-width:768px)  {
     .jumbotron {
         padding-top: 30px;
         padding-bottom: 30px;
     }
 }
-
-
 
 .toast{
     color:red !important;
@@ -95,6 +93,11 @@
     background-color: #009688;
     padding: 0px;
 
+}
+
+.description {
+    font-size: 18px;
+    margin-bottom: 5px;
 }
 
 .cardHeader {
