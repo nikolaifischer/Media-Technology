@@ -2,9 +2,13 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
     // Get current User to show its name
     $scope.currentUser;
+    $scope.group;
+    $scope.groupMembers;
     if (PlatformUser.isAuthenticated) {
         PlatformUser.getCurrent(function (currentUser) {
             $scope.currentUser = currentUser;
+
+            loadGroup();
 
         }, function (error) {
 
@@ -15,10 +19,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
 
     // Find the Group the User is part of
-    $scope.group;
-    $scope.groupMembers;
 
-    loadGroup();
 
 
 
@@ -87,7 +88,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
         //TODO: Das kann doch mit einer Relation von Platform User aus gemacht werden, wenn die Berechtigungen irgendwann stimmen => Effizienter
         Group.find({}, function (groups) {
-            console.log("loading");
+
             // Success Callback
             var found = false;
             for (var i = 0; i < groups.length; i++) {
@@ -103,23 +104,30 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
                 $scope.group=undefined;
                 $scope.groupMembers=undefined;
             }
+            else {
+                console.log("I found the group");
+
+                Group.groupMembers({
+
+                        id: $scope.group.id
+
+                    }, function (members) {
+                        $scope.groupMembers = members;
+                        console.log(members);
+
+                    }, function (error) {
+                        console.log("There was an error while fetching the group members");
+                        console.log(error);
+
+                    }
+                );
+
+
+            }
 
 
             // Get all the Users in the Group to show in the group card
 
-            Group.groupMembers({
-
-                    id: $scope.group.id
-
-                }, function (members) {
-                    $scope.groupMembers = members;
-                    console.log(members);
-
-                }, function (error) {
-                    console.log(error);
-
-                }
-            );
 
 
         }, function (error) {
