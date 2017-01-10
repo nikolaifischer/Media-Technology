@@ -8,7 +8,11 @@
     "method-override": "~2.0.2",
     "mongoose": "~3.8.0"
   },
+  "resolutions": {
+    "angular": "1.6.1"
+  },
   "scripts": {
     "postinstall": "bower install"
   }
+
 }
