@@ -15,7 +15,6 @@
   },
   "resolutions": {
     "angular": "^1.6.1",
-    "material": "latest",
-    "angular-material": "latest"
+    "angular-material": "1.1.0"
   }
 }
