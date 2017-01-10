@@ -6,7 +6,9 @@ angular.module('AudioCtrl', [])
         Lab.find({}, function (labs) {
             for (var i = 0; i < labs.length; i++) {
                 $scope.lab = labs[i];
-                console.log($scope.lab);
+                //console.log(labs[i]);
+                console.log(JSON.stringify(labs[i]));
+                ///console.log($scope.lab);
             }
         }, function (error) {
             console.log(error);
@@ -79,12 +81,12 @@ angular.module('AudioCtrl', [])
                 "id": "5871274b051caef00d19239a",
                 "semesterId": "58712749051caef00d19238a",
                 "groupId": "5871274b051caef00d192398",
-                "labTypeId": "string"
+                "labTypeId": "5871274b051caef00d192399"
             }],
             "2017-01-05":[{
                 "date": "2017-01-05",
                 "duration": 120,
-                "location": "string",
+                "location": "Amalienstraße 17",
                 "passed": false,
                 "id": "5871274b051caef00d19239a",
                 "semesterId": "58712749051caef00d19238a",
