@@ -9,7 +9,12 @@ angular.module('mtPlanr').config(function (LoopBackResourceProvider, $provide) {
     //LoopBackResourceProvider.setAuthHeader('X-Access-Token');
 
     // Change the URL where to access the LoopBack REST API server
-    LoopBackResourceProvider.setUrlBase('http://localhost:3000/api');
+
+    // Use this line if you want to use a local backend
+    //LoopBackResourceProvider.setUrlBase('http://localhost:3000/api');
+
+    // Use this line if you want to use the production backend
+    LoopBackResourceProvider.setUrlBase('https://lmu-mt-api.herokuapp.com/api');
 
 
     // This globally configures the toolbar elements shown in the frontend editor
