@@ -1,14 +1,14 @@
 angular.module('AudioCtrl', [])
-    .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, PlatformUser, Group, Lab, $window) {
+    .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, PlatformUser, Group, Lab, LabType, $window) {
 
         //Find Labs
         $scope.lab;
         Lab.find({}, function (labs) {
             for (var i = 0; i < labs.length; i++) {
                 $scope.lab = labs[i];
-                //console.log(labs[i]);
-                console.log(JSON.stringify(labs[i]));
-                ///console.log($scope.lab);
+                console.log(labs[i]);
+                //console.log(JSON.stringify(labs[i]));
+                //console.log($scope.lab);
             }
         }, function (error) {
             console.log(error);
