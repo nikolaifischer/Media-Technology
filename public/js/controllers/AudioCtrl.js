@@ -76,9 +76,9 @@ angular.module('AudioCtrl', [])
             "2017-01-03":[{
                 "date": "2017-01-03T10:26:00.000Z",
                 "duration": 120,
-                "location": "Amalienstraße 17",
+                "location": "Oettingenstraße 67",
                 "passed": false,
-                "id": "5871274b051caef00d19239a",
+                "id": "10:15 Uhr Oettingenstraße 67",
                 "semesterId": "58712749051caef00d19238a",
                 "groupId": "5871274b051caef00d192398",
                 "labTypeId": "5871274b051caef00d192399"
@@ -88,7 +88,17 @@ angular.module('AudioCtrl', [])
                 "duration": 120,
                 "location": "Amalienstraße 17",
                 "passed": false,
-                "id": "5871274b051caef00d19239a",
+                "id": "14:15 Uhr Amalienstraße 17",
+                "semesterId": "58712749051caef00d19238a",
+                "groupId": "5871274b051caef00d192398",
+                "labTypeId": "5871274b051caef00d192399"
+            },
+            {
+                "date": "2017-01-05",
+                "duration": 120,
+                "location": "Amalienstraße 17",
+                "passed": false,
+                "id": "16:15 Uhr Amalienstraße 17",
                 "semesterId": "58712749051caef00d19238a",
                 "groupId": "5871274b051caef00d192398",
                 "labTypeId": "5871274b051caef00d192399"
@@ -96,13 +106,13 @@ angular.module('AudioCtrl', [])
             "2017-01-07":[{
                 "date": "2017-01-07",
                 "duration": 120,
-                "location": "Amalienstraße 17",
+                "location": "Oettingenstraße 67",
                 "passed": false,
-                "id": "5871274b051caef00d19239a",
+                "id": "18:15 Uhr Oettingenstraße 67",
                 "semesterId": "58712749051caef00d19238a",
                 "groupId": "5871274b051caef00d192398",
                 "labTypeId": "5871274b051caef00d192399"
-            }],
+            }]
         };
         var numFmt = function(num) {
             num = num.toString();
