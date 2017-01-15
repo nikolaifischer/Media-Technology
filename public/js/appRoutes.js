@@ -23,6 +23,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/audio.html',
             controller: 'AudioController'
         })
+        .when('/admin', {
+            templateUrl: 'views/admin.html',
+            controller: 'AdminController'
+        })
     ;
 
     $locationProvider.html5Mode(true);
