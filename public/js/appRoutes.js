@@ -24,8 +24,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'AudioController'
         })
         .when('/admin', {
-            templateUrl: 'views/admin.html',
+            templateUrl: 'views/admin/admin.html',
             controller: 'AdminController'
+        })
+        .when('/admin/whitelist', {
+            templateUrl: 'views/admin/whitelist.html',
+            controller: 'WhitelistController'
         })
     ;
 

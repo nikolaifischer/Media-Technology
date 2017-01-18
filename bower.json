@@ -11,10 +11,11 @@
     "material-calendar": "^0.2.14",
     "textAngular": "^1.5.16",
     "jquery": "^3.1.1",
-    "material": "^0.1.1"
+    "material": "^0.1.1",
+    "angular-material-data-table": "^0.10.10"
   },
   "resolutions": {
     "angular": "^1.6.1",
-    "angular-material": "1.1.1"
+    "angular-material": "^1.1.1"
   }
 }

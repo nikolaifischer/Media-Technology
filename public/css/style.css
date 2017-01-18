@@ -102,6 +102,7 @@
 
 .cardHeader {
     font-size: 22px !important;
+    text-align: center;
 }
 
 .cardFab {
@@ -110,11 +111,36 @@
 
 }
 
-.cardContent{
+.dashboardCardContent{
     min-height: 415px;
 }
 
 .noGroupNotification {
     margin-top: 30%;
+}
+
+.cardContent{
+    padding: 20px;
+}
+.big_spacer {
+    display: inline;
+    margin-left: 70px;
+}
+.fat_divider {
+    border-top-color: rgba(0,0,0,0.42) !important;
+    margin-bottom: 10px;
+}
+
+
+
+.admin_card_title {
+    height: 60px;
+    padding: 15px;
+    text-align: center;
+}
+
+.site_headline{
+    text-align: center;
+    margin-bottom: 50px;
 }
 

@@ -1,25 +1,45 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $timeout, $mdSidenav, $window, PlatformUser) {
+angular.module('MainCtrl', []).controller('MainController', function ($scope, $timeout, $mdSidenav, $window, PlatformUser) {
+
+
+    PlatformUser.getCurrent(function (currentUser) {
+        $scope.currentUser = currentUser;
+
+
+    }, function (error) {
+
+        console.log(error);
+
+    });
 
     // Controls the side navigation
     $scope.toggleLeft = buildToggler('left');
     function buildToggler(componentId) {
-        return function() {
+        return function () {
             $mdSidenav(componentId).toggle();
         }
     }
 
     $scope.logout = function () {
         return PlatformUser.logout(
-            function(response) {
+            function (response) {
                 console.log("logged out");
                 delete $window.sessionStorage.token;
                 $window.location.href = '/login';
             },
-            function(errorResponse) {
+            function (errorResponse) {
                 console.log(errorResponse);
             }
         );
     };
+
+    /**
+     * Opens Profile menu
+     * @param $mdOpenMenu
+     * @param ev
+     */
+    $scope.openProfileMenu = function ($mdOpenMenu, ev) {
+        $mdOpenMenu(ev);
+    }
 
 
 });
