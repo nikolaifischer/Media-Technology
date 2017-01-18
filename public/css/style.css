@@ -139,8 +139,13 @@
     text-align: center;
 }
 
-.site_headline{
+.site_headline {
     text-align: center;
     margin-bottom: 50px;
+}
+
+.labDetails {
+    font-size: 18px;
+    margin: 15px 0 15px 0;
 }
 
