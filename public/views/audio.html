@@ -25,6 +25,36 @@
                      disable-future-selection="false"
         ></calendar-md>
     </div>
-    <h3 class="col-md-4 col-sm-12">{{ clickedDay }}</h3>
-    <!--<pre>$scope.selectedDate = {{ selectedDate | json }}</pre>-->
+    <div class="col-md-4 col-sm-12">
+        <h3> {{ clickedDay }} </h3>
+        <div ng-repeat="object in objects">
+            <div class="labDetails">
+                <md-input-container>
+                    <!--TODO: Model for Dropdown-->
+                    <md-select ng-model="someModel" placeholder="Priorität">
+                        <md-option>-</md-option>
+                        <md-option>1</md-option>
+                        <md-option>2</md-option>
+                        <md-option>3</md-option>
+                    </md-select>
+                </md-input-container>
+                {{ object.date.slice(11, 16) }} Uhr</br>
+                {{ object.location }}
+            </div>
+            <hl></hl>
+            <!--<div ng-repeat="(key, value) in object">
+                {{key}} : {{value}}-->
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <!--TODO: Filter für Prioritäten-->
+        Du musst noch 3 Prioritäten vergeben.<br>
+        <!--TODO: Function die Prioritäten abschickt-->
+        <md-button ng-click=""  class="md-raised md-primary">Speichern
+        </md-button>
+    </div>
+
 </div>
