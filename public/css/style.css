@@ -148,30 +148,3 @@
     font-size: 18px;
     margin: 15px 0 15px 0;
 }
-
-.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
-    background: teal !important;
-}
-.dtp div.dtp-date, .dtp div.dtp-time {
-    background: #009688 !important;
-}
-.dtp table.dtp-picker-days tr > td > a.selected {
-    background: #009688 !important;
-}
-.dtp .dtp-picker-time > a.dtp-select-hour.selected {
-    background: teal !important;
-}
-.dtp .dtp-hand.on {
-    background: #009688;
-}
-.dtp .dtp-actual-meridien a.selected {
-    background: teal!important;
-}
-
-.dtp div.dtp-actual-year {
-    color: #fff !important;
-}
-
-.dtp div.dtp-year-btn {
-    color: #fff !important;
-}
