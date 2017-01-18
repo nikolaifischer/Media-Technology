@@ -46,8 +46,27 @@
                 {{key}} : {{value}}-->
         </div>
     </div>
-    <div class="col-md-8 col-sm-12">
-
+    <div class="col-md-8 col-sm-12" ng-show="currentUser.isTutor">
+        <h3>Neues Audio Lab erstellen</h3>
+        <md-input-container flex-gt-md="30">
+            <input mdc-datetime-picker=""
+                   date="true"
+                   time="true"
+                   type="text"
+                   id="datetime"
+                   placeholder="Datum und Uhrzeit"
+                   min-date="minDate"
+                   ng-model="dateTime"
+                   class ="md-input"
+                   lang="de-de">
+        </md-input-container>
+        <md-input-container flex-gt-md="30">
+            <input type="text" placeholder="Dauer in Minuten">
+        </md-input-container>
+        <md-input-container flex-gt-md="30">
+            <input type="text"  placeholder="Ort">
+        </md-input-container>
+        <md-button ng-click="createLab()" class="md-raised md-primary">Erstellen</md-button>
     </div>
     <div class="col-md-4 col-sm-12">
         <!--TODO: Filter für Prioritäten-->

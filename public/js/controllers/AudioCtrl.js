@@ -36,7 +36,7 @@ angular.module('AudioCtrl', [])
             console.log(error);
         });
 
-        // Get current User to show its name
+        // Get current User
         $scope.currentUser;
         if (PlatformUser.isAuthenticated) {
             PlatformUser.getCurrent(function (currentUser) {
@@ -127,4 +127,10 @@ angular.module('AudioCtrl', [])
             }
             return data;
         };
+
+        $scope.date = new Date();
+        $scope.time = new Date();
+        $scope.dateTime = new Date();
+        $scope.minDate = moment().subtract(1, 'month');
+        $scope.maxDate = moment().add(1, 'month');
     });
