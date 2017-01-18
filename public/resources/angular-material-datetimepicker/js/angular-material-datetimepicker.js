@@ -515,6 +515,8 @@
           controllerAs: 'cal',
           controller: ['$scope',
             function ($scope) {
+              //Fix of bug due to angular version (https://github.com/logbon72/angular-material-datetimepicker/issues/80), change back when fixed to
+                //var calendar = this, picker = this.picker, days = [];
               var calendar = this, picker = $scope.$parent.picker, days = [];
 
               for (var i = picker.params.weekStart; days.length < 7; i++) {
