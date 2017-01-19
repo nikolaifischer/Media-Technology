@@ -21,6 +21,7 @@ angular.module('AudioCtrl', [])
                     groupedElements[index] = [];
                 }
                 groupedElements[index].push(element);
+                $scope.setDayContent(element.date.slice(0,10));
             });
 
             if (loadContentAsync) {
@@ -30,6 +31,8 @@ angular.module('AudioCtrl', [])
                 });
                 return deferred.promise;
             }
+
+
             return groupedElements;
 
         }, function (error) {
@@ -84,7 +87,6 @@ angular.module('AudioCtrl', [])
 
             //Get lab details with clicked day key
             $scope.objects = (groupedElements[$scope.key] || []);
-
         };
 
         $scope.prevMonth = function (data) {
@@ -109,14 +111,19 @@ angular.module('AudioCtrl', [])
 
         //Set content in calendar cells
         $scope.setDayContent = function(date) {
-            var key = [date.getFullYear(), numFmt(date.getMonth()+1), numFmt(date.getDate())].join("-");
-            var data = [];
-            var objects = (groupedElements[key] || []);
-            if(objects.length > 0) {
-                for (var i =0; i <= objects.length && groupedElements[key][i] != undefined; i++){
-                    data.push(groupedElements[key][i].date.slice(11, 16));
+                var key;
+                if (date.length != undefined) {
+                    key = date;
+                } else {
+                    key = [date.getFullYear(), numFmt(date.getMonth() + 1), numFmt(date.getDate())].join("-");
                 }
-            }
+                var data = [];
+                var objects = (groupedElements[key] || []);
+                if(objects.length > 0) {
+                    for (var i =0; i <= objects.length && groupedElements[key][i] != undefined; i++){
+                        data.push(groupedElements[key][i].date.slice(11, 16));
+                    }
+                }
             $scope.dayContent = data;
             if (loadContentAsync) {
                 var deferred = $q.defer();
@@ -130,7 +137,29 @@ angular.module('AudioCtrl', [])
 
         $scope.date = new Date();
         $scope.time = new Date();
-        $scope.dateTime = new Date();
+        //$scope.dateTime = new Date();
         $scope.minDate = moment().subtract(1, 'month');
-        $scope.maxDate = moment().add(1, 'month');
+
+        $scope.createLab = function () {
+            Lab.create({
+                    "date": $scope.dateTime,
+                    "duration": $scope.duration,
+                    "location": $scope.location,
+                    "labTypeId": $scope.audiolabs.id
+            }, function (error) {
+                console.log(error);
+            });
+        };
+
+        $scope.priorities = [
+            { id: 0, name: '-' },
+            { id: 1, name: '1' },
+            { id: 2, name: '2' },
+            { id: 3, name: '3' }
+        ];
+        //$scope.selectedPriority = { id: 0, name: '-' };
+
+        /*$scope.savePriorities = function () {
+            console.log(this.selectedPriority);
+        }*/
     });
