@@ -30,7 +30,6 @@
         <div ng-repeat="object in objects">
             <div class="labDetails">
                 <md-input-container>
-                    <!--TODO: Model for Dropdown-->
                     <md-select ng-model="selectedPriority" placeholder="Priorität" ng-model-options="{trackBy: '$value.id'}">
                         <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority.name }}</md-option>
                     </md-select>
@@ -69,7 +68,6 @@
     <div class="col-md-4 col-sm-12">
         <!--TODO: Filter für Prioritäten-->
         Du musst noch 3 Prioritäten vergeben.<br>
-        <!--TODO: Function die Prioritäten abschickt-->
         <md-button ng-click="savePriorities()"  class="md-raised md-primary">Speichern
         </md-button>
     </div>

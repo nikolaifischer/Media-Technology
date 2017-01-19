@@ -110,6 +110,7 @@ angular.module('AudioCtrl', [])
         var loadContentAsync = true;
 
         //Set content in calendar cells
+        //TODO: load Content after find labs
         $scope.setDayContent = function(date) {
                 var key;
                 if (date.length != undefined) {
@@ -158,7 +159,7 @@ angular.module('AudioCtrl', [])
             { id: 3, name: '3' }
         ];
         //$scope.selectedPriority = { id: 0, name: '-' };
-
+        //TODO savePriorities
         /*$scope.savePriorities = function () {
             console.log(this.selectedPriority);
         }*/
