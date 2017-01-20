@@ -21,7 +21,7 @@ angular.module('AudioCtrl', [])
                     groupedElements[index] = [];
                 }
                 groupedElements[index].push(element);
-                //.setDayContent(element.date.slice(0,10));
+                //$scope.setDayContent(element.date.slice(0,10));
             });
 
             if (loadContentAsync) {
