@@ -31,6 +31,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/admin/whitelist.html',
             controller: 'WhitelistController'
         })
+        .when('/admin/exercises', {
+            templateUrl: 'views/admin/exercises.html',
+            controller: 'ExerciseController'
+        })
     ;
 
     $locationProvider.html5Mode(true);
