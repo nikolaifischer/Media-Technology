@@ -5,8 +5,7 @@ angular.module('WhitelistCtrl', [])
         $scope.showWhiteListButton = false;
         $scope.showUpload = false;
         $scope.pendingPlatformUsers;
-
-
+        $scope.loading = false;
 
 
         // Table:
@@ -30,11 +29,11 @@ angular.module('WhitelistCtrl', [])
         $scope.selectedPendingPlatformUsers = [];
 
 
-        // only tutors should reach the admin route (TODO: what about admins?)
+        // only tutors and admins should reach the admin route
         if (PlatformUser.isAuthenticated) {
             PlatformUser.getCurrent(function (currentUser) {
                 //console.log(currentUser);
-                if(!currentUser.isTutor) {
+                if(!(currentUser.isTutor||currentUser.isAdmin)) {
                     $location.path('/');
                 }
             }, function (error) {
@@ -43,10 +42,10 @@ angular.module('WhitelistCtrl', [])
         }
 
         $scope.uploadFile = function(){
+            $scope.loading=true;
             var file = document.getElementById('userUpload').files[0],
                 read = new FileReader();
             read.readAsText(file);
-
             read.onloadend = function(e){
                 var content = e.target.result;
 
@@ -105,15 +104,14 @@ angular.module('WhitelistCtrl', [])
                 console.log(csvToJSON);
                 $scope.userList=csvToJSON.Praktikum;
                 console.log("Upload");
-                console.log($scope.userList);
-                $scope.showWhiteListButton=true;
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent('Upload erfolgreich')
-                        .hideDelay(3000)
-                        .toastClass("toast")
-                );
+                // For some reason this is needed here: Without it the scope does not update propably.
+                $scope.$apply(function(){             $scope.loading=false;
+                    $scope.showWhiteListButton=true; })
+
             };
+
+
+
         };
 
 
@@ -131,14 +129,16 @@ angular.module('WhitelistCtrl', [])
 
         $scope.saveToPendingPlatformUsers = function () {
 
-            // TODO Check if email is already in the DB
+            // TODO Check if email is already in the DB => In Backend
 
             console.log("saving");
 
             // Extract the fields we want to save (right now only the email):
             var saveArr=[];
             for(var i =0; i<$scope.userList.length; i++){
-                var obj = {"email": $scope.userList[i].email};
+                var obj = {"email": $scope.userList[i].email,
+                "first_name" : $scope.userList[i].Vorname,
+                "name": $scope.userList[i].Nachname};
                 saveArr.push(obj);
             }
 
@@ -153,8 +153,6 @@ angular.module('WhitelistCtrl', [])
             $scope.showUpload = false;
 
 
-
-
         }
 
         $scope.saveEdit = function ($event, user) {
@@ -163,6 +161,8 @@ angular.module('WhitelistCtrl', [])
 
             PendingPlatformUser.prototype$updateAttributes(
                 {id:    user.id},
+                {first_name: user.Vorname},
+                {name: user.Nachname},
                 {email: user.email}
             );
             $mdToast.show(

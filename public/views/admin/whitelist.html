@@ -2,9 +2,9 @@
     <h2 class="site_headline">White-List Verwaltung</h2>
 
     <div class="row">
-        <div class="col-sm-12 col-lg-3">
+        <div class="col-sm-12 col-lg-1">
         </div>
-        <div class="col-sm-12 col-lg-6">
+        <div class="col-sm-12 col-lg-10">
             <md-card>
 
                 <div id="pendingPlatformUsersView" ng-show="!showUpload">
@@ -17,11 +17,13 @@
 
 
                         <md-table-container>
-                            <table md-row-select="false" multiple="true" md-table md-progress="promise"
+                            <table md-row-select="false" multiple="true" md-table
                                    ng-model="selectedPendingPlatformUsers">
                                 <thead md-head>
                                 <tr md-row>
                                     <th md-column md-order-by="nameToLower"><span>E-Mail Adresse</span></th>
+                                    <th md-column> Vorname</th>
+                                    <th md-column> Nachname</th>
                                     <th md-column> Tools</th>
 
                                 </tr>
@@ -34,10 +36,18 @@
                                         </md-input-container>
                                     </td>
                                     <td md-cell>
-                                        <md-button ng-click="saveEdit($event, userDB)" class="md-icon-button">
+                                        <md-input-container><input ng-model="userDB.first_name"> </input>
+                                        </md-input-container>
+                                    </td>
+                                    <td md-cell>
+                                        <md-input-container><input ng-model="userDB.name"> </input>
+                                        </md-input-container>
+                                    </td>
+                                    <td md-cell>
+                                        <md-button style="width:24px; margin: 0px;" ng-click="saveEdit($event, userDB)" class="md-icon-button">
                                             <md-icon class="md-primary"> save</md-icon>
                                             </md-icon></md-button>
-                                        <md-button ng-click="deleteEntry($event, userDB)" class="md-icon-button">
+                                        <md-button style="width:24px; margin: 0px;" ng-click="deleteEntry($event, userDB)" class="md-icon-button">
                                             <md-icon class="md-accent"> delete</md-icon>
                                             </md-icon></md-button>
                                     </td>
@@ -88,10 +98,12 @@
 
                         <!-- START CSV TABLE VIEW -->
                         <md-table-container ng-show="showWhiteListButton">
-                            <table md-table md-progress="promise">
+                            <table md-table >
                                 <thead md-head>
                                 <tr md-row>
                                     <th md-column md-order-by="nameToLower"><span>E-Mail Adresse</span></th>
+                                    <th md-column md-order-by="nameToLower"><span>Vorname</span></th>
+                                    <th md-column md-order-by="nameToLower"><span>Nachname</span></th>
 
                                 </tr>
                                 </thead>
@@ -99,6 +111,8 @@
                                 <tr md-row md-select="user" md-select-id="name" md-auto-select
                                     ng-repeat="user in userList | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                                     <td md-cell>{{user.email}}</td>
+                                    <td md-cell>{{user.Vorname}}</td>
+                                    <td md-cell>{{user.Nachname}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -116,6 +130,8 @@
                         <!-- Material Design File Upload Button Hack: -->
                         <label for="userUpload" ng-show="!showWhiteListButton" class="md-button md-raised md-primary">Durchsuchen</label>
                         <input class="ng-hide" id="userUpload" type="file" file-on-change="uploadFile"/>
+
+                        <md-progress-circular ng-show="loading" md-mode="indeterminate"></md-progress-circular>
 
                     </md-card-content>
 
@@ -148,7 +164,7 @@
             </md-card>
         </div>
 
-        <div class="col-sm-12 col-lg-3">
+        <div class="col-sm-12 col-lg-1">
         </div>
 
 
