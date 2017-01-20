@@ -4,7 +4,7 @@ angular.module('AdminCtrl', [])
 
 
 
-        if (PlatformUser.isAuthenticated) {
+        if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
                 //console.log(currentUser);
                 if(!currentUser.isTutor) {
@@ -47,7 +47,7 @@ angular.module('AdminCtrl', [])
 
 
         // only tutors should reach the admin route (TODO: what about admins?)
-        if (PlatformUser.isAuthenticated) {
+        if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
                 //console.log(currentUser);
                 if(!currentUser.isTutor) {

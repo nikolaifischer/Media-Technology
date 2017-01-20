@@ -1,15 +1,17 @@
 angular.module('MainCtrl', []).controller('MainController', function ($scope, $timeout, $mdSidenav, $window, PlatformUser) {
 
 
-    PlatformUser.getCurrent(function (currentUser) {
-        $scope.currentUser = currentUser;
+    if (PlatformUser.isAuthenticated()) {
+        PlatformUser.getCurrent(function (currentUser) {
+            $scope.currentUser = currentUser;
 
 
-    }, function (error) {
+        }, function (error) {
 
-        console.log(error);
+            console.log(error);
 
-    });
+        });
+    }
 
     // Controls the side navigation
     $scope.toggleLeft = buildToggler('left');

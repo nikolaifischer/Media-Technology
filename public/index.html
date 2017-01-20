@@ -138,8 +138,8 @@
                                     Ausloggen
                                 </md-button>
                             </md-menu-item>
-                            <md-menu-divider ng-if="currentUser.isTutor"></md-menu-divider>
-                            <md-menu-item  ng-if="currentUser.isTutor">
+                            <md-menu-divider ng-if=" currentUser && currentUser.isTutor"></md-menu-divider>
+                            <md-menu-item  ng-if="currentUser && currentUser.isTutor">
 
                                     <md-button ng-href="/admin">
                                         Admin Tools

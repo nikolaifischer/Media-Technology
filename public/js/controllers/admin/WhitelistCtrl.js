@@ -30,7 +30,7 @@ angular.module('WhitelistCtrl', [])
 
 
         // only tutors and admins should reach the admin route
-        if (PlatformUser.isAuthenticated) {
+        if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
                 //console.log(currentUser);
                 if(!(currentUser.isTutor||currentUser.isAdmin)) {

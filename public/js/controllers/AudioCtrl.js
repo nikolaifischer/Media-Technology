@@ -41,7 +41,7 @@ angular.module('AudioCtrl', [])
 
         // Get current User
         $scope.currentUser;
-        if (PlatformUser.isAuthenticated) {
+        if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
                 $scope.currentUser = currentUser;
 

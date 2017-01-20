@@ -4,7 +4,8 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
     $scope.currentUser;
     $scope.group;
     $scope.groupMembers;
-    if (PlatformUser.isAuthenticated) {
+
+    if (PlatformUser.isAuthenticated()) {
         PlatformUser.getCurrent(function (currentUser) {
             $scope.currentUser = currentUser;
 
