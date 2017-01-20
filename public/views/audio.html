@@ -63,7 +63,8 @@
         <md-input-container flex-gt-md="30">
             <input type="text" ng-model="location" placeholder="Ort">
         </md-input-container>
-        <md-button ng-click="createLab()" class="md-raised md-primary">Erstellen</md-button>
+        <md-button ng-click="createLab()" class="md-raised md-primary">Erstellen</md-button><br>
+        {{ successMessage }}
     </div>
     <div class="col-md-4 col-sm-12">
         <!--TODO: Filter für Prioritäten-->

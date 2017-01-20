@@ -1,5 +1,5 @@
 angular.module('AudioCtrl', [])
-    .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, PlatformUser, Group, Lab, LabType, $window) {
+    .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, $route, PlatformUser, Group, Lab, LabType, MaterialCalendarData, $window) {
         //Get Audio LabType
         $scope.audiolabs = LabType.find({
             filter: {
@@ -21,7 +21,7 @@ angular.module('AudioCtrl', [])
                     groupedElements[index] = [];
                 }
                 groupedElements[index].push(element);
-                $scope.setDayContent(element.date.slice(0,10));
+                //.setDayContent(element.date.slice(0,10));
             });
 
             if (loadContentAsync) {
@@ -125,14 +125,14 @@ angular.module('AudioCtrl', [])
                         data.push(groupedElements[key][i].date.slice(11, 16));
                     }
                 }
-            $scope.dayContent = data;
-            if (loadContentAsync) {
+            //$scope.dayContent = data;
+            /*if (loadContentAsync) {
                 var deferred = $q.defer();
                 $timeout(function() {
                     deferred.resolve(data);
                 });
                 return deferred.promise;
-            }
+            }*/
             return data;
         };
 
@@ -150,6 +150,10 @@ angular.module('AudioCtrl', [])
             }, function (error) {
                 console.log(error);
             });
+            $scope.successMessage = "Praktikum wurde erstellt!";
+            $scope.dateTime = "";
+            $scope.duration = "";
+            $scope.location = "";
         };
 
         $scope.priorities = [
