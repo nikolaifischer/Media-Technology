@@ -6,8 +6,6 @@
     <div class="col-md-8 col-sm-12">
         <calendar-md flex layout layout-fill
                      calendar-direction="direction"
-                     on-prev-month="prevMonth"
-                     on-next-month="nextMonth"
                      on-day-click="dayClick"
                      title-format="'MMMM y'"
                      ng-model='selectedDate'
@@ -21,7 +19,6 @@
                      day-label-format="'EEE'"
                      day-label-tooltip-format="'EEEE'"
                      day-tooltip-format="'fullDate'"
-                     day-content="setDayContent"
                      disable-future-selection="false"
         ></calendar-md>
     </div>
