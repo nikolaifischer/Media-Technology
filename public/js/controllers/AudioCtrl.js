@@ -21,7 +21,7 @@ angular.module('AudioCtrl', [])
                     where: {type: 1}
                 }
             }, function (audiolabs) {
-
+                $scope.auioLabType = audiolabs;
                 console.log(audiolabs);
                 // Find all Audio Labs
                 $scope.labs = Lab.find({
@@ -41,6 +41,7 @@ angular.module('AudioCtrl', [])
                             console.log(groupedElements[i]);
                         }
                     });
+                    console.log(JSON.stringify(groupedElements));
 
 
                     Object.keys(groupedElements).forEach(function (date) {
@@ -57,15 +58,11 @@ angular.module('AudioCtrl', [])
 
             });
 
-        }
+        };
 
         $scope.loadLabs();
 
-        //Find Labs with Audio LabType Id
-
-
         // Get current User
-
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
                 $scope.currentUser = currentUser;
@@ -87,7 +84,7 @@ angular.module('AudioCtrl', [])
             });
         }
 
-        // Find the Group the User is part of
+
 
 
 
@@ -113,13 +110,22 @@ angular.module('AudioCtrl', [])
 
             //Get lab details with clicked day key
             $scope.objects = (groupedElements[$scope.key] || []);
+            console.log(JSON.stringify($scope.objects));
+
         };
 
 
         $scope.tooltips = true;
 
-
-
+        //Get all Tutors
+        $scope.tutors = PlatformUser.find({
+            filter: {
+                where: {isTutor: true}
+            }
+        }, function (error) {
+            console.log(error);
+        });
+        console.log($scope.tutors);
 
         $scope.createLab = function () {
             Lab.create({
@@ -128,8 +134,6 @@ angular.module('AudioCtrl', [])
                 "location": $scope.location,
                 "labTypeId": $scope.audiolabs.id
             }, function (lab) {
-                console.log(lab);
-
                 $scope.successMessage = "Praktikum wurde erstellt!";
 
                 // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
@@ -152,7 +156,13 @@ angular.module('AudioCtrl', [])
         ];
         //$scope.selectedPriority = { id: 0, name: '-' };
         //TODO savePriorities
-        /*$scope.savePriorities = function () {
-         console.log(this.selectedPriority);
-         }*/
+        $scope.savePriorities = function () {
+         console.log($scope.selectedPriority);
+         }
+
+        $scope.onChange = function()
+        {
+            //trigerred on color change
+            console.info("value is "+ $scope.selectedPriority);
+        }
     });
