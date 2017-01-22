@@ -1,64 +1,86 @@
-<div class="inputdemoIcons" ng-controller="LoginController" ng-app="mtPlanr" layout="column" ng-cloak=""
+<div class="login" ng-controller="LoginController" ng-app="mtPlanr" layout="column" ng-cloak=""
      layout-padding="">
 
-    <div class="row loginContainer">
-        <div class="col-md-6 col-sm-12">
+    <div class="row">
+        <div class="col-md-3 col-sm-0"></div>
+        <div id="reglogincontainer" class="col-md-6 col-sm-12">
 
-            <md-content class="md-no-momentum login-block">
+            <md-card ng-show="registerFlag==false">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" style="text-align: center">Login</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
 
-                <md-input-container class="md-block">
+                    <md-input-container class="md-block">
 
-                    <input type="email" placeholder="Email (required)" ng-model="registeredUser.email" ng-required="true">
-                </md-input-container>
+                        <input type="email" placeholder="Email (required)" ng-model="registeredUser.email"
+                               ng-required="true">
+                    </md-input-container>
 
-                <md-input-container class="md-block" md-no-float="">
-                    <label>Passwort</label>
-                    <input type="password" placeholder="Passwort" ng-model="registeredUser.password">
+                    <md-input-container class="md-block" md-no-float="">
+                        <label>Passwort</label>
+                        <input type="password" placeholder="Passwort" ng-model="registeredUser.password">
+                        <div ng-messages="wrongLogin">
+                            <span ng-show="wrongLogin"> Deine Login Daten stimmen nicht</span>
+                        </div>
 
-                </md-input-container>
+                    </md-input-container>
+                </md-card-content>
 
-            </md-content>
 
-            <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+                <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+
+                <md-card-content>
+                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">Neu hier?</md-button>
+                </md-card-content>
+
+            </md-card>
+
+            <md-card ng-show="registerFlag==true">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" style="text-align: center">Registrierung</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+
+                    <md-input-container class="md-block">
+
+                        <input ng-required="true" type="email" placeholder="Email (required)" ng-model="user.email" ng-required="true">
+                        <div ng-messages="whitelisted">
+                            <span ng-show="!whitelisted"> Deine E-Mail muss erst von einem Administrator freigeschaltet werden.</span>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" md-no-float="">
+                        <label>Passwort</label>
+                        <input ng-required="true" type="password" placeholder="Passwort" ng-model="user.password">
+
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-icon-right md-block">
+                        <label>Passwort wiederholen</label>
+
+                        <input ng-required="true" type="password" step="0.01" ng-model="user.repeatpassword"
+                               placeholder="Passwort wiederholen">
+
+                    </md-input-container>
+
+                </md-card-content>
+
+                <md-button class="md-raised md-primary" ng-click="register()">Registrierung</md-button>
+
+                <md-card-content>
+                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">Zurück zum Login</md-button>
+                </md-card-content>
+            </md-card>
         </div>
+        <div class="col-md-3 col-sm-0"></div>
 
-        <div class="col-md-6 col-sm-12">
-
-            <md-content class="md-no-momentum login-block">
-                <md-input-container class="md-icon-float md-block">
-
-                    <label>Vorname</label>
-
-                    <input type="text" ng-model="user.first_name" placeholder="Vorname">
-                </md-input-container>
-
-                <md-input-container class="md-block" md-no-float="">
-                    <label>Name</label>
-                    <input type="text" placeholder="Name" ng-model="user.name">
-                </md-input-container>
-
-                <md-input-container class="md-block">
-
-                    <input type="email" placeholder="Email (required)" ng-model="user.email" ng-required="true">
-                </md-input-container>
-
-                <md-input-container class="md-block" md-no-float="">
-                    <label>Passwort</label>
-                    <input type="password" placeholder="Passwort" ng-model="user.password">
-
-                </md-input-container>
-
-                <md-input-container class="md-icon-float md-icon-right md-block">
-                    <label>Passwort wiederholen</label>
-
-                    <input type="password" step="0.01" ng-model="user.repeatpassword"
-                           placeholder="Passwort wiederholen">
-
-                </md-input-container>
-
-            </md-content>
-
-            <md-button class="md-raised md-primary" ng-click="register()">Registration</md-button>
-        </div>
     </div>
+    <div class="row" id="loginSpacer">
+    </div>
+</div>
 </div>
