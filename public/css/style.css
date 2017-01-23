@@ -190,5 +190,6 @@ body{
 }
 
 #loginSpacer{
-    padding-top: 150px ;
+   min-height: 60vh;
+
 }
