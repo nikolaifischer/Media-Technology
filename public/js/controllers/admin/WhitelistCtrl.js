@@ -6,6 +6,10 @@ angular.module('WhitelistCtrl', [])
         $scope.showUpload = false;
         $scope.pendingPlatformUsers;
         $scope.loading = false;
+        $scope.showAddCard = false;
+
+        // Data Object for a manually added White-List entry.
+        $scope.newWhitelistEntry = {};
 
 
         // Table:
@@ -114,6 +118,19 @@ angular.module('WhitelistCtrl', [])
 
         };
 
+
+        /**
+         * Allows the user to manually add 1 E-Mail Address to the Whitelist.
+         */
+        $scope.add = function() {
+            PendingPlatformUser.create($scope.newWhitelistEntry, function(res){
+                $scope.getPendingPlatformUsers();
+                $scope.showAddCard = false;
+            }, function(err){
+                console.log(err);
+            });
+
+        }
 
 
 
