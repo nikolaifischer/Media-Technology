@@ -1,5 +1,5 @@
 angular.module('mtPlanr',
-    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'HomeCtrl', 'LoginCtrl', 'ProfileCtrl', 'AudioCtrl', 'AdminCtrl', 'WhitelistCtrl', 'ExerciseCtrl', 'ngMaterial', 'materialCalendar', 'textAngular', 'md.data.table', 'ngMaterialDatePicker']);
+    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'HomeCtrl', 'LoginCtrl', 'ProfileCtrl', 'AudioCtrl', 'AdminCtrl', 'WhitelistCtrl', 'ExerciseCtrl', 'GroupCtrl', 'ngMaterial', 'materialCalendar', 'textAngular', 'md.data.table', 'ngMaterialDatePicker']);
 
 
 angular.module('mtPlanr').config(function (LoopBackResourceProvider, $provide) {

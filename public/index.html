@@ -66,9 +66,11 @@
     <script src="js/controllers/HomeCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/AudioCtrl.js"></script>
+    <script src ="js/controllers/GroupCtrl.js"></script>
     <script src="js/controllers/admin/AdminCtrl.js"></script>
     <script src="js/controllers/admin/WhitelistCtrl.js"></script>
     <script src="js/controllers/admin/ExerciseCtrl.js"></script>
+
 
     <script src="js/appRoutes.js"></script>
     <script src="js/app.js"></script>
@@ -82,7 +84,7 @@
 <body ng-app="mtPlanr" ng-controller="MainController">
 
 <!-- START Side Navi - Only visible on mobile -->
-<md-sidenav ng-hide="$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
+<md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
             md-whiteframe="4">
 
     <md-toolbar class="md-theme-indigo">
@@ -116,7 +118,7 @@
 
             <md-toolbar class="md-hue-2">
                 <div class="md-toolbar-tools">
-                    <span ng-hide="$root.hideNav" id="navigation-burger"
+                    <span ng-if="!$root.hideNav" id="navigation-burger"
                           class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"
                           ng-click="toggleLeft()"></span>
                     <img class="menubar-image" src="images/mtPlanr2.png"/>
@@ -155,7 +157,7 @@
     </div>
     <!-- END Main Toolbar -->
     <!-- START Desktop Menu -->
-    <div ng-hide="$root.hideNav" class="row hidden-sm hidden-xs">
+    <div ng-if="!$root.hideNav" class="row hidden-sm hidden-xs">
         <div class="col-sm-12">
 
             <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">

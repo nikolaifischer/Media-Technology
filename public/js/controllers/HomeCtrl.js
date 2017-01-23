@@ -1,5 +1,7 @@
 angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window, $resource, $mdDialog) {
 
+    $scope.$root.hideNav = false;
+
     // Get current User to show its name
     $scope.currentUser;
     $scope.group;
@@ -146,8 +148,8 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
     $scope.showLeaveGroupConfirm = function (ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
-            .title('Willst du die Gruppe wirklich verlassen?')
-            .textContent('Dies kann nicht mehr rückgängig gemacht werden')
+            .title('Willst du die Gruppe wirklich verlassen und löschen?')
+            .textContent('Dies kann nicht mehr rückgängig gemacht werden - Alle anderen Gruppenmitglieder verlassen ebenfalls die Gruppe')
             .ariaLabel('Gruppe verlassen')
             .targetEvent(ev)
             .ok('Ja')
@@ -156,22 +158,14 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
         $mdDialog.show(confirm).then(function () {
             //ok-callback
 
-            Group.groupMembers.unlink({
+            Group.deleteById({
+                id: $scope.group.id
+            }, function(res){
+                loadGroup()
+            }, function(err){
 
-                    id: $scope.group.id,
-                    fk: $scope.currentUser.id
+            });
 
-                }, null, function (success) {
-                    console.log("Gruppe verlassen");
-                    // reload group
-                    loadGroup()
-
-
-                }, function (error) {
-                    console.log(error);
-
-                }
-            );
 
 
             // TODO: Im Backend Gruppe verlassen

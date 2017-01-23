@@ -19,6 +19,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/changePassword.html',
             controller: 'ProfileController'
         })
+        .when('/group', {
+            templateUrl: 'views/group.html',
+            controller: 'GroupController'
+        })
         .when('/audio', {
             templateUrl: 'views/audio.html',
             controller: 'AudioController'

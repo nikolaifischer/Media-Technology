@@ -1,9 +1,10 @@
 angular.module('MainCtrl', []).controller('MainController', function ($scope, $timeout, $mdSidenav, $window, PlatformUser) {
 
-
+    $scope.$root.hideNav = true;
     if (PlatformUser.isAuthenticated()) {
         PlatformUser.getCurrent(function (currentUser) {
             $scope.currentUser = currentUser;
+            $scope.hideNav = false;
 
 
         }, function (error) {
