@@ -1,4 +1,6 @@
-angular.module('MainCtrl', []).controller('MainController', function ($scope, $timeout, $mdSidenav, $window, PlatformUser) {
+angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser) {
+
+
 
     $scope.$root.hideNav = true;
     if (PlatformUser.isAuthenticated()) {
@@ -12,6 +14,11 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $t
             console.log(error);
 
         });
+    }
+    else {
+        if($location.path()!="/login") {
+            $location.path("/login");
+        }
     }
 
     // Controls the side navigation
