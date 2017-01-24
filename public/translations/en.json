@@ -1,0 +1,12 @@
+{
+  "HOME_HELLO": "Hello, {{username}}!",
+  "MENU": "Menu",
+  "OVERVIEW": "Overview",
+  "AUDIO_PROJECT": "Audio project",
+  "VIDEO_PROJECT": "Video project",
+  "PHOTO_PROJECT": "Photo project",
+  "TUTORIALS": "Tutorials",
+  "MY_PROFILE": "My profile",
+  "LOGOUT": "Logout",
+  "ADMIN_TOOLS": "Admin tools"
+}

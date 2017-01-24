@@ -1,5 +1,24 @@
-angular.module('mtPlanr',
-    ['ngRoute', 'appRoutes', 'lbServices', 'MainCtrl', 'HomeCtrl', 'LoginCtrl', 'ProfileCtrl', 'AudioCtrl', 'AdminCtrl', 'WhitelistCtrl', 'ExerciseCtrl', 'GroupCtrl', 'ngMaterial', 'materialCalendar', 'textAngular', 'md.data.table', 'ngMaterialDatePicker']);
+angular.module('mtPlanr', [
+    'ngRoute',
+    'appRoutes',
+    'lbServices',
+    'MainCtrl',
+    'HomeCtrl',
+    'LoginCtrl',
+    'ProfileCtrl',
+    'AudioCtrl',
+    'AdminCtrl',
+    'WhitelistCtrl',
+    'ExerciseCtrl',
+    'GroupCtrl',
+    'ngMaterial',
+    'materialCalendar',
+    'textAngular',
+    'md.data.table',
+    'ngMaterialDatePicker',
+    'pascalprecht.translate',
+    'ngCookies'
+]);
 
 
 angular.module('mtPlanr').config(function (LoopBackResourceProvider, $provide) {
@@ -48,4 +67,20 @@ angular.module('mtPlanr')
                 $location.path('/login');
             }
         });
+
+        // set default translation
+        $rootScope.lang = 'de';
     }]);
+
+
+angular.module('mtPlanr')
+    .config(['$translateProvider', function($translateProvider) {
+
+        $translateProvider
+            .useStaticFilesLoader({
+                prefix: '/translations/',
+                suffix: '.json'
+            })
+            .preferredLanguage('de')
+            .useLocalStorage();
+}]);

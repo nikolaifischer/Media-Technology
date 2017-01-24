@@ -1,6 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser) {
-
-
+angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate) {
 
     $scope.$root.hideNav = true;
     if (PlatformUser.isAuthenticated()) {
@@ -49,7 +47,19 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
      */
     $scope.openProfileMenu = function ($mdOpenMenu, ev) {
         $mdOpenMenu(ev);
-    }
+    };
 
+    // Translation
+    var translations = {"Deutsch": "de", "English": "en"};
+    $scope.translationLang = ($rootScope.lang == 'de') ? "Deutsch" : "English";
+    $scope.changeLanguage = function() {
+        var langKey = translations[$scope.translationLang];
+        $translate.use(langKey);
+    };
+
+    $rootScope.$on('$translateChangeSuccess', function(event, data) {
+        $rootScope.lang = data.language;
+        $scope.translationLang = ($rootScope.lang == 'de') ? "Deutsch" : "English";
+    });
 
 });

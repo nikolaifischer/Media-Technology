@@ -1,0 +1,12 @@
+{
+  "HOME_HELLO": "Hallo, {{username}}!",
+  "MENU": "Menü",
+  "OVERVIEW": "Übersicht",
+  "AUDIO_PROJECT": "Audiopraktikum",
+  "VIDEO_PROJECT": "Videopraktikum",
+  "PHOTO_PROJECT": "Fotopraktikum",
+  "TUTORIALS": "Übungen",
+  "MY_PROFILE": "Mein Profil",
+  "LOGOUT": "Ausloggen",
+  "ADMIN_TOOLS": "Admin-Bereich"
+}

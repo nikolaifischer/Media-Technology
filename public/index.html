@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html ng-app="mtPlanr" lang="{{lang}}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,10 +41,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <!--German localization of calendar-->
-    <script type="text/javascript"
-            src=" https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_de-de.js">
-    </script>
-
+    <script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_de-de.js"></script>
 
     <!-- textAngular -->
 
@@ -57,6 +54,12 @@
     <script src='libs/angular-material-data-table/dist/md-data-table.js'></script>
     <link href="libs/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet">
 
+    <!-- Angular Translate + Cookies for remembering translation -->
+    <script src="libs/angular-translate/angular-translate.js"></script>
+    <script src="libs/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="libs/angular-cookies/angular-cookies.js"></script>
+    <script src="libs/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script src="libs/angular-translate-storage-local/angular-translate-storage-local.js"></script>
 
     <!-- ANGULAR CUSTOM -->
     <script src="js/controllers/MainCtrl.js"></script>
@@ -80,26 +83,25 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
-<body ng-app="mtPlanr" ng-controller="MainController">
+<body ng-controller="MainController">
 
 <!-- START Side Navi - Only visible on mobile -->
-<md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
-            md-whiteframe="4">
+<md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop md-whiteframe="4">
 
     <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Menu</h1>
+        <h1 class="md-toolbar-tools" translate="MENU"></h1>
     </md-toolbar>
 
     <md-content layout-margin>
-        <md-button ng-click="toggleLeft()" href="/" name="home">Übersicht</md-button>
+        <md-button ng-click="toggleLeft()" href="/" name="home" translate="OVERVIEW"></md-button>
         <br>
-        <md-button ng-click="toggleLeft()" href="/audio" name="audio">Audiopraktikum</md-button>
+        <md-button ng-click="toggleLeft()" href="/audio" name="audio" translate="AUDIO_PROJECT"></md-button>
         <br>
-        <md-button ng-click="toggleLeft()" href="/video" name="video">Videopraktikum</md-button>
+        <md-button ng-click="toggleLeft()" href="/video" name="video" translate="VIDEO_PROJECT"></md-button>
         <br>
-        <md-button ng-click="toggleLeft()" href="/photo" name="photo">Fotopraktikum</md-button>
+        <md-button ng-click="toggleLeft()" href="/photo" name="photo" translate="PHOTO_PROJECT"></md-button>
         <br>
-        <md-button ng-click="toggleLeft()" href="/exercise" name="exercise">Übungen</md-button>
+        <md-button ng-click="toggleLeft()" href="/exercise" name="exercise" translate="TUTORIALS"></md-button>
         <br>
         <md-button ng-click="toggleLeft()" class="md-accent">
             x
@@ -120,35 +122,29 @@
                     <span ng-if="!$root.hideNav" id="navigation-burger"
                           class="glyphicon glyphicon-menu-hamburger hidden-md hidden-lg"
                           ng-click="toggleLeft()"></span>
-                    <img class="menubar-image" src="images/mtPlanr2.png"/>
+                    <a href="/"><img class="menubar-image" src="images/mtPlanr2.png"/></a>
                     <span flex></span>
 
+                    <!--Translation Switch-->
+                    <md-switch class="languageSwitch small md-primary" ng-model="translationLang" ng-change="changeLanguage()" ng-true-value="'Deutsch'" ng-false-value="'English'" md-no-ink>{{translationLang}}</md-switch>
+
                     <md-menu ng-if="currentUser">
-                        <md-button id="profile-button" class="md-fab md-mini" aria-label="Mein Profil"
-                                   ng-click="openProfileMenu($mdOpenMenu, $event)">
+                        <md-button id="profile-button" class="md-fab md-mini" aria-label="{{ 'MY_PROFILE' | translate }}" ng-click="openProfileMenu($mdOpenMenu, $event)">
                             <md-icon>person</md-icon>
                         </md-button>
                         <md-menu-content width="3">
                             <md-menu-item>
-                                <md-button ng-href="/profile">
-                                    Mein Profil
-                                </md-button>
+                                <md-button ng-href="/profile" translate="MY_PROFILE"></md-button>
                             </md-menu-item>
                             <md-menu-item>
-                                <md-button ng-click="logout()" ng-click="ctrl.checkVoicemail()">
-                                    Ausloggen
-                                </md-button>
+                                <md-button ng-click="logout()" ng-click="ctrl.checkVoicemail()" translate="LOGOUT"></md-button>
                             </md-menu-item>
                             <md-menu-divider ng-if=" currentUser && currentUser.isTutor"></md-menu-divider>
                             <md-menu-item  ng-if="currentUser && currentUser.isTutor">
-
-                                    <md-button ng-href="/admin">
-                                        Admin Tools
-                                    </md-button>
+                                <md-button ng-href="/admin" translate="ADMIN_TOOLS"></md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
-
 
                 </div>
             </md-toolbar>
@@ -158,22 +154,16 @@
     <!-- START Desktop Menu -->
     <div ng-if="!$root.hideNav" class="row hidden-sm hidden-xs">
         <div class="col-sm-12">
-
             <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-                <md-nav-item md-nav-href="/" name="home">Übersicht</md-nav-item>
-                <md-nav-item md-nav-href="audio" name="audio">Audiopraktikum</md-nav-item>
-                <md-nav-item md-nav-href="video" name="video">Videopraktikum</md-nav-item>
-                <md-nav-item md-nav-href="photo" name="photo">Fotopraktikum</md-nav-item>
-                <md-nav-item md-nav-href="exercise" name="exercise">Übungen</md-nav-item>
-
+                <md-nav-item md-nav-href="/" name="home">{{ 'OVERVIEW' | translate }}</md-nav-item>
+                <md-nav-item md-nav-href="audio" name="audio">{{ 'AUDIO_PROJECT' | translate }}</md-nav-item>
+                <md-nav-item md-nav-href="video" name="video">{{ 'VIDEO_PROJECT' | translate }}</md-nav-item>
+                <md-nav-item md-nav-href="photo" name="photo">{{ 'PHOTO_PROJECT' | translate }}</md-nav-item>
+                <md-nav-item md-nav-href="exercise" name="exercise">{{ 'TUTORIALS' | translate }}</md-nav-item>
             </md-nav-bar>
-
         </div>
-
     </div>
-
     <!-- END Desktop Menu -->
-
 
     <!-- ANGULAR DYNAMIC CONTENT -->
     <div ng-view></div>
