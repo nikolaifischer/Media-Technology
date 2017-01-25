@@ -45,13 +45,13 @@
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2>Neue Übung erstellen für {{weekday}}</h2>
-                    <md-button  class="add-exercise-dialog-close-button md-icon-button" ng-click="ctrl.closeDialog()">
+                    <md-button  class="custom-dialog-close-button md-icon-button" ng-click="ctrl.closeDialog()">
                         <md-icon class="md-primary">close</md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
 
-            <div class="add-exercise-dialog-content">
+            <div class="custom-dialog-content">
                 <md-input-container class="md-block">
                     <input type="text" ng-model="exerciseName[weekday]" placeholder="Neue Übung">
                 </md-input-container>
@@ -62,7 +62,7 @@
                     <input type="time" ng-model="exerciseTime[weekday]" placeholder="14:00">
                 </md-input-container>
 
-                <div layout="row" class="add-exercise-dialog-button">
+                <div layout="row" class="action-dialog-button">
                     <md-button flex ng-click="addExercise(weekday)" class="md-primary">
                         Erstellen
                     </md-button>
@@ -70,5 +70,4 @@
             </div>
         </div>
     </script>
-
 </div>

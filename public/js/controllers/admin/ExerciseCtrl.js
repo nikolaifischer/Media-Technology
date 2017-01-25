@@ -70,7 +70,7 @@ angular.module('ExerciseCtrl', [])
                 disableParentScroll: this.disableParentScroll,
                 templateUrl: 'addExerciseDialog.tmpl.html',
                 hasBackdrop: true,
-                panelClass: 'add-exercise-dialog',
+                panelClass: 'custom-dialog',
                 position: position,
                 trapFocus: true,
                 zIndex: 150,

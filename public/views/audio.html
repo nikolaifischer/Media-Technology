@@ -1,8 +1,7 @@
-<div class="jumbotron"  ng-controller="AudioController">
-    <h2>Audio Praktikum</h2>
-    <div class="col-sm-12 description">
-        Wähle für deine Gruppe <span class="highlight-text"> {{group.name}}</span> eure Prioritäten für das Audio Praktikum aus.
-    </div>
+<div class="jumbotron" ng-controller="AudioController">
+    <h2 translate="AUDIO_PROJECT"></h2>
+    <div class="col-sm-12 description" translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name}"></div>
+
     <div class="col-md-8 col-sm-12">
         <calendar-md flex layout layout-fill
                      calendar-direction="direction"
@@ -10,29 +9,28 @@
                      title-format="'MMMM y'"
                      ng-model='selectedDate'
                      week-starts-on="1"
-
                      data-start-month="0"
-
                      data-start-year="2017"
                      tooltips="tooltips"
                      day-format="dayFormat"
                      day-label-format="'EEE'"
                      day-label-tooltip-format="'EEEE'"
                      day-tooltip-format="'fullDate'"
-                     disable-future-selection="false"
-        ></calendar-md>
+                     disable-future-selection="false">
+        </calendar-md>
     </div>
+
     <div class="col-md-4 col-sm-12">
         <h3> {{ clickedDay }} </h3>
         <div ng-repeat="object in objects">
             <div class="labDetails">
                 <md-input-container>
-                    <md-select ng-model="selectedPriority" placeholder="Priorität" ng-change="onChange()" ng-model-options="{trackBy: '$value.id'}">
+                    <md-select ng-model="selectedPriority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="onChange()" ng-model-options="{trackBy: '$value.id'}">
                         <md-option ng-value="prio" ng-repeat="priority in priorities">{{ priority.name }}</md-option>
                     </md-select>
                 </md-input-container><br>
-                {{ object.date.slice(11, 16) }} Uhr<br>
-                {{ object.duration }} Minuten <br>
+                {{ object.date.slice(11, 16) }} {{ 'HOURS' | translate }}<br>
+                {{ object.duration }} {{ 'MINUTES' | translate }}<br>
                 {{ object.location }}
             </div>
             <hl></hl>
@@ -40,39 +38,39 @@
                 {{key}} : {{value}}-->
         </div>
     </div>
+
     <div class="col-md-8 col-sm-12" ><!--ng-show="currentUser.isTutor"-->
-        <h3>Neues Audio Lab erstellen</h3>
+        <h3 translate="CREATE_NEW_AUDIO_LAB_APPOINTMENT"></h3>
         <md-input-container flex-gt-md="30">
             <input mdc-datetime-picker=""
                    date="true"
                    time="true"
                    type="text"
                    id="datetime"
-                   placeholder="Datum und Uhrzeit"
+                   placeholder="{{ 'DATETIME' | translate }}"
                    min-date="minDate"
                    ng-model="dateTime"
                    class ="md-input"
                    lang="de-de">
         </md-input-container>
         <md-input-container flex-gt-md="30">
-            <input type="text" ng-model="duration" placeholder="Dauer in Minuten">
+            <input type="text" ng-model="duration" placeholder="{{ 'DURATION_MINUTES' | translate }}">
         </md-input-container>
         <md-input-container flex-gt-md="30">
-            <input type="text" ng-model="location" placeholder="Ort">
+            <input type="text" ng-model="location" placeholder="{{ 'LOCATION' | translate }}">
         </md-input-container>
         <md-input-container flex-gt-md="30">
-            <md-select ng-model="selectedTutor" placeholder="Tutor" ng-model-options="{trackBy: '$value.id'}">
+            <md-select ng-model="selectedTutor" placeholder="{{ 'TUTOR' | translate }}" ng-model-options="{trackBy: '$value.id'}">
                 <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>
             </md-select>
         </md-input-container>
-        <md-button ng-click="createLab()" class="md-raised md-primary">Erstellen</md-button><br>
+        <md-button ng-click="createLab()" class="md-raised md-primary" translate="CREATE"></md-button><br>
         {{ successMessage }}
     </div>
+
     <div class="col-md-4 col-sm-12">
         <!--TODO: Filter für Prioritäten-->
-        Du musst noch 3 Prioritäten vergeben.<br>
-        <md-button ng-click="savePriorities()"  class="md-raised md-primary">Speichern
-        </md-button>
+        {{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}<br>
+        <md-button ng-click="savePriorities()" class="md-raised md-primary" translate="SAVE"></md-button>
     </div>
-
 </div>

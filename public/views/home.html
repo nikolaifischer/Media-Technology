@@ -1,55 +1,50 @@
 <div class="jumbotron text-center" ng-controller="HomeController">
     <h2 translate="HOME_HELLO" translate-values="{username:currentUser.first_name}"></h2>
 
-
     <div class="row boxesContainer">
         <div class="col-md-4 col-sm-12">
             <md-card class="groupBox">
                 <md-card-title class="dashboardCardTitle">
-                    <md-card-title-text><h2 class="cardHeader">{{group.name || "Keine Gruppe gewählt"}}</h2></md-card-title-text>
+                    <md-card-title-text><h2 class="cardHeader">{{group.name || ('NO_GROUP' | translate) }}</h2></md-card-title-text>
                 </md-card-title>
+
                 <md-card-content class="dashboardCardContent">
                     <md-list class="list-left" ng-repeat="person in groupMembers">
-                        <md-list-item
-                                class="noright">
+                        <md-list-item class="noright">
                             <md-icon class="md-avatar white-icon">person</md-icon>
                             <p>{{person.first_name}}</p>
                             <a href="mailto:{{person.email}}" target="_blank">
-                                <md-icon
-                                        aria-label="Send Email" class="white-icon">email
-                                </md-icon>
+                                <md-icon aria-label="{{ 'SEND_MAIL' | translate }}" class="white-icon">email</md-icon>
                             </a>
-
                         </md-list-item>
                     </md-list>
-                    <div class="noGroupNotification" ng-hide="group.name">
-                       Bitte melde dich <a href="/group"> hier</a> in einer Gruppe an um deine Termine zu wählen
-                    </div>
 
+                    <div class="noGroupNotification" ng-hide="group.name">
+                        <a href="/group" translate="CHOOSE_GROUP"></a>
+                    </div>
                 </md-card-content>
+
                 <md-card-actions layout="row" layout-align="end center">
                     <md-button ng-click="showLeaveGroupConfirm($event)" class="md-fab md-mini cardFab">
                         <md-icon>exit_to_app</md-icon>
                     </md-button>
                 </md-card-actions>
-
             </md-card>
         </div>
         <div class="col-md-4 col-sm-12">
             <md-card class="newsBox">
                 <md-card-title class="dashboardCardTitle">
-                    <md-card-title-text><h2 class="cardHeader">News</h2></md-card-title-text>
+                    <md-card-title-text><h2 class="cardHeader" translate="NEWS"></h2></md-card-title-text>
                 </md-card-title>
+
                 <md-content class="cardContent">
                     <text-angular ng-show="currentUser.isTutor && !hideEditor" ng-model="news"></text-angular>
                     <div ng-show="!currentUser.isTutor || hideEditor" ta-bind ng-model="news"></div>
                 </md-content>
             </md-card>
-            <md-button ng-click="saveEditor()" ng-show="currentUser.isTutor" class="md-raised md-primary">Speichern
-            </md-button>
-            <md-button ng-click="hideEditor = !hideEditor" ng-show="currentUser.isTutor"
-             class="md-raised md-primary">Toggle Editor</md-button>
 
+            <md-button ng-click="saveEditor()" ng-show="currentUser.isTutor" class="md-raised md-primary">{{ 'SAVE' | translate }}</md-button>
+            <md-button ng-click="hideEditor = !hideEditor" ng-show="currentUser.isTutor" class="md-raised md-primary">{{ 'EDIT' | translate }}</md-button>
         </div>
         <!-- START CALENDAR -->
         <div class="col-md-4 col-sm-12">
@@ -62,9 +57,7 @@
                              title-format="'MMMM y'"
                              ng-model='selectedDate'
                              week-starts-on="1"
-
                              data-start-month="0"
-
                              data-start-year="2017"
                              tooltips="tooltips"
                              day-format="dayFormat"
@@ -72,14 +65,10 @@
                              day-label-tooltip-format="'EEEE'"
                              day-tooltip-format="'fullDate'"
                              day-content="setDayContent"
-                             disable-future-selection="false"
-                ></calendar-md>
-
-
+                             disable-future-selection="false">
+                </calendar-md>
             </md-card>
         </div>
         <!-- STOP CALENDAR -->
-
-
     </div>
 </div>

@@ -1,53 +1,42 @@
-<div ng-controller="GroupController" ng-app="mtPlanr" layout="column" ng-cloak=""
-     layout-padding="">
-
+<div ng-controller="GroupController" layout-padding="">
     <div class="row">
         <div class="col-md-2 col-sm-0"></div>
+
         <div class="col-sm-12 col-md-8">
             <md-card>
                 <md-card-content style="text-align: center;">
-                    Gib hier die E-Mails deiner Gruppenpartner an um eine neue Gruppe zu gründen.
-                    <br/>
-                    <br/>
+                    {{ 'CREATE_GROUP_TEXT' | translate }}
+                    <br/><br/>
                     <md-input-container style="width:50%">
-                        <label style="text-align: left;">Name der Gruppe</label>
+                        <label style="text-align: left;" translate="GROUP_NAME"></label>
                         <md-icon>keyboard</md-icon>
                         <input name="groupname" ng-model="groupName"/>
                     </md-input-container>
+
                     <md-divider style="margin-bottom: 20px;"></md-divider>
+
                     <div ng-repeat="member in groupMembers">
                         <form name="groupForm">
                             <md-input-container style="width:50%;">
-                                <label style="text-align: left;">Email</label>
+                                <label style="text-align: left;" translate="EMAIL"></label>
                                 <md-icon>person</md-icon>
-                                <input name="email" ng-model="member.email"
-                                       minlength="1" maxlength="100" ng-pattern="/^.+@campus.lmu.de$/"/>
+                                <input name="email" ng-model="member.email" minlength="1" maxlength="100" ng-pattern="/^.+@campus.lmu.de$/"/>
                             </md-input-container>
+
                             <div ng-messages="groupForm.email.$error">
-                                <span ng-message="pattern">Bitte gib eine campus.lmu.de Adresse ein</span>
+                                <span ng-message="pattern" translate="PROVIDE_CAMPUS_MAIL"></span>
                             </div>
-                            <br/>
-                            <br/>
-
+                            <br/><br/>
                         </form>
-
                     </div>
 
-                    <div ng-show="showError">
-                        <span style="color:red"> {{errorMessage}} </span>
-                    </div>
-                    <br/>
-                    <br/>
-                    <md-button class="md-raised md-primary" ng-click="createGroup()">Erstellen</md-button>
-
+                    <div ng-show="showError"><span style="color:red">{{errorMessage}}</span></div>
+                    <br/><br/>
+                    <md-button class="md-raised md-primary" ng-click="createGroup()" translate="CREATE"></md-button>
                 </md-card-content>
-
             </md-card>
-
         </div>
+
         <div class="col-md-2 col-sm-0"></div>
-
     </div>
-
-
 </div>

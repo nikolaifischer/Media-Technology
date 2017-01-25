@@ -1,6 +1,4 @@
-<div class="login" ng-controller="LoginController" ng-app="mtPlanr" layout="column" ng-cloak=""
-     layout-padding="">
-
+<div class="login" ng-controller="LoginController" ng-app="mtPlanr" layout="column" ng-cloak="" layout-padding="">
     <div class="row">
         <div class="col-md-3 col-sm-0"></div>
         <div id="reglogincontainer" class="col-md-6 col-sm-12">
@@ -8,79 +6,64 @@
             <md-card ng-show="registerFlag==false">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline" style="text-align: center">Login</span>
+                        <span class="md-headline" style="text-align: center" translate="LOGIN"></span>
                     </md-card-title-text>
                 </md-card-title>
-                <md-card-content>
 
+                <md-card-content>
                     <md-input-container class="md-block">
-
-                        <input type="email" placeholder="Email (required)" ng-model="registeredUser.email"
-                               ng-required="true">
+                        <input type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="registeredUser.email" ng-required="true">
                     </md-input-container>
-
                     <md-input-container class="md-block" md-no-float="">
-                        <label>Passwort</label>
-                        <input type="password" placeholder="Passwort" ng-model="registeredUser.password">
+                        <label translate="PASSWORD"></label>
+                        <input type="password" placeholder="{{ 'PASSWORD' | translate }}" ng-model="registeredUser.password">
                         <div ng-messages="wrongLogin">
-                            <span ng-show="wrongLogin"> Deine Login Daten stimmen nicht</span>
+                            <span ng-show="wrongLogin" translate="WRONG_LOGIN_DATA"></span>
                         </div>
-
                     </md-input-container>
                 </md-card-content>
 
-
-                <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+                <md-button class="md-raised md-primary" ng-click="login()" translate="LOGIN"></md-button>
 
                 <md-card-content>
-                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">Neu hier?</md-button>
+                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">{{ 'NEW_USER' | translate }}</md-button>
                 </md-card-content>
-
             </md-card>
 
             <md-card ng-show="registerFlag==true">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline" style="text-align: center">Registrierung</span>
+                        <span class="md-headline" style="text-align: center" translate="REGISTRATION"></span>
                     </md-card-title-text>
                 </md-card-title>
+
                 <md-card-content>
-
                     <md-input-container class="md-block">
-
-                        <input ng-required="true" type="email" placeholder="Email (required)" ng-model="user.email" ng-required="true">
+                        <input ng-required="true" type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="user.email" ng-required="true">
                         <div ng-messages="whitelisted">
-                            <span ng-show="!whitelisted"> Deine E-Mail muss erst von einem Administrator freigeschaltet werden.</span>
+                            <span ng-show="!whitelisted" translate="EMAIL_NOT_WHITELISTED"></span>
                         </div>
                     </md-input-container>
 
                     <md-input-container class="md-block" md-no-float="">
-                        <label>Passwort</label>
-                        <input ng-required="true" type="password" placeholder="Passwort" ng-model="user.password">
-
+                        <label translate="PASSWORD"></label>
+                        <input ng-required="true" type="password" placeholder="{{ 'PASSWORD' | translate }}" ng-model="user.password">
                     </md-input-container>
 
                     <md-input-container class="md-icon-float md-icon-right md-block">
-                        <label>Passwort wiederholen</label>
-
-                        <input ng-required="true" type="password" step="0.01" ng-model="user.repeatpassword"
-                               placeholder="Passwort wiederholen">
-
+                        <label translate="REPEAT_PASSWORD"></label>
+                        <input ng-required="true" type="password" step="0.01" ng-model="user.repeatpassword" placeholder="{{ 'REPEAT_PASSWORD' | translate }}">
                     </md-input-container>
-
                 </md-card-content>
 
-                <md-button class="md-raised md-primary" ng-click="register()">Registrierung</md-button>
+                <md-button class="md-raised md-primary" ng-click="register()" translate="REGISTER"></md-button>
 
                 <md-card-content>
-                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">Zurück zum Login</md-button>
+                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">{{ 'BACK_TO_LOGIN' | translate }}</md-button>
                 </md-card-content>
             </md-card>
         </div>
         <div class="col-md-3 col-sm-0"></div>
-
     </div>
-    <div class="row" id="loginSpacer">
-    </div>
-</div>
+    <div class="row" id="loginSpacer"></div>
 </div>

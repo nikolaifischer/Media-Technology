@@ -156,7 +156,8 @@ body{
     margin-right: 2px;
 }
 
-.add-exercise-dialog {
+/* START Dialog */
+.custom-dialog {
     background: white;
     border-radius: 4px;
     box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
@@ -165,18 +166,19 @@ body{
     width: 500px;
 }
 
-.add-exercise-dialog-content {
+.custom-dialog h2 {
+    width: 90%;
+}
+
+.custom-dialog-content {
     padding: 0 15px;
     width: 100%;
 }
 
-.add-exercise-dialog-button {
+.action-dialog-button {
     width: 100%;
 }
-
-.add-exercise-dialog-close-button{
-    margin-left: 125px !important;
-}
+/* END Dialog */
 
 .login {
     background: rgba(0,105,92,1);
@@ -198,4 +200,12 @@ md-switch.languageSwitch.md-checked .md-bar {
 }
 md-switch.languageSwitch.md-checked .md-thumb {
     background-color: #fafafa;
+}
+
+.profileDataTable.table tr th, .profileDataTable.table tr td {
+    padding: 20px 0 5px;
+    color: #aaa;
+    font-weight: normal;
+    border-top: none;
+    border-bottom: 1px solid #ddd;
 }

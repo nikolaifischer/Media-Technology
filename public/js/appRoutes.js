@@ -15,10 +15,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/profile.html',
             controller: 'ProfileController'
         })
-        .when('/changePassword', {
-            templateUrl: 'views/changePassword.html',
-            controller: 'ProfileController'
-        })
         .when('/group', {
             templateUrl: 'views/group.html',
             controller: 'GroupController'

@@ -1,34 +1,66 @@
-<div class="inputdemoIcons" ng-controller="ProfileController" ng-app="mtPlanr" layout="column" ng-cloak=""
-     layout-padding="">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th scope="row" width="100">Vorname:</th>
-                <td>
-                    <span id="currentUser.first_name" ng-if="!editModeFirstname">{{currentUser.first_name}}</span>
-                    <md-icon ng-click="editKeyword(currentUser); editModeFirstname = true">mode_edit</md-icon>
-                    <span ng-if="editModeFirstname">
-                        <input ng-model="currentUser.first_name" />
-                        <md-icon ng-click="save(); editModeFirstname = false">save</md-icon>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" width="100">Name:</th>
-                <td>
-                    <span id="currentUser.name" ng-if="!editModeName">{{currentUser.name}}</span>
-                    <md-icon ng-click="editKeyword(currentUser); editModeName = true">mode_edit</md-icon>
-                    <span ng-if="editModeName">
-                        <input ng-model="currentUser.name" />
-                        <md-icon ng-click="save(); editModeName = false">save</md-icon>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" width="100">Email:</th>
-                <td>{{currentUser.email}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="/changePassword">Passwort ändern &raquo;</a>
+<div class="jumbotron" ng-controller="ProfileController">
+    <h2 class="text-center" translate="MY_PROFILE"></h2>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-1"></div>
+        <div class="col-sm-12 col-lg-10">
+            <table class="table profileDataTable">
+                <tbody>
+                    <!--TODO: Code erstmal da lassen, falls mal nötig
+                    <tr>
+                        <th scope="row" width="100">Vorname:</th>
+                        <td>
+                            <span id="currentUser.first_name" ng-if="!editModeFirstname">{{currentUser.first_name}}</span>
+                            <md-icon ng-click="editKeyword(currentUser); editModeFirstname = true">mode_edit</md-icon>
+                            <span ng-if="editModeFirstname">
+                                <input ng-model="currentUser.first_name" />
+                                <md-icon ng-click="save(); editModeFirstname = false">save</md-icon>
+                            </span>
+                        </td>
+                    </tr-->
+                    <tr>
+                        <th scope="row" width="100" translate="NAME"></th>
+                        <td>{{currentUser.first_name}} {{currentUser.name}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" width="100" translate="EMAIL"></th>
+                        <td>{{currentUser.email}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" width="100" translate="PASSWORD"></th>
+                        <td>
+                            <a class="change-password-dialog-open-button" ng-click="showPasswordDialog($event)" translate="CHANGE_PASSWORD"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12 col-lg-1"></div>
+    </div>
+
+    <!-- dialog -->
+    <script type="text/ng-template" id="changePasswortDialog.tmpl.html">
+        <div role="dialog" aria-label="{{ 'CHANGE_PASSWORD' | translate }}" layout="column" layout-align="center center">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 translate="CHANGE_PASSWORD"></h2>
+                    <md-button  class="custom-dialog-close-button md-icon-button" ng-click="ctrl.closePasswortDialog()">
+                        <md-icon class="md-primary">close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <div class="custom-dialog-content">
+                <md-input-container class="md-block">
+                    <input type="password" placeholder="{{ 'NEW_PASSWORD' | translate }}" ng-model="currentUser.newPassword">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <input type="password" placeholder="{{ 'REPEAT_NEW_PASSWORD' | translate }}" ng-model="currentUser.repeatNewPassword">
+                </md-input-container>
+                <div layout="row" class="action-dialog-button">
+                    <md-button flex ng-click="changePassword()" class="md-primary" translate="SAVE_NEW_PASSWORD"></md-button>
+                </div>
+            </div>
+        </div>
+    </script>
 </div>
