@@ -1,65 +1,54 @@
 <div class="jumbotron" ng-controller="WhitelistController">
-    <h2 class="site_headline">White-List Verwaltung</h2>
+    <h2 class="site_headline" translate="WHITELIST_MGT"></h2>
 
     <div class="row">
-        <div class="col-sm-12 col-lg-1">
-        </div>
+        <div class="col-sm-12 col-lg-1"></div>
+
         <div class="col-sm-12 col-lg-10">
             <md-card>
-
                 <div id="pendingPlatformUsersView" ng-show="!showUpload ">
-
                     <md-card-title class="dashboardCardTitle">
-                        <md-card-title-text><h2 class="cardHeader">E-Mail Whitelist</h2></md-card-title-text>
+                        <md-card-title-text><h2 class="cardHeader" translate="EMAIL_WHITELIST"></h2></md-card-title-text>
                     </md-card-title>
 
                     <md-card-content class="cardContent">
-
-
                         <md-table-container>
-                            <table md-row-select="false" multiple="true" md-table
-                                   ng-model="selectedPendingPlatformUsers">
+                            <table md-row-select="false" multiple="true" md-table ng-model="selectedPendingPlatformUsers">
                                 <thead md-head>
-                                <tr md-row>
-                                    <th md-column md-order-by="nameToLower"><span>E-Mail Adresse</span></th>
-                                    <th md-column> Vorname</th>
-                                    <th md-column> Nachname</th>
-                                    <th md-column md-order-by="nameToLower"><span>Tutor</span></th>
-                                    <th md-column> Tools</th>
-
-                                </tr>
+                                    <tr md-row>
+                                        <th md-column md-order-by="nameToLower"><span>{{ 'EMAIL' | translate }}</span></th>
+                                        <th md-column>{{ 'FIRSTNAME' | translate }}</th>
+                                        <th md-column>{{ 'LASTNAME' | translate }}</th>
+                                        <th md-column md-order-by="nameToLower"><span>{{ 'TUTOR' | translate }}</span></th>
+                                        <th md-column>{{ 'TOOLS' | translate }}</th>
+                                    </tr>
                                 </thead>
                                 <tbody md-body>
-                                <tr md-row md-select="userDB" md-select-id="name" md-auto-select
-                                    ng-repeat="userDB in pendingPlatformUsers | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">
-                                    <td md-cell>
-                                        <md-input-container><input ng-model="userDB.email"> </input>
-                                        </md-input-container>
-                                    </td>
-                                    <td md-cell>
-                                        <md-input-container><input ng-model="userDB.first_name"> </input>
-                                        </md-input-container>
-                                    </td>
-                                    <td md-cell>
-                                        <md-input-container><input ng-model="userDB.name"> </input>
-                                        </md-input-container>
-                                    </td>
-                                    <td md-cell>
-                                        <md-switch ng-model="userDB.isTutor" aria-label="Tutor">
-                                            Tutor
-                                        </md-switch>
-                                    </td>
-                                    <td md-cell>
-                                        <md-button style="width:24px; margin: 0px;" ng-click="saveEdit($event, userDB)"
-                                                   class="md-icon-button">
-                                            <md-icon class="md-primary"> save</md-icon>
-                                            </md-icon></md-button>
-                                        <md-button style="width:24px; margin: 0px;"
-                                                   ng-click="deleteEntry($event, userDB)" class="md-icon-button">
-                                            <md-icon class="md-accent"> delete</md-icon>
-                                            </md-icon></md-button>
-                                    </td>
-                                </tr>
+                                    <tr md-row md-select="userDB" md-select-id="name" md-auto-select
+                                        ng-repeat="userDB in pendingPlatformUsers | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">
+                                        <td md-cell>
+                                            <md-input-container><input ng-model="userDB.email" /></md-input-container>
+                                        </td>
+                                        <td md-cell>
+                                            <md-input-container><input ng-model="userDB.first_name" /></md-input-container>
+                                        </td>
+                                        <td md-cell>
+                                            <md-input-container><input ng-model="userDB.name" /></md-input-container>
+                                        </td>
+                                        <td md-cell>
+                                            <md-switch ng-model="userDB.isTutor" aria-label="{{ 'TUTOR' | translate }}">
+                                                {{ 'TUTOR' | translate }}
+                                            </md-switch>
+                                        </td>
+                                        <td md-cell>
+                                            <md-button style="width:24px; margin: 0px;" ng-click="saveEdit($event, userDB)" class="md-icon-button">
+                                                <md-icon class="md-primary">save</md-icon>
+                                            </md-button>
+                                            <md-button style="width:24px; margin: 0px;" ng-click="deleteEntry($event, userDB)" class="md-icon-button">
+                                                <md-icon class="md-accent">delete</md-icon>
+                                            </md-button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
@@ -67,149 +56,100 @@
                         <md-table-pagination md-limit="dbQuery.limit"
                                              md-limit-options="[1,5,10,15]" md-page="dbQuery.page"
                                              md-total="{{pendingPlatformUsers.length}}" md-page-select="true"
-                                             md-boundary-links="false"
-                        ></md-table-pagination>
+                                             md-boundary-links="false">
+                        </md-table-pagination>
                     </md-card-content>
 
                     <md-card-actions layout="row" layout-align="end center">
-
                         <md-button ng-click="showUpload=true" md-no-ink class="md-primary">
-                            <md-icon> file_upload</md-icon>
-                            CSV Datei Hochladen
+                            <md-icon>file_upload</md-icon>{{ 'UPLOAD_CSV' | translate }}
                         </md-button>
                         <md-button ng-click="showAddCard=true" md-no-ink class="md-primary">
-                            <md-icon>add</md-icon>
-                            Hinzufügen
+                            <md-icon>add</md-icon>{{ 'ADD' | translate }}
                         </md-button>
                     </md-card-actions>
-
-
                 </div>
 
-
                 <div id="uploadView" ng-show="showUpload">
-
-
                     <md-card-title class="dashboardCardTitle">
-                        <md-card-title-text><h2 class="cardHeader">E-mail Listen Upload</h2></md-card-title-text>
+                        <md-card-title-text><h2 class="cardHeader" translate="UPLOAD_LIST"></h2></md-card-title-text>
                     </md-card-title>
+
                     <md-card-content class="cardContent">
-
-                        <div ng-show="!showWhiteListButton">Lade hier die Studentenliste hoch, damit sich diese
-                            registrieren
-                            können:
-                        </div>
-                        <div ng-show="showWhiteListButton">Diese E-Mail Adressen wurden aus der CSV ausgelesen:</div>
-                        <br/>
-                        <br/>
-
+                        <div ng-show="!showWhiteListButton" translate="UPLOAD_LIST_TEXT"></div>
+                        <div ng-show="showWhiteListButton" translate="UPLOADED_CSV_TEXT"></div>
+                        <br/><br/>
 
                         <!-- START CSV TABLE VIEW -->
                         <md-table-container ng-show="showWhiteListButton">
                             <table md-table>
                                 <thead md-head>
-                                <tr md-row>
-                                    <th md-column md-order-by="nameToLower"><span>E-Mail Adresse</span></th>
-                                    <th md-column md-order-by="nameToLower"><span>Vorname</span></th>
-                                    <th md-column md-order-by="nameToLower"><span>Nachname</span></th>
-
-
-                                </tr>
+                                    <tr md-row>
+                                        <th md-column md-order-by="nameToLower"><span>{{ 'EMAIL' | translate }}</span></th>
+                                        <th md-column md-order-by="nameToLower"><span>{{ 'FIRSTNAME' | translate }}</span></th>
+                                        <th md-column md-order-by="nameToLower"><span>{{ 'LASTNAME' | translate }}</span></th>
+                                    </tr>
                                 </thead>
                                 <tbody md-body>
-                                <tr md-row md-select="user" md-select-id="name" md-auto-select
-                                    ng-repeat="user in userList | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                                    <td md-cell>{{user.email}}</td>
-                                    <td md-cell>{{user.Vorname}}</td>
-                                    <td md-cell>{{user.Nachname}}</td>
-
-                                </tr>
+                                    <tr md-row md-select="user" md-select-id="name" md-auto-select
+                                        ng-repeat="user in userList | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                                        <td md-cell>{{user.email}}</td>
+                                        <td md-cell>{{user.Vorname}}</td>
+                                        <td md-cell>{{user.Nachname}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </md-table-container>
-
                         <md-table-pagination ng-show="showWhiteListButton" md-limit="query.limit"
                                              md-limit-options="[1,5,10,15]" md-page="query.page"
                                              md-total="{{userList.length}}" md-page-select="true"
-                                             md-boundary-links="false"
-                        ></md-table-pagination>
-
+                                             md-boundary-links="false">
+                        </md-table-pagination>
                         <!-- END CSV TABLE VIEW -->
 
-
                         <!-- Material Design File Upload Button Hack: -->
-                        <label for="userUpload" ng-show="!showWhiteListButton" class="md-button md-raised md-primary">Durchsuchen</label>
+                        <label for="userUpload" ng-show="!showWhiteListButton" class="md-button md-raised md-primary" translate="SEARCH"></label>
                         <input class="ng-hide" id="userUpload" type="file" file-on-change="uploadFile"/>
 
                         <md-progress-circular ng-show="loading" md-mode="indeterminate"></md-progress-circular>
-
                     </md-card-content>
 
-
                     <md-card-actions layout="row" layout-align="end center">
-
-
-                        <md-button md-no-ink ng-click="showUpload=false" aria-label="Löschen">
-                            <md-icon>arrow_back</md-icon>
-                            Zurück
+                        <md-button md-no-ink ng-click="showUpload=false" aria-label="{{ 'DELETE' | translate }}">
+                            <md-icon>arrow_back</md-icon>{{ 'BACK' | translate }}
                         </md-button>
-
-                        <md-button ng-show="showWhiteListButton" ng-click="saveToPendingPlatformUsers()" md-no-ink
-                                   class="md-primary">
-                            <md-icon> save</md-icon>
-                            In Datenbank speichern
+                        <md-button ng-show="showWhiteListButton" ng-click="saveToPendingPlatformUsers()" md-no-ink class="md-primary">
+                            <md-icon> save</md-icon>{{ 'SAVE' | translate }}
                         </md-button>
-                        <md-button ng-show="showWhiteListButton" md-no-ink ng-click="deleteUpload()" class=" md-accent"
-                                   aria-label="Löschen">
-                            <md-icon>delete</md-icon>
-                            Löschen
+                        <md-button ng-show="showWhiteListButton" md-no-ink ng-click="deleteUpload()" class="md-accent" aria-label="{{ 'DELETE' | translate }}">
+                            <md-icon>delete</md-icon>{{ 'DELETE' | translate }}
                         </md-button>
-
                     </md-card-actions>
-
-
                 </div>
-
-
             </md-card>
 
-
             <md-card ng-show="showAddCard">
-
                 <md-card-content>
                     <md-input-container>
-                        <label>Email</label>
+                        <label translate="EMAIL"></label>
                         <input ng-model="newWhitelistEntry.email" type="email">
-
                     </md-input-container>
                     <md-input-container>
-                        <label>Vorname</label>
+                        <label translate="FIRSTNAME"></label>
                         <input ng-model="newWhitelistEntry.first_name">
                     </md-input-container>
                     <md-input-container>
-                        <label>Nachname</label>
+                        <label translate="LASTNAME"></label>
                         <input ng-model="newWhitelistEntry.name">
                     </md-input-container>
-                    <md-switch style="padding-top:10px; padding-left:10px;" ng-model="newWhitelistEntry.isTutor"
-                               aria-label="Tutor">
-                        Tutor
+                    <md-switch style="padding-top:10px; padding-left:10px;" ng-model="newWhitelistEntry.isTutor" aria-label="{{ 'TUTOR' | translate }}">
+                        {{ 'TUTOR' | translate }}
                     </md-switch>
                 </md-card-content>
-                <md-button class="md-primary" ng-click="add()">
-                    Hinzufügen
-                </md-button>
+                <md-button class="md-primary" ng-click="add()" translate="ADD"></md-button>
             </md-card>
-
         </div>
 
-        <div class="col-sm-12 col-lg-1">
-        </div>
-
-
+        <div class="col-sm-12 col-lg-1"></div>
     </div>
-
-
-</div>
-
-
 </div>

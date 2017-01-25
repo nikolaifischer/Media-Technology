@@ -1,5 +1,5 @@
 <div class="jumbotron adminExercise" ng-controller="ExerciseController">
-    <h2 class="site_headline">Übungen Verwaltung</h2>
+    <h2 class="site_headline" translate="TUTORIAL_MGT"></h2>
 
     <div class="row">
         <div class="col-sm-12">
@@ -7,7 +7,7 @@
                 <div flex-gt-sm="50" flex="" class="flex-gt-sm-50 flex" ng-repeat="(weekday,exercises) in weekSchedules">
                     <md-toolbar layout="row" class="_md layout-row _md-toolbar-transitions">
                         <div class="md-toolbar-tools">
-                            <span>{{weekday}}</span>
+                            <span translate="{{weekday}}"></span>
                         </div>
                     </md-toolbar>
 
@@ -41,11 +41,11 @@
 
     <!-- dialog -->
     <script type="text/ng-template" id="addExerciseDialog.tmpl.html">
-        <div role="dialog" aria-label="Übung erstellen" layout="column" layout-align="center center">
+        <div role="dialog" aria-label="{{ 'CREATE_TUTORIAL' | translate: {weekday:weekday} }}" layout="column" layout-align="center center">
             <md-toolbar>
                 <div class="md-toolbar-tools">
-                    <h2>Neue Übung erstellen für {{weekday}}</h2>
-                    <md-button  class="custom-dialog-close-button md-icon-button" ng-click="ctrl.closeDialog()">
+                    <h2 translate="CREATE_TUTORIAL" translate-values="{weekday:weekday}"></h2>
+                    <md-button class="custom-dialog-close-button md-icon-button" ng-click="ctrl.closeDialog()">
                         <md-icon class="md-primary">close</md-icon>
                     </md-button>
                 </div>
@@ -53,19 +53,17 @@
 
             <div class="custom-dialog-content">
                 <md-input-container class="md-block">
-                    <input type="text" ng-model="exerciseName[weekday]" placeholder="Neue Übung">
+                    <input type="text" ng-model="exerciseName[weekday]" placeholder="{{ 'TUTORIAL_NAME' | translate }}">
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <input type="text" ng-model="exerciseLocation[weekday]" placeholder="Amalienstr. 17">
+                    <input type="text" ng-model="exerciseLocation[weekday]" placeholder="{{ 'LOCATION' | translate }}">
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <input type="time" ng-model="exerciseTime[weekday]" placeholder="14:00">
+                    <input type="time" ng-model="exerciseTime[weekday]" placeholder="{{ 'TIME' | translate }}">
                 </md-input-container>
 
                 <div layout="row" class="action-dialog-button">
-                    <md-button flex ng-click="addExercise(weekday)" class="md-primary">
-                        Erstellen
-                    </md-button>
+                    <md-button flex ng-click="addExercise(weekday)" class="md-primary" translate="CREATE"></md-button>
                 </div>
             </div>
         </div>
