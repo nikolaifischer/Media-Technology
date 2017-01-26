@@ -32,16 +32,19 @@
     <!--Angular Material Date/Time Picker-->
     <script type="text/javascript" src="libs/moment/moment.js"></script>
     <script type="text/javascript" src="libs/moment/locale/de.js"></script>
-    <script type="text/javascript" src="resources/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
+    <script type="text/javascript"
+            src="resources/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc3/angular-material.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.0-rc3/angular-material.min.css"
+          rel="stylesheet" type="text/css"/>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <!--German localization of calendar-->
-    <script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_de-de.js"></script>
+    <script type="text/javascript"
+            src=" https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_de-de.js"></script>
 
     <!-- textAngular -->
 
@@ -68,7 +71,7 @@
     <script src="js/controllers/HomeCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/controllers/AudioCtrl.js"></script>
-    <script src ="js/controllers/GroupCtrl.js"></script>
+    <script src="js/controllers/GroupCtrl.js"></script>
     <script src="js/controllers/admin/AdminCtrl.js"></script>
     <script src="js/controllers/admin/WhitelistCtrl.js"></script>
     <script src="js/controllers/admin/ExerciseCtrl.js"></script>
@@ -86,7 +89,8 @@
 <body ng-controller="MainController">
 
 <!-- START Side Navi - Only visible on mobile -->
-<md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop md-whiteframe="4">
+<md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
+            md-whiteframe="4">
 
     <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools" translate="MENU"></h1>
@@ -126,10 +130,21 @@
                     <span flex></span>
 
                     <!--Translation Switch-->
-                    <md-switch class="languageSwitch small md-primary" ng-model="translationLang" ng-change="changeLanguage()" ng-true-value="'Deutsch'" ng-false-value="'English'" md-no-ink>{{translationLang}}</md-switch>
+                    <span>
+                    <img aria-label="Switch to German" class="lang_changer" ng-if="translationLang=='English'"
+                         src="./resources/images/icons/german.png" ng-click="switchDe()">
+                    <img class="lang_changer" ng-if="translationLang=='Deutsch'"
+                         src="./resources/images/icons/english.png" ng-click="switchEn()">
+                                <md-tooltip md-direction="left">
+                                    {{'CHANGE_LANG' | translate}}
+                                </md-tooltip>
+                    </span>
+                    <!--md-switch class="languageSwitch small md-primary" ng-model="translationLang" ng-change="changeLanguage()" ng-true-value="'Deutsch'" ng-false-value="'English'" md-no-ink>{{translationLang}}</md-switch-->
 
                     <md-menu ng-if="currentUser">
-                        <md-button id="profile-button" class="md-fab md-mini" aria-label="{{ 'MY_PROFILE' | translate }}" ng-click="openProfileMenu($mdOpenMenu, $event)">
+                        <md-button id="profile-button" class="md-fab md-mini"
+                                   aria-label="{{ 'MY_PROFILE' | translate }}"
+                                   ng-click="openProfileMenu($mdOpenMenu, $event)">
                             <md-icon>person</md-icon>
                         </md-button>
                         <md-menu-content width="3">
@@ -137,10 +152,11 @@
                                 <md-button ng-href="/profile" translate="MY_PROFILE"></md-button>
                             </md-menu-item>
                             <md-menu-item>
-                                <md-button ng-click="logout()" ng-click="ctrl.checkVoicemail()" translate="LOGOUT"></md-button>
+                                <md-button ng-click="logout()" ng-click="ctrl.checkVoicemail()"
+                                           translate="LOGOUT"></md-button>
                             </md-menu-item>
                             <md-menu-divider ng-if=" currentUser && currentUser.isTutor"></md-menu-divider>
-                            <md-menu-item  ng-if="currentUser && currentUser.isTutor">
+                            <md-menu-item ng-if="currentUser && currentUser.isTutor">
                                 <md-button ng-href="/admin" translate="ADMIN_TOOLS"></md-button>
                             </md-menu-item>
                         </md-menu-content>

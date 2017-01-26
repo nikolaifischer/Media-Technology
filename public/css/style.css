@@ -209,3 +209,8 @@ md-switch.languageSwitch.md-checked .md-thumb {
     border-top: none;
     border-bottom: 1px solid #ddd;
 }
+
+.lang_changer {
+    width: 30px;
+    margin-right:15px;
+}
