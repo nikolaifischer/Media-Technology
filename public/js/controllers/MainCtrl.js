@@ -2,14 +2,16 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
 
     $scope.$root.hideNav = true;
     if (PlatformUser.isAuthenticated()) {
+        $scope.$root.hideNav = false;
         PlatformUser.getCurrent(function (currentUser) {
             $scope.currentUser = currentUser;
-            $scope.hideNav = false;
+            
 
 
         }, function (error) {
 
             console.log(error);
+            $scope.$root.hideNav = true;
 
         });
     }
