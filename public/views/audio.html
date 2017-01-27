@@ -25,8 +25,8 @@
         <div ng-repeat="object in objects">
             <div class="labDetails">
                 <md-input-container>
-                    <md-select ng-model="selectedPriority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="onChange()" ng-model-options="{trackBy: '$value.id'}">
-                        <md-option ng-value="prio" ng-repeat="priority in priorities">{{ priority.name }}</md-option>
+                    <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id">
+                        <md-option ng-value="priority.name" ng-repeat="priority in priorities">{{ priority.name }}</md-option>
                     </md-select>
                 </md-input-container><br>
                 {{ object.date.slice(11, 16) }} {{ 'HOURS' | translate }}<br>
@@ -70,7 +70,7 @@
 
     <div class="col-md-4 col-sm-12">
         <!--TODO: Filter für Prioritäten-->
-        {{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}<br>
+        <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}--> {{ prioMessage }}<br>
         <md-button ng-click="savePriorities()" class="md-raised md-primary" translate="SAVE"></md-button>
     </div>
 </div>

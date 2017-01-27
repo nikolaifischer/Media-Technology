@@ -1,5 +1,5 @@
 angular.module('AudioCtrl', [])
-    .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, $route, PlatformUser, Group, Lab, LabType, MaterialCalendarData, $window) {
+    .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, $route, PlatformUser, Group, Lab, LabType, Priority, MaterialCalendarData, $window) {
 
         $scope.currentUser;
         $scope.group;
@@ -9,6 +9,7 @@ angular.module('AudioCtrl', [])
         $scope.time = new Date();
         //$scope.dateTime = new Date();
         $scope.minDate = moment().subtract(1, 'month');
+        $scope.selectedPriority = [ ];
 
 
         /**
@@ -22,7 +23,6 @@ angular.module('AudioCtrl', [])
                 }
             }, function (audiolabs) {
                 $scope.auioLabType = audiolabs;
-                console.log(audiolabs);
                 // Find all Audio Labs
                 $scope.labs = Lab.find({
                     filter: {
@@ -38,10 +38,10 @@ angular.module('AudioCtrl', [])
                         groupedElements[date].push(element);
 
                         for(var i =0; i<groupedElements.length; i++){
-                            console.log(groupedElements[i]);
+                            //console.log(groupedElements[i]);
                         }
                     });
-                    console.log(JSON.stringify(groupedElements));
+                    //console.log(JSON.stringify(groupedElements));
 
 
                     Object.keys(groupedElements).forEach(function (date) {
@@ -72,15 +72,63 @@ angular.module('AudioCtrl', [])
                     for (var i = 0; i < groups.length; i++) {
                         if (groups[i].groupMemberIds.indexOf($scope.currentUser.id) > -1) {
                             $scope.group = groups[i];
+
+                            $scope.loadPriorities = function () {
+                                Priority.find({
+                                    filter: {
+                                        where: {groupId: $scope.group.id}
+                                    }
+                                }, function (prios) {
+                                    $scope.groupPriorities = prios;
+                                    $scope.priorities = [
+                                        {id: 0, name: '1'},
+                                        {id: 1, name: '2'},
+                                        {id: 2, name: '3'}
+                                    ];
+                                    for (var i = 0; i <= prios.length; i++ ) {
+                                        if(prios[i] != undefined) {
+                                            if (prios[i].priority == 1) {
+                                                for (var j = $scope.priorities.length - 1; j >= 0; j--) {
+                                                    if ($scope.priorities[j].name == '1') {
+                                                        $scope.priorities.splice(j, 1);
+                                                    }
+                                                }
+                                            } if (prios[i].priority == 2) {
+                                                for (var j = $scope.priorities.length - 1; j >= 0; j--) {
+                                                    if ($scope.priorities[j].name == '2') {
+                                                        $scope.priorities.splice(j, 1);
+                                                    } 
+                                                }
+                                            } if (prios[i].priority == 3) {
+                                                for (var j = $scope.priorities.length - 1; j >= 0; j--) {
+                                                    if ($scope.priorities[j].name == '3') {
+                                                        $scope.priorities.splice(j, 1);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    $scope.prioCount = 3;
+                                    $scope.prioCount -= $scope.groupPriorities.length;
+                                    if($scope.prioCount <= 0) {
+                                        $scope.prioMessage = "Deine Gruppe hat bereits alle Prioritäten vergeben."
+                                    } else {
+                                        $scope.prioMessage = "Ihr müsst noch " + $scope.prioCount + " Prioriotäten vergeben."
+                                    }
+                                });
+                            };
+
                         }
                     }
+                    $scope.loadPriorities();
                 }, function (error) {
                     //Error Callback
                     console.log(error);
                 });
-
             }, function (error) {
                 console.log(error);
+            }, function() {
+
             });
         }
 
@@ -110,7 +158,7 @@ angular.module('AudioCtrl', [])
 
             //Get lab details with clicked day key
             $scope.objects = (groupedElements[$scope.key] || []);
-            console.log(JSON.stringify($scope.objects));
+            //console.log(JSON.stringify($scope.objects));
 
         };
 
@@ -122,10 +170,8 @@ angular.module('AudioCtrl', [])
             filter: {
                 where: {isTutor: true}
             }
-        }, function (error) {
-            console.log(error);
         });
-        console.log($scope.tutors);
+        //console.log($scope.tutors);
 
         $scope.createLab = function () {
             Lab.create({
@@ -148,21 +194,37 @@ angular.module('AudioCtrl', [])
 
         };
 
-        $scope.priorities = [
-            {id: 0, name: '-'},
-            {id: 1, name: '1'},
-            {id: 2, name: '2'},
-            {id: 3, name: '3'}
-        ];
-        //$scope.selectedPriority = { id: 0, name: '-' };
-        //TODO savePriorities
-        $scope.savePriorities = function () {
-         console.log($scope.selectedPriority);
-         }
+        function remove(array, element) {
+            const index = array.indexOf(element);
 
-        $scope.onChange = function()
-        {
-            //trigerred on color change
-            console.info("value is "+ $scope.selectedPriority);
+            if (index !== -1) {
+                array.splice(index, 1);
+            }
         }
+
+
+
+        $scope.savePriorities = function () {
+            for (var i = 0; i < $scope.objects.length; i++) {
+                if ($scope.selectedPriority[i] != undefined) {
+                    if($scope.prioCount <= 0) {
+                        $scope.loadPriorities();
+                    } else {
+                        Priority.create({
+                            "priority": $scope.selectedPriority[i].priority,
+                            "groupId": $scope.group.id,
+                            "labId": $scope.selectedPriority[i].objectId,
+                        }, function (priority) {
+                            $scope.loadPriorities();
+                            console.log(priority);
+                            $scope.selectedPriority[i].priority = undefined;
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            }
+
+        };
+
     });
