@@ -2,6 +2,8 @@ angular.module('ExerciseCtrl', [])
     .controller('ExerciseController', function ($location, $scope, $filter, Semester, PlatformUser, Exercise, $mdToast, $mdPanel) {
 
         // TODO: das gleiche wie bei Semester (s. unten): Funktion wird überall gebraucht, kann man die auslagern?
+        // Niki: Vielleicht holen wir uns das einfach einmal im MainCtrl und schreiben es in den $rootScope?
+        // Das ist bestimmt auch gut für die Performance
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
@@ -159,18 +161,11 @@ angular.module('ExerciseCtrl', [])
 
                 exerciseToAttend.participantsUserIds.push($scope.currentUser.id);
 
-                Exercise.update({id: exerciseToAttend.id}, {participantsUserIds: exerciseToAttend.participantsUserIds}, {},
-                    function(error) {
-                        console.log(error);
-                    });
+                var parameters = {exerciseId:exerciseToAttend.id};
+                Exercise.enroll(parameters, function (err, success) {
+                    if(err) console.log(err);
+                });
 
-                /*Exercise.prototype$updateAttributes({id: exerciseToAttend.id}, {participantsUserIds: exerciseToAttend.participantsUserIds},
-                    function() {
-                        console.log("success");
-                    },
-                    function(error) {
-                        console.log(error);
-                    });*/
 
                 start.setDate(start.getDate() + 7);
             }

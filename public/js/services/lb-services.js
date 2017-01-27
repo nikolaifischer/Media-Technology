@@ -1502,6 +1502,60 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                             method: "GET",
                         },
 
+                        // INTERNAL. Use PlatformUser.exercise.findById() instead.
+                        "prototype$__findById__exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/:fk",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.destroyById() instead.
+                        "prototype$__destroyById__exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.updateById() instead.
+                        "prototype$__updateById__exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.link() instead.
+                        "prototype$__link__exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/rel/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.unlink() instead.
+                        "prototype$__unlink__exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/rel/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.exists() instead.
+                        "prototype$__exists__exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/rel/:fk",
+                            method: "HEAD",
+                        },
+
                         // INTERNAL. Use PlatformUser.group() instead.
                         "prototype$__get__group": {
                             url: urlBase + "/PlatformUsers/:id/group",
@@ -1696,6 +1750,31 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                          */
                         "prototype$__count__accessTokens": {
                             url: urlBase + "/PlatformUsers/:id/accessTokens/count",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise() instead.
+                        "prototype$__get__exercise": {
+                            isArray: true,
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.create() instead.
+                        "prototype$__create__exercise": {
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.destroyAll() instead.
+                        "prototype$__delete__exercise": {
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.count() instead.
+                        "prototype$__count__exercise": {
+                            url: urlBase + "/PlatformUsers/:id/exercise/count",
                             method: "GET",
                         },
 
@@ -2965,6 +3044,416 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                 R.semester = function() {
                     var TargetResource = $injector.get("Semester");
                     var action = TargetResource["::get::PlatformUser::semester"];
+                    return action.apply(R, arguments);
+                };
+                /**
+                 * @ngdoc object
+                 * @name lbServices.PlatformUser.exercise
+                 * @header lbServices.PlatformUser.exercise
+                 * @object
+                 * @description
+                 *
+                 * The object `PlatformUser.exercise` groups methods
+                 * manipulating `Exercise` instances related to `PlatformUser`.
+                 *
+                 * Call {@link lbServices.PlatformUser#exercise PlatformUser.exercise()}
+                 * to query all related instances.
+                 */
+
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser#exercise
+                 * @methodOf lbServices.PlatformUser
+                 *
+                 * @description
+                 *
+                 * Queries exercise of PlatformUser.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `filter` – `{object=}` -
+                 *
+                 * @param {function(Array.<Object>,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Array.<Object>} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::get::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#count
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Counts exercise of PlatformUser.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `where` – `{object=}` - Criteria to match model instances
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * Data properties:
+                 *
+                 *  - `count` – `{number=}` -
+                 */
+                R.exercise.count = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::count::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#create
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Creates a new instance in exercise of this model.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 * This method expects a subset of model properties as request parameters.
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise.create = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::create::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#createMany
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Creates a new instance in exercise of this model.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 * This method expects a subset of model properties as request parameters.
+                 *
+                 * @param {function(Array.<Object>,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Array.<Object>} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise.createMany = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::createMany::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#destroyAll
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Deletes all exercise of this model.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * This method returns no data.
+                 */
+                R.exercise.destroyAll = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::delete::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#destroyById
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Delete a related item by id for exercise.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for exercise
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * This method returns no data.
+                 */
+                R.exercise.destroyById = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::destroyById::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#exists
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Check the existence of exercise relation to an item by id.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for exercise
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise.exists = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::exists::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#findById
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Find a related item by id for exercise.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for exercise
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise.findById = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::findById::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#link
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Add a related item by id for exercise.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for exercise
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 * This method does not accept any data. Supply an empty object.
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise.link = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::link::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#unlink
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Remove the exercise relation to an item by id.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for exercise
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * This method returns no data.
+                 */
+                R.exercise.unlink = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::unlink::PlatformUser::exercise"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.exercise#updateById
+                 * @methodOf lbServices.PlatformUser.exercise
+                 *
+                 * @description
+                 *
+                 * Update a related item by id for exercise.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - User id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for exercise
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 * This method expects a subset of model properties as request parameters.
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Exercise` object.)
+                 * </em>
+                 */
+                R.exercise.updateById = function() {
+                    var TargetResource = $injector.get("Exercise");
+                    var action = TargetResource["::updateById::PlatformUser::exercise"];
                     return action.apply(R, arguments);
                 };
 
@@ -5767,6 +6256,131 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                             url: urlBase + "/Exercises/change-stream",
                             method: "POST",
                         },
+
+                        /**
+                         * @ngdoc method
+                         * @name lbServices.Exercise#enroll
+                         * @methodOf lbServices.Exercise
+                         *
+                         * @description
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.)
+                         * </em>
+                         *
+                         * @param {Object=} parameters Request parameters.
+                         *
+                         *   This method does not accept any parameters.
+                         *   Supply an empty object or omit this argument altogether.
+                         *
+                         * @param {Object} postData Request data.
+                         *
+                         *  - `exerciseId` – `{string=}` -
+                         *
+                         * @param {function(Object,Object)=} successCb
+                         *   Success callback with two arguments: `value`, `responseHeaders`.
+                         *
+                         * @param {function(Object)=} errorCb Error callback with one argument:
+                         *   `httpResponse`.
+                         *
+                         * @returns {Object} An empty reference that will be
+                         *   populated with the actual data once the response is returned
+                         *   from the server.
+                         *
+                         * Data properties:
+                         *
+                         *  - `exercise` – `{object=}` -
+                         */
+                        "enroll": {
+                            url: urlBase + "/Exercises/enroll",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.findById() instead.
+                        "::findById::PlatformUser::exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/:fk",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.destroyById() instead.
+                        "::destroyById::PlatformUser::exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.updateById() instead.
+                        "::updateById::PlatformUser::exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.link() instead.
+                        "::link::PlatformUser::exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/rel/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.unlink() instead.
+                        "::unlink::PlatformUser::exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/rel/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.exists() instead.
+                        "::exists::PlatformUser::exercise": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/exercise/rel/:fk",
+                            method: "HEAD",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise() instead.
+                        "::get::PlatformUser::exercise": {
+                            isArray: true,
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.create() instead.
+                        "::create::PlatformUser::exercise": {
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.createMany() instead.
+                        "::createMany::PlatformUser::exercise": {
+                            isArray: true,
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.destroyAll() instead.
+                        "::delete::PlatformUser::exercise": {
+                            url: urlBase + "/PlatformUsers/:id/exercise",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.exercise.count() instead.
+                        "::count::PlatformUser::exercise": {
+                            url: urlBase + "/PlatformUsers/:id/exercise/count",
+                            method: "GET",
+                        },
                     }
                 );
 
@@ -7305,6 +7919,45 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                          */
                         "createByMail": {
                             url: urlBase + "/Groups/createByMail",
+                            method: "POST",
+                        },
+
+                        /**
+                         * @ngdoc method
+                         * @name lbServices.Group#randomJoin
+                         * @methodOf lbServices.Group
+                         *
+                         * @description
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.)
+                         * </em>
+                         *
+                         * @param {Object=} parameters Request parameters.
+                         *
+                         *   This method does not accept any parameters.
+                         *   Supply an empty object or omit this argument altogether.
+                         *
+                         * @param {Object} postData Request data.
+                         *
+                         * This method does not accept any data. Supply an empty object.
+                         *
+                         * @param {function(Object,Object)=} successCb
+                         *   Success callback with two arguments: `value`, `responseHeaders`.
+                         *
+                         * @param {function(Object)=} errorCb Error callback with one argument:
+                         *   `httpResponse`.
+                         *
+                         * @returns {Object} An empty reference that will be
+                         *   populated with the actual data once the response is returned
+                         *   from the server.
+                         *
+                         * Data properties:
+                         *
+                         *  - `group` – `{object=}` -
+                         */
+                        "randomJoin": {
+                            url: urlBase + "/Groups/randomJoin",
                             method: "POST",
                         },
 
