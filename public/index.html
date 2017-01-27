@@ -106,7 +106,7 @@
         <br>
         <md-button ng-click="toggleLeft()" href="/photo" name="photo" translate="PHOTO_PROJECT"></md-button>
         <br>
-        <md-button ng-click="toggleLeft()" href="/exercise" name="exercise" translate="TUTORIALS"></md-button>
+        <md-button ng-click="toggleLeft()" href="/exercises" name="exercises" translate="TUTORIALS"></md-button>
         <br>
         <md-button ng-click="toggleLeft()" class="md-accent">
             x
@@ -132,13 +132,13 @@
 
                     <!--Translation Switch-->
                     <span>
-                    <img aria-label="Switch to German" class="lang_changer" ng-if="translationLang=='English'"
-                         src="./resources/images/icons/german.png" ng-click="switchDe()">
-                    <img class="lang_changer" ng-if="translationLang=='Deutsch'"
-                         src="./resources/images/icons/english.png" ng-click="switchEn()">
-                                <md-tooltip md-direction="left">
-                                    {{'CHANGE_LANG' | translate}}
-                                </md-tooltip>
+                        <img aria-label="Switch to German" class="lang_changer" ng-if="translationLang=='English'"
+                             src="./resources/images/icons/german.png" ng-click="switchDe()">
+                        <img class="lang_changer" ng-if="translationLang=='Deutsch'"
+                             src="./resources/images/icons/english.png" ng-click="switchEn()">
+                        <md-tooltip md-direction="left">
+                            {{'CHANGE_LANG' | translate}}
+                        </md-tooltip>
                     </span>
                     <!--md-switch class="languageSwitch small md-primary" ng-model="translationLang" ng-change="changeLanguage()" ng-true-value="'Deutsch'" ng-false-value="'English'" md-no-ink>{{translationLang}}</md-switch-->
 
@@ -176,7 +176,7 @@
                 <md-nav-item md-nav-href="audio" name="audio">{{ 'AUDIO_PROJECT' | translate }}</md-nav-item>
                 <md-nav-item md-nav-href="video" name="video">{{ 'VIDEO_PROJECT' | translate }}</md-nav-item>
                 <md-nav-item md-nav-href="photo" name="photo">{{ 'PHOTO_PROJECT' | translate }}</md-nav-item>
-                <md-nav-item md-nav-href="exercise" name="exercise">{{ 'TUTORIALS' | translate }}</md-nav-item>
+                <md-nav-item md-nav-href="exercises" name="exercises">{{ 'TUTORIALS' | translate }}</md-nav-item>
             </md-nav-bar>
         </div>
     </div>

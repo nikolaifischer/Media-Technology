@@ -63,5 +63,7 @@
   "SEARCH": "Durchsuchen",
   "DELETE": "Löschen",
   "BACK": "Zurück",
-  "CHANGE_LANG": "Change to English"
+  "CHANGE_LANG": "Change to English",
+  "ATTEND_EXERCISE": "Übung beitreten",
+  "LEAVE_EXERCISE": "Übung verlassen"
 }

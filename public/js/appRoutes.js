@@ -23,6 +23,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/audio.html',
             controller: 'AudioController'
         })
+        .when('/exercises', {
+            templateUrl: 'views/exercises.html',
+            controller: 'ExerciseController'
+        })
         .when('/admin', {
             templateUrl: 'views/admin/admin.html',
             controller: 'AdminController'

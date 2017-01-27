@@ -1,6 +1,15 @@
 angular.module('ExerciseCtrl', [])
     .controller('ExerciseController', function ($location, $scope, $filter, Semester, PlatformUser, Exercise, $mdToast, $mdPanel) {
 
+        // TODO: das gleiche wie bei Semester (s. unten): Funktion wird überall gebraucht, kann man die auslagern?
+        if (PlatformUser.isAuthenticated()) {
+            PlatformUser.getCurrent(function (current) {
+                $scope.currentUser = current;
+            }, function (error) {
+                console.log(error);
+            });
+        }
+
         // TODO: diese Funktion wird bestimmt an vers. Stellen gebraucht, kann man die irgendwohin auslagern? Vll. in einen CommonFunctionsController oder so?
         $scope.getCurrentSemester = function() {
             var currDate = new Date();
@@ -17,13 +26,15 @@ angular.module('ExerciseCtrl', [])
             })
         };
 
-
+        // TODO: zukünftig sollte es Samstag und Sonntag nicht geben
         $scope.weekSchedules = {
             "Montag": [],
             "Dienstag": [],
             "Mittwoch": [],
             "Donnerstag": [],
-            "Freitag": []
+            "Freitag": [],
+            "Samstag": [],
+            "Sonntag": []
         };
 
         $scope.semester = $scope.getCurrentSemester();
@@ -41,6 +52,9 @@ angular.module('ExerciseCtrl', [])
                 var daytime = $filter('date')(dateObj, 'HH:mm');
                 var endtime = dateObj.setTime(dateObj.getTime() + (1.5*60*60*1000));
                 var lectureEnd = $filter('date')(endtime, 'HH:mm');
+                var currentUserParticipates = (exercise.participantsUserIds.filter(function(e) {
+                   return e == $scope.currentUser.id;
+                }).length > 0);
 
                 if ($scope.weekSchedules[weekday].length <= 0 || $scope.weekSchedules[weekday].filter(function(e) { return e.daytime == daytime; }).length <= 0) {
                     // add exercise to weekSchedules, if it's not in there already
@@ -48,11 +62,16 @@ angular.module('ExerciseCtrl', [])
                         name: exercise.name,
                         location: exercise.location,
                         daytime: daytime,
-                        lectureEnd: lectureEnd
+                        lectureEnd: lectureEnd,
+                        currentUserParticipates: currentUserParticipates
                     };
                     $scope.weekSchedules[weekday].push(exerciseForTemplate);
                 }
             });
+
+            // TODO: sollte zukünftig nicht mehr nötig sein
+            delete $scope.weekSchedules.Samstag;
+            delete $scope.weekSchedules.Sonntag;
         }, function (error) {
             console.log(error);
         });
@@ -102,6 +121,7 @@ angular.module('ExerciseCtrl', [])
                 // save current start date because it gets faster updated than the exercise created...
                 var exerciseDate = new Date(start).toISOString();
 
+                // TODO: filter auf $scope.exercises verwenden
                 Exercise.find({
                     filter: {
                         where: {date: exerciseDate}
@@ -117,6 +137,47 @@ angular.module('ExerciseCtrl', [])
 
                 start.setDate(start.getDate() + 7);
             }
+        };
+
+        $scope.attendExercise = function(weekday, index) {
+            $scope.weekSchedules[weekday][index].currentUserParticipates = true;
+
+            var exercise = $scope.weekSchedules[weekday][index],
+                end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
+                start = getExerciseStartDate(weekday),
+                hours = exercise.daytime.split(":")[0],
+                minutes = exercise.daytime.split(":")[1];
+
+            start.setHours(hours, minutes, 0, 0);
+
+            while(start <= end){
+                var exerciseDate = new Date(start).toISOString();
+
+                var exerciseToAttend = $scope.exercises.filter(function(e) {
+                    return e.date == exerciseDate;
+                })[0];
+
+                exerciseToAttend.participantsUserIds.push($scope.currentUser.id);
+
+                Exercise.update({id: exerciseToAttend.id}, {participantsUserIds: exerciseToAttend.participantsUserIds}, {},
+                    function(error) {
+                        console.log(error);
+                    });
+
+                /*Exercise.prototype$updateAttributes({id: exerciseToAttend.id}, {participantsUserIds: exerciseToAttend.participantsUserIds},
+                    function() {
+                        console.log("success");
+                    },
+                    function(error) {
+                        console.log(error);
+                    });*/
+
+                start.setDate(start.getDate() + 7);
+            }
+        };
+
+        $scope.leaveExercise = function(weekday, index) {
+            $scope.weekSchedules[weekday][index].currentUserParticipates = false;
         };
 
     })

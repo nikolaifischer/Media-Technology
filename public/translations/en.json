@@ -68,5 +68,7 @@
   "SEARCH": "Search",
   "DELETE": "Delete",
   "BACK": "Back",
-  "CHANGE_LANG": "Auf Deutsch übersetzen"
+  "CHANGE_LANG": "Auf Deutsch übersetzen",
+  "ATTEND_EXERCISE": "Attend tutorial",
+  "LEAVE_EXERCISE": "Leave tutorial"
 }

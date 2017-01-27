@@ -1,0 +1,38 @@
+<div class="jumbotron adminExercise" ng-controller="ExerciseController">
+    <h2 class="site_headline" translate="TUTORIAL_MGT"></h2>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div layout-gt-sm="row" layout="column" class="ng-scope layout-gt-sm-row layout-column">
+                <div flex-gt-sm="50" flex="" class="flex-gt-sm-50 flex" ng-repeat="(weekday,exercises) in weekSchedules">
+                    <md-toolbar layout="row" class="_md layout-row _md-toolbar-transitions">
+                        <div class="md-toolbar-tools">
+                            <span translate="{{weekday}}"></span>
+                        </div>
+                    </md-toolbar>
+
+                    <md-content class="_md">
+                        <md-list>
+                            <md-list-item class="md-3-line" ng-repeat-start="exercise in exercises">
+                                <div class="md-list-item-text">
+                                    <h3>{{exercise.name}}</h3>
+                                    <span>{{exercise.location}}</span><br>
+                                    <span>{{exercise.daytime}} - {{exercise.lectureEnd}}</span>
+                                    <md-button ng-if="exercise.currentUserParticipates" ng-click="leaveExercise(weekday, $index)" class="md-icon-button">
+                                        <md-icon class="md-accent">directions_run</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'LEAVE_EXERCISE' | translate }}</md-tooltip>
+                                    </md-button>
+                                    <md-button ng-if="!exercise.currentUserParticipates" ng-click="attendExercise(weekday, $index)" class="md-icon-button">
+                                        <md-icon class="md-primary">group_add</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'ATTEND_EXERCISE' | translate }}</md-tooltip>
+                                    </md-button>
+                                </div>
+                            </md-list-item>
+                            <md-divider ng-repeat-end></md-divider>
+                        </md-list>
+                    </md-content>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
