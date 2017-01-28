@@ -59,7 +59,7 @@
         <md-input-container flex-gt-md="30">
             <input type="text" ng-model="location" placeholder="{{ 'LOCATION' | translate }}">
         </md-input-container>
-        <md-input-container flex-gt-md="30">
+        <md-input-container flex-gt-md="30" style="margin-top: -6px;">
             <md-select ng-model="selectedTutor" placeholder="{{ 'TUTOR' | translate }}" ng-model-options="{trackBy: '$value.id'}">
                 <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>
             </md-select>
