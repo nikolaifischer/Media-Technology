@@ -47,4 +47,13 @@ angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', funct
 
         })
     }
+
+    $scope.randomJoin = function() {
+        Group.randomJoin( function(myGroup) {
+            $window.location.href = '/';
+
+        }, function(err) {
+            console.log(err);
+        });
+    }
 });

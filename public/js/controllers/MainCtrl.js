@@ -1,11 +1,10 @@
-angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate) {
+angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate, Semester) {
 
     $scope.$root.hideNav = true;
     if (PlatformUser.isAuthenticated()) {
         $scope.$root.hideNav = false;
         PlatformUser.getCurrent(function (currentUser) {
             $scope.currentUser = currentUser;
-            
 
 
         }, function (error) {
@@ -20,6 +19,26 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
             $location.path("/login");
         }
     }
+
+    // Get the Semester:
+    $scope.getCurrentSemester = function() {
+        var currDate = new Date();
+
+        return Semester.findOne({
+            filter: {
+                where: {
+                    and: [
+                        {start_date: {lt: currDate}},
+                        {end_date: {gt: currDate}}
+                    ]
+                }
+            }
+        })
+    };
+
+    $scope.semester = $scope.getCurrentSemester();
+
+    Semester.find({where:{}})
 
     // Controls the side navigation
     $scope.toggleLeft = buildToggler('left');

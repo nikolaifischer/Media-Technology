@@ -1,9 +1,7 @@
 angular.module('ExerciseCtrl', [])
     .controller('ExerciseController', function ($location, $scope, $filter, Semester, PlatformUser, Exercise, $mdToast, $mdPanel) {
 
-        // TODO: das gleiche wie bei Semester (s. unten): Funktion wird überall gebraucht, kann man die auslagern?
-        // Niki: Vielleicht holen wir uns das einfach einmal im MainCtrl und schreiben es in den $rootScope?
-        // Das ist bestimmt auch gut für die Performance
+
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
@@ -12,21 +10,6 @@ angular.module('ExerciseCtrl', [])
             });
         }
 
-        // TODO: diese Funktion wird bestimmt an vers. Stellen gebraucht, kann man die irgendwohin auslagern? Vll. in einen CommonFunctionsController oder so?
-        $scope.getCurrentSemester = function() {
-            var currDate = new Date();
-
-            return Semester.findOne({
-                filter: {
-                    where: {
-                        and: [
-                            {start_date: {lt: currDate}},
-                            {end_date: {gt: currDate}}
-                        ]
-                    }
-                }
-            })
-        };
 
         // TODO: zukünftig sollte es Samstag und Sonntag nicht geben
         $scope.weekSchedules = {
@@ -38,8 +21,6 @@ angular.module('ExerciseCtrl', [])
             "Samstag": [],
             "Sonntag": []
         };
-
-        $scope.semester = $scope.getCurrentSemester();
 
         // Get all exercises of current semester from db
         $scope.exercises = Exercise.find({
@@ -173,6 +154,9 @@ angular.module('ExerciseCtrl', [])
 
         $scope.leaveExercise = function(weekday, index) {
             $scope.weekSchedules[weekday][index].currentUserParticipates = false;
+            //var parameters = {exerciseId:exerciseToAttend.id};
+            // Exercise.disenroll(parameters, function (err, success) { ...
+
         };
 
     })

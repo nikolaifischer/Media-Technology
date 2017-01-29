@@ -65,5 +65,14 @@
   "BACK": "Zurück",
   "CHANGE_LANG": "Change to English",
   "ATTEND_EXERCISE": "Übung beitreten",
-  "LEAVE_EXERCISE": "Übung verlassen"
+  "LEAVE_EXERCISE": "Übung verlassen",
+  "TUTORIAL_GROUP_TEXT_1": "Um an Praktika teilnehmen zu können musst du einer Gruppe angehören.",
+  "TUTORIAL_GROUP_TEXT_2": "Hier hast du die Möglichkeit mit Kommilitonen eine Gruppe zu erstellen oder  einer zufälligen Gruppe beizutreten.",
+  "CREATE_GROUP": "Gruppe erstellen",
+  "JOIN_RANDOM_GROUP":"Zufälliger Gruppe beitreten",
+  "RANDOM_GROUP_TEXT_1":"Dir ist es egal, mit wem du in einer Gruppe bist?",
+  "RANDOM_GROUP_TEXT_2":"Klicke hier um einer zufälligen Gruppe beizutreten.",
+  "JOIN":"Beitreten"
+
+
 }

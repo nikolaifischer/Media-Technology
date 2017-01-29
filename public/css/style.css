@@ -214,3 +214,6 @@ md-switch.languageSwitch.md-checked .md-thumb {
     width: 30px;
     margin-right:15px;
 }
+md-dialog{
+    position: fixed !important;
+}

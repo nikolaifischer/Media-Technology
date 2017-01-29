@@ -70,5 +70,12 @@
   "BACK": "Back",
   "CHANGE_LANG": "Auf Deutsch übersetzen",
   "ATTEND_EXERCISE": "Attend tutorial",
-  "LEAVE_EXERCISE": "Leave tutorial"
+  "LEAVE_EXERCISE": "Leave tutorial",
+  "TUTORIAL_GROUP_TEXT_1": "To participate in Labs you have to be part of a group.",
+  "TUTORIAL_GROUP_TEXT_2": "Here you can create a new group with your fellow students or join a random group.",
+  "CREATE_GROUP": "Create Group",
+  "JOIN_RANDOM_GROUP":"Join random Group",
+  "RANDOM_GROUP_TEXT_1":"You don't care who is part of your group?",
+  "RANDOM_GROUP_TEXT_2":"Click here to join a random group.",
+  "JOIN":"Join"
 }
