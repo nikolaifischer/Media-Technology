@@ -72,7 +72,8 @@
   "JOIN_RANDOM_GROUP":"Zufälliger Gruppe beitreten",
   "RANDOM_GROUP_TEXT_1":"Dir ist es egal, mit wem du in einer Gruppe bist?",
   "RANDOM_GROUP_TEXT_2":"Klicke hier um einer zufälligen Gruppe beizutreten.",
-  "JOIN":"Beitreten"
+  "JOIN":"Beitreten",
+  "WRONG_CAPTCHA":"Bitte löse das Captcha um dich einzuloggen."
 
 
 }

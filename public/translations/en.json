@@ -77,5 +77,6 @@
   "JOIN_RANDOM_GROUP":"Join random Group",
   "RANDOM_GROUP_TEXT_1":"You don't care who is part of your group?",
   "RANDOM_GROUP_TEXT_2":"Click here to join a random group.",
-  "JOIN":"Join"
+  "JOIN":"Join",
+  "WRONG_CAPTCHA":"Please solve the captcha to log in."
 }
