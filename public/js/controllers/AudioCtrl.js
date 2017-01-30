@@ -152,16 +152,31 @@ angular.module('AudioCtrl', [])
             //Get lab details with clicked day key
             $scope.objects = (groupedElements[$scope.key] || []);
 
-            for(var i =0; i<$scope.objects.length; i++) {
-                //TODO: Find Tutor with labID
-                /*PlatformUser.find({
-                    filter: {
+            for(let i =0; i<$scope.objects.length; i++) {
 
-                        where: {tutorLabIds: {inq: $scope.objects[i].id}}
+                var dateObj = new Date($scope.objects[i].date);
+                var endtime = dateObj.setTime(dateObj.getTime() + ($scope.objects[i].duration*60*1000));
+                var lectureEnd = $filter('date')(endtime, 'HH:mm');
+                $scope.objects[i].end = lectureEnd;
+
+                //TODO: Find Tutor with labID
+                PlatformUser.find({
+                    /*filter: {
+                        where: {isTutor: true}
+                    }*/
+                }, function (tutors) {
+
+                    for (var j = 0; j < tutors.length; j++) {
+                        var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
+                            return elm == $scope.objects[i].id
+                        });
+                        if (matchingElements.length > 0) {
+                            $scope.objects[i].tutorName = tutors[j].name;
+                            $scope.objects[i].tutorFirstName = tutors[j].first_name;
+                        }
                     }
-                }, function (tutor) {
-                    console.log(tutor);
-                });*/
+
+                });
             }
 //console.log(JSON.stringify($scope.objects));
 
@@ -191,8 +206,6 @@ angular.module('AudioCtrl', [])
                     }
                 }, function (tutor) {
                     tutor[0].tutorLabIds.push(lab.id);
-                    console.log(tutor[0]);
-
                 });
                 $scope.successMessage = "Praktikum wurde erstellt!";
 
@@ -230,7 +243,9 @@ angular.module('AudioCtrl', [])
                             }
                         }, function (prios) {
                             if(prios.length > 0) {
-                                Priority.update({ priority: $scope.selectedPriority[i].priority }, { "labId": $scope.selectedPriority[i].objectId }, function(err, info) {
+                                //TODO Error 500 Internal Server Error
+                                console.log(prios[0].id);
+                                Priority.updateAll({ "id": prios[0].id }, { "labId": $scope.selectedPriority[i].objectId }, function(err) {
                                     console.log(err);
                                 });
                                 console.log("update");

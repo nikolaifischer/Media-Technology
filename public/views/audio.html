@@ -30,9 +30,9 @@
                         <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                     </md-select>
                 </md-input-container><br>
-                {{ object.date.slice(11, 16) }} {{ 'HOURS' | translate }}<br>
-                {{ object.duration }} {{ 'MINUTES' | translate }}<br>
-                {{ object.location }}
+                {{ object.date.slice(11, 16) }} - {{ object.end }} {{ 'HOURS' | translate }}<br>
+                {{ object.location }}<br>
+                {{ object.tutorFirstName }} {{ object.tutorName }}
             </div>
             <hl></hl>
             <!--<div ng-repeat="(key, value) in object">
