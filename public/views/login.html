@@ -12,21 +12,30 @@
 
                 <md-card-content>
                     <md-input-container class="md-block">
-                        <input type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="registeredUser.email" ng-required="true">
+                        <input type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="registeredUser.email"
+                               ng-required="true">
                     </md-input-container>
                     <md-input-container class="md-block" md-no-float="">
                         <label translate="PASSWORD"></label>
-                        <input type="password" placeholder="{{ 'PASSWORD' | translate }}" ng-model="registeredUser.password">
-                        <div ng-messages="wrongLogin">
+                        <input type="password" placeholder="{{ 'PASSWORD' | translate }}"
+                               ng-model="registeredUser.password">
+                        <div style="padding-top: 20px; text-align: center;" ng-if="wrongLogin||wrongCaptcha"
+                             ng-messages="wrongLogin">
                             <span ng-show="wrongLogin" translate="WRONG_LOGIN_DATA"></span>
+                            <span ng-show="wrongCaptcha"> {{'WRONG_CAPTCHA' | translate }}</span>
                         </div>
                     </md-input-container>
+
+                    <div style="margin-left:auto; margin-right:auto; margin-bottom:20px; width:300px;" class="g-recaptcha"
+                         data-sitekey="6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q" data-callback="recaptcha"></div>
                 </md-card-content>
+
 
                 <md-button class="md-raised md-primary" ng-click="login()" translate="LOGIN"></md-button>
 
                 <md-card-content>
-                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">{{ 'NEW_USER' | translate }}</md-button>
+                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">{{ 'NEW_USER' | translate }}
+                    </md-button>
                 </md-card-content>
             </md-card>
 
@@ -39,7 +48,8 @@
 
                 <md-card-content>
                     <md-input-container class="md-block">
-                        <input ng-required="true" type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="user.email" ng-required="true">
+                        <input ng-required="true" type="email" placeholder="{{ 'EMAIL' | translate }}"
+                               ng-model="user.email" ng-required="true">
                         <div ng-messages="whitelisted">
                             <span ng-show="!whitelisted" translate="EMAIL_NOT_WHITELISTED"></span>
                         </div>
@@ -47,19 +57,23 @@
 
                     <md-input-container class="md-block" md-no-float="">
                         <label translate="PASSWORD"></label>
-                        <input ng-required="true" type="password" placeholder="{{ 'PASSWORD' | translate }}" ng-model="user.password">
+                        <input ng-required="true" type="password" placeholder="{{ 'PASSWORD' | translate }}"
+                               ng-model="user.password">
                     </md-input-container>
 
                     <md-input-container class="md-icon-float md-icon-right md-block">
                         <label translate="REPEAT_PASSWORD"></label>
-                        <input ng-required="true" type="password" step="0.01" ng-model="user.repeatpassword" placeholder="{{ 'REPEAT_PASSWORD' | translate }}">
+                        <input ng-required="true" type="password" step="0.01" ng-model="user.repeatpassword"
+                               placeholder="{{ 'REPEAT_PASSWORD' | translate }}">
                     </md-input-container>
                 </md-card-content>
 
                 <md-button class="md-raised md-primary" ng-click="register()" translate="REGISTER"></md-button>
 
                 <md-card-content>
-                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">{{ 'BACK_TO_LOGIN' | translate }}</md-button>
+                    <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">{{ 'BACK_TO_LOGIN' | translate
+                        }}
+                    </md-button>
                 </md-card-content>
             </md-card>
         </div>
@@ -67,3 +81,4 @@
     </div>
     <div class="row" id="loginSpacer"></div>
 </div>
+
