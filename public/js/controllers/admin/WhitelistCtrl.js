@@ -174,14 +174,10 @@ angular.module('WhitelistCtrl', [])
 
         $scope.saveEdit = function ($event, user) {
 
-            console.log(user);
+            PendingPlatformUser.prototype$updateAttributes({ id: user.id }, user);
 
-            PendingPlatformUser.prototype$updateAttributes(
-                {id:    user.id},
-                {first_name: user.Vorname},
-                {name: user.Nachname},
-                {email: user.email}
-            );
+
+
             $mdToast.show(
                 $mdToast.simple()
                     .textContent('Eintrag gespeichert')
