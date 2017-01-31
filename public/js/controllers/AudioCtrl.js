@@ -9,11 +9,9 @@ angular.module('AudioCtrl', [])
         $scope.time = new Date();
         //$scope.dateTime = new Date();
         $scope.minDate = moment().subtract(1, 'month');
-        $scope.selectedPriority = [ ];
+        $scope.selectedPriority = [];
 
-        /**
-         * Loads the labs from the DB and displays them on the calendar.
-         */
+        /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
             //Get Audio LabType
             $scope.audiolabs = LabType.find({
@@ -30,35 +28,50 @@ angular.module('AudioCtrl', [])
                 }, function (labs) {
                     //Get format for calendar
                     labs.forEach(function (element) {
-                        var date = element.date.slice(0, 10);
-                        if (groupedElements[date] === undefined) {
-                            groupedElements[date] = [];
-                        }
-                        groupedElements[date].push(element);
+                            var dateObj = new Date(element.date);
+                            var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
+                            element.end = $filter('date')(endtime, 'HH:mm');
 
-                        for(var i =0; i<groupedElements.length; i++){
-                            //console.log(groupedElements[i]);
-                        }
+                            //Get Tutor for each lab
+                            PlatformUser.find({
+                                //TODO: Filter Users to tutors
+                                /*filter: {
+                                    where: {isTutor: true}
+                                }*/
+                            }, function (tutors) {
+                                for (var j = 0; j < tutors.length; j++) {
+                                    var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
+                                        return elm == element.id
+                                    });
+                                    if (matchingElements.length > 0) {
+                                        element.tutorName = tutors[j].name;
+                                        element.tutorFirstName = tutors[j].first_name;
+                                    }
+                                }
+                                //get end time from start time and duration
+                                var date = element.date.slice(0, 10);
+                                if (groupedElements[date] === undefined) {
+                                    groupedElements[date] = [];
+                                }
+                                groupedElements[date].push(element);
+
+                                //Write Labs in calendar
+                                Object.keys(groupedElements).forEach(function (date) {
+                                    MaterialCalendarData.setDayContent(new Date(date)," Termine verfügbar ");
+                                });
+
+                                return groupedElements;
+                            });
                     });
-                    //console.log(JSON.stringify(groupedElements));
-
-
-                    Object.keys(groupedElements).forEach(function (date) {
-                        MaterialCalendarData.setDayContent(new Date(date)," Termine verfügbar ");
-                    });
-                    return groupedElements;
-
                 }, function (error) {
                     console.log(error);
                 });
-
-
             });
-
         };
 
         $scope.loadLabs();
 
+        /****Loads the current group and actualizes saved priorities****/
         // Get current User
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
@@ -69,7 +82,7 @@ angular.module('AudioCtrl', [])
                     for (var i = 0; i < groups.length; i++) {
                         if (groups[i].groupMemberIds.indexOf($scope.currentUser.id) > -1) {
                             $scope.group = groups[i];
-
+                            //Get saved priorities for group
                             $scope.loadPriorities = function () {
                                 Priority.find({
                                     filter: {
@@ -78,29 +91,7 @@ angular.module('AudioCtrl', [])
                                 }, function (prios) {
                                     $scope.groupPriorities = prios;
                                     $scope.priorities = [1, 2, 3];
-                                    /*for (var i = 0; i <= prios.length; i++ ) {
-                                        if(prios[i] != undefined) {
-                                            if (prios[i].priority == 1) {
-                                                for (var j = $scope.priorities.length - 1; j >= 0; j--) {
-                                                    if ($scope.priorities[j] == '1') {
-                                                        $scope.priorities.splice(j, 1);
-                                                    }
-                                                }
-                                            } if (prios[i].priority == 2) {
-                                                for (var j = $scope.priorities.length - 1; j >= 0; j--) {
-                                                    if ($scope.priorities[j] == '2') {
-                                                        $scope.priorities.splice(j, 1);
-                                                    } 
-                                                }
-                                            } if (prios[i].priority == 3) {
-                                                for (var j = $scope.priorities.length - 1; j >= 0; j--) {
-                                                    if ($scope.priorities[j] == '3') {
-                                                        $scope.priorities.splice(j, 1);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }*/
+                                    //Check if group already saved 3 priorities
                                     $scope.prioCount = 3;
                                     $scope.prioCount -= $scope.groupPriorities.length;
                                     if($scope.prioCount <= 0) {
@@ -115,84 +106,45 @@ angular.module('AudioCtrl', [])
                     }
                     $scope.loadPriorities();
                 }, function (error) {
-                    //Error Callback
                     console.log(error);
                 });
             }, function (error) {
                 console.log(error);
-            }, function() {
-
             });
         }
 
 
-
-
-
-        // CALENDAR CODE
+        /****Calendar Code****/
         $scope.dayFormat = "d";
-
-        // To select a single date, make sure the ngModel is not an array.
         $scope.selectedDate = null;
-
-        // If you want multi-date select, initialize it as an array.
         $scope.selectedDate = false;
-
-        $scope.firstDayOfWeek = 1; // First day of the week, 0 for Sunday, 1 for Monday, etc.
+        $scope.tooltips = true;
+        $scope.firstDayOfWeek = 1;
         $scope.setDirection = function (direction) {
             $scope.direction = direction;
             $scope.dayFormat = direction === "vertical" ? "EEEE, MMMM d" : "d";
         };
 
+        //Get all lab details on clicked day
         $scope.dayClick = function (date) {
-            //Get Selected Date
             $scope.clickedDay = $filter("date")(date, "EEEE, d. MMMM y");
             $scope.key = $filter("date")(date, "yyyy-MM-dd");
 
-            //Get lab details with clicked day key
             $scope.objects = (groupedElements[$scope.key] || []);
-
-            for(let i =0; i<$scope.objects.length; i++) {
-
-                var dateObj = new Date($scope.objects[i].date);
-                var endtime = dateObj.setTime(dateObj.getTime() + ($scope.objects[i].duration*60*1000));
-                var lectureEnd = $filter('date')(endtime, 'HH:mm');
-                $scope.objects[i].end = lectureEnd;
-
-                //TODO: Find Tutor with labID
-                PlatformUser.find({
-                    /*filter: {
-                        where: {isTutor: true}
-                    }*/
-                }, function (tutors) {
-
-                    for (var j = 0; j < tutors.length; j++) {
-                        var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
-                            return elm == $scope.objects[i].id
-                        });
-                        if (matchingElements.length > 0) {
-                            $scope.objects[i].tutorName = tutors[j].name;
-                            $scope.objects[i].tutorFirstName = tutors[j].first_name;
-                        }
-                    }
-
-                });
-            }
-//console.log(JSON.stringify($scope.objects));
-
         };
 
 
-        $scope.tooltips = true;
 
-        //Get all Tutors
+        /****Get all Tutors****/
+        //Can be deleted if in loadLabs filtered
         $scope.tutors = PlatformUser.find({
             filter: {
                 where: {isTutor: true}
             }
         });
-        //console.log($scope.tutors);
 
+
+        /****Create Lab in database from user input****/
         $scope.createLab = function () {
             Lab.create({
                 "date": $scope.dateTime,
@@ -200,12 +152,14 @@ angular.module('AudioCtrl', [])
                 "location": $scope.location,
                 "labTypeId": $scope.audiolabs.id
             }, function (lab) {
-                PlatformUser.find({
-                    filter: {
-                        where: {id: $scope.selectedTutor.id}
-                    }
+                PlatformUser.findById({
+                    id: $scope.selectedTutor.id
                 }, function (tutor) {
-                    tutor[0].tutorLabIds.push(lab.id);
+                    tutor.tutorLabIds.push(lab.id);
+                    PlatformUser.prototype$updateAttributes({ "id": tutor.id }, { "tutorLabIds": tutor.tutorLabIds }, function(err) {
+                        $scope.selectedTutor = undefined;
+                        console.log(err);
+                    });
                 });
                 $scope.successMessage = "Praktikum wurde erstellt!";
 
@@ -221,50 +175,38 @@ angular.module('AudioCtrl', [])
 
         };
 
-        function remove(array, element) {
-            const index = array.indexOf(element);
 
-            if (index !== -1) {
-                array.splice(index, 1);
-            }
-        }
-
-
-
+        /****Create or Update Priority in database from user input****/
         $scope.savePriorities = function () {
             for (let i = 0; i < $scope.objects.length; i++) {
                 if ($scope.selectedPriority[i] != undefined) {
-                    /*if($scope.prioCount <= 0) {
-                        $scope.loadPriorities();
-                    } else {*/
-                        $scope.existingPrio = Priority.find({
-                            filter: {
-                                where: {priority: $scope.selectedPriority[i].priority}
-                            }
-                        }, function (prios) {
-                            if(prios.length > 0) {
-                                //TODO Error 500 Internal Server Error
-                                console.log(prios[0].id);
-                                Priority.updateAll({ "id": prios[0].id }, { "labId": $scope.selectedPriority[i].objectId }, function(err) {
-                                    console.log(err);
-                                });
-                                console.log("update");
-                            } else {
-                                Priority.create({
-                                    "priority": $scope.selectedPriority[i].priority,
-                                    "groupId": $scope.group.id,
-                                    "labId": $scope.selectedPriority[i].objectId
-                                }, function (priority) {
-                                    $scope.loadPriorities();
-                                    console.log(priority);
-                                    $scope.selectedPriority[i].priority = undefined;
-                                }, function (error) {
-                                    console.log(error);
-                                });
-                            }
+                    $scope.existingPrio = Priority.find({
+                        filter: {
+                            where: {priority: $scope.selectedPriority[i].priority}
+                        }
+                    }, function (prios) {
+                        if(prios.length > 0) {
+                            //Update saved priority
+                            Priority.prototype$updateAttributes({ "id": prios[0].id }, { "labId": $scope.selectedPriority[i].objectId }, function(err) {
+                                $scope.loadPriorities();
+                                $scope.selectedPriority[i].priority = undefined;
+                                console.log(err);
+                            });
+                        } else {
+                            //Create new Priority
+                            Priority.create({
+                                "priority": $scope.selectedPriority[i].priority,
+                                "groupId": $scope.group.id,
+                                "labId": $scope.selectedPriority[i].objectId
+                            }, function (priority) {
+                                $scope.loadPriorities();
+                                console.log(priority);
+                                $scope.selectedPriority[i].priority = undefined;
+                            }, function (error) {
+                                console.log(error);
+                            });
+                        }
                         });
-
-                    //}
                 }
             }
 
@@ -272,20 +214,20 @@ angular.module('AudioCtrl', [])
 
     })
 
+    /****Filter for priority dropdown****/
     .filter('arrayDiff', function() {
         return function(array, diff) {
+            console.log(diff);
             var i, item,
                 newArray = [],
                 exception = Array.prototype.slice.call(arguments, 2);
 
             for(i = 0; i < array.length; i++) {
                 item = array[i];
-                if(diff.indexOf(item) < 0 || exception.indexOf(item) >= 0) {
+                if(diff == item || exception.indexOf(item) >= 0) {
                     newArray.push(item);
                 }
             }
-            console.log(newArray);
             return newArray;
-
         };
     });
