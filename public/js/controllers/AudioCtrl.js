@@ -10,6 +10,8 @@ angular.module('AudioCtrl', [])
         //$scope.dateTime = new Date();
         $scope.minDate = moment().subtract(1, 'month');
         $scope.selectedPriority = [];
+        $scope.priorities = [1,2,3];
+
 
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
@@ -90,7 +92,6 @@ angular.module('AudioCtrl', [])
                                     }
                                 }, function (prios) {
                                     $scope.groupPriorities = prios;
-                                    $scope.priorities = [1, 2, 3];
                                     //Check if group already saved 3 priorities
                                     $scope.prioCount = 3;
                                     $scope.prioCount -= $scope.groupPriorities.length;
@@ -217,15 +218,12 @@ angular.module('AudioCtrl', [])
     /****Filter for priority dropdown****/
     .filter('arrayDiff', function() {
         return function(array, diff) {
-            console.log(diff);
-            var i, item,
-                newArray = [],
-                exception = Array.prototype.slice.call(arguments, 2);
+            var i,
+                newArray = [];
 
             for(i = 0; i < array.length; i++) {
-                item = array[i];
-                if(diff == item || exception.indexOf(item) >= 0) {
-                    newArray.push(item);
+                if(diff != array[i]) {
+                    newArray.push(array[i]);
                 }
             }
             return newArray;
