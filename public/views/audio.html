@@ -1,10 +1,12 @@
 <div class="jumbotron" ng-controller="AudioController" xmlns="http://www.w3.org/1999/html">
-    <h2 translate="AUDIO_PROJECT"></h2>
+    <div class="col-sm-12"><h2 translate="AUDIO_PROJECT"></h2></div>
     <div class="col-sm-12 description" translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name}"></div>
 
     <div class="col-md-8 col-sm-12">
         <calendar-md flex layout layout-fill
                      calendar-direction="direction"
+                     on-prev-month="prevMonth"
+                     on-next-month="nextMonth"
                      on-day-click="dayClick"
                      title-format="'MMMM y'"
                      ng-model='selectedDate'
@@ -20,30 +22,29 @@
         </calendar-md>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-4 col-sm-12 clicked_day_container">
         <h3> {{ clickedDay }} </h3>
         <div ng-repeat="object in objects">
-            <div class="labDetails">
+            <div class="lab_details">
                 <md-input-container>
                     <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id" >
-                        <!--TODO: Add Filter-->
                         <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                     </md-select>
                 </md-input-container><br>
-                {{ object.date.slice(11, 16) }} - {{ object.end }} {{ 'HOURS' | translate }}<br>
-                {{ object.location }}<br>
-                {{ object.tutorFirstName }} {{ object.tutorName }}
+                <md-icon>access_time</md-icon>{{ object.date | date: "HH:mm" }} - {{ object.end }} {{ 'HOURS' | translate }}<br>
+                <md-icon>place</md-icon>{{ object.location }}<br>
+                <md-icon>person</md-icon>{{ object.tutorFirstName }} {{ object.tutorName }}
+                <hr/>
             </div>
-            <hl></hl>
             <!--<div ng-repeat="(key, value) in object">
                 {{key}} : {{value}}-->
         </div>
-        <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}--> {{ prioMessage }}<br>
+        <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}-->
         <md-button ng-click="savePriorities()" class="md-raised md-primary"
                    aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
     </div>
 
-    <div class="col-md-8 col-sm-12" ><!--ng-show="currentUser.isTutor"-->
+    <div class="col-md-8 col-sm-12 create_lab_container" ><!--ng-show="currentUser.isTutor"-->
         <h3 translate="CREATE_NEW_AUDIO_LAB_APPOINTMENT"></h3>
         <md-input-container flex-gt-md="30">
             <input mdc-datetime-picker=""
@@ -63,20 +64,26 @@
         <md-input-container flex-gt-md="30">
             <input type="text" ng-model="location" placeholder="{{ 'LOCATION' | translate }}">
         </md-input-container>
-        <md-input-container flex-gt-md="30" style="margin-top: -6px;">
+        <md-input-container flex-gt-md="30">
             <md-select ng-model="selectedTutor" placeholder="{{ 'TUTOR' | translate }}">
                 <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>
             </md-select>
         </md-input-container>
         <md-button ng-click="createLab()" class="md-raised md-primary" aria-label="{{ 'CREATE' | translate }}" translate="CREATE"></md-button><br>
-        {{ successMessage }}
+        <div ng-bind-html="successMessage"></div>
+
+        <div class=my_labs">
+            <h3>Von mir betreute Audiopraktika</h3>
+            <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myLabs"><md-icon>event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr</div><br>
+        </div>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-4 col-sm-12 saved_priorities_container">
         <h3>Gespeicherte Prioritäten</h3>
-        <div ng-repeat="prio in groupPriorities">
-            Priorität {{ prio.priority }}:
-            <span ng-repeat="lab in labs | filter: {id: prio.labId}">{{ lab.date.slice(0,10) }}, {{ lab.date.slice(11,16) }} Uhr</span>
+        <div>{{ prioMessage }}</div>
+        <div class="prio" ng-repeat="prio in groupPriorities">
+            <div class="prio_number">{{ prio.priority }}</div>
+            <div class="prio_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in labs | filter: {id: prio.labId}">{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr</div><br>
         </div>
     </div>
 </div>

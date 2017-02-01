@@ -4,6 +4,7 @@ angular.module('AudioCtrl', [])
         $scope.currentUser;
         $scope.group;
         $scope.labs;
+        $scope.myLabs = [];
         var groupedElements = {};
         $scope.date = new Date();
         $scope.time = new Date();
@@ -30,40 +31,46 @@ angular.module('AudioCtrl', [])
                 }, function (labs) {
                     //Get format for calendar
                     labs.forEach(function (element) {
-                            var dateObj = new Date(element.date);
-                            var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
-                            element.end = $filter('date')(endtime, 'HH:mm');
+                        //Find my Tutor Labs
+                        if ($scope.currentUser.tutorLabIds.indexOf(element.id) > -1) {
+                            $scope.myLabs.push(element);
+                        }
+                        var dateObj = new Date(element.date);
+                        var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
+                        element.end = $filter('date')(endtime, 'HH:mm');
 
-                            //Get Tutor for each lab
-                            PlatformUser.find({
-                                //TODO: Filter Users to tutors
-                                /*filter: {
-                                    where: {isTutor: true}
-                                }*/
-                            }, function (tutors) {
-                                for (var j = 0; j < tutors.length; j++) {
-                                    var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
-                                        return elm == element.id
-                                    });
-                                    if (matchingElements.length > 0) {
-                                        element.tutorName = tutors[j].name;
-                                        element.tutorFirstName = tutors[j].first_name;
-                                    }
-                                }
-                                //get end time from start time and duration
-                                var date = element.date.slice(0, 10);
-                                if (groupedElements[date] === undefined) {
-                                    groupedElements[date] = [];
-                                }
-                                groupedElements[date].push(element);
-
-                                //Write Labs in calendar
-                                Object.keys(groupedElements).forEach(function (date) {
-                                    MaterialCalendarData.setDayContent(new Date(date)," Termine verfügbar ");
+                        //Get Tutor for each lab
+                        PlatformUser.find({
+                            //TODO: Filter Users to tutors
+                            /*filter: {
+                                where: {isTutor: true}
+                            }*/
+                        }, function (tutors) {
+                            for (var j = 0; j < tutors.length; j++) {
+                                var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
+                                    return elm == element.id
                                 });
+                                if (matchingElements.length > 0) {
+                                    element.tutorName = tutors[j].name;
+                                    element.tutorFirstName = tutors[j].first_name;
+                                }
+                            }
+                            //get end time from start time and duration
+                            var date = element.date.slice(0, 10);
+                            if (groupedElements[date] === undefined) {
+                                groupedElements[date] = [];
+                            }
+                            groupedElements[date].push(element);
 
-                                return groupedElements;
+                            //Write Labs in calendar
+                            Object.keys(groupedElements).forEach(function (date) {
+                                MaterialCalendarData.setDayContent(new Date(date),"<div class='calendar_content'>Termine</div>");
+                                //angular.element(document.getElementsByClassName("calendar_content")).parent().parent().addClass('highlight');
                             });
+
+
+                            return groupedElements;
+                        });
                     });
                 }, function (error) {
                     console.log(error);
@@ -114,13 +121,20 @@ angular.module('AudioCtrl', [])
             });
         }
 
-
         /****Calendar Code****/
         $scope.dayFormat = "d";
         $scope.selectedDate = null;
         $scope.selectedDate = false;
         $scope.tooltips = true;
         $scope.firstDayOfWeek = 1;
+
+        /*$scope.prevMonth = function() {
+            angular.element(document.getElementsByClassName("calendar_content")).parent().parent().addClass('highlight');
+        };
+        $scope.nextMonth = function() {
+            angular.element(document.getElementsByClassName("calendar_content")).parent().parent().addClass('highlight');
+        };*/
+
         $scope.setDirection = function (direction) {
             $scope.direction = direction;
             $scope.dayFormat = direction === "vertical" ? "EEEE, MMMM d" : "d";
@@ -157,13 +171,11 @@ angular.module('AudioCtrl', [])
                     id: $scope.selectedTutor.id
                 }, function (tutor) {
                     tutor.tutorLabIds.push(lab.id);
-                    PlatformUser.prototype$updateAttributes({ "id": tutor.id }, { "tutorLabIds": tutor.tutorLabIds }, function(err) {
+                    PlatformUser.prototype$updateAttributes({ "id": tutor.id }, { "tutorLabIds": tutor.tutorLabIds }, function(user) {
                         $scope.selectedTutor = undefined;
-                        console.log(err);
+                        console.log(user);
                     });
                 });
-                $scope.successMessage = "Praktikum wurde erstellt!";
-
                 // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
                 $scope.loadLabs();
                 $scope.dateTime = "";
@@ -188,10 +200,10 @@ angular.module('AudioCtrl', [])
                     }, function (prios) {
                         if(prios.length > 0) {
                             //Update saved priority
-                            Priority.prototype$updateAttributes({ "id": prios[0].id }, { "labId": $scope.selectedPriority[i].objectId }, function(err) {
+                            Priority.prototype$updateAttributes({ "id": prios[0].id }, { "labId": $scope.selectedPriority[i].objectId }, function(prio) {
                                 $scope.loadPriorities();
                                 $scope.selectedPriority[i].priority = undefined;
-                                console.log(err);
+                                console.log(prio);
                             });
                         } else {
                             //Create new Priority

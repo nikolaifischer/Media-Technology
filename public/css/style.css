@@ -37,7 +37,8 @@ body{
 }
 
 .highlight-text {
-    color: teal;
+    color: rgb(0,150,136);
+    font-weight: bold;
 }
 
 .list-left {
@@ -147,9 +148,25 @@ body{
     margin-bottom: 50px;
 }
 
-.labDetails {
+.lab_details {
     font-size: 18px;
-    margin: 15px 0 15px 0;
+    margin-top: 10px;
+}
+
+.lab_details > md-input-container {
+    margin: 5px 0 5px 0;
+}
+
+.lab_details > md-icon {
+    margin-right: 5px;
+}
+
+.lab_details > hr {
+    margin: 10px 0 10px 0;
+}
+
+.clicked_day_container > .md-button {
+    margin: 5px 0 5px 0;
 }
 
 .adminExercise .layout-gt-sm-row>.flex {
@@ -210,3 +227,69 @@ body{
 md-dialog{
     position: fixed !important;
 }
+
+.create_lab_container > md-input-container {
+    height: 50px;
+}
+
+.create_lab_container, .saved_priorities_container {
+    margin-top: 10px;
+}
+
+.calendar_content {
+    padding: 2px 2px 2px 4px !important;
+    color: white;
+    background-color: rgb(0,150,136);
+    border-radius: 2px;
+}
+
+.calendar_content:hover {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 2px -2px rgba(0,0,0,.12)
+}
+
+.highlight {
+    background: rgba(0,105,92,0.2);
+}
+
+.highlight:hover, .highlight.active {
+    background: rgba(0,105,92,0.3) !important;
+}
+
+.prio_number {
+    border-radius: 50%;
+    padding: 5px;
+    font-size:16px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgba(0,105,92,1);
+    color: white;
+    width: 32px;
+    height: 32px;
+    float: left;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.prio {
+    margin-top: 7px;
+    height: 32px;
+}
+
+.prio_date {
+    height: 32px;
+    padding-top:5px;
+}
+
+.prio_date:hover, .lab_date:hover {
+    text-decoration: underline;
+}
+
+.lab_date {
+    margin-top:5px;
+}
+
+.lab_date > md-icon {
+    margin-right: 5px;
+}
+
+
