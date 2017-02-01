@@ -30,14 +30,15 @@ angular.module('ExerciseCtrl', [])
         }, function(exercises) {
             // group exercise dates to weekly exercises for display in schedule
             exercises.forEach(function(exercise) {
-                var dateObj = new Date(exercise.date);
-                var weekday = $filter('date')(dateObj, 'EEEE');
-                var daytime = $filter('date')(dateObj, 'HH:mm');
-                var endtime = dateObj.setTime(dateObj.getTime() + (1.5*60*60*1000));
-                var lectureEnd = $filter('date')(endtime, 'HH:mm');
-                var currentUserParticipates = (exercise.participantsUserIds.filter(function(e) {
-                   return e == $scope.currentUser.id;
-                }).length > 0);
+                var dateObj = new Date(exercise.date),
+                    weekday = $filter('date')(dateObj, 'EEEE'),
+                    daytime = $filter('date')(dateObj, 'HH:mm'),
+                    endtime = dateObj.setTime(dateObj.getTime() + (1.5*60*60*1000)),
+                    lectureEnd = $filter('date')(endtime, 'HH:mm'),
+                    currentUserParticipates = (exercise.participantsUserIds.filter(function(e) {
+                       return e == $scope.currentUser.id;
+                    }).length > 0),
+                    participantCount = exercise.participantsUserIds.length;
 
                 if ($scope.weekSchedules[weekday].length <= 0 || $scope.weekSchedules[weekday].filter(function(e) { return e.daytime == daytime; }).length <= 0) {
                     // add exercise to weekSchedules, if it's not in there already
@@ -46,7 +47,8 @@ angular.module('ExerciseCtrl', [])
                         location: exercise.location,
                         daytime: daytime,
                         lectureEnd: lectureEnd,
-                        currentUserParticipates: currentUserParticipates
+                        currentUserParticipates: currentUserParticipates,
+                        participantCount: participantCount
                     };
                     $scope.weekSchedules[weekday].push(exerciseForTemplate);
                 }
@@ -124,6 +126,7 @@ angular.module('ExerciseCtrl', [])
 
         $scope.attendExercise = function(weekday, index) {
             $scope.weekSchedules[weekday][index].currentUserParticipates = true;
+            $scope.weekSchedules[weekday][index].participantCount++;
 
             var exercise = $scope.weekSchedules[weekday][index],
                 end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
@@ -154,6 +157,7 @@ angular.module('ExerciseCtrl', [])
 
         $scope.leaveExercise = function(weekday, index) {
             $scope.weekSchedules[weekday][index].currentUserParticipates = false;
+            $scope.weekSchedules[weekday][index].participantCount--;
             //var parameters = {exerciseId:exerciseToAttend.id};
             // Exercise.disenroll(parameters, function (err, success) { ...
 
