@@ -103,19 +103,12 @@
     </md-toolbar>
 
     <md-content layout-margin>
-        <md-button ng-click="toggleLeft()" href="/" name="home" translate="OVERVIEW"></md-button>
-        <br>
-        <md-button ng-click="toggleLeft()" href="/audio" name="audio" translate="AUDIO_PROJECT"></md-button>
-        <br>
-        <md-button ng-click="toggleLeft()" href="/video" name="video" translate="VIDEO_PROJECT"></md-button>
-        <br>
-        <md-button ng-click="toggleLeft()" href="/photo" name="photo" translate="PHOTO_PROJECT"></md-button>
-        <br>
-        <md-button ng-click="toggleLeft()" href="/exercises" name="exercises" translate="TUTORIALS"></md-button>
-        <br>
-        <md-button ng-click="toggleLeft()" class="md-accent">
-            x
-        </md-button>
+        <md-button ng-click="toggleLeft()" href="/" name="home" aria-label="{{ 'OVERVIEW' | translate }}" translate="OVERVIEW"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/audio" name="audio" aria-label="{{ 'AUDIO_PROJECT' | translate }}" translate="AUDIO_PROJECT"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/video" name="video" aria-label="{{ 'VIDEO_PROJECT' | translate }}" translate="VIDEO_PROJECT"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/photo" name="photo" aria-label="{{ 'PHOTO_PROJECT' | translate }}" translate="PHOTO_PROJECT"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/exercises" name="exercises" aria-label="{{ 'TUTORIALS' | translate }}" translate="TUTORIALS"></md-button><br>
+        <md-button ng-click="toggleLeft()" class="md-accent">x</md-button>
     </md-content>
 
 </md-sidenav>
@@ -145,7 +138,6 @@
                             {{'CHANGE_LANG' | translate}}
                         </md-tooltip>
                     </span>
-                    <!--md-switch class="languageSwitch small md-primary" ng-model="translationLang" ng-change="changeLanguage()" ng-true-value="'Deutsch'" ng-false-value="'English'" md-no-ink>{{translationLang}}</md-switch-->
 
                     <md-menu ng-if="currentUser">
                         <md-button id="profile-button" class="md-fab md-mini"
@@ -155,15 +147,17 @@
                         </md-button>
                         <md-menu-content width="3">
                             <md-menu-item>
-                                <md-button ng-href="/profile" translate="MY_PROFILE"></md-button>
+                                <md-button ng-href="/profile"
+                                           aria-label="{{ 'MY_PROFILE' | translate }}" translate="MY_PROFILE"></md-button>
                             </md-menu-item>
                             <md-menu-item>
                                 <md-button ng-click="logout()" ng-click="ctrl.checkVoicemail()"
-                                           translate="LOGOUT"></md-button>
+                                           aria-label="{{ 'LOGOUT' | translate }}" translate="LOGOUT"></md-button>
                             </md-menu-item>
                             <md-menu-divider ng-if=" currentUser && currentUser.isTutor"></md-menu-divider>
                             <md-menu-item ng-if="currentUser && currentUser.isTutor">
-                                <md-button ng-href="/admin" translate="ADMIN_TOOLS"></md-button>
+                                <md-button ng-href="/admin"
+                                           aria-label="{{ 'LOGOUT' | translate }}" translate="ADMIN_TOOLS"></md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>

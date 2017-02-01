@@ -195,13 +195,6 @@ body{
    min-height: 60vh;
 }
 
-md-switch.languageSwitch.md-checked .md-bar {
-    background-color: #9e9e9e;
-}
-md-switch.languageSwitch.md-checked .md-thumb {
-    background-color: #fafafa;
-}
-
 .profileDataTable.table tr th, .profileDataTable.table tr td {
     padding: 20px 0 5px;
     color: #aaa;

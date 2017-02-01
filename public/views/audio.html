@@ -39,7 +39,8 @@
                 {{key}} : {{value}}-->
         </div>
         <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}--> {{ prioMessage }}<br>
-        <md-button ng-click="savePriorities()" class="md-raised md-primary" translate="SAVE"></md-button>
+        <md-button ng-click="savePriorities()" class="md-raised md-primary"
+                   aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
     </div>
 
     <div class="col-md-8 col-sm-12" ><!--ng-show="currentUser.isTutor"-->
@@ -67,14 +68,15 @@
                 <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>
             </md-select>
         </md-input-container>
-        <md-button ng-click="createLab()" class="md-raised md-primary" translate="CREATE"></md-button><br>
+        <md-button ng-click="createLab()" class="md-raised md-primary" aria-label="{{ 'CREATE' | translate }}" translate="CREATE"></md-button><br>
         {{ successMessage }}
     </div>
 
     <div class="col-md-4 col-sm-12">
         <h3>Gespeicherte Prioritäten</h3>
         <div ng-repeat="prio in groupPriorities">
-                Priorität {{ prio.priority }}: <span ng-repeat="lab in labs | filter: {id: prio.labId}">{{ lab.date.slice(0,10) }}, {{ lab.date.slice(11,16) }} Uhr</span>
-            </div>
+            Priorität {{ prio.priority }}:
+            <span ng-repeat="lab in labs | filter: {id: prio.labId}">{{ lab.date.slice(0,10) }}, {{ lab.date.slice(11,16) }} Uhr</span>
+        </div>
     </div>
 </div>

@@ -27,13 +27,19 @@
                                     <tr md-row md-select="userDB" md-select-id="name" md-auto-select
                                         ng-repeat="userDB in pendingPlatformUsers | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">
                                         <td md-cell>
-                                            <md-input-container><input ng-model="userDB.email" /></md-input-container>
+                                            <md-input-container>
+                                                <input ng-model="userDB.email" aria-label="{{ 'EMAIL' | translate }}" />
+                                            </md-input-container>
                                         </td>
                                         <td md-cell>
-                                            <md-input-container><input ng-model="userDB.first_name" /></md-input-container>
+                                            <md-input-container>
+                                                <input ng-model="userDB.first_name" aria-label="{{ 'FIRSTNAME' | translate }}" />
+                                            </md-input-container>
                                         </td>
                                         <td md-cell>
-                                            <md-input-container><input ng-model="userDB.name" /></md-input-container>
+                                            <md-input-container>
+                                                <input ng-model="userDB.name" aria-label="{{ 'LASTNAME' | translate }}" />
+                                            </md-input-container>
                                         </td>
                                         <td md-cell>
                                             <md-switch ng-model="userDB.isTutor" aria-label="{{ 'TUTOR' | translate }}">
@@ -146,7 +152,7 @@
                         {{ 'TUTOR' | translate }}
                     </md-switch>
                 </md-card-content>
-                <md-button class="md-primary" ng-click="add()" translate="ADD"></md-button>
+                <md-button class="md-primary" ng-click="add()" aria-label="{{ 'ADD' | translate }}" translate="ADD"></md-button>
             </md-card>
         </div>
 
