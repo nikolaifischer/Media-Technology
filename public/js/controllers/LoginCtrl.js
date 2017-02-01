@@ -15,7 +15,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.wrongLogin = false;
     $scope.wrongCaptcha = false;
 
-    // name and first_name have to be set to a arbitrary String else the API will return an error. They are ignored.
+    // name and first_name have to be set to an arbitrary String else the API will return an error. They are ignored.
     $scope.user = {
         email: 'kevin@campus.lmu.de',
         password: 'test',
@@ -43,55 +43,41 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
             },
             function (errorResponse) {
                 console.log(errorResponse);
-
                 $scope.wrongLogin = true;
-
                 delete $window.sessionStorage.token;
             }
         );
-    }
+    };
 
     $scope.register = function () {
-        if ($scope.user.password != $scope.user.repeatpassword) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Die Passwörter stimmen nicht überein')
-                    .hideDelay(3000)
-                    .toastClass("toast")
-            );
+        if(solvedCaptcha!=true){
+            $scope.wrongCaptcha=true;
+            return;
         }
-
-
-        // TODO: how to check if user with email exists?
+        $scope.wrongCaptcha = false;
         PlatformUser.create($scope.user,
             function (response) {
                 $scope.registeredUser = {
                     email: response.email,
-                    password: response.repeatpassword   // TODO: that's not nice...
+                    password: response.repeatpassword   // TODO: that's not nice... -> kann man da nicht $scope.user.password verwenden?
                 };
                 // After a successfull registration no captcha is needed:
                 solvedCaptcha=true;
                 $scope.login();
             },
             function (errorResponse) {
-
                 if (errorResponse.status == 403) {
-                    $scope.whitelisted=false;
+                    $scope.whitelisted = false;
                 }
                 else {
-
                     console.log(errorResponse);
                 }
-
             }
         );
     };
 
-
     recaptcha = function () {
-
-        solvedCaptcha=true;
-
+        solvedCaptcha = true;
     }
 
 });

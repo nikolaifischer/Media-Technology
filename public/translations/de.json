@@ -75,5 +75,8 @@
   "JOIN":"Beitreten",
   "WRONG_CAPTCHA":"Bitte löse das Captcha um dich einzuloggen.",
   "PARTICIPANTS_COUNT": "Angemeldet: {{count}}",
-  "COURSE_FULL": "In dieser Übung gibt es leider keine Plätze mehr"
+  "COURSE_FULL": "In dieser Übung gibt es leider keine Plätze mehr",
+  "EMAIL_NOT_REAL": "Deine E-Mail-Adresse muss echt sein.",
+  "PASSWORD_NOT_SAFE": "Dein Passwort muss mind. 8 Zeichen lang sein und einen Großbuchstaben sowie eine Zahl enthalten.",
+  "REPEAT_PASSWORD_NO_MATCH": "Dies muss deinem zuvor vergebenen Passwort entsprechen."
 }
