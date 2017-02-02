@@ -77,6 +77,9 @@
   "PARTICIPANTS_COUNT": "Angemeldet: {{count}}",
   "COURSE_FULL": "In dieser Übung gibt es leider keine Plätze mehr",
   "EMAIL_NOT_REAL": "Deine E-Mail-Adresse muss echt sein.",
-  "PASSWORD_NOT_SAFE": "Dein Passwort muss mind. 8 Zeichen lang sein und einen Großbuchstaben sowie eine Zahl enthalten.",
-  "REPEAT_PASSWORD_NO_MATCH": "Dies muss deinem zuvor vergebenen Passwort entsprechen."
+  "PASSWORD_REQUIREMENTS": "Dein Passwort muss mind. 8 Zeichen lang sein und einen Großbuchstaben sowie eine Zahl enthalten.",
+  "REPEAT_PASSWORD_NO_MATCH": "Dies muss deinem zuvor vergebenen Passwort entsprechen.",
+  "INPUT_REQUIRED": "Dieses Feld muss befüllt sein.",
+  "STUDENT_EXERCISE_TEXT": "Hier kannst du dich für eine Übung anmelden, damit die Termine in deinem Kalender angezeigt werden.",
+  "ADMIN_EXERCISE_TEXT": "Als Admin kannst du hier Übungen erstellen, damit die Studenten diesen beitreten können."
 }

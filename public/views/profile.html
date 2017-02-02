@@ -51,15 +51,31 @@
             </md-toolbar>
 
             <div class="custom-dialog-content">
-                <md-input-container class="md-block">
-                    <input type="password" placeholder="{{ 'NEW_PASSWORD' | translate }}" ng-model="currentUser.newPassword">
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <input type="password" placeholder="{{ 'REPEAT_NEW_PASSWORD' | translate }}" ng-model="currentUser.repeatNewPassword">
-                </md-input-container>
-                <div layout="row" class="action-dialog-button">
-                    <md-button flex ng-click="changePassword()" class="md-primary" translate="SAVE_NEW_PASSWORD"></md-button>
-                </div>
+                <form name="changePasswordForm">
+                    <md-input-container class="md-block">
+                        <input type="password" ng-required="true" placeholder="{{ 'NEW_PASSWORD' | translate }}"
+                               name="newPassword" ng-model="currentUser.newPassword" minlength="8">
+                        <md-icon class="md-primary">
+                            info_outline
+                            <md-tooltip md-direction="left" style="z-index: 1000">{{ 'PASSWORD_REQUIREMENTS' | translate }}</md-tooltip>
+                        </md-icon>
+                        <div ng-messages="changePasswordForm.newPassword.$error">
+                            <div ng-message-exp="['required', 'pattern', 'minlength']" translate="PASSWORD_REQUIREMENTS"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input type="password" ng-required="true" ng-pattern="currentUser.newPassword" name="repeatNewPassword"
+                               placeholder="{{ 'REPEAT_NEW_PASSWORD' | translate }}" ng-model="currentUser.repeatNewPassword">
+                        <div ng-messages="changePasswordForm.repeatNewPassword.$error">
+                            <div ng-message-exp="['required', 'pattern']" translate="REPEAT_PASSWORD_NO_MATCH"></div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" class="action-dialog-button">
+                        <md-button ng-click="changePassword()" class="md-primary" style="width: 100%;"
+                                   translate="SAVE_NEW_PASSWORD" aria-label="{{ 'SAVE_NEW_PASSWORD' | translate }}"
+                                   ng-disabled="changePasswordForm.$invalid"></md-button>
+                    </div>
+                </form>
             </div>
         </div>
     </script>

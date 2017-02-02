@@ -11,26 +11,34 @@
                 </md-card-title>
 
                 <md-card-content>
-                    <md-input-container class="md-block">
-                        <input type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="registeredUser.email"
-                               ng-required="true">
-                    </md-input-container>
-                    <md-input-container class="md-block" md-no-float="">
-                        <label translate="PASSWORD"></label>
-                        <input type="password" placeholder="{{ 'PASSWORD' | translate }}"
-                               ng-model="registeredUser.password" ng-required="true">
-                        <div style="padding-top: 20px; text-align: center;" ng-if="wrongLogin||wrongCaptcha" ng-messages="wrongLogin">
-                            <span ng-show="wrongLogin" translate="WRONG_LOGIN_DATA"></span>
-                            <span ng-show="wrongCaptcha"> {{'WRONG_CAPTCHA' | translate }}</span>
-                        </div>
-                    </md-input-container>
+                    <form name="loginForm">
+                        <md-input-container class="md-block">
+                            <input type="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="registeredUser.email"
+                                   ng-required="true" ng-pattern="/^.+@.+\..+$/" name="loginMail">
+                            <div ng-messages="loginForm.loginMail.$error">
+                                <div ng-message-exp="['required', 'pattern']" translate="EMAIL_NOT_REAL"></div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" md-no-float="">
+                            <label translate="PASSWORD"></label>
+                            <input type="password" placeholder="{{ 'PASSWORD' | translate }}"
+                                   ng-model="registeredUser.password" ng-required="true" name="loginPassword">
+                            <div ng-messages="loginForm.loginPassword.$error">
+                                <div ng-message="required" translate="WRONG_LOGIN_DATA"></div>
+                            </div>
+                            <div style="padding-top: 20px; text-align: center;" ng-if="wrongLogin||wrongCaptcha" ng-messages="wrongLogin">
+                                <span ng-show="wrongLogin" translate="WRONG_LOGIN_DATA"></span>
+                                <span ng-show="wrongCaptcha"> {{'WRONG_CAPTCHA' | translate }}</span>
+                            </div>
+                        </md-input-container>
 
-                    <div style="margin-left:auto; margin-right:auto; margin-bottom:20px; width:300px;" class="g-recaptcha"
-                         data-sitekey="6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q" data-callback="recaptcha"></div>
+                        <div style="margin-left:auto; margin-right:auto; margin-bottom:20px; width:300px;" class="g-recaptcha"
+                             data-sitekey="6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q" data-callback="recaptcha"></div>
+                    </form>
                 </md-card-content>
 
-
-                <md-button class="md-raised md-primary" ng-click="login()" translate="LOGIN" aria-label="{{ 'LOGIN' | translate}}"></md-button>
+                <md-button class="md-raised md-primary" ng-click="login()" ng-disabled="loginForm.$invalid"
+                           translate="LOGIN" aria-label="{{ 'LOGIN' | translate}}"></md-button>
 
                 <md-card-content>
                     <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">{{ 'NEW_USER' | translate }}
@@ -65,12 +73,16 @@
                             <input ng-required="true" type="password" placeholder="{{ 'PASSWORD' | translate }}"
                                    ng-model="user.password" name="registerPassword"
                                    ng-pattern="/^(?=.*[A-Z])(?=.*\d).+$/" minlength="8">
+                            <md-icon class="md-primary">
+                                info_outline
+                                <md-tooltip md-direction="left">{{ 'PASSWORD_REQUIREMENTS' | translate }}</md-tooltip>
+                            </md-icon>
                             <div ng-messages="registerForm.registerPassword.$error">
-                                <div ng-message-exp="['required', 'pattern', 'minlength']" translate="PASSWORD_NOT_SAFE"></div>
+                                <div ng-message-exp="['required', 'pattern', 'minlength']" translate="PASSWORD_REQUIREMENTS"></div>
                             </div>
                         </md-input-container>
 
-                        <md-input-container class="md-icon-float md-icon-right md-block">
+                        <md-input-container class="md-block">
                             <label translate="REPEAT_PASSWORD"></label>
                             <input ng-required="true" type="password" step="0.01" ng-model="user.repeatpassword"
                                    placeholder="{{ 'REPEAT_PASSWORD' | translate }}" name="registerPasswordRepeat"
@@ -87,8 +99,8 @@
                     </form>
                 </md-card-content>
 
-                <md-button class="md-raised md-primary" ng-click="register()" translate="REGISTER"
-                           aria-label="{{ 'REGISTER' | translate}}"></md-button>
+                <md-button class="md-raised md-primary" ng-click="register()" ng-disabled="registerForm.$invalid"
+                           translate="REGISTER" aria-label="{{ 'REGISTER' | translate}}"></md-button>
 
                 <md-card-content>
                     <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">

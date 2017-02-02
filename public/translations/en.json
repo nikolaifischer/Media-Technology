@@ -82,6 +82,9 @@
   "PARTICIPANTS_COUNT": "Registered: {{count}}",
   "COURSE_FULL": "There are no more free seats in this tutorial",
   "EMAIL_NOT_REAL": "Your email address must be real.",
-  "PASSWORD_NOT_SAFE": "Your password must be at least 8 characters long and contain an uppercase letter and a digit.",
-  "REPEAT_PASSWORD_NO_MATCH": "This must match your previously given password."
+  "PASSWORD_REQUIREMENTS": "Your password must be at least 8 characters long and contain an uppercase letter and a digit.",
+  "REPEAT_PASSWORD_NO_MATCH": "This must match your previously given password.",
+  "INPUT_REQUIRED": "This field must be filled.",
+  "STUDENT_EXERCISE_TEXT": "Here you can join a tutorial, so the schedules are shown in your calendar.",
+  "ADMIN_EXERCISE_TEXT": "Here you can create tutorials as admin, so the students can join them."
 }

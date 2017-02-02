@@ -7,12 +7,12 @@
                     {{ 'TUTORIAL_GROUP_TEXT_1' | translate }}
                     <br/>
                     {{ 'TUTORIAL_GROUP_TEXT_2' | translate }}
-
                 </md-card-content>
             </md-card>
         </div>
         <div class="col-sm-0 col-md-2"></div>
     </div>
+
     <div class="row">
 
         <div class="col-sm-12 col-md-6">
@@ -52,7 +52,8 @@
 
                     <div ng-show="showError"><span style="color:red">{{errorMessage}}</span></div>
                     <br/><br/>
-                    <md-button class="md-raised md-primary" ng-click="createGroup()" translate="CREATE"></md-button>
+                    <md-button class="md-raised md-primary" ng-click="createGroup()" translate="CREATE"
+                               aria-label="{{ 'CREATE' | translate }}"></md-button>
                 </md-card-content>
             </md-card>
         </div>
@@ -72,7 +73,8 @@
                         {{ 'RANDOM_GROUP_TEXT_2' | translate }}
                     </div>
                     <br/><br/>
-                    <md-button class="md-raised md-primary" ng-click="randomJoin()"> {{ 'JOIN' | translate }} </md-button>
+                    <md-button class="md-raised md-primary" ng-click="randomJoin()" aria-label="{{ 'JOIN' | translate }}">
+                        {{ 'JOIN' | translate }} </md-button>
                 </md-card-content>
             </md-card>
         </div>
