@@ -230,14 +230,18 @@ angular.module('AudioCtrl', [])
     /****Filter for priority dropdown****/
     .filter('arrayDiff', function() {
         return function(array, diff) {
-            var i,
-                newArray = [];
+            var i, item,
+                newArray = [],
+                exception = Array.prototype.slice.call(arguments, 2);
 
             for(i = 0; i < array.length; i++) {
-                if(diff != array[i]) {
-                    newArray.push(array[i]);
+                item = array[i];
+                if(diff.indexOf(item) < 0 || exception.indexOf(item) >= 0) {
+                    newArray.push(item);
                 }
             }
+
             return newArray;
+
         };
     });
