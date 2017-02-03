@@ -18,7 +18,8 @@ angular.module('mtPlanr', [
     'ngMaterialDatePicker',
     'pascalprecht.translate',
     'ngSanitize',
-    'ngCookies'
+    'ngCookies',
+    'vcRecaptcha'
 ]);
 
 

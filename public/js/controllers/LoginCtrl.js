@@ -8,12 +8,10 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
      $window.location.href = '/';
      }
      */
-    var solvedCaptcha = false;
 
     $scope.registerFlag = false;
     $scope.whitelisted = true;
     $scope.wrongLogin = false;
-    $scope.wrongCaptcha = false;
 
     // name and first_name have to be set to an arbitrary String else the API will return an error. They are ignored.
     $scope.user = {
@@ -30,11 +28,6 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     };
 
     $scope.login = function () {
-        if(solvedCaptcha!=true){
-            $scope.wrongCaptcha=true;
-            return;
-        }
-        $scope.wrongCaptcha = false;
         PlatformUser.login($scope.registeredUser,
             function (response) {
                 console.log(response.id);
@@ -50,19 +43,12 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     };
 
     $scope.register = function () {
-        if(solvedCaptcha!=true){
-            $scope.wrongCaptcha=true;
-            return;
-        }
-        $scope.wrongCaptcha = false;
         PlatformUser.create($scope.user,
             function (response) {
                 $scope.registeredUser = {
                     email: response.email,
                     password: response.repeatpassword   // TODO: that's not nice... -> kann man da nicht $scope.user.password verwenden?
                 };
-                // After a successfull registration no captcha is needed:
-                solvedCaptcha=true;
                 $scope.login();
             },
             function (errorResponse) {
@@ -76,9 +62,6 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
         );
     };
 
-    recaptcha = function () {
-        solvedCaptcha = true;
-    }
 
 });
 

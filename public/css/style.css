@@ -1,19 +1,21 @@
-body{
-    overflow-x:hidden;
-}
-.container-fluid {
-    padding:0px !important;
+body {
+    overflow-x: hidden;
 }
 
-#navigation-burger{
-    margin-right:20px;
+.container-fluid {
+    padding: 0px !important;
 }
-#profile-button{
-    margin-right:10px;
+
+#navigation-burger {
+    margin-right: 20px;
+}
+
+#profile-button {
+    margin-right: 10px;
 }
 
 .menubar-image {
-    height:56px;
+    height: 56px;
 }
 
 .login-block {
@@ -25,7 +27,7 @@ body{
     background-color: white;
 }
 
-.boxesContainer>.col-md-4 {
+.boxesContainer > .col-md-4 {
     padding: 10px;
 
 }
@@ -37,7 +39,7 @@ body{
 }
 
 .highlight-text {
-    color: rgb(0,150,136);
+    color: rgb(0, 150, 136);
     font-weight: bold;
 }
 
@@ -50,7 +52,6 @@ body{
     margin-bottom: 5px;
 
 }
-
 
 .link-right {
     text-align: -webkit-right;
@@ -70,9 +71,9 @@ body{
     color: black;
 }
 
-@media screen and (max-width:992px)  {
-    .menubar-image{
-        height:45px;
+@media screen and (max-width: 992px) {
+    .menubar-image {
+        height: 45px;
     }
 
     .groupBox, .newsBox, .calendarBox {
@@ -80,19 +81,19 @@ body{
     }
 }
 
-@media (min-width:768px)  {
+@media (min-width: 768px) {
     .jumbotron {
         padding-top: 30px;
         padding-bottom: 30px;
     }
 }
 
-.toast{
-    color:red !important;
+.toast {
+    color: red !important;
 }
 
-.dashboardCardTitle{
-    max-height:64px;
+.dashboardCardTitle {
+    max-height: 64px;
     color: white;
     background-color: #009688;
     padding: 0px;
@@ -115,7 +116,7 @@ body{
 
 }
 
-.dashboardCardContent{
+.dashboardCardContent {
     min-height: 415px;
 }
 
@@ -123,19 +124,19 @@ body{
     margin-top: 30%;
 }
 
-.cardContent{
+.cardContent {
     padding: 20px;
 }
+
 .big_spacer {
     display: inline;
     margin-left: 70px;
 }
+
 .fat_divider {
-    border-top-color: rgba(0,0,0,0.42) !important;
+    border-top-color: rgba(0, 0, 0, 0.42) !important;
     margin-bottom: 10px;
 }
-
-
 
 .admin_card_title {
     height: 60px;
@@ -169,7 +170,7 @@ body{
     margin: 5px 0 5px 0;
 }
 
-.adminExercise .layout-gt-sm-row>.flex {
+.adminExercise .layout-gt-sm-row > .flex {
     margin-right: 2px;
 }
 
@@ -195,21 +196,22 @@ body{
 .action-dialog-button {
     width: 100%;
 }
+
 /* END Dialog */
 
 .login {
-    background: rgba(0,105,92,1);
-    background: -moz-linear-gradient(top, rgba(0,105,92,1) 0%, rgba(3,153,133,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,105,92,1)), color-stop(100%, rgba(3,153,133,1)));
-    background: -webkit-linear-gradient(top, rgba(0,105,92,1) 0%, rgba(3,153,133,1) 100%);
-    background: -o-linear-gradient(top, rgba(0,105,92,1) 0%, rgba(3,153,133,1) 100%);
-    background: -ms-linear-gradient(top, rgba(0,105,92,1) 0%, rgba(3,153,133,1) 100%);
-    background: linear-gradient(to bottom, rgba(0,105,92,1) 0%, rgba(3,153,133,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00695c', endColorstr='#039985', GradientType=0 );
+    background: rgba(0, 105, 92, 1);
+    background: -moz-linear-gradient(top, rgba(0, 105, 92, 1) 0%, rgba(3, 153, 133, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 105, 92, 1)), color-stop(100%, rgba(3, 153, 133, 1)));
+    background: -webkit-linear-gradient(top, rgba(0, 105, 92, 1) 0%, rgba(3, 153, 133, 1) 100%);
+    background: -o-linear-gradient(top, rgba(0, 105, 92, 1) 0%, rgba(3, 153, 133, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 105, 92, 1) 0%, rgba(3, 153, 133, 1) 100%);
+    background: linear-gradient(to bottom, rgba(0, 105, 92, 1) 0%, rgba(3, 153, 133, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00695c', endColorstr='#039985', GradientType=0);
 }
 
-#loginSpacer{
-   min-height: 60vh;
+#loginSpacer {
+    min-height: 60vh;
 }
 
 .profileDataTable.table tr th, .profileDataTable.table tr td {
@@ -222,9 +224,10 @@ body{
 
 .lang_changer {
     width: 30px;
-    margin-right:15px;
+    margin-right: 15px;
 }
-md-dialog{
+
+md-dialog {
     position: fixed !important;
 }
 
@@ -239,29 +242,29 @@ md-dialog{
 .calendar_content {
     padding: 2px 2px 2px 4px !important;
     color: white;
-    background-color: rgb(0,150,136);
+    background-color: rgb(0, 150, 136);
     border-radius: 2px;
 }
 
 .calendar_content:hover {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 2px -2px rgba(0,0,0,.12)
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 2px -2px rgba(0, 0, 0, .12)
 }
 
 .highlight {
-    background: rgba(0,105,92,0.2);
+    background: rgba(0, 105, 92, 0.2);
 }
 
 .highlight:hover, .highlight.active {
-    background: rgba(0,105,92,0.3) !important;
+    background: rgba(0, 105, 92, 0.3) !important;
 }
 
 .prio_number {
     border-radius: 50%;
     padding: 5px;
-    font-size:16px;
+    font-size: 16px;
     text-align: center;
     vertical-align: middle;
-    background-color: rgba(0,105,92,1);
+    background-color: rgba(0, 105, 92, 1);
     color: white;
     width: 32px;
     height: 32px;
@@ -277,7 +280,7 @@ md-dialog{
 
 .prio_date {
     height: 32px;
-    padding-top:5px;
+    padding-top: 5px;
 }
 
 .prio_date:hover, .lab_date:hover {
@@ -285,11 +288,17 @@ md-dialog{
 }
 
 .lab_date {
-    margin-top:5px;
+    margin-top: 5px;
 }
 
 .lab_date > md-icon {
     margin-right: 5px;
 }
 
+.centeredCaptcha {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: 300px;
+}
 

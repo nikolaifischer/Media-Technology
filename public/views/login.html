@@ -32,13 +32,16 @@
                             </div>
                         </md-input-container>
 
-                        <div style="margin-left:auto; margin-right:auto; margin-bottom:20px; width:300px;" class="g-recaptcha"
-                             data-sitekey="6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q" data-callback="recaptcha"></div>
+                        <div vc-recaptcha class="centeredCaptcha"
+                                key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"
+                        ></div>
+
+                        <md-button style="width: 100%;" type="submit" class="md-raised md-primary" ng-click="login()" ng-disabled="loginForm.$invalid"
+                                   translate="LOGIN" aria-label="{{ 'LOGIN' | translate}}"></md-button>
                     </form>
                 </md-card-content>
 
-                <md-button class="md-raised md-primary" ng-click="login()" ng-disabled="loginForm.$invalid"
-                           translate="LOGIN" aria-label="{{ 'LOGIN' | translate}}"></md-button>
+
 
                 <md-card-content>
                     <md-button md-no-ink class="md-primary" ng-click="registerFlag=true">{{ 'NEW_USER' | translate }}
@@ -96,11 +99,15 @@
                         </div>
                         <div style="margin-left:auto; margin-right:auto; margin-bottom:20px; width:300px;" class="g-recaptcha"
                              data-sitekey="6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q" data-callback="recaptcha"></div>
+                        <div vc-recaptcha class="centeredCaptcha"
+                             key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"
+                        ></div>
+                        <md-button type="submit" style="width: 100%;" class="md-raised md-primary" ng-click="register()" ng-disabled="registerForm.$invalid"
+                                   translate="REGISTER" aria-label="{{ 'REGISTER' | translate}}"></md-button>
                     </form>
                 </md-card-content>
 
-                <md-button class="md-raised md-primary" ng-click="register()" ng-disabled="registerForm.$invalid"
-                           translate="REGISTER" aria-label="{{ 'REGISTER' | translate}}"></md-button>
+
 
                 <md-card-content>
                     <md-button md-no-ink class="md-primary" ng-click="registerFlag=false">
