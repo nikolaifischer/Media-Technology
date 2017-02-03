@@ -1,16 +1,5 @@
-
-var CaptchaCallback = function() {
-    grecaptcha.render('loginCaptcha', {'sitekey' : '6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'});
-    //grecaptcha.render('RecaptchaField2', {'sitekey' : '6Lc_your_site_key'});
-};
-
 angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast) {
 
-
-    var CaptchaCallback = function() {
-        grecaptcha.render('loginCaptcha', {'sitekey' : '6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'});
-        //grecaptcha.render('RecaptchaField2', {'sitekey' : '6Lc_your_site_key'});
-    };
 
     $scope.$root.hideNav = true;
     /*
@@ -41,7 +30,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     };
 
     $scope.login = function () {
-        if(grecaptcha.getResponse().length === 0){
+        if(solvedCaptcha!=true){
             $scope.wrongCaptcha=true;
             return;
         }
@@ -88,7 +77,6 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     };
 
     recaptcha = function () {
-        console.log("its working");
         solvedCaptcha = true;
     }
 
