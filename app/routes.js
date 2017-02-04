@@ -1,3 +1,4 @@
+var PriorityDistributionAlgo = require('./priorityDistributionAlgo');
 module.exports = function(app) {
 
 	// server routes ===========================================================
@@ -11,7 +12,7 @@ module.exports = function(app) {
 
     	console.log(req);
 
-    	console.log("It's working");
+
 
         res.end("hallo");
 
@@ -19,9 +20,9 @@ module.exports = function(app) {
 
     app.post('/app/prioritydistribution', function(req, res){
 
-        console.log(req.body.token);
+        console.log(req.body);
 
-        console.log("It's working");
+        PriorityDistributionAlgo.calculate(req.body.dates,req.body.groupData);
 
         res.end("hallo");
 
