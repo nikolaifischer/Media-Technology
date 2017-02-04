@@ -39,6 +39,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/admin/exercises.html',
             controller: 'ExerciseController'
         })
+        .when('/admin/prioritydistribution', {
+            templateUrl: 'views/admin/algo.html',
+            controller: 'AlgoController'
+        })
     ;
 
     $locationProvider.html5Mode(true);

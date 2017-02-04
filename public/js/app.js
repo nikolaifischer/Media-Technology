@@ -11,6 +11,8 @@ angular.module('mtPlanr', [
     'WhitelistCtrl',
     'ExerciseCtrl',
     'GroupCtrl',
+    'AlgoCtrl',
+    'PriorityDistributionService',
     'ngMaterial',
     'materialCalendar',
     'textAngular',

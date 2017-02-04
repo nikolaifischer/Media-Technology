@@ -1,5 +1,4 @@
 angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate, Semester) {
-
     $scope.$root.hideNav = true;
     if (PlatformUser.isAuthenticated()) {
         $scope.$root.hideNav = false;
