@@ -281,6 +281,8 @@ md-dialog {
 .prio_date {
     height: 32px;
     padding-top: 5px;
+    margin-right: 5px;
+    float:left;
 }
 
 .prio_date:hover, .lab_date:hover {
@@ -300,5 +302,13 @@ md-dialog {
     margin-right: auto;
     margin-bottom: 20px;
     width: 300px;
+}
+
+.delete_button {
+    padding-top: 2px;
+}
+
+.delete_button:hover {
+    color: rgb(213,0,0);
 }
 

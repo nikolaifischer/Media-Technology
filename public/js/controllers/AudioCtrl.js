@@ -193,38 +193,53 @@ angular.module('AudioCtrl', [])
         $scope.savePriorities = function () {
             for (let i = 0; i < $scope.objects.length; i++) {
                 if ($scope.selectedPriority[i] != undefined) {
-                    $scope.existingPrio = Priority.find({
+                    //check if lab already has priority
+                    Priority.find({
                         filter: {
-                            where: {priority: $scope.selectedPriority[i].priority}
+                            where: {labId: $scope.selectedPriority[i].objectId}
                         }
                     }, function (prios) {
                         if(prios.length > 0) {
-                            //Update saved priority
-                            Priority.prototype$updateAttributes({ "id": prios[0].id }, { "labId": $scope.selectedPriority[i].objectId }, function(prio) {
-                                $scope.loadPriorities();
-                                $scope.selectedPriority[i].priority = undefined;
-                                console.log(prio);
-                            });
+                            alert("Dieses Praktikum hat bereits die Priorität "+ prios[0].priority);
                         } else {
-                            //Create new Priority
-                            Priority.create({
-                                "priority": $scope.selectedPriority[i].priority,
-                                "groupId": $scope.group.id,
-                                "labId": $scope.selectedPriority[i].objectId
-                            }, function (priority) {
-                                $scope.loadPriorities();
-                                console.log(priority);
-                                $scope.selectedPriority[i].priority = undefined;
-                            }, function (error) {
-                                console.log(error);
+                            //check if priority already exists
+                            $scope.existingPrio = Priority.find({
+                                filter: {
+                                    where: {priority: $scope.selectedPriority[i].priority}
+                                }
+                            }, function (prios) {
+                                if (prios.length > 0) {
+                                    //Update saved priority
+                                    Priority.prototype$updateAttributes({"id": prios[0].id}, {"labId": $scope.selectedPriority[i].objectId}, function (prio) {
+                                        $scope.loadPriorities();
+                                        $scope.selectedPriority[i].priority = undefined;
+                                        console.log(prio);
+                                    });
+                                } else {
+                                    //Create new Priority
+                                    Priority.create({
+                                        "priority": $scope.selectedPriority[i].priority,
+                                        "groupId": $scope.group.id,
+                                        "labId": $scope.selectedPriority[i].objectId
+                                    }, function (priority) {
+                                        $scope.loadPriorities();
+                                        console.log(priority);
+                                        $scope.selectedPriority[i].priority = undefined;
+                                    }, function (error) {
+                                        console.log(error);
+                                    });
+                                }
                             });
                         }
-                        });
+                    });
                 }
             }
 
         };
 
+        $scope.deletePriority = function (selectedPrio, selectedLabId) {
+            Priority.destroyAll({"labId": selectedLabId}, function(err, obj){console.log(err)});
+        }
     })
 
     /****Filter for priority dropdown****/
