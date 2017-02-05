@@ -301,7 +301,7 @@ md-dialog {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-    width: 300px;
+    max-width: 300px;
 }
 
 .delete_button {

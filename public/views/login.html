@@ -32,7 +32,7 @@
                             </div>
                         </md-input-container>
 
-                        <div vc-recaptcha class="centeredCaptcha"
+                        <div ng-model="loginCaptcha" vc-recaptcha class="centeredCaptcha"
                                 key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"
                         ></div>
 
@@ -97,9 +97,7 @@
                         <div style="padding-top: 20px; text-align: center;" ng-if="wrongCaptcha" ng-messages="wrongCaptcha">
                             <span ng-show="wrongCaptcha"> {{'WRONG_CAPTCHA' | translate }}</span>
                         </div>
-                        <div style="margin-left:auto; margin-right:auto; margin-bottom:20px; width:300px;" class="g-recaptcha"
-                             data-sitekey="6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q" data-callback="recaptcha"></div>
-                        <div vc-recaptcha class="centeredCaptcha"
+                        <div ng-model="registerCaptcha" vc-recaptcha class="centeredCaptcha"
                              key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"
                         ></div>
                         <md-button type="submit" style="width: 100%;" class="md-raised md-primary" ng-click="register()" ng-disabled="registerForm.$invalid"

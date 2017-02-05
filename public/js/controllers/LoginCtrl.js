@@ -1,4 +1,4 @@
-angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast) {
+angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast, vcRecaptchaService) {
 
 
     $scope.$root.hideNav = true;
@@ -12,6 +12,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.registerFlag = false;
     $scope.whitelisted = true;
     $scope.wrongLogin = false;
+    $scope.loginCaptcha;
 
     // name and first_name have to be set to an arbitrary String else the API will return an error. They are ignored.
     $scope.user = {
@@ -37,6 +38,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
             function (errorResponse) {
                 console.log(errorResponse);
                 $scope.wrongLogin = true;
+                vcRecaptchaService.reload();
                 delete $window.sessionStorage.token;
             }
         );
@@ -54,6 +56,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
             function (errorResponse) {
                 if (errorResponse.status == 403) {
                     $scope.whitelisted = false;
+                    vcRecaptchaService.reload();
                 }
                 else {
                     console.log(errorResponse);
