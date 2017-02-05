@@ -30,7 +30,7 @@
                     </md-select>
                 </md-input-container><br>
                 <md-icon>access_time</md-icon>{{ object.date | date: "HH:mm" }} - {{ object.end }} {{ 'HOURS' | translate }}<br>
-                <md-icon>place</md-icon>{{ object.location }}<br>
+                <md-icon>place</md-icon><a href="http://maps.google.com/?q={{ object.location }}">{{ object.location }}</a><br>
                 <md-icon>person</md-icon>{{ object.tutorFirstName }} {{ object.tutorName }}
                 <hr/>
             </div>
