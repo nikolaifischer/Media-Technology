@@ -12,13 +12,14 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.registerFlag = false;
     $scope.whitelisted = true;
     $scope.wrongLogin = false;
-    $scope.loginCaptcha;
+    $scope.loginCaptchaId;
+    $scope.registerCaptchaId;
 
     // name and first_name have to be set to an arbitrary String else the API will return an error. They are ignored.
     $scope.user = {
         email: 'kevin@campus.lmu.de',
-        password: 'test',
-        repeatpassword: 'test',
+        password: 'Test1234',
+        repeatpassword: 'Test1234',
         first_name: 'This is ignored but has to be a String',
         name: 'This is ignored but has to be a String'
     };
@@ -38,7 +39,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
             function (errorResponse) {
                 console.log(errorResponse);
                 $scope.wrongLogin = true;
-                vcRecaptchaService.reload();
+                vcRecaptchaService.reload($scope.loginCaptchaId);
                 delete $window.sessionStorage.token;
             }
         );
@@ -56,7 +57,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
             function (errorResponse) {
                 if (errorResponse.status == 403) {
                     $scope.whitelisted = false;
-                    vcRecaptchaService.reload();
+                    vcRecaptchaService.reload($scope.registerCaptchaId);
                 }
                 else {
                     console.log(errorResponse);
@@ -64,6 +65,15 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
             }
         );
     };
+
+    $scope.setLoginWidgetId = function(id) {
+        $scope.loginCaptchaId=id;
+    }
+
+    $scope.setRegisterWidgetId = function(id) {
+        $scope.registerCaptchaId=id;
+    }
+
 
 
 });
