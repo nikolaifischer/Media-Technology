@@ -120,6 +120,7 @@ angular.module('WhitelistCtrl', [])
      * Allows the user to manually add 1 E-Mail Address to the Whitelist.
      */
     $scope.add = function() {
+        $scope.newWhitelistEntry.semesterId = $scope.semester.id;
         PendingPlatformUser.create($scope.newWhitelistEntry, function(res){
             $scope.getPendingPlatformUsers();
             $scope.showAddCard = false;
@@ -144,7 +145,8 @@ angular.module('WhitelistCtrl', [])
         for(var i = 0; i<$scope.userList.length; i++){
             var obj = {"email": $scope.userList[i].email,
             "first_name" : $scope.userList[i].Vorname,
-            "name": $scope.userList[i].Nachname};
+            "name": $scope.userList[i].Nachname,
+            "semesterId":$scope.semester.id};
             saveArr.push(obj);
         }
 
