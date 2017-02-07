@@ -2,12 +2,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
 
 
     $scope.$root.hideNav = true;
-    /*
-     // if user is logged in, redirect to home
-     if ($window.sessionStorage.token != null){
-     $window.location.href = '/';
-     }
-     */
+
 
     $scope.registerFlag = false;
     $scope.whitelisted = true;
