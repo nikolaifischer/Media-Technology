@@ -13,7 +13,6 @@ angular.module('AudioCtrl', [])
         $scope.selectedPriority = [];
         $scope.priorities = [1,2,3];
 
-
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
             //Get Audio LabType
@@ -32,20 +31,22 @@ angular.module('AudioCtrl', [])
                     //Get format for calendar
                     labs.forEach(function (element) {
                         //Find my Tutor Labs
-                        if ($scope.currentUser.tutorLabIds.indexOf(element.id) > -1) {
-                            $scope.myLabs.push(element);
-                        }
+                        /*if ($scope.currentUser.tutorLabIds.indexOf(element.id) > -1) {
+                            if(!$scope.myLabs.indexOf(element)) {
+                                $scope.myLabs.push(element);
+                            }
+                        }*/
                         var dateObj = new Date(element.date);
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
                         element.end = $filter('date')(endtime, 'HH:mm');
 
                         //Get Tutor for each lab
-                        PlatformUser.find({
+                        /*PlatformUser.find({
                             //TODO: Filter Users to tutors
                             /*filter: {
                                 where: {isTutor: true}
                             }*/
-                        }, function (tutors) {
+                        /*}, function (tutors) {
                             for (var j = 0; j < tutors.length; j++) {
                                 var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
                                     return elm == element.id
@@ -54,7 +55,7 @@ angular.module('AudioCtrl', [])
                                     element.tutorName = tutors[j].name;
                                     element.tutorFirstName = tutors[j].first_name;
                                 }
-                            }
+                            }*/
                             //get end time from start time and duration
                             var date = element.date.slice(0, 10);
                             if (groupedElements[date] === undefined) {
@@ -70,7 +71,7 @@ angular.module('AudioCtrl', [])
 
 
                             return groupedElements;
-                        });
+                        //});
                     });
                 }, function (error) {
                     console.log(error);
@@ -236,10 +237,31 @@ angular.module('AudioCtrl', [])
             }
 
         };
-
+        //TODO
+        /****Delete Priority***/
         $scope.deletePriority = function (selectedPrio, selectedLabId) {
-            Priority.destroyAll({"labId": selectedLabId}, function(err, obj){console.log(err)});
-        }
+            Priority.find({
+                filter: {
+                    where: {labId: selectedLabId, groupId: $scope.group.id}
+                }
+            }, function (prio) {
+                Priority.deleteById({"id": prio[0].id}, function (err, obj) {
+                    $scope.loadPriorities();
+                    console.log(err);
+                });
+            });
+        };
+
+        /****check if 2 equal priorities are selected****/
+        $scope.checkSelectValues = function (sel) {
+            console.log(sel);
+            var i = $(sel).index();
+            $('select:not(:eq('+i+'))').each(function () {
+                if ($(this).val() === sel) {
+                    alert($(this).index()+' has the same value');
+                }
+            });
+        };
     })
 
     /****Filter for priority dropdown****/
