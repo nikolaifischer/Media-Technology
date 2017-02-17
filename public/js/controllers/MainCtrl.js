@@ -37,7 +37,8 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
 
     $scope.semester = $scope.getCurrentSemester();
 
-    Semester.find({where:{}})
+    // Todo: wofür ist das?
+    Semester.find({where:{}});
 
     // Controls the side navigation
     $scope.toggleLeft = buildToggler('left');
@@ -74,19 +75,15 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
     $scope.switchEn = function (){
         $scope.translationLang= "English";
         $scope.changeLanguage();
-        console.log("englisch");
-    }
+    };
     $scope.switchDe = function (){
         $scope.translationLang= "Deutsch";
         $scope.changeLanguage();
-        console.log("deutsch");
-    }
+    };
     var translations = {"Deutsch": "de", "English": "en"};
     $scope.translationLang = ($rootScope.lang == 'de') ? "Deutsch" : "English";
     $scope.changeLanguage = function() {
-        console.log("switching");
         var langKey = translations[$scope.translationLang];
-        console.log(langKey);
         $translate.use(langKey);
         $rootScope.lang = langKey;
     };

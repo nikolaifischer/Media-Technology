@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="mtPlanr" lang="{{lang}}">
+<html ng-app="mtPlanr" lang="{{lang}}" ng-controller="MainController">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,15 @@
     <!-- Angular Material Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
+
+    <!-- TODO: ist doch nicht so einfach (https://docs.angularjs.org/guide/i18n -> Providing locale rules to AngularJS) -->
+    <!--German localization of calendar ng-if="translationLang == 'Deutsch'" -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_de-de.js"></script>
+    <!--English localization of calendar ng-if="translationLang == 'English'"
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_en.js"></script> -->
+
     <!-- Angular Material Calendar -->
     <script src="libs/angular-sanitize/angular-sanitize.js"></script>
     <script src="libs/material-calendar/dist/angular-material-calendar.js"></script>
@@ -32,6 +41,10 @@
 
     <!--Angular Material Date/Time Picker-->
     <script type="text/javascript" src="libs/moment/moment.js"></script>
+    <!--German localization of DateTime-Picker -->
+    <script type="text/javascript" src="libs/moment/locale/de.js"></script>
+    <!--English localization of DateTime-Picker -->
+    <script type="text/javascript" src="libs/moment/locale/en-gb.js"></script>
 
     <script type="text/javascript"
             src="resources/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
@@ -44,18 +57,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
-    <!--German localization of calendar-->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_de-de.js"></script>
-    <!--English localization of caledar
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_en.js"></script>-->
-
-    <!--German localization of DateTime-Picker-->
-    <script type="text/javascript" src="libs/moment/locale/de.js"></script>
-    <!--English localization of DateTime-Picker
-    <script type="text/javascript" src="libs/moment/locale/en-gb.js"></script>-->
 
     <!-- textAngular -->
 
@@ -105,7 +106,7 @@
 
 
 </head>
-<body ng-controller="MainController">
+<body>
 
 <!-- START Side Navi - Only visible on mobile -->
 <md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
@@ -198,5 +199,6 @@
     <div ng-view></div>
 
 </div>
+
 </body>
 </html>
