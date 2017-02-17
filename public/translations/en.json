@@ -43,6 +43,7 @@
   "DURATION_MINUTES": "Duration in minutes",
   "LOCATION": "Location",
   "TUTOR": "Tutor",
+  "ADMIN": "Admin",
   "MISSING_PRIORITIES": "You have {{number}} priorities left to set.",
   "WHITELIST_MGT": "Whitelist Management",
   "PROJECT_MGT": "Project Management",

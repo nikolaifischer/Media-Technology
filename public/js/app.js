@@ -9,6 +9,7 @@ angular.module('mtPlanr', [
     'AudioCtrl',
     'AdminCtrl',
     'WhitelistCtrl',
+    'ExerciseTemplateCtrl',
     'ExerciseCtrl',
     'GroupCtrl',
     'AlgoCtrl',
@@ -64,6 +65,7 @@ angular.module('mtPlanr')
 angular.module('mtPlanr')
     .run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
         $rootScope.$on('$routeChangeStart', function () {
+            // TODO: sollten wir das nicht über PlatformUser.isAuthenticated() abfragen?
             if ($window.sessionStorage.token != null) {
                 //$location.path('/home');
             }

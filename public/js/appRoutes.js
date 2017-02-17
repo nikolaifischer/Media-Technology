@@ -24,8 +24,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'AudioController'
         })
         .when('/exercises', {
-            templateUrl: 'views/exercises.html',
-            controller: 'ExerciseController'
+            templateUrl: 'views/exerciseTemplateProvider.html',
+            controller: 'ExerciseTemplateController'
         })
         .when('/admin', {
             templateUrl: 'views/admin/admin.html',
@@ -34,10 +34,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/admin/whitelist', {
             templateUrl: 'views/admin/whitelist.html',
             controller: 'WhitelistController'
-        })
-        .when('/admin/exercises', {
-            templateUrl: 'views/admin/exercises.html',
-            controller: 'ExerciseController'
         })
         .when('/admin/prioritydistribution', {
             templateUrl: 'views/admin/algo.html',

@@ -1,15 +1,32 @@
 angular.module('ExerciseCtrl', [])
     .controller('ExerciseController', function ($location, $scope, $filter, Semester, PlatformUser, Exercise, $mdToast, $mdPanel) {
 
+        $scope.currentUser = {};
+        $scope.role = "";
 
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
+                // wird nur für Erklärungstext beim Admin oder Tutor verwendet, keine Studenten berücksichtigt!
+                $scope.role = ($scope.currentUser.isAdmin) ? "ADMIN" : "TUTOR";
             }, function (error) {
                 console.log(error);
             });
         }
 
+
+        // get tutors for selection in the dialog
+        $scope.tutors = [];
+
+        PlatformUser.find({
+            filter: {
+                where: {isTutor: true}
+            }
+        }, function(tutors) {
+            tutors.forEach(function(tutor) {
+                $scope.tutors.push(tutor.first_name+" "+tutor.name);
+            })
+        });
 
         // TODO: zukünftig sollte es Samstag und Sonntag nicht geben
         $scope.weekSchedules = {
@@ -47,6 +64,7 @@ angular.module('ExerciseCtrl', [])
                         location: exercise.location,
                         daytime: daytime,
                         lectureEnd: lectureEnd,
+                        tutor: exercise.tutor,
                         currentUserParticipates: currentUserParticipates,
                         participantCount: participantCount
                     };
@@ -84,7 +102,8 @@ angular.module('ExerciseCtrl', [])
                 locals: {
                     weekSchedules: $scope.weekSchedules,
                     weekday: weekday,
-                    semester: $scope.semester
+                    semester: $scope.semester,
+                    tutors: $scope.tutors
                 }
             };
 
@@ -166,7 +185,7 @@ angular.module('ExerciseCtrl', [])
     })
     .controller('PanelDialogCtrl', PanelDialogCtrl);
 
-function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, semester, Exercise) {
+function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, semester, tutors, Exercise) {
     this._mdPanelRef = mdPanelRef;
     $scope.weekSchedules = weekSchedules;
     $scope.weekday = weekday;
@@ -174,6 +193,7 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
     $scope.exerciseName = {};
     $scope.exerciseLocation = {};
     $scope.exerciseTime = {};
+    $scope.exerciseTutor = tutors;
 
     $scope.addExercise = function(weekday){
         var lectureEnd = new Date($scope.exerciseTime[weekday]);
@@ -183,7 +203,8 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
             name: $scope.exerciseName[weekday],
             location: $scope.exerciseLocation[weekday],
             daytime: $filter('date')($scope.exerciseTime[weekday], 'HH:mm'),
-            lectureEnd: $filter('date')(lectureEnd, 'HH:mm')
+            lectureEnd: $filter('date')(lectureEnd, 'HH:mm'),
+            tutor: $scope.exerciseTutor[weekday]
         };
 
         setTimeout(function(){
@@ -207,7 +228,8 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
                     "name": newExercise.name,
                     "date": exerciseDate,
                     "semesterId": $scope.semester.id,
-                    "location": newExercise.location
+                    "location": newExercise.location,
+                    "tutor": newExercise.tutor
                 }, function(response) {
                 }, function(error) {
                     console.log(error);

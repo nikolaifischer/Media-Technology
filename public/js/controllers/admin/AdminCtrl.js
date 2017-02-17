@@ -1,13 +1,9 @@
 angular.module('AdminCtrl', [])
     .controller('AdminController', function ($location, $scope, PlatformUser, $mdToast, PendingPlatformUser) {
 
-
-
-
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
-                //console.log(currentUser);
-                if(!currentUser.isTutor) {
+                if(!currentUser.isAdmin) {
                     $location.path('/');
                 }
             }, function (error) {
@@ -15,14 +11,10 @@ angular.module('AdminCtrl', [])
             });
         }
 
-
-
-        $scope.userList=[];
+        $scope.userList = [];
         $scope.showWhiteListButton = false;
         $scope.showUpload = false;
-        $scope.pendingPlatformUsers;
-
-
+        $scope.pendingPlatformUsers = [];
 
 
         // Table:
@@ -44,19 +36,6 @@ angular.module('AdminCtrl', [])
         };
 
         $scope.selectedPendingPlatformUsers = [];
-
-
-        // only tutors should reach the admin route (TODO: what about admins?)
-        if (PlatformUser.isAuthenticated()) {
-            PlatformUser.getCurrent(function (currentUser) {
-                //console.log(currentUser);
-                if(!currentUser.isTutor) {
-                    $location.path('/');
-                }
-            }, function (error) {
-                console.log(error);
-            });
-        }
 
         $scope.uploadFile = function(){
             var file = document.getElementById('userUpload').files[0],
@@ -132,18 +111,12 @@ angular.module('AdminCtrl', [])
             };
         };
 
-
-
-
-
-
         $scope.getPendingPlatformUsers = function () {
 
             PendingPlatformUser.find({}, function(res){
                 $scope.pendingPlatformUsers = res;
-                console.log($scope.pendingPlatformUsers);
             })
-        }
+        };
 
         $scope.saveToPendingPlatformUsers = function () {
 
@@ -167,11 +140,7 @@ angular.module('AdminCtrl', [])
             }
 
             $scope.showUpload = false;
-
-
-
-
-        }
+        };
 
         $scope.saveEdit = function ($event, user) {
 
@@ -187,8 +156,7 @@ angular.module('AdminCtrl', [])
                     .hideDelay(2000)
                     .toastClass("toast")
             );
-
-        }
+        };
 
         $scope.deleteEntry =function($event, user){
 
@@ -203,18 +171,16 @@ angular.module('AdminCtrl', [])
                         .toastClass("toast")
                 );
             })
-
-        }
+        };
 
         $scope.deleteUpload = function(){
             //TODO: Die selbe Datei kann noch nicht 2 mal hintereinander hochgeladen werden (Wegen dem Change Handler)
+            // --> wieso sollte das nötig sein? (Jenna)
             $scope.userList = [];
             $scope.showWhiteListButton=false;
-        }
+        };
 
         $scope.getPendingPlatformUsers();
-
-
 
 }).directive('fileOnChange', function() {
     return {
@@ -224,4 +190,4 @@ angular.module('AdminCtrl', [])
             element.bind('change', onChangeHandler);
         }
     };
-});;
+});

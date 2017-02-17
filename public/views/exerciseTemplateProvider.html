@@ -1,0 +1,4 @@
+<div ng-controller="ExerciseTemplateController">
+    <div ng-include="" src="'/views/admin/exercises.html'" ng-if="isTutor"></div>
+    <div ng-include="" src="'/views/exercises.html'" ng-if="!isTutor"></div>
+</div>

@@ -5,7 +5,8 @@
         <div class="col-sm-0 col-md-2"></div>
         <div class="col-sm-12 col-md-8">
             <md-card>
-                <md-card-content style="text-align: center;" translate="ADMIN_EXERCISE_TEXT"></md-card-content>
+                <md-card-content style="text-align: center;" translate="ADMIN_EXERCISE_TEXT"
+                                 translate-values="{role:role}"></md-card-content>
             </md-card>
         </div>
         <div class="col-sm-0 col-md-2"></div>
@@ -25,19 +26,22 @@
                         <md-list>
                             <md-list-item class="md-3-line" ng-repeat-start="exercise in exercises">
                                 <div class="md-list-item-text">
-                                    <h3>{{exercise.name}}</h3>
-                                    <span>{{exercise.location}}</span><br>
-                                    <span>{{exercise.daytime}} - {{exercise.lectureEnd}}</span>
+                                    <h3 style="font-weight: bold; margin-top: 5px;">{{exercise.name}}</h3>
+                                    <span><md-icon class="tiny">account_balance</md-icon> {{exercise.location}}</span><br>
+                                    <span><md-icon class="tiny">schedule</md-icon> {{exercise.daytime}} - {{exercise.lectureEnd}}</span><br>
+                                    <span><md-icon class="tiny">school</md-icon> {{exercise.tutor}}</span>
                                     <md-button ng-click="removeExercise(weekday, $index)" class="md-icon-button">
                                         <md-icon class="md-accent">delete</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'DELETE' | translate }}</md-tooltip>
                                     </md-button>
                                 </div>
                             </md-list-item>
                             <md-divider ng-repeat-end></md-divider>
-                            <md-list-item class="md-3-line">
+                            <md-list-item class="md-3-line" style="padding: 12px 0;">
                                 <div class="md-list-item-text">
                                     <md-button class="md-icon-button add-exercise-dialog-open-button" ng-click="showDialog(weekday, $event)">
                                         <md-icon class="md-primary">add</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'ADD' | translate }}</md-tooltip>
                                     </md-button>
                                 </div>
                             </md-list-item>
@@ -81,6 +85,15 @@
                         <input type="time" ng-model="exerciseTime[weekday]" ng-required="true" name="exerciseTime"
                                placeholder="{{ 'TIME' | translate }}">
                         <div ng-messages="createExercise.exerciseTime.$error">
+                            <div ng-message="required" translate="INPUT_REQUIRED"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <md-select class="dialogSelect" ng-model="exerciseTutor[weekday]" placeholder="{{ 'TUTOR' | translate }}"
+                                   ng-required="true" name="exerciseTutor">
+                            <md-option ng-value="tutor" ng-repeat="tutor in exerciseTutor"> {{ tutor }}</md-option>
+                        </md-select>
+                        <div ng-messages="createExercise.exerciseTutor.$error">
                             <div ng-message="required" translate="INPUT_REQUIRED"></div>
                         </div>
                     </md-input-container>
