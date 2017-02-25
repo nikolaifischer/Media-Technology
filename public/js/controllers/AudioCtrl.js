@@ -12,16 +12,19 @@ angular.module('AudioCtrl', [])
         $scope.minDate = moment().subtract(1, 'month');
         $scope.selectedPriority = [];
         $scope.priorities = [1,2,3];
+        $scope.showSaveButton = false;
+        $scope.showCross = [];
 
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
+            groupedElements = {};
             //Get Audio LabType
             $scope.audiolabs = LabType.find({
                 filter: {
-                    where: {type: 1}
+                    where: {type: $scope.labTypeId}
                 }
             }, function (audiolabs) {
-                $scope.auioLabType = audiolabs;
+                $scope.audioLabType = audiolabs;
                 // Find all Audio Labs
                 $scope.labs = Lab.find({
                     filter: {
@@ -36,42 +39,48 @@ angular.module('AudioCtrl', [])
                                 $scope.myLabs.push(element);
                             }
                         }*/
+                        //save end time in element
                         var dateObj = new Date(element.date);
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
                         element.end = $filter('date')(endtime, 'HH:mm');
-
-                        //Get Tutor for each lab
-                        /*PlatformUser.find({
-                            //TODO: Filter Users to tutors
-                            /*filter: {
-                                where: {isTutor: true}
-                            }*/
-                        /*}, function (tutors) {
-                            for (var j = 0; j < tutors.length; j++) {
-                                var matchingElements = tutors[j].tutorLabIds.filter(function (elm) {
-                                    return elm == element.id
-                                });
-                                if (matchingElements.length > 0) {
-                                    element.tutorName = tutors[j].name;
-                                    element.tutorFirstName = tutors[j].first_name;
+                        //save tutor name in element
+                        PlatformUser.findById({
+                            id: element.tutorId
+                        }, function (tutor) {
+                            element.tutorName = tutor.first_name +" "+tutor.name;
+                            //Get Selected Priority for each lab ans save in element
+                            Priority.find({
+                                filter: {
+                                    where: {labId: element.id}
                                 }
-                            }*/
-                            //get end time from start time and duration
-                            var date = element.date.slice(0, 10);
-                            if (groupedElements[date] === undefined) {
-                                groupedElements[date] = [];
-                            }
-                            groupedElements[date].push(element);
+                            }, function (prio) {
+                                if ($scope.group != undefined) {
+                                    for (var k = 0; k < prio.length; k++) {
+                                        if (prio[k].groupId == $scope.group.id) {
+                                            element.selPrio = prio[k].priority;
+                                        }
+                                    }
+                                }
+                                //get end time from start time and duration
+                                var date = element.date.slice(0, 10);
+                                if (groupedElements[date] === undefined) {
+                                    groupedElements[date] = [];
+                                }
+                                groupedElements[date].push(element);
 
-                            //Write Labs in calendar
-                            Object.keys(groupedElements).forEach(function (date) {
-                                MaterialCalendarData.setDayContent(new Date(date),"<div class='calendar_content'>Termine</div>");
-                                //angular.element(document.getElementsByClassName("calendar_content")).parent().parent().addClass('highlight');
+                                //Write Labs in calendar
+                                Object.keys(groupedElements).forEach(function (date) {
+                                    MaterialCalendarData.setDayContent(new Date(date),"<div class='calendar_content'>Termine</div>");
+                                    //angular.element(document.getElementsByClassName("calendar_content")).parent().parent().addClass('highlight');
+                                });
+                                if($scope.key != undefined) {
+                                    $scope.dayClick($scope.key);
+                                }
+                                return groupedElements;
+
                             });
+                        });
 
-
-                            return groupedElements;
-                        //});
                     });
                 }, function (error) {
                     console.log(error);
@@ -147,6 +156,11 @@ angular.module('AudioCtrl', [])
             $scope.key = $filter("date")(date, "yyyy-MM-dd");
 
             $scope.objects = (groupedElements[$scope.key] || []);
+            $scope.showSaveButton = false;
+            for (var i = 0; i < $scope.objects.length; i++) {
+                $scope.selectedPriority[i] = undefined;
+                $scope.showCross[i] = false;
+            }
         };
 
 
@@ -166,9 +180,11 @@ angular.module('AudioCtrl', [])
                 "date": $scope.dateTime,
                 "duration": $scope.duration,
                 "location": $scope.location,
-                "labTypeId": $scope.audiolabs.id
+                "labTypeId": $scope.audiolabs.id,
+                //"semesterId": $scope.semester.id,
+                "tutorId": $scope.selectedTutor.id
             }, function (lab) {
-                PlatformUser.findById({
+                /*PlatformUser.findById({
                     id: $scope.selectedTutor.id
                 }, function (tutor) {
                     tutor.tutorLabIds.push(lab.id);
@@ -176,12 +192,13 @@ angular.module('AudioCtrl', [])
                         $scope.selectedTutor = undefined;
                         console.log(user);
                     });
-                });
+                });*/
                 // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
                 $scope.loadLabs();
                 $scope.dateTime = "";
                 $scope.duration = "";
                 $scope.location = "";
+                $scope.selectedTutor = undefined;
 
             }, function(error){
                 console.log(error);
@@ -193,16 +210,16 @@ angular.module('AudioCtrl', [])
         /****Create or Update Priority in database from user input****/
         $scope.savePriorities = function () {
             for (let i = 0; i < $scope.objects.length; i++) {
-                if ($scope.selectedPriority[i] != undefined) {
+                if ($scope.selectedPriority[i].priority != undefined && $scope.selectedPriority[i].priority != 0) {
                     //check if lab already has priority
-                    Priority.find({
+                    /*Priority.find({
                         filter: {
                             where: {labId: $scope.selectedPriority[i].objectId}
                         }
                     }, function (prios) {
                         if(prios.length > 0) {
                             alert("Dieses Praktikum hat bereits die Priorität "+ prios[0].priority);
-                        } else {
+                        } else {*/
                             //check if priority already exists
                             $scope.existingPrio = Priority.find({
                                 filter: {
@@ -212,6 +229,7 @@ angular.module('AudioCtrl', [])
                                 if (prios.length > 0) {
                                     //Update saved priority
                                     Priority.prototype$updateAttributes({"id": prios[0].id}, {"labId": $scope.selectedPriority[i].objectId}, function (prio) {
+                                        $scope.loadLabs();
                                         $scope.loadPriorities();
                                         $scope.selectedPriority[i].priority = undefined;
                                         console.log(prio);
@@ -222,22 +240,24 @@ angular.module('AudioCtrl', [])
                                         "priority": $scope.selectedPriority[i].priority,
                                         "groupId": $scope.group.id,
                                         "labId": $scope.selectedPriority[i].objectId
+                                        //"semesterId": $scope.semester.id
                                     }, function (priority) {
                                         $scope.loadPriorities();
-                                        console.log(priority);
+                                        $scope.loadLabs();
+                                        $scope.showCross[i] = 0;
+                                        $scope.showSaveButton = false;
                                         $scope.selectedPriority[i].priority = undefined;
                                     }, function (error) {
                                         console.log(error);
                                     });
                                 }
-                            });
-                        }
+                            //});
+                        //}
                     });
                 }
             }
 
         };
-        //TODO
         /****Delete Priority***/
         $scope.deletePriority = function (selectedPrio, selectedLabId) {
             Priority.find({
@@ -247,20 +267,24 @@ angular.module('AudioCtrl', [])
             }, function (prio) {
                 Priority.deleteById({"id": prio[0].id}, function (err, obj) {
                     $scope.loadPriorities();
-                    console.log(err);
+                    $scope.loadLabs();
                 });
             });
         };
 
-        /****check if 2 equal priorities are selected****/
-        $scope.checkSelectValues = function (sel) {
-            console.log(sel);
-            var i = $(sel).index();
-            $('select:not(:eq('+i+'))').each(function () {
-                if ($(this).val() === sel) {
-                    alert($(this).index()+' has the same value');
+        $scope.showButton = function (prio, i) {
+                if (prio != undefined) {
+                    $scope.showSaveButton = true;
+                    $scope.showCross[i] = true;
+                } else {
+                    $scope.showSaveButton = false;
+                    $scope.showCross[i] = false;
                 }
-            });
+        };
+
+        $scope.resetSelect = function (i) {
+            $scope.selectedPriority[i].priority = undefined;
+            $scope.showCross[i] = false;
         };
     })
 

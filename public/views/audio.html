@@ -1,6 +1,8 @@
 <div class="jumbotron" ng-controller="AudioController" xmlns="http://www.w3.org/1999/html">
+    <div ng-model="labTypeId" style="display: none">1</div>
     <div class="col-sm-12"><h2 translate="AUDIO_PROJECT"></h2></div>
-    <div class="col-sm-12 description" translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name}"></div>
+    <div class="col-sm-12 description" translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name}" ng-show="group!=undefined" ng-show="!currentUser.isTutor"></div>
+    <div class="col-sm-12 description" ng-show="group==undefined && !currentUser.isTutor">Du musst in einer Gruppe sein, um Prioritäten für das Audiopraktikum zu speichern.</div>
 
     <div class="col-md-8 col-sm-12">
         <calendar-md flex layout layout-fill
@@ -25,24 +27,26 @@
         <div ng-repeat="object in objects">
             <div class="lab_details">
                 <md-input-container>
-                    <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id" >
+                    <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButton(selectedPriority[$index].priority, $index)" ng-show="object.selPrio == undefined && !currentUser.isTutor" >
                         <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                     </md-select>
+                    <md-icon ng-show="showCross[$index]" ng-click="resetSelect($index)">close</md-icon>
                 </md-input-container><br>
                 <md-icon>access_time</md-icon>{{ object.date | date: "HH:mm" }} - {{ object.end }} {{ 'HOURS' | translate }}<br>
-                <md-icon>place</md-icon><a href="http://maps.google.com/?q={{ object.location }}">{{ object.location }}</a><br>
-                <md-icon>person</md-icon>{{ object.tutorId }} {{ object.tutorName }}
+                <md-icon>place</md-icon><a href="http://maps.google.com/?q={{ object.location }}" target="_blank">{{ object.location }}</a><br>
+                <md-icon>person</md-icon>{{ object.tutorName }}<br>
+                <span ng-show="object.selPrio != undefined"><md-icon>label_outline</md-icon> Priorität: {{ object.selPrio }}</span>
                 <hr/>
             </div>
             <!--<div ng-repeat="(key, value) in object">
                 {{key}} : {{value}}-->
         </div>
         <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}-->
-        <md-button ng-click="savePriorities()" class="md-raised md-primary"
+        <md-button ng-click="savePriorities()" class="md-raised md-primary" ng-show="group!=undefined || !showSaveButton" ng-hide="!showSaveButton"
                    aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
     </div>
 
-    <div class="col-md-8 col-sm-12 create_lab_container" ><!--ng-show="currentUser.isTutor"-->
+    <div class="col-md-8 col-sm-12 create_lab_container" ng-show="currentUser.isTutor">
         <h3 translate="CREATE_NEW_AUDIO_LAB_APPOINTMENT"></h3>
         <md-input-container flex-gt-md="30">
             <input mdc-datetime-picker=""
@@ -76,10 +80,10 @@
         </div>
     </div>
 
-    <div class="col-md-4 col-sm-12 saved_priorities_container">
+    <div class="col-md-12 col-sm-12 saved_priorities_container" ng-show="!currentUser.isTutor">
         <h3>Gespeicherte Prioritäten</h3>
         <div>{{ prioMessage }}</div>
-        <div class="prio" ng-repeat="prio in groupPriorities">
+        <div class="prio" ng-repeat="prio in groupPriorities | orderBy: groupPriorities.priority">
             <div class="prio_number">{{ prio.priority }}</div>
             <div class="prio_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in labs | filter: {id: prio.labId}">{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr </div>
             <md-icon class= "delete_button" ng-click="deletePriority(prio.priority, prio.labId)">delete</md-icon><br>
