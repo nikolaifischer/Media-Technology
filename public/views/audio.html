@@ -26,20 +26,57 @@
         <h3> {{ clickedDay }} </h3>
         <div ng-repeat="object in objects">
             <div class="lab_details">
+                <!--Edit Lab Button-->
+                <md-icon style="float: right" ng-click="editLab($index)" ng-show="currentUser.isTutor && !isEdit[$index]">edit</md-icon>
+                <md-icon style="float: right" ng-click="cancelEditLab($index)" ng-show="currentUser.isTutor && isEdit[$index]">close</md-icon>
+                <!--Select Priority-->
                 <md-input-container>
                     <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButton(selectedPriority[$index].priority, $index)" ng-show="object.selPrio == undefined && !currentUser.isTutor" >
                         <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                     </md-select>
                     <md-icon ng-show="showCross[$index]" ng-click="resetSelect($index)">close</md-icon>
-                </md-input-container><br>
-                <md-icon>access_time</md-icon>{{ object.date | date: "HH:mm" }} - {{ object.end }} {{ 'HOURS' | translate }}<br>
-                <md-icon>place</md-icon><a href="http://maps.google.com/?q={{ object.location }}" target="_blank">{{ object.location }}</a><br>
-                <md-icon>person</md-icon>{{ object.tutorName }}<br>
+                </md-input-container>
+                <br>
+                <!--Time-->
+                <span ng-show="!isEdit[$index]"><md-icon>access_time</md-icon> {{ object.date | date: "HH:mm" }} - {{ object.end }} {{ 'HOURS' | translate }}</span>
+                <md-input-container ng-show="isEdit[$index]">
+                    <input mdc-datetime-picker=""
+                           date="true"
+                           time="true"
+                           type="text"
+                           id="editDatetime"
+                           placeholder="{{ 'DATETIME' | translate }}"
+                           min-date="minDate"
+                           ng-model="editDateTime[$index]"
+                           class ="md-input"
+                           lang="{{lang}}">
+                </md-input-container>
+                <br>
+                <!--Duration-->
+                <md-input-container ng-show="isEdit[$index]">
+                    <input type="text" ng-model="editDuration[$index]" placeholder="{{ 'DURATION_MINUTES' | translate }}">
+                </md-input-container>
+                <!--Location-->
+                <span ng-show="!isEdit[$index]"><md-icon>place</md-icon><a href="http://maps.google.com/?q={{ object.location }}" target="_blank"> {{ object.location }}</a></span>
+                <md-input-container ng-show="isEdit[$index]">
+                    <input type="text" ng-model="editLocation[$index]" placeholder="{{ 'LOCATION' | translate }}">
+                </md-input-container>
+                <br>
+                <!--Tutor-->
+                <span ng-show="!isEdit[$index]"><md-icon>person</md-icon> {{ object.tutorName }}</span>
+                <md-input-container ng-show="isEdit[$index]">
+                    <md-select ng-model="editSelectedTutor[$index]" placeholder="{{ 'TUTOR' | translate }}">
+                        <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <br>
+                <!--selected Priority-->
                 <span ng-show="object.selPrio != undefined"><md-icon>label_outline</md-icon> Priorität: {{ object.selPrio }}</span>
+                <!--UpdateButton-->
+                <md-button ng-click="updateLab($index)" class="md-raised md-primary" ng-show="isEdit[$index]"
+                           aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
                 <hr/>
             </div>
-            <!--<div ng-repeat="(key, value) in object">
-                {{key}} : {{value}}-->
         </div>
         <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}-->
         <md-button ng-click="savePriorities()" class="md-raised md-primary" ng-show="group!=undefined || !showSaveButton" ng-hide="!showSaveButton"
@@ -48,7 +85,7 @@
 
     <div class="col-md-8 col-sm-12 create_lab_container" ng-show="currentUser.isTutor">
         <h3 translate="CREATE_NEW_AUDIO_LAB_APPOINTMENT"></h3>
-        <md-input-container flex-gt-md="30">
+        <md-input-container>
             <input mdc-datetime-picker=""
                    date="true"
                    time="true"
@@ -60,13 +97,13 @@
                    class ="md-input"
                    lang="{{lang}}">
         </md-input-container>
-        <md-input-container flex-gt-md="30">
+        <md-input-container>
             <input type="text" ng-model="duration" placeholder="{{ 'DURATION_MINUTES' | translate }}">
         </md-input-container>
-        <md-input-container flex-gt-md="30">
+        <md-input-container>
             <input type="text" ng-model="location" placeholder="{{ 'LOCATION' | translate }}">
         </md-input-container>
-        <md-input-container flex-gt-md="30">
+        <md-input-container>
             <md-select ng-model="selectedTutor" placeholder="{{ 'TUTOR' | translate }}">
                 <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>
             </md-select>

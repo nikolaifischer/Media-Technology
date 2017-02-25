@@ -8,12 +8,16 @@ angular.module('AudioCtrl', [])
         var groupedElements = {};
         $scope.date = new Date();
         $scope.time = new Date();
-        //$scope.dateTime = new Date();
         $scope.minDate = moment().subtract(1, 'month');
         $scope.selectedPriority = [];
         $scope.priorities = [1,2,3];
         $scope.showSaveButton = false;
         $scope.showCross = [];
+        $scope.isEdit = [];
+        $scope.editDateTime = [];
+        $scope.editDuration = [];
+        $scope.editLocation = [];
+        $scope.editSelectedTutor = [];
 
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
@@ -190,6 +194,38 @@ angular.module('AudioCtrl', [])
                 console.log(error);
             });
 
+        };
+
+        /****Edit Lab****/
+        $scope.editLab = function (i) {
+            $scope.isEdit[i] = true;
+            $scope.editDateTime[i] = $scope.objects[i].date;
+            $scope.editDuration[i] = $scope.objects[i].duration;
+            $scope.editLocation[i] = $scope.objects[i].location;
+            $scope.tutors.forEach(function(tutor, index) {
+                if(tutor.id == $scope.objects[i].tutorId){
+                    $scope.editSelectedTutor[i] = $scope.tutors[index];
+                }
+            });
+        };
+
+        $scope.cancelEditLab = function (i) {
+            $scope.isEdit[i] = false;
+        };
+
+        $scope.updateLab = function (i) {
+            console.log($scope.editSelectedTutor[i]);
+            Lab.prototype$updateAttributes(
+                    {"id": $scope.objects[i].id},
+                    {"date": $scope.editDateTime[i],
+                    "duration": $scope.editDuration[i],
+                    "location": $scope.editLocation[i],
+                    "tutorId": $scope.editSelectedTutor[i].id},
+                function (lab) {
+                    $scope.loadLabs();
+                    $scope.isEdit[i] = false;
+                    console.log(lab);
+            });
         };
 
 
