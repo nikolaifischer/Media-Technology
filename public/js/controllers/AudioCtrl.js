@@ -33,21 +33,17 @@ angular.module('AudioCtrl', [])
                 }, function (labs) {
                     //Get format for calendar
                     labs.forEach(function (element) {
-                        //Find my Tutor Labs
-                        /*if ($scope.currentUser.tutorLabIds.indexOf(element.id) > -1) {
-                            if(!$scope.myLabs.indexOf(element)) {
-                                $scope.myLabs.push(element);
-                            }
-                        }*/
-                        //save end time in element
+                        //TODO Find my Tutor Labs
                         var dateObj = new Date(element.date);
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
                         element.end = $filter('date')(endtime, 'HH:mm');
                         //save tutor name in element
-                        PlatformUser.findById({
-                            id: element.tutorId
+                        PlatformUser.find({
+                            filter: {
+                                where: {id: element.tutorId}
+                            }
                         }, function (tutor) {
-                            element.tutorName = tutor.first_name +" "+tutor.name;
+                            element.tutorName = tutor[0].first_name +" "+tutor[0].name;
                             //Get Selected Priority for each lab ans save in element
                             Priority.find({
                                 filter: {
@@ -211,15 +207,6 @@ angular.module('AudioCtrl', [])
         $scope.savePriorities = function () {
             for (let i = 0; i < $scope.objects.length; i++) {
                 if ($scope.selectedPriority[i].priority != undefined && $scope.selectedPriority[i].priority != 0) {
-                    //check if lab already has priority
-                    /*Priority.find({
-                        filter: {
-                            where: {labId: $scope.selectedPriority[i].objectId}
-                        }
-                    }, function (prios) {
-                        if(prios.length > 0) {
-                            alert("Dieses Praktikum hat bereits die Priorität "+ prios[0].priority);
-                        } else {*/
                             //check if priority already exists
                             $scope.existingPrio = Priority.find({
                                 filter: {
@@ -251,8 +238,6 @@ angular.module('AudioCtrl', [])
                                         console.log(error);
                                     });
                                 }
-                            //});
-                        //}
                     });
                 }
             }
