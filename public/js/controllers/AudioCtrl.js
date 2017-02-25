@@ -53,8 +53,9 @@ angular.module('AudioCtrl', [])
                                 where: {id: element.tutorId}
                             }
                         }, function (tutor) {
-                            console.log(tutor);
-                            element.tutorName = tutor.first_name +" "+tutor.name;
+                            if (tutor.length > 0) {
+                                element.tutorName = tutor[0].first_name + " " + tutor[0].name;
+                            }
                             //Get Selected Priority for each lab ans save in element
                             Priority.find({
                                 filter: {
