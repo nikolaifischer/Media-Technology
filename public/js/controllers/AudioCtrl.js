@@ -48,8 +48,10 @@ angular.module('AudioCtrl', [])
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
                         element.end = $filter('date')(endtime, 'HH:mm');
                         //save tutor name in element
-                        PlatformUser.findById({
-                            id: element.tutorId
+                        PlatformUser.find({
+                            filter: {
+                                where: {id: element.tutorId}
+                            }
                         }, function (tutor) {
                             console.log(tutor);
                             element.tutorName = tutor.first_name +" "+tutor.name;
