@@ -33,17 +33,16 @@ angular.module('AudioCtrl', [])
                 }, function (labs) {
                     //Get format for calendar
                     labs.forEach(function (element) {
-                        //TODO Find my Tutor Labs
+                        //TODO: Find my Tutor Labs
+                        //save end time in element
                         var dateObj = new Date(element.date);
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
                         element.end = $filter('date')(endtime, 'HH:mm');
                         //save tutor name in element
-                        PlatformUser.find({
-                            filter: {
-                                where: {id: element.tutorId}
-                            }
+                        PlatformUser.findById({
+                            id: element.tutorId
                         }, function (tutor) {
-                            element.tutorName = tutor[0].first_name +" "+tutor[0].name;
+                            element.tutorName = tutor.first_name +" "+tutor.name;
                             //Get Selected Priority for each lab ans save in element
                             Priority.find({
                                 filter: {
@@ -180,15 +179,6 @@ angular.module('AudioCtrl', [])
                 //"semesterId": $scope.semester.id,
                 "tutorId": $scope.selectedTutor.id
             }, function (lab) {
-                /*PlatformUser.findById({
-                    id: $scope.selectedTutor.id
-                }, function (tutor) {
-                    tutor.tutorLabIds.push(lab.id);
-                    PlatformUser.prototype$updateAttributes({ "id": tutor.id }, { "tutorLabIds": tutor.tutorLabIds }, function(user) {
-                        $scope.selectedTutor = undefined;
-                        console.log(user);
-                    });
-                });*/
                 // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
                 $scope.loadLabs();
                 $scope.dateTime = "";
