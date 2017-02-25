@@ -22,6 +22,7 @@ angular.module('AudioCtrl', [])
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
             groupedElements = {};
+            $scope.myLabs = [];
             //Get Audio LabType
             $scope.audiolabs = LabType.find({
                 filter: {
@@ -37,7 +38,11 @@ angular.module('AudioCtrl', [])
                 }, function (labs) {
                     //Get format for calendar
                     labs.forEach(function (element) {
-                        //TODO: Find my Tutor Labs
+                        if($scope.currentUser.isTutor) {
+                            if ($scope.currentUser.id == element.tutorId) {
+                                    $scope.myLabs.push(element);
+                            }
+                        }
                         //save end time in element
                         var dateObj = new Date(element.date);
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
@@ -46,6 +51,7 @@ angular.module('AudioCtrl', [])
                         PlatformUser.findById({
                             id: element.tutorId
                         }, function (tutor) {
+                            console.log(tutor);
                             element.tutorName = tutor.first_name +" "+tutor.name;
                             //Get Selected Priority for each lab ans save in element
                             Priority.find({

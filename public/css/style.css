@@ -262,6 +262,16 @@ md-dialog {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 2px -2px rgba(0, 0, 0, .12)
 }
 
+calendar-md md-content > md-content.calendar > :not(:first-child) > *:hover {
+    background: rgba(0, 0, 0, 0.0) !important;
+    box-shadow: none !important;
+}
+
+calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
+    box-shadow: none !important;
+    background: rgba(0, 0, 0, 0.0) !important;
+}
+
 .highlight {
     background: rgba(0, 105, 92, 0.2);
 }
