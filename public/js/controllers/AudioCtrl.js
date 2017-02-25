@@ -50,9 +50,10 @@ angular.module('AudioCtrl', [])
                         //save tutor name in element
                         PlatformUser.find({
                             filter: {
-                                where: {id: element.tutorId, isTutor: true}
+                                where: { id: element.tutorId, isTutor: true}
                             }
                         }, function (tutor) {
+                            console.log(tutor);
                             if (tutor.length > 0) {
                                 element.tutorName = tutor[0].first_name + " " + tutor[0].name;
                             }
