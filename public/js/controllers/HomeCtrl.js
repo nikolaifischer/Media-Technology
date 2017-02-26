@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window, $resource, $mdDialog) {
+angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window, $resource, $mdDialog, NewsEntry) {
 
     $scope.$root.hideNav = false;
 
@@ -20,6 +20,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
         })
     }
 
+    loadNews();
 
     // Find the Group the User is part of
 
@@ -29,11 +30,16 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
     // News Editor
     $scope.hideEditor = false;
-    $scope.news = " <br> <ul> <li> Die Übung entfällt heute</li> <li>Die Prüfung findet am 24.12.17 statt</li> </ul>";
+    function loadNews () {
+        NewsEntry.find({}, function (newsArr){
+            if(newsArr.length>0)
+                $scope.news = newsArr[newsArr.length-1].message;
+        })
+    }
     $scope.saveEditor = function () {
-        console.log("Saving the editor!");
-
-        //TODO Save in Backend DB
+        // Saving done in async
+        NewsEntry.create({message:$scope.news});
+        $scope.hideEditor = true;
     }
 
 
