@@ -22,7 +22,8 @@ angular.module('mtPlanr', [
     'pascalprecht.translate',
     'ngSanitize',
     'ngCookies',
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'tmh.dynamicLocale'
 ]);
 
 
@@ -55,6 +56,11 @@ angular.module('mtPlanr').config(function (LoopBackResourceProvider, $provide) {
 });
 
 angular.module('mtPlanr')
+    .config(function(tmhDynamicLocaleProvider){
+        tmhDynamicLocaleProvider.localeLocationPattern('../libs/angular-i18n/angular-locale_{{locale}}.js');
+    });
+
+angular.module('mtPlanr')
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('teal')
@@ -79,6 +85,8 @@ angular.module('mtPlanr')
     }]);
 
 
+
+
 angular.module('mtPlanr')
     .config(['$translateProvider', function($translateProvider) {
 
@@ -91,3 +99,4 @@ angular.module('mtPlanr')
             .useSanitizeValueStrategy('escapeParameters') // escaping of HTML in parameters only
             .useLocalStorage();
 }]);
+
