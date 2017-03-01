@@ -82,5 +82,8 @@
   "REPEAT_PASSWORD_NO_MATCH": "Dies muss deinem zuvor vergebenen Passwort entsprechen.",
   "INPUT_REQUIRED": "Dieses Feld muss befüllt sein.",
   "STUDENT_EXERCISE_TEXT": "Hier kannst du dich für eine Übung anmelden, damit die Termine in deinem Kalender angezeigt werden.",
-  "ADMIN_EXERCISE_TEXT": "Als {{role | translate}} kannst du hier Übungen erstellen, damit die Studenten diesen beitreten können."
+  "ADMIN_EXERCISE_TEXT": "Als {{role | translate}} kannst du hier Übungen erstellen, damit die Studenten diesen beitreten können.",
+  "SEMESTER_MGT": "Semester Verwaltung",
+  "CURRENT_SEMESTER": "Aktuelles Semester",
+  "NEW_SEMESTER": "Neues Semester anlegen"
 }

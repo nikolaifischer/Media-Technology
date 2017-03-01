@@ -1,0 +1,47 @@
+<div class="jumbotron" ng-controller="SemesterController">
+
+    <h2 class="site_headline" translate="SEMESTER_MGT"></h2>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-3"></div>
+
+        <div class="col-sm-12 col-lg-6">
+
+            <md-card>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text ng-if="!noCurrentSemester"><h2 class="cardHeader"
+                                                                       translate="CURRENT_SEMESTER"></h2>
+                    </md-card-title-text>
+                    <md-card-title-text ng-if="noCurrentSemester"><h2 class="cardHeader" translate="NEW_SEMESTER"></h2>
+                    </md-card-title-text>
+                </md-card-title>
+
+                <md-card-content class="cardContent">
+
+                    <md-input-container class="md-block">
+                        <label>Name</label>
+                        <md-icon>info_outline</md-icon>
+                        <input ng-model="semester.term">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Gruppengröße</label>
+                        <md-icon>group</md-icon>
+                        <input type="number" step="1" ng-model="semester.group_size">
+                    </md-input-container>
+
+                    <md-datepicker style="margin-left:-16px;" ng-model="semester.start_date"
+                                   md-placeholder="Start Date"></md-datepicker>
+                    <md-datepicker ng-model="semester.end_date" md-placeholder="End Date"></md-datepicker>
+
+                    <div style="margin-top: 40px;">
+                        <md-button class="md-primary md-raised" ng-click="saveSemester()"> Save</md-button>
+                    </div>
+
+                </md-card-content>
+
+        </div>
+
+
+        <div class="col-sm-12 col-lg-3"></div>
+    </div>
+</div>

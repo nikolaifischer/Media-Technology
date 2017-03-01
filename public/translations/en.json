@@ -87,5 +87,8 @@
   "REPEAT_PASSWORD_NO_MATCH": "This must match your previously given password.",
   "INPUT_REQUIRED": "This field must be filled.",
   "STUDENT_EXERCISE_TEXT": "Here you can join a tutorial, so the schedules are shown in your calendar.",
-  "ADMIN_EXERCISE_TEXT": "Here you can create tutorials as admin, so the students can join them."
+  "ADMIN_EXERCISE_TEXT": "Here you can create tutorials as admin, so the students can join them.",
+  "SEMESTER_MGT": "Semester Management",
+  "CURRENT_SEMESTER": "Current Semester",
+  "NEW_SEMESTER": "Create new Semester"
 }

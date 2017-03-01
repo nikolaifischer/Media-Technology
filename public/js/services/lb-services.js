@@ -1631,6 +1631,60 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                             method: "GET",
                         },
 
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.findById() instead.
+                        "prototype$__findById__tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/:fk",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.destroyById() instead.
+                        "prototype$__destroyById__tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.updateById() instead.
+                        "prototype$__updateById__tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.link() instead.
+                        "prototype$__link__tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/rel/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.unlink() instead.
+                        "prototype$__unlink__tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/rel/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.exists() instead.
+                        "prototype$__exists__tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/rel/:fk",
+                            method: "HEAD",
+                        },
+
                         /**
                          * @ngdoc method
                          * @name lbServices.PlatformUser#prototype$__get__accessTokens
@@ -1808,6 +1862,31 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                         // INTERNAL. Use PlatformUser.exercise.count() instead.
                         "prototype$__count__exercise": {
                             url: urlBase + "/PlatformUsers/:id/exercise/count",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs() instead.
+                        "prototype$__get__tutorPossibleLabs": {
+                            isArray: true,
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.create() instead.
+                        "prototype$__create__tutorPossibleLabs": {
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.destroyAll() instead.
+                        "prototype$__delete__tutorPossibleLabs": {
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.count() instead.
+                        "prototype$__count__tutorPossibleLabs": {
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/count",
                             method: "GET",
                         },
 
@@ -3583,6 +3662,462 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                 R.group = function() {
                     var TargetResource = $injector.get("Group");
                     var action = TargetResource["::get::PlatformUser::group"];
+                    return action.apply(R, arguments);
+                };
+                /**
+                 * @ngdoc object
+                 * @name lbServices.PlatformUser.tutorPossibleLabs
+                 * @header lbServices.PlatformUser.tutorPossibleLabs
+                 * @object
+                 * @description
+                 *
+                 * The object `PlatformUser.tutorPossibleLabs` groups methods
+                 * manipulating `Lab` instances related to `PlatformUser`.
+                 *
+                 * Call {@link lbServices.PlatformUser#tutorPossibleLabs PlatformUser.tutorPossibleLabs()}
+                 * to query all related instances.
+                 */
+
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser#tutorPossibleLabs
+                 * @methodOf lbServices.PlatformUser
+                 *
+                 * @description
+                 *
+                 * Queries tutorPossibleLabs of PlatformUser.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `filter` – `{object=}` -
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Array.<Object>,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Array.<Object>} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::get::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#count
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Counts tutorPossibleLabs of PlatformUser.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `where` – `{object=}` - Criteria to match model instances
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * Data properties:
+                 *
+                 *  - `count` – `{number=}` -
+                 */
+                R.tutorPossibleLabs.count = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::count::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#create
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Creates a new instance in tutorPossibleLabs of this model.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `data` – `{object=}` -
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs.create = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::create::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#createMany
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Creates a new instance in tutorPossibleLabs of this model.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `data` – `{object=}` -
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Array.<Object>,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Array.<Object>} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs.createMany = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::createMany::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#destroyAll
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Deletes all tutorPossibleLabs of this model.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `where` – `{object=}` -
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * This method returns no data.
+                 */
+                R.tutorPossibleLabs.destroyAll = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::delete::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#destroyById
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Delete a related item by id for tutorPossibleLabs.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `fk` – `{*}` - Foreign key for tutorPossibleLabs
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * This method returns no data.
+                 */
+                R.tutorPossibleLabs.destroyById = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::destroyById::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#exists
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Check the existence of tutorPossibleLabs relation to an item by id.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `fk` – `{*}` - Foreign key for tutorPossibleLabs
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs.exists = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::exists::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#findById
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Find a related item by id for tutorPossibleLabs.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `fk` – `{*}` - Foreign key for tutorPossibleLabs
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs.findById = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::findById::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#link
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Add a related item by id for tutorPossibleLabs.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for tutorPossibleLabs
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `data` – `{object=}` -
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs.link = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::link::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#unlink
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Remove the tutorPossibleLabs relation to an item by id.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `fk` – `{*}` - Foreign key for tutorPossibleLabs
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * This method returns no data.
+                 */
+                R.tutorPossibleLabs.unlink = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::unlink::PlatformUser::tutorPossibleLabs"];
+                    return action.apply(R, arguments);
+                };
+
+                /**
+                 * @ngdoc method
+                 * @name lbServices.PlatformUser.tutorPossibleLabs#updateById
+                 * @methodOf lbServices.PlatformUser.tutorPossibleLabs
+                 *
+                 * @description
+                 *
+                 * Update a related item by id for tutorPossibleLabs.
+                 *
+                 * @param {Object=} parameters Request parameters.
+                 *
+                 *  - `id` – `{*}` - PlatformUser id
+                 *
+                 *  - `fk` – `{*}` - Foreign key for tutorPossibleLabs
+                 *
+                 * @param {Object} postData Request data.
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 *  - `data` – `{object=}` -
+                 *
+                 *  - `options` – `{object=}` -
+                 *
+                 * @param {function(Object,Object)=} successCb
+                 *   Success callback with two arguments: `value`, `responseHeaders`.
+                 *
+                 * @param {function(Object)=} errorCb Error callback with one argument:
+                 *   `httpResponse`.
+                 *
+                 * @returns {Object} An empty reference that will be
+                 *   populated with the actual data once the response is returned
+                 *   from the server.
+                 *
+                 * <em>
+                 * (The remote method definition does not provide any description.
+                 * This usually means the response is a `Lab` object.)
+                 * </em>
+                 */
+                R.tutorPossibleLabs.updateById = function() {
+                    var TargetResource = $injector.get("Lab");
+                    var action = TargetResource["::updateById::PlatformUser::tutorPossibleLabs"];
                     return action.apply(R, arguments);
                 };
 
@@ -10132,6 +10667,92 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                             method: "POST",
                         },
 
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.findById() instead.
+                        "::findById::PlatformUser::tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/:fk",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.destroyById() instead.
+                        "::destroyById::PlatformUser::tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.updateById() instead.
+                        "::updateById::PlatformUser::tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.link() instead.
+                        "::link::PlatformUser::tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/rel/:fk",
+                            method: "PUT",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.unlink() instead.
+                        "::unlink::PlatformUser::tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/rel/:fk",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.exists() instead.
+                        "::exists::PlatformUser::tutorPossibleLabs": {
+                            params: {
+                                'fk': '@fk',
+                            },
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/rel/:fk",
+                            method: "HEAD",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs() instead.
+                        "::get::PlatformUser::tutorPossibleLabs": {
+                            isArray: true,
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "GET",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.create() instead.
+                        "::create::PlatformUser::tutorPossibleLabs": {
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.createMany() instead.
+                        "::createMany::PlatformUser::tutorPossibleLabs": {
+                            isArray: true,
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "POST",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.destroyAll() instead.
+                        "::delete::PlatformUser::tutorPossibleLabs": {
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs",
+                            method: "DELETE",
+                        },
+
+                        // INTERNAL. Use PlatformUser.tutorPossibleLabs.count() instead.
+                        "::count::PlatformUser::tutorPossibleLabs": {
+                            url: urlBase + "/PlatformUsers/:id/tutorPossibleLabs/count",
+                            method: "GET",
+                        },
+
                         // INTERNAL. Use Group.labs.findById() instead.
                         "::findById::Group::labs": {
                             params: {
@@ -12331,6 +12952,46 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                          */
                         "createChangeStream": {
                             url: urlBase + "/LabTypes/change-stream",
+                            method: "POST",
+                        },
+
+                        /**
+                         * @ngdoc method
+                         * @name lbServices.LabType#autoDistributeTutors
+                         * @methodOf lbServices.LabType
+                         *
+                         * @description
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.)
+                         * </em>
+                         *
+                         * @param {Object=} parameters Request parameters.
+                         *
+                         *   This method does not accept any parameters.
+                         *   Supply an empty object or omit this argument altogether.
+                         *
+                         * @param {Object} postData Request data.
+                         *
+                         *  - `labTypeId` – `{string=}` -
+                         *
+                         * @param {function(Object,Object)=} successCb
+                         *   Success callback with two arguments: `value`, `responseHeaders`.
+                         *
+                         * @param {function(Object)=} errorCb Error callback with one argument:
+                         *   `httpResponse`.
+                         *
+                         * @returns {Object} An empty reference that will be
+                         *   populated with the actual data once the response is returned
+                         *   from the server.
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.
+                         * This usually means the response is a `LabType` object.)
+                         * </em>
+                         */
+                        "autoDistributeTutors": {
+                            url: urlBase + "/LabTypes/autoDistributeTutors",
                             method: "POST",
                         },
 

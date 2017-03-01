@@ -21,10 +21,10 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
     }
 
     // Get the Semester:
-    $scope.getCurrentSemester = function() {
+    $scope.getCurrentSemester = function(cb) {
         var currDate = new Date();
 
-        return Semester.findOne({
+       Semester.findOne({
             filter: {
                 where: {
                     and: [
@@ -33,7 +33,17 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
                     ]
                 }
             }
-        })
+        }, function(semester){
+
+           if(cb != undefined) {
+               cb(semester);
+           }
+           return semester;
+       }, function(err){
+            cb();
+            return;
+       })
+
     };
 
     $scope.semester = $scope.getCurrentSemester();
