@@ -90,5 +90,7 @@
   "ADMIN_EXERCISE_TEXT": "Here you can create tutorials as admin, so the students can join them.",
   "SEMESTER_MGT": "Semester Management",
   "CURRENT_SEMESTER": "Current Semester",
-  "NEW_SEMESTER": "Create new Semester"
+  "NEW_SEMESTER": "Create new Semester",
+  "START_DATE": "Start Date",
+  "END_DATE": "End Date"
 }

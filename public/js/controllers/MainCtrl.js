@@ -37,6 +37,7 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
 
            if(cb != undefined) {
                cb(semester);
+               return semester;
            }
            return semester;
        }, function(err){
@@ -46,10 +47,11 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
 
     };
 
-    $scope.semester = $scope.getCurrentSemester();
 
-    // Todo: wofür ist das?
-    Semester.find({where:{}});
+    $scope.getCurrentSemester(function(semester){
+        $scope.semester = semester;
+    })
+
 
     // Controls the side navigation
     $scope.toggleLeft = buildToggler('left');

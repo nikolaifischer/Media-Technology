@@ -21,17 +21,35 @@
                     <md-input-container class="md-block">
                         <label>Name</label>
                         <md-icon>info_outline</md-icon>
-                        <input ng-model="semester.term">
+                        <input ng-model="semesterinCtrl.term">
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>Gruppengröße</label>
                         <md-icon>group</md-icon>
-                        <input type="number" step="1" ng-model="semester.group_size">
+                        <input type="number" step="1" ng-model="semesterinCtrl.group_size">
                     </md-input-container>
 
-                    <md-datepicker style="margin-left:-16px;" ng-model="semester.start_date"
-                                   md-placeholder="Start Date"></md-datepicker>
-                    <md-datepicker ng-model="semester.end_date" md-placeholder="End Date"></md-datepicker>
+                    <md-input-container>
+                        <input mdc-datetime-picker=""
+                               date="true"
+                               time="false"
+                               type="text"
+                               placeholder="{{ 'START_DATE' | translate }}"
+                               ng-model="semesterinCtrl.start_date"
+                               class="md-input"
+                               lang="{{lang}}">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <input mdc-datetime-picker=""
+                               date="true"
+                               time="false"
+                               type="text"
+                               placeholder="{{ 'END_DATE' | translate }}"
+                               ng-model="semesterinCtrl.end_date"
+                               class="md-input"
+                               lang="{{lang}}">
+                    </md-input-container>
 
                     <div style="margin-top: 40px;">
                         <md-button class="md-primary md-raised" ng-click="saveSemester()"> Save</md-button>

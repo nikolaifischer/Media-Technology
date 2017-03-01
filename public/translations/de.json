@@ -85,5 +85,7 @@
   "ADMIN_EXERCISE_TEXT": "Als {{role | translate}} kannst du hier Übungen erstellen, damit die Studenten diesen beitreten können.",
   "SEMESTER_MGT": "Semester Verwaltung",
   "CURRENT_SEMESTER": "Aktuelles Semester",
-  "NEW_SEMESTER": "Neues Semester anlegen"
+  "NEW_SEMESTER": "Neues Semester anlegen",
+  "START_DATE": "Anfangsdatum",
+  "END_DATE": "Enddatum"
 }
