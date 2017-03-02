@@ -24,12 +24,13 @@
                         <input ng-model="semesterinCtrl.term">
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>Gruppengröße</label>
+                        <label>{{ 'GROUP_SIZE' | translate }}</label>
                         <md-icon>group</md-icon>
                         <input type="number" step="1" ng-model="semesterinCtrl.group_size">
                     </md-input-container>
 
                     <md-input-container>
+                        <md-icon>watch_later</md-icon>
                         <input mdc-datetime-picker=""
                                date="true"
                                time="false"

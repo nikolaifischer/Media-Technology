@@ -87,5 +87,6 @@
   "CURRENT_SEMESTER": "Aktuelles Semester",
   "NEW_SEMESTER": "Neues Semester anlegen",
   "START_DATE": "Anfangsdatum",
-  "END_DATE": "Enddatum"
+  "END_DATE": "Enddatum",
+  "GROUP_SIZE": "Gruppengröße"
 }

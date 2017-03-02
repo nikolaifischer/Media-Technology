@@ -92,5 +92,6 @@
   "CURRENT_SEMESTER": "Current Semester",
   "NEW_SEMESTER": "Create new Semester",
   "START_DATE": "Start Date",
-  "END_DATE": "End Date"
+  "END_DATE": "End Date",
+  "GROUP_SIZE": "Group Size"
 }
