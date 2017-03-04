@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, PlatformUser, Group, $window, $resource, $mdDialog, NewsEntry) {
+angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, PlatformUser, Group, $window, $resource, $mdDialog, NewsEntry) {
 
     $scope.$root.hideNav = false;
 
@@ -20,25 +20,24 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
         })
     }
 
+
     loadNews();
 
     // Find the Group the User is part of
 
 
-
-
-
     // News Editor
     $scope.hideEditor = false;
-    function loadNews () {
-        NewsEntry.find({}, function (newsArr){
-            if(newsArr.length>0)
-                $scope.news = newsArr[newsArr.length-1].message;
+    function loadNews() {
+        NewsEntry.find({}, function (newsArr) {
+            if (newsArr.length > 0)
+                $scope.news = newsArr[newsArr.length - 1].message;
         })
     }
+
     $scope.saveEditor = function () {
         // Saving done in async
-        NewsEntry.create({message:$scope.news});
+        NewsEntry.create({message: $scope.news});
         $scope.hideEditor = true;
     }
 
@@ -91,9 +90,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
     };
 
 
-
-
-    function loadGroup () {
+    function loadGroup() {
 
         //TODO: Das kann doch mit einer Relation von Platform User aus gemacht werden, wenn die Berechtigungen irgendwann stimmen => Effizienter
         Group.find({}, function (groups) {
@@ -108,10 +105,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
                 }
             }
 
-            if(!found){
+            if (!found) {
                 console.log("found nothing");
-                $scope.group=undefined;
-                $scope.groupMembers=undefined;
+                $scope.group = undefined;
+                $scope.groupMembers = undefined;
             }
             else {
                 console.log("I found the group");
@@ -136,7 +133,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
 
             // Get all the Users in the Group to show in the group card
-
 
 
         }, function (error) {
@@ -166,20 +162,53 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, Pl
 
             Group.deleteById({
                 id: $scope.group.id
-            }, function(res){
+            }, function (res) {
                 loadGroup()
-            }, function(err){
+            }, function (err) {
 
             });
 
 
-
-            // TODO: Im Backend Gruppe verlassen
         }, function () {
             // Do nothing
 
         });
     };
+
+
+    // Show No-Semester Pop-up
+
+    $scope.showNoSemester = function (ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('Kein Semester gewählt!')
+            .textContent('Bevor du beginnst solltest du ein Semester erstellen. Möchtest du das jetzt tun?')
+            .ariaLabel('Kein Semester gewählt')
+            .targetEvent(ev)
+            .ok('Ja')
+            .cancel('Nein');
+
+        $mdDialog.show(confirm).then(function () {
+            //ok-callback
+
+            $location.url('/admin/semester');
+
+        }, function () {
+            // Do nothing
+
+        });
+    };
+
+    // Show admins a Pop-up if there is no current semester
+    PlatformUser.getCurrent(function (currentUser) {
+        if (currentUser.isAdmin) {
+            $scope.getCurrentSemester(function (response) {
+                if (response == undefined) {
+                    $scope.showNoSemester();
+                }
+            });
+        }
+    });
 
 
 });

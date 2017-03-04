@@ -2,6 +2,19 @@ angular.module('SemesterCtrl', [])
     .controller('SemesterController', function ($location, $scope, $resource, $mdToast, $window, PlatformUser, Semester) {
 
 
+        // Send non-admins back to home page
+        if (PlatformUser.isAuthenticated()) {
+            PlatformUser.getCurrent(function (currentUser) {
+                if(!currentUser.isAdmin) {
+                    $location.path('/');
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
+
+
+
         $scope.semesterinCtrl = {};
         $scope.semesterinCtrl.start_date = new Date();
         $scope.semesterinCtrl.end_date = new Date();
@@ -9,7 +22,7 @@ angular.module('SemesterCtrl', [])
         $scope.getCurrentSemester(function (semester) {
             if (semester != undefined) {
                 $scope.noCurrentSemester = false;
-                Semester.findOne({id: semester.id}, function (currentSemester) {
+                Semester.findOne({filter:{where:{id: semester.id}}}, function (currentSemester) {
                     currentSemester.start_date = new Date(currentSemester.start_date);
                     currentSemester.end_date = new Date(currentSemester.end_date);
                     $scope.semesterinCtrl = currentSemester;
@@ -23,13 +36,13 @@ angular.module('SemesterCtrl', [])
 
         })
 
-
         $scope.saveSemester = function () {
 
             // Create a new Semester
             if ($scope.noCurrentSemester) {
                 Semester.create($scope.semesterinCtrl, function (success) {
                     $scope.semester = success;
+                    $window.location.reload();
 
                 }, function (err) {
                     console.log(err);
