@@ -25,8 +25,8 @@ angular.module('AlgoCtrl', [])
             var token;
             var groups;
             PlatformUser.getCurrent(function (current) {
+                console.log("Started data retrieval");
                 token = LoopBackAuth.accessTokenId;
-
                 // Get the right LabType Id:
 
                 LabType.find({filter: {where: {type: labtypeNumber}}}, function (success) {
@@ -50,16 +50,16 @@ angular.module('AlgoCtrl', [])
                                     id: groups[i].id,
                                     filter: {where: {labtype: labtype.id}}
                                 }, function (groupPrios) {
-
                                     for (var j = 0; j < groupPrios.length; j++) {
-
                                         var choosenDateEl = {priority: groupPrios[j].priority, dateTime: ''};
                                         var choosenLabs;
                                         Lab.find({filter: {where: {id: groupPrios[j].labId}}}, function (success) {
                                             choosenLabs = success;
                                             choosenDateEl['dateTime'] = choosenLabs[0].date;
 
-                                            choosenDate.push(choosenDateEl);
+
+                                            if(choosenDate.length < groupPrios.length)
+                                                choosenDate.push(choosenDateEl);
 
                                             if (choosenDate.length == groupPrios.length) {
 
@@ -92,10 +92,12 @@ angular.module('AlgoCtrl', [])
                                                     });
 
                                                 }
-
                                             }
 
+                                        }, function(err){
+                                            console.log(err);
                                         });
+
 
                                     }
 
@@ -116,7 +118,6 @@ angular.module('AlgoCtrl', [])
                 console.log(error);
 
             });
-
 
         }
 
