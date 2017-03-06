@@ -93,5 +93,6 @@
   "NEW_SEMESTER": "Create new Semester",
   "START_DATE": "Start Date",
   "END_DATE": "End Date",
-  "GROUP_SIZE": "Group Size"
+  "GROUP_SIZE": "Group Size",
+  "NOT_VERIFIED": "Your E-Mail Address has not yet been verified. Please check your Inbox."
 }

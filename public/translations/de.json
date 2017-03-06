@@ -88,5 +88,6 @@
   "NEW_SEMESTER": "Neues Semester anlegen",
   "START_DATE": "Anfangsdatum",
   "END_DATE": "Enddatum",
-  "GROUP_SIZE": "Gruppengröße"
+  "GROUP_SIZE": "Gruppengröße",
+  "NOT_VERIFIED": "Deine E-Mail Adresse wurde noch nicht bestätigt. Bitte überprüfe dein Postfach"
 }

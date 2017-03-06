@@ -1,4 +1,4 @@
-angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast, vcRecaptchaService) {
+angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast,$mdDialog, $location, vcRecaptchaService) {
 
 
     $scope.$root.hideNav = true;
@@ -7,6 +7,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.registerFlag = false;
     $scope.whitelisted = true;
     $scope.wrongLogin = false;
+    $scope.notVerified = false;
     $scope.loginCaptchaId;
     $scope.registerCaptchaId;
 
@@ -32,22 +33,53 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
                 $window.location.href = '/';
             },
             function (errorResponse) {
-                console.log(errorResponse);
-                $scope.wrongLogin = true;
+                if(errorResponse.data.error.message.includes("Anmeldung fehlgeschlagen, da die E-Mail-Adresse nicht bestätigt wurde")){
+                    $scope.notVerified = true;
+                }
+                else {
+                    $scope.wrongLogin = true;
+                }
+
                 vcRecaptchaService.reload($scope.loginCaptchaId);
                 delete $window.sessionStorage.token;
             }
         );
     };
 
+
+    // Show No-Semester Pop-up
+
+    $scope.showVerify = function (ev) {
+
+        // Show the user a message
+        var confirm = $mdDialog.confirm()
+            .title('Registrierung erfolgreich')
+            .textContent('Bitte überprüfe dein E-Mail Postfach und klicke auf den Bestätigungslink bevor du dich einloggst!')
+            .targetEvent(ev)
+            .ok('OK');
+
+        $mdDialog.show(confirm).then(function () {
+            //ok-callback
+
+            // Switch back to the Login Screen
+            $scope.registerFlag=false;
+
+        }, function () {
+            // Do nothing
+
+        });
+    };
+
     $scope.register = function () {
         PlatformUser.create($scope.user,
             function (response) {
-                $scope.registeredUser = {
-                    email: response.email,
-                    password: response.repeatpassword   // TODO: that's not nice... -> kann man da nicht $scope.user.password verwenden?
-                };
-                $scope.login();
+
+
+                $scope.showVerify();
+
+
+
+               // $scope.login();
             },
             function (errorResponse) {
                 if (errorResponse.status == 403) {
@@ -68,6 +100,9 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.setRegisterWidgetId = function(id) {
         $scope.registerCaptchaId=id;
     }
+
+
+
 
 
 

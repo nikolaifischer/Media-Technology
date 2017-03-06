@@ -26,9 +26,9 @@
                             <div ng-messages="loginForm.loginPassword.$error">
                                 <div ng-message="required" translate="WRONG_LOGIN_DATA"></div>
                             </div>
-                            <div style="padding-top: 20px; text-align: center;" ng-if="wrongLogin||wrongCaptcha" ng-messages="wrongLogin">
+                            <div style="padding-top: 20px; text-align: center;" ng-if="wrongLogin||notVerified" ng-messages="wrongLogin">
                                 <span ng-show="wrongLogin" translate="WRONG_LOGIN_DATA"></span>
-                                <span ng-show="wrongCaptcha"> {{'WRONG_CAPTCHA' | translate }}</span>
+                                <span ng-show="notVerified"> {{'NOT_VERIFIED' | translate }}</span>
                             </div>
                         </md-input-container>
 
