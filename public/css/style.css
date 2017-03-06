@@ -1,5 +1,6 @@
 body {
     overflow-x: hidden;
+    height: auto !important;
 }
 
 .container-fluid {
@@ -93,7 +94,6 @@ body {
 }
 
 .dashboardCardTitle {
-    max-height: 64px;
     color: white;
     background-color: #009688;
     padding: 0px;

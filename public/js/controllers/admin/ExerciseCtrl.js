@@ -1,19 +1,16 @@
 angular.module('ExerciseCtrl', [])
     .controller('ExerciseController', function ($location, $scope, $filter, Semester, PlatformUser, Exercise, $mdToast, $mdPanel) {
 
-        $scope.currentUser = {};
-        $scope.role = "";
-
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
-                // wird nur für Erklärungstext beim Admin oder Tutor verwendet, keine Studenten berücksichtigt!
-                $scope.role = ($scope.currentUser.isAdmin) ? "ADMIN" : "TUTOR";
             }, function (error) {
                 console.log(error);
             });
         }
 
+        // wird nur für Erklärungstext beim Admin oder Tutor verwendet, keine Studenten berücksichtigt!
+        $scope.role = ($scope.currentUser.isAdmin) ? "ADMIN" : "TUTOR";
 
         // get tutors for selection in the dialog
         $scope.tutors = [];
@@ -125,7 +122,7 @@ angular.module('ExerciseCtrl', [])
                 // save current start date because it gets faster updated than the exercise created...
                 var exerciseDate = new Date(start).toISOString();
 
-                // TODO: filter auf $scope.exercises verwenden
+                // TODO: wäre es besser, $scope.exercises durchzuloopen und darauf anhand der id zu löschen? (performance)
                 Exercise.find({
                     filter: {
                         where: {date: exerciseDate}

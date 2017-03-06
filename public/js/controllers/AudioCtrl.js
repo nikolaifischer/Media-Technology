@@ -99,7 +99,7 @@ angular.module('AudioCtrl', [])
 
         $scope.loadLabs();
 
-        /****Loads the current group and actualizes saved priorities****/
+        /****Loads the current group and updates saved priorities****/
         // Get current User
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {

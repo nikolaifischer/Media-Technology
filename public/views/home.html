@@ -2,7 +2,7 @@
     <h2 translate="HOME_HELLO" translate-values="{username:currentUser.first_name}"></h2>
 
     <div class="row boxesContainer">
-        <div class="col-md-4 col-sm-12">
+        <div ng-if="!currentUser.isTutor && !currentUser.isAdmin" class="col-md-4 col-sm-12">
             <md-card class="groupBox">
                 <md-card-title class="dashboardCardTitle">
                     <md-card-title-text><h2 class="cardHeader">{{group.name || ('NO_GROUP' | translate) }}</h2></md-card-title-text>
@@ -31,24 +31,23 @@
                 </md-card-actions>
             </md-card>
         </div>
-        <div class="col-md-4 col-sm-12">
+        <div ng-class="{'col-md-4': !currentUser.isTutor && !currentUser.isAdmin, 'col-md-6': currentUser.isTutor || currentUser.isAdmin}" class="col-sm-12">
             <md-card class="newsBox">
                 <md-card-title class="dashboardCardTitle">
                     <md-card-title-text><h2 class="cardHeader" translate="NEWS"></h2></md-card-title-text>
                 </md-card-title>
 
                 <md-content style="text-align: left; height: 470px;" class="cardContent">
-                    <text-angular style="text-align: left;" ng-show="currentUser.isTutor && !hideEditor" ng-model="news"></text-angular>
-                    <div ng-show="!currentUser.isTutor || hideEditor" ta-bind ng-model="news"></div>
+                    <text-angular style="text-align: left;" ng-show="(currentUser.isTutor || currentUser.isAdmin) && !hideEditor" ng-model="news"></text-angular>
+                    <div ng-show="(!currentUser.isTutor && !currentUser.isAdmin) || hideEditor" ta-bind ng-model="news"></div>
                 </md-content>
             </md-card>
 
-            <md-button ng-click="saveEditor()" ng-show="currentUser.isTutor" class="md-raised md-primary">{{ 'SAVE' | translate }}</md-button>
+            <md-button ng-click="saveEditor()" ng-show="currentUser.isTutor || currentUser.isAdmin" class="md-raised md-primary">{{ 'SAVE' | translate }}</md-button>
             <!-- TODO: der Button dürfte nicht mehr "bearbeiten" heißen, wenn der Editor schon offen ist -->
-            <md-button ng-click="hideEditor = !hideEditor" ng-show="currentUser.isTutor" class="md-raised md-primary">{{ 'EDIT' | translate }}</md-button>
+            <md-button ng-click="hideEditor = !hideEditor" ng-show="currentUser.isTutor || currentUser.isAdmin" class="md-raised md-primary">{{ 'EDIT' | translate }}</md-button>
         </div>
-        <!-- START CALENDAR -->
-        <div class="col-md-4 col-sm-12">
+        <div ng-class="{'col-md-4': !currentUser.isTutor && !currentUser.isAdmin, 'col-md-6': currentUser.isTutor || currentUser.isAdmin}" class="col-sm-12">
             <md-card class="calendarBox">
                 <calendar-md flex layout layout-fill
                              calendar-direction="direction"
@@ -70,6 +69,5 @@
                 </calendar-md>
             </md-card>
         </div>
-        <!-- STOP CALENDAR -->
     </div>
 </div>

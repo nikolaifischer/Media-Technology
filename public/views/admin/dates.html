@@ -1,0 +1,182 @@
+<div class="jumbotron layout-padding" ng-controller="DatesController">
+    <h2 style="text-align: center;" translate="DATE_MGT"></h2>
+
+    <div class="row">
+        <div class="col-sm-0 col-md-2"></div>
+        <div class="col-sm-12 col-md-8">
+            <md-card>
+                <md-card-content style="text-align: center;" translate="ADMIN_DATES_TEXT"></md-card-content>
+            </md-card>
+        </div>
+        <div class="col-sm-0 col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-1"></div>
+
+        <div class="col-sm-12 col-lg-10">
+            <md-card>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader" translate="CREATE_TERM"></h2></md-card-title-text>
+                </md-card-title>
+
+                <md-card-content class="cardContent" flex layout-padding>
+                    <md-list-item class="md-2-line">
+                        <div class="md-list-item-text">
+                            <form name="createTermForm">
+                                <div layout="row" layout-sm="column" layout-align-sm="end stretch" style="min-height: 50px">
+                                    <div flex-gt-sm="90" layout layout-wrap layout-align-sm="end stretch" layout-xs="column" layout-align-xs="center stretch">
+                                        <md-input-container flex-gt-lg="25" flex-gt-sm="50" flex-sm="100">
+                                            <input type="text" ng-model="termName" ng-required="true" name="termName"
+                                                   placeholder="{{ 'TERM_NAME' | translate }}">
+                                            <div ng-messages="createTermForm.termName.$error">
+                                                <div ng-message="required" translate="INPUT_REQUIRED"></div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container  flex-gt-lg="25" flex-gt-sm="50" flex-sm="100">
+                                            <input type="number" ng-model="groupSize" ng-required="true" name="groupSize"
+                                                   placeholder="{{ 'GROUP_SIZE_P' | translate }}" ng-pattern="/^[1-9][0-9]*$/">
+                                            <div ng-messages="createTermForm.groupSize.$error">
+                                                <div ng-message-exp="['pattern', 'required']" translate="INVALID_NUMBER"></div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container  flex-gt-lg="25" flex-gt-sm="50" flex-sm="100">
+                                            <input mdc-datetime-picker="" date="true" time="false" type="text" ng-required="true"
+                                                   name="startDate" placeholder="{{ 'START' | translate }}"
+                                                   ng-model="startDate" lang="{{lang}}">
+                                            <div ng-messages="createTermForm.startDate.$error">
+                                                <div ng-message="required" translate="INPUT_REQUIRED"></div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container  flex-gt-lg="25" flex-gt-sm="50" flex-sm="100">
+                                            <input mdc-datetime-picker="" date="true" time="false" type="text" ng-required="true"
+                                                   name="endDate" placeholder="{{ 'END' | translate }}"
+                                                   ng-model="endDate" lang="{{lang}}">
+                                            <div ng-messages="createTermForm.endDate.$error">
+                                                <div ng-message="required" translate="INPUT_REQUIRED"></div>
+                                            </div>
+                                        </md-input-container>
+                                    </div><div layout flex-gt-sm="10" layout-align-gt-sm="end center" layout-align-sm="center center">
+                                    <md-button class="md-icon-button" ng-click="createTerm()">
+                                        <md-icon class="md-primary">save</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'CREATE' | translate }}</md-tooltip>
+                                    </md-button>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <!-- TODO: Contentbox height begrenzen oder Pagination einbauen -->
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat-start="term in terms">
+                            <div class="md-list-item-text">
+                                <div layout="row" style="min-height: 50px">
+                                    <div flex-xs="80" flex-gt-xs="90"  layout layout-wrap>
+                                        <h3 style="font-weight: bold; min-width: 200px;" flex-gt-sm="25">{{term.term}}</h3>
+                                        <span style="min-width: 200px;">{{term.start_date | date}} - {{term.end_date | date}}
+                                        ({{ 'GROUP_SIZE' | translate }}: {{term.group_size}})</span>
+                                    </div><div layout flex-xs="20" flex-gt-xs="10" layout-align="end center">
+                                    <md-button ng-click="removeTerm($index)" class="md-icon-button">
+                                        <md-icon class="md-accent">delete</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'DELETE' | translate }}</md-tooltip>
+                                    </md-button>
+                                </div>
+                                </div>
+                            </div>
+                        </md-list-item>
+                        <md-divider ng-repeat-end></md-divider>
+                    <md-list>
+                </md-card-content>
+            </md-card>
+
+            <md-card>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader" translate="CREATE_UNIQUE_DATES"></h2></md-card-title-text>
+                </md-card-title>
+
+                <md-card-content class="cardContent" flex layout-padding>
+                    <md-list-item class="md-2-line">
+                        <div class="md-list-item-text">
+                            <form name="createUniqueDateForm">
+                                <div layout="row" layout-sm="column" layout-align-sm="end stretch" style="min-height: 50px">
+                                    <div flex-gt-sm="90" layout layout-wrap layout-align-sm="end stretch" layout-xs="column" layout-align-xs="center stretch">
+                                        <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
+                                            <input type="text" ng-model="uniqueDateName" ng-required="true" name="uniqueDateName"
+                                                   placeholder="{{ 'UNIQUE_DATE_NAME' | translate }}">
+                                            <div ng-messages="createUniqueDateForm.uniqueDateName.$error">
+                                                <div ng-message="required" translate="INPUT_REQUIRED"></div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
+                                            <input mdc-datetime-picker="" date="true" time="true" type="text" ng-required="true"
+                                                   name="uniqueDate" placeholder="{{ 'DATETIME' | translate }}"
+                                                   ng-model="uniqueDate" lang="{{lang}}" format="DD.MM.Y HH:mm">
+                                            <div ng-messages="createUniqueDateForm.uniqueDate.$error">
+                                                <div ng-message="required" translate="INPUT_REQUIRED"></div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
+                                            <input type="text" ng-model="location" placeholder="{{ 'LOCATION' | translate }}">
+                                        </md-input-container>
+                                        <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
+                                            <input type="number" ng-model="duration" name="duration"
+                                                   placeholder="{{ 'DURATION_MINUTES' | translate }}" ng-pattern="/^[1-9][0-9]*$/">
+                                            <div ng-messages="createUniqueDateForm.duration.$error">
+                                                <div ng-message-exp="['pattern']" translate="INVALID_NUMBER"></div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
+                                            <input type="text" ng-model="description" placeholder="{{ 'DESCRIPTION' | translate }}">
+                                        </md-input-container>
+                                        <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
+                                            <md-select ng-model="selectedTerm" name="selectedTerm" placeholder="{{ 'TERM_NAME' | translate }}">
+                                                <md-option ng-value="selectedTerm" ng-repeat="term in terms">{{ term.term}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div><div layout flex-gt-sm="10" layout-align-gt-sm="end center" layout-align-sm="center center">
+                                    <md-button class="md-icon-button" ng-click="createUniqueDate()">
+                                        <md-icon class="md-primary">save</md-icon>
+                                        <md-tooltip md-direction="right">{{ 'CREATE' | translate }}</md-tooltip>
+                                    </md-button>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <!-- TODO: Contentbox height begrenzen oder Pagination einbauen -->
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat-start="uniqueDate in uniqueDates">
+                            <div class="md-list-item-text">
+                                <div layout="row" style="min-height: 50px">
+                                    <div flex-xs="80" flex-gt-xs="90"  layout layout-wrap>
+                                        <h3 style="font-weight: bold; min-width: 200px;" flex-gt-sm="25">{{uniqueDate.name}}</h3>
+                                        <span>{{uniqueDate.date | date: "dd.MM.y HH:mm"}}</span>
+                                        <span ng-show="uniqueDate.duration">&nbsp;({{ 'DURATION_MINUTES' | translate }}: {{uniqueDate.duration}})</span>
+                                        <a style="padding-left: 15px; min-width: 200px;" ng-show="!showDetails"
+                                           ng-click="showDetails=true">{{ 'DETAILS' | translate }}</a>
+                                        <div ng-show="showDetails" style="padding-left: 15px; font-style: italic;" flex="100">
+                                            <span ng-show="uniqueDate.description">&laquo;{{uniqueDate.description}}&raquo;</span>
+                                            <span ng-show="uniqueDate.location"> - {{uniqueDate.location}}</span>
+                                            <span ng-repeat="term in terms | filter:uniqueDate.semesterId">
+                                                ({{term.term}})</span>
+                                        </div>
+                                    </div><div layout flex-xs="20" flex-gt-xs="10" layout-align="end center">
+                                        <md-button ng-click="removeUniqueDate($index)" class="md-icon-button">
+                                            <md-icon class="md-accent">delete</md-icon>
+                                            <md-tooltip md-direction="right">{{ 'DELETE' | translate }}</md-tooltip>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-list-item>
+                        <md-divider ng-repeat-end></md-divider>
+                        <md-list>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div class="col-sm-12 col-lg-1"></div>
+    </div>
+</div>
