@@ -53,7 +53,6 @@ angular.module('AudioCtrl', [])
                                 where: { id: element.tutorId, isTutor: true}
                             }
                         }, function (tutor) {
-                            console.log(tutor);
                             if (tutor.length > 0) {
                                 element.tutorName = tutor[0].first_name + " " + tutor[0].name;
                             }
@@ -114,7 +113,7 @@ angular.module('AudioCtrl', [])
                             $scope.loadPriorities = function () {
                                 Priority.find({
                                     filter: {
-                                        where: {groupId: $scope.group.id}
+                                        where: {groupId: $scope.group.id, labTypeId: $scope.labTypeId}
                                     }
                                 }, function (prios) {
                                     $scope.groupPriorities = prios;
@@ -199,6 +198,7 @@ angular.module('AudioCtrl', [])
                 $scope.duration = "";
                 $scope.location = "";
                 $scope.selectedTutor = undefined;
+                $scope.successMessage = "Praktikum erfolgreich erstellt."
 
             }, function(error){
                 console.log(error);
@@ -224,17 +224,15 @@ angular.module('AudioCtrl', [])
         };
 
         $scope.updateLab = function (i) {
-            console.log($scope.editSelectedTutor[i]);
-            Lab.prototype$updateAttributes(
-                    {"id": $scope.objects[i].id},
-                    {"date": $scope.editDateTime[i],
-                    "duration": $scope.editDuration[i],
-                    "location": $scope.editLocation[i],
-                    "tutorId": $scope.editSelectedTutor[i].id},
-                function (lab) {
-                    $scope.loadLabs();
-                    $scope.isEdit[i] = false;
-                    console.log(lab);
+            Lab.findById({id: $scope.objects[i].id}, function (lab) {
+                console.log(lab);
+                lab.date = $scope.editDateTime[i];
+                lab.duration = $scope.editDuration[i];
+                lab.location = $scope.editLocation[i];
+                lab.tutorId = $scope.editSelectedTutor[i].id;
+                lab.$save();
+                $scope.loadLabs();
+                $scope.isEdit[i] = false;
             });
         };
 
@@ -242,43 +240,62 @@ angular.module('AudioCtrl', [])
         /****Create or Update Priority in database from user input****/
         $scope.savePriorities = function () {
             for (let i = 0; i < $scope.objects.length; i++) {
-                if ($scope.selectedPriority[i] != undefined)
+                if ($scope.selectedPriority[i] != undefined) {
                     if($scope.selectedPriority[i].priority != 0) {
+                        let selPrio = $scope.selectedPriority[i].priority;
+                        let selLabId = $scope.selectedPriority[i].objectId;
                         //check if priority already exists
-                        $scope.existingPrio = Priority.find({
-                            filter: {
-                                where: {priority: $scope.selectedPriority[i].priority}
-                            }
-                        }, function (prios) {
-                            if (prios.length > 0) {
-                                //Update saved priority
-                                Priority.prototype$updateAttributes({"id": prios[0].id}, {"labId": $scope.selectedPriority[i].objectId}, function (prio) {
-                                    $scope.loadLabs();
-                                    $scope.loadPriorities();
-                                    $scope.selectedPriority[i].priority = undefined;
-                                    console.log(prio);
-                                });
-                            } else {
-                                //Create new Priority
-                                Priority.create({
-                                    "priority": $scope.selectedPriority[i].priority,
-                                    "groupId": $scope.group.id,
-                                    "labId": $scope.selectedPriority[i].objectId
-                                    //"semesterId": $scope.semester.id
-                                }, function (priority) {
-                                    $scope.loadPriorities();
-                                    $scope.loadLabs();
-                                    $scope.showCross[i] = 0;
-                                    $scope.showSaveButton = false;
-                                    $scope.selectedPriority[i].priority = undefined;
-                                }, function (error) {
-                                    console.log(error);
-                                });
-                            }
-                    });
+                        checkIfPrioExists(selPrio, selLabId, i);
+                    }
                 }
             }
         };
+        function checkIfPrioExists(selPrio, selLabId, index) {
+            Priority.find({
+                filter: {
+                    where: {priority: selPrio, labTypeId: $scope.labTypeId}
+                }
+            }, function (res) {
+
+                if (res.length > 0) {
+                    updatePriority(res[0].id, selLabId, index);
+                } else {
+                    createPriority(selPrio, selLabId, index);
+                }
+            });
+        }
+        /*************TODO:UpdatePriority*************/
+        function updatePriority(prioId, selLabId, index) {
+            Priority.find({
+                filter: {
+                    where: {id: prioId}
+                }
+            }, function (res) {
+                res[0].labId = selLabId;
+                res[0].$save();
+                $scope.loadLabs();
+                $scope.loadPriorities();
+                $scope.selectedPriority[index].priority = undefined;
+            });
+        }
+        function createPriority(selPrio, selLabId, index) {
+            Priority.create({
+                "priority": selPrio,
+                "groupId": $scope.group.id,
+                "labId": selLabId,
+                "labTypeId": $scope.labTypeId
+                //"semesterId": $scope.semester.id
+            }, function (priority) {
+                $scope.loadPriorities();
+                $scope.loadLabs();
+                $scope.showCross[index] = 0;
+                $scope.showSaveButton = false;
+                $scope.selectedPriority[index].priority = undefined;
+            }, function (error) {
+                console.log(error);
+            });
+        }
+
         /****Delete Priority***/
         $scope.deletePriority = function (selectedPrio, selectedLabId) {
             Priority.find({
