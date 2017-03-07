@@ -10,7 +10,6 @@
     "angular-resource": "^1.6.0",
     "material-calendar": "^0.2.14",
     "textAngular": "^1.5.16",
-    "jquery": "^3.1.1",
     "material": "^0.1.1",
     "angular-material-data-table": "^0.10.10",
     "moment": "^2.17.1",
