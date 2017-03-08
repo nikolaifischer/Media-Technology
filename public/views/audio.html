@@ -30,13 +30,16 @@
                 <md-icon style="float: right" ng-click="editLab($index)" ng-show="currentUser.isTutor && !isEdit[$index]">edit</md-icon>
                 <md-icon style="float: right" ng-click="cancelEditLab($index)" ng-show="currentUser.isTutor && isEdit[$index]">close</md-icon>
                 <!--Select Priority-->
-                <md-input-container>
-                    <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButton(selectedPriority[$index].priority, $index)" ng-show="object.selPrio == undefined && !currentUser.isTutor" >
-                        <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
-                    </md-select>
-                    <md-icon ng-show="showCross[$index]" ng-click="resetSelect($index)">close</md-icon>
-                </md-input-container>
-                <br>
+                <div ng-show="group!=undefined">
+                    <md-input-container >
+                        <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)" ng-show="object.selPrio == undefined && !currentUser.isTutor" >
+                            <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
+                        </md-select>
+                        <md-icon ng-show="showBtns[$index]" ng-click="resetSelect($index)">close</md-icon>
+                    </md-input-container>
+                    <md-button ng-click="savePriority($index)" class="md-raised md-primary" ng-show="showBtns[$index]"
+                               aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
+                </div>
                 <!--Time-->
                 <span ng-show="!isEdit[$index]"><md-icon>access_time</md-icon> {{ object.date | date: "HH:mm" }} - {{ object.end }} {{ 'HOURS' | translate }}</span>
                 <md-input-container ng-show="isEdit[$index]">
@@ -78,9 +81,7 @@
                 <hr/>
             </div>
         </div>
-        <!--{{ 'MISSING_PRIORITIES' | translate:'{ number: "3" }' }}-->
-        <md-button ng-click="savePriorities()" class="md-raised md-primary" ng-show="group!=undefined || !showSaveButton" ng-hide="!showSaveButton"
-                   aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
+
     </div>
 
     <div class="col-md-8 col-sm-12 create_lab_container" ng-show="currentUser.isTutor">
