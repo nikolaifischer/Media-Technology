@@ -83,13 +83,17 @@ function PasswortDialogCtrl(mdPanelRef, $scope, $mdToast, PlatformUser, $window)
                 }
 
 
-                PlatformUser.prototype$updateAttributes({id: currentUser.id}, {password: $scope.currentUser.newPassword},
-                    function (success) {
-                        $window.location.href = '/profile';
-                    },
-                    function (error) {
-                        console.log(error)
-                    });
+                PlatformUser.changePassword({newPassword: $scope.currentUser.newPassword}, function(success){
+
+                    console.log("Changed PW");
+                    $window.location.href="/login";
+
+                }, function(err){
+
+                    console.log(err);
+
+                });
+
             });
         }
     }

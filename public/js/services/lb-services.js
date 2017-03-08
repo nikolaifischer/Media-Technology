@@ -2619,6 +2619,47 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                             method: "POST",
                         },
 
+                        /**
+                         * @ngdoc method
+                         * @name lbServices.PlatformUser#changePassword
+                         * @methodOf lbServices.PlatformUser
+                         *
+                         * @description
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.)
+                         * </em>
+                         *
+                         * @param {Object=} parameters Request parameters.
+                         *
+                         *   This method does not accept any parameters.
+                         *   Supply an empty object or omit this argument altogether.
+                         *
+                         * @param {Object} postData Request data.
+                         *
+                         *  - `newPassword` – `{string=}` -
+                         *
+                         *  - `options` – `{object=}` -
+                         *
+                         * @param {function(Object,Object)=} successCb
+                         *   Success callback with two arguments: `value`, `responseHeaders`.
+                         *
+                         * @param {function(Object)=} errorCb Error callback with one argument:
+                         *   `httpResponse`.
+                         *
+                         * @returns {Object} An empty reference that will be
+                         *   populated with the actual data once the response is returned
+                         *   from the server.
+                         *
+                         * Data properties:
+                         *
+                         *  - `platformUser` – `{object=}` -
+                         */
+                        "changePassword": {
+                            url: urlBase + "/PlatformUsers/changePassword",
+                            method: "POST",
+                        },
+
                         // INTERNAL. Use Exercise.participants.findById() instead.
                         "::findById::Exercise::participants": {
                             params: {
@@ -12995,6 +13036,46 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                             method: "POST",
                         },
 
+                        /**
+                         * @ngdoc method
+                         * @name lbServices.LabType#autoDistributeGroups
+                         * @methodOf lbServices.LabType
+                         *
+                         * @description
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.)
+                         * </em>
+                         *
+                         * @param {Object=} parameters Request parameters.
+                         *
+                         *   This method does not accept any parameters.
+                         *   Supply an empty object or omit this argument altogether.
+                         *
+                         * @param {Object} postData Request data.
+                         *
+                         *  - `labTypeId` – `{string=}` -
+                         *
+                         * @param {function(Object,Object)=} successCb
+                         *   Success callback with two arguments: `value`, `responseHeaders`.
+                         *
+                         * @param {function(Object)=} errorCb Error callback with one argument:
+                         *   `httpResponse`.
+                         *
+                         * @returns {Object} An empty reference that will be
+                         *   populated with the actual data once the response is returned
+                         *   from the server.
+                         *
+                         * <em>
+                         * (The remote method definition does not provide any description.
+                         * This usually means the response is a `LabType` object.)
+                         * </em>
+                         */
+                        "autoDistributeGroups": {
+                            url: urlBase + "/LabTypes/autoDistributeGroups",
+                            method: "POST",
+                        },
+
                         // INTERNAL. Use Lab.labType() instead.
                         "::get::Lab::labType": {
                             url: urlBase + "/Labs/:id/labType",
@@ -15014,6 +15095,53 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' &&
                  * i.e. `NewsEntry`.
                  */
                 R.modelName = "NewsEntry";
+
+
+
+                return R;
+            }]);
+
+    /**
+     * @ngdoc object
+     * @name lbServices.Email
+     * @header lbServices.Email
+     * @object
+     *
+     * @description
+     *
+     * A $resource object for interacting with the `Email` model.
+     *
+     * ## Example
+     *
+     * See
+     * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+     * for an example of using this object.
+     *
+     */
+    module.factory(
+        "Email",
+        [
+            'LoopBackResource', 'LoopBackAuth', '$injector', '$q',
+            function(LoopBackResource, LoopBackAuth, $injector, $q) {
+                var R = LoopBackResource(
+                    urlBase + "/Emails/:id",
+                    { 'id': '@id' },
+                    {
+                    }
+                );
+
+
+
+
+                /**
+                 * @ngdoc property
+                 * @name lbServices.Email#modelName
+                 * @propertyOf lbServices.Email
+                 * @description
+                 * The name of the model represented by this $resource,
+                 * i.e. `Email`.
+                 */
+                R.modelName = "Email";
 
 
 
