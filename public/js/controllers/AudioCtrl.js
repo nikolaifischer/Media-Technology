@@ -1,7 +1,7 @@
 angular.module('AudioCtrl', [])
     .controller('AudioController', function ($scope, $filter, $timeout, $log, $q, $http, $route, PlatformUser, Group, Lab, LabType, Priority, MaterialCalendarData, $window) {
 
-        $scope.myLabs = [];
+        $scope.myTutorLabs = [];
         var groupedElements = {};
         $scope.date = new Date();
         $scope.time = new Date();
@@ -14,32 +14,32 @@ angular.module('AudioCtrl', [])
         $scope.editDuration = [];
         $scope.editLocation = [];
         $scope.editSelectedTutor = [];
+        $scope.isTutor = false;
 
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
             groupedElements = {};
-            $scope.myLabs = [];
+            $scope.myTutorLabs = [];
             //Get Audio LabType
-            $scope.audiolabs = LabType.find({
+            LabType.find({
                 filter: {
                     where: {type: $scope.labTypeId
-                    //,semesterId: $scope.semester.id
+                        //,semesterId: $scope.semester.id
                     }
                 }
             }, function (audiolabs) {
-                $scope.audioLabType = audiolabs;
+                $scope.labType = audiolabs[0];
                 // Find all Audio Labs
                 $scope.labs = Lab.find({
                     filter: {
                         where: {labTypeId: audiolabs.id}
                     }
                 }, function (labs) {
-
                     //Get format for calendar
                     labs.forEach(function (element) {
-                        if($scope.currentUser.isTutor) {
+                        if($scope.currentUser.isTutor || $scope.currentUser.isAdmin) {
                             if ($scope.currentUser.id == element.tutorId) {
-                                    $scope.myLabs.push(element);
+                                    $scope.myTutorLabs.push(element);
                             }
                         }
 
@@ -104,6 +104,9 @@ angular.module('AudioCtrl', [])
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {
                 $scope.currentUser = currentUser;
+                if($scope.currentUser.isTutor || $scope.currentUser.isAdmin) {
+                    $scope.isTutor = true;
+                }
                 // This cannot be done with a filter, so it fetches all Groups
                 Group.find({}, function (groups) {
                     // Success Callback
@@ -178,7 +181,7 @@ angular.module('AudioCtrl', [])
                 "date": $scope.dateTime,
                 "duration": $scope.duration,
                 "location": $scope.location,
-                "labTypeId": $scope.audiolabs.id,
+                "labTypeId": $scope.labType.id,
                 //"semesterId": $scope.semester.id,
                 "tutorId": $scope.selectedTutor.id
             }, function (lab) {
