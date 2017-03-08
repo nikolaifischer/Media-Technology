@@ -338,3 +338,11 @@ calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
     color: rgb(213,0,0);
 }
 
+.lab_details .right-icon {
+    float: right;
+}
+
+.green_hover:hover {
+    color: #009688;
+}
+

@@ -27,15 +27,16 @@
         <div ng-repeat="object in objects">
             <div class="lab_details">
                 <!--Edit Lab Button-->
-                <md-icon style="float: right" ng-click="editLab($index)" ng-show="currentUser.isTutor && !isEdit[$index]">edit</md-icon>
-                <md-icon style="float: right" ng-click="cancelEditLab($index)" ng-show="currentUser.isTutor && isEdit[$index]">close</md-icon>
+                <md-icon class="right-icon green_hover" ng-click="editLab($index)" ng-show="currentUser.isTutor && !isEdit[$index]">edit</md-icon>
+                <md-icon class="right-icon green_hover" ng-click="cancelEditLab($index)" ng-show="currentUser.isTutor && isEdit[$index]">close</md-icon>
+                <md-icon class="right-icon delete_button" ng-click="deleteLab($index)" ng-show="currentUser.isTutor && !isEdit[$index]">delete</md-icon>
                 <!--Select Priority-->
                 <div ng-show="object.selPrio == undefined && !currentUser.isTutor && group!=undefined" >
                     <md-input-container >
                         <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)">
                             <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                         </md-select>
-                        <md-icon ng-show="showBtns[$index]" ng-click="resetSelect($index)">close</md-icon>
+                        <md-icon class ="green_hover" ng-show="showBtns[$index]" ng-click="resetSelect($index)">close</md-icon>
                     </md-input-container>
                     <md-button ng-click="savePriority($index)" class="md-raised md-primary" ng-show="showBtns[$index]"
                                aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
@@ -113,7 +114,7 @@
 
         <div class=my_labs">
             <h3>Von mir betreute Audiopraktika</h3>
-            <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myLabs"><md-icon>event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr</div><br>
+            <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myLabs"><md-icon class="green_hover">event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr</div><br>
         </div>
     </div>
 

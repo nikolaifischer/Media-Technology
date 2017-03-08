@@ -224,6 +224,29 @@ angular.module('AudioCtrl', [])
             });
         };
 
+        /****Delete Lab****/
+        $scope.deleteLab = function (i) {
+            //check if there are already priorities saved for the lab
+            Priority.find({
+                filter: {
+                    where: {labId: $scope.objects[i].id}
+                }
+            }, function (res) {
+                if (res.length > 0) {
+                    alert("Dieses Praktikum kann nicht mehr gelöscht werden, da bereits Prioritäten dazu gespeichert wurden.")
+                }
+                else {
+                    if (confirm("Dieses Audiopraktikum löschen?")) {
+                        Lab.deleteById({id: $scope.objects[i].id}, function (res) {
+                            $scope.loadLabs();
+                        }, function (err) {
+                            console.log(err);
+                        });
+                    }
+                }
+            });
+        };
+
         /****Create or Update Priority in database from user input****/
         $scope.savePriority = function (index) {
             if ($scope.selectedPriority[index] != undefined) {
