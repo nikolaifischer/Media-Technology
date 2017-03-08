@@ -292,23 +292,4 @@ angular.module('AudioCtrl', [])
             $scope.selectedPriority[i].priority = undefined;
             $scope.showBtns[i] = false;
         };
-    })
-
-    /****Filter for priority dropdown****/
-    .filter('arrayDiff', function() {
-        return function(array, diff) {
-            var i, item,
-                newArray = [],
-                exception = Array.prototype.slice.call(arguments, 2);
-
-            for(i = 0; i < array.length; i++) {
-                item = array[i];
-                if(diff.indexOf(item) < 0 || exception.indexOf(item) >= 0) {
-                    newArray.push(item);
-                }
-            }
-
-            return newArray;
-
-        };
     });

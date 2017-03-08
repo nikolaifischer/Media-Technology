@@ -30,9 +30,9 @@
                 <md-icon style="float: right" ng-click="editLab($index)" ng-show="currentUser.isTutor && !isEdit[$index]">edit</md-icon>
                 <md-icon style="float: right" ng-click="cancelEditLab($index)" ng-show="currentUser.isTutor && isEdit[$index]">close</md-icon>
                 <!--Select Priority-->
-                <div ng-show="group!=undefined">
+                <div ng-show="object.selPrio == undefined && !currentUser.isTutor && group!=undefined" >
                     <md-input-container >
-                        <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)" ng-show="object.selPrio == undefined && !currentUser.isTutor" >
+                        <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)">
                             <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                         </md-select>
                         <md-icon ng-show="showBtns[$index]" ng-click="resetSelect($index)">close</md-icon>
@@ -78,7 +78,6 @@
                 <!--UpdateButton-->
                 <md-button ng-click="updateLab($index)" class="md-raised md-primary" ng-show="isEdit[$index]"
                            aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
-                <hr/>
             </div>
         </div>
 
