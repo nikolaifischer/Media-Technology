@@ -4,180 +4,195 @@ angular.module('ExerciseCtrl', [])
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
-            }, function (error) {
-                console.log(error);
-            });
-        }
-
-        // wird nur für Erklärungstext beim Admin oder Tutor verwendet, keine Studenten berücksichtigt!
-        $scope.role = ($scope.currentUser.isAdmin) ? "ADMIN" : "TUTOR";
-
-        // get tutors for selection in the dialog
-        $scope.tutors = [];
-
-        PlatformUser.find({
-            filter: {
-                where: {isTutor: true}
-            }
-        }, function(tutors) {
-            tutors.forEach(function(tutor) {
-                $scope.tutors.push(tutor.first_name+" "+tutor.name);
-            })
-        });
-
-        // TODO: zukünftig sollte es Samstag und Sonntag nicht geben
-        $scope.weekSchedules = {
-            "Montag": [],
-            "Dienstag": [],
-            "Mittwoch": [],
-            "Donnerstag": [],
-            "Freitag": [],
-            "Samstag": [],
-            "Sonntag": []
-        };
-
-        // Get all exercises of current semester from db
-        $scope.exercises = Exercise.find({
-            filter: {
-                where: {semesterId: $scope.semester.id}
-            }
-        }, function(exercises) {
-            // group exercise dates to weekly exercises for display in schedule
-            exercises.forEach(function(exercise) {
-                var dateObj = new Date(exercise.date),
-                    weekday = $filter('date')(dateObj, 'EEEE'),
-                    daytime = $filter('date')(dateObj, 'HH:mm'),
-                    endtime = dateObj.setTime(dateObj.getTime() + (1.5*60*60*1000)),
-                    lectureEnd = $filter('date')(endtime, 'HH:mm'),
-                    currentUserParticipates = (exercise.participantsUserIds.filter(function(e) {
-                       return e == $scope.currentUser.id;
-                    }).length > 0),
-                    participantCount = exercise.participantsUserIds.length;
-
-                if ($scope.weekSchedules[weekday].length <= 0 || $scope.weekSchedules[weekday].filter(function(e) { return e.daytime == daytime; }).length <= 0) {
-                    // add exercise to weekSchedules, if it's not in there already
-                    var exerciseForTemplate = {
-                        name: exercise.name,
-                        location: exercise.location,
-                        daytime: daytime,
-                        lectureEnd: lectureEnd,
-                        tutor: exercise.tutor,
-                        currentUserParticipates: currentUserParticipates,
-                        participantCount: participantCount
-                    };
-                    $scope.weekSchedules[weekday].push(exerciseForTemplate);
-                }
-            });
-
-            // TODO: sollte zukünftig nicht mehr nötig sein
-            delete $scope.weekSchedules.Samstag;
-            delete $scope.weekSchedules.Sonntag;
-        }, function (error) {
-            console.log(error);
-        });
 
 
-        $scope.showDialog = function(weekday) {
-            var position = $mdPanel.newPanelPosition()
-                .absolute()
-                .center();
+                // wird nur für Erklärungstext beim Admin oder Tutor verwendet, keine Studenten berücksichtigt!
+                $scope.role = ($scope.currentUser.isAdmin) ? "ADMIN" : "TUTOR";
 
-            var config = {
-                attachTo: angular.element(document.body),
-                controller: PanelDialogCtrl,
-                controllerAs: 'ctrl',
-                disableParentScroll: this.disableParentScroll,
-                templateUrl: 'addExerciseDialog.tmpl.html',
-                hasBackdrop: true,
-                panelClass: 'custom-dialog',
-                position: position,
-                trapFocus: true,
-                zIndex: 150,
-                clickOutsideToClose: true,
-                escapeToClose: true,
-                focusOnOpen: true,
-                locals: {
-                    weekSchedules: $scope.weekSchedules,
-                    weekday: weekday,
-                    semester: $scope.semester,
-                    tutors: $scope.tutors
-                }
-            };
+                // get tutors for selection in the dialog
+                $scope.tutors = [];
 
-            $mdPanel.open(config);
-        };
-
-        $scope.removeExercise = function(weekday, index){
-            var exercise = $scope.weekSchedules[weekday].splice(index, 1)[0];
-
-            // get all weekday-time exercises of the scheduled weekday from now
-            var end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
-                start = getExerciseStartDate(weekday),
-                hours = exercise.daytime.split(":")[0],
-                minutes = exercise.daytime.split(":")[1];
-
-            start.setHours(hours, minutes, 0, 0);
-
-            while(start <= end){
-                // save current start date because it gets faster updated than the exercise created...
-                var exerciseDate = new Date(start).toISOString();
-
-                // TODO: wäre es besser, $scope.exercises durchzuloopen und darauf anhand der id zu löschen? (performance)
-                Exercise.find({
+                PlatformUser.find({
                     filter: {
-                        where: {date: exerciseDate}
+                        where: {isTutor: true}
+                    }
+                }, function(tutors) {
+                    tutors.forEach(function(tutor) {
+                        $scope.tutors.push(tutor.first_name+" "+tutor.name);
+                    })
+                });
+
+                // TODO: zukünftig sollte es Samstag und Sonntag nicht geben
+                $scope.weekSchedules = {
+                    "Montag": [],
+                    "Dienstag": [],
+                    "Mittwoch": [],
+                    "Donnerstag": [],
+                    "Freitag": [],
+                    "Samstag": [],
+                    "Sonntag": []
+                };
+
+                // Get all exercises of current semester from db
+                $scope.exercises = Exercise.find({
+                    filter: {
+                        where: {semesterId: $scope.semester.id}
                     }
                 }, function(exercises) {
-                    // delete exercises
+                    // group exercise dates to weekly exercises for display in schedule
                     exercises.forEach(function(exercise) {
-                        Exercise.deleteById({id: exercise.id}, function(response) {});
+                        var dateObj = new Date(exercise.date),
+                            weekday = $filter('date')(dateObj, 'EEEE'),
+                            daytime = $filter('date')(dateObj, 'HH:mm'),
+                            endtime = dateObj.setTime(dateObj.getTime() + (1.5*60*60*1000)),
+                            lectureEnd = $filter('date')(endtime, 'HH:mm'),
+                            currentUserParticipates = (exercise.participantsUserIds.filter(function(e) {
+                               return e == $scope.currentUser.id;
+                            }).length > 0),
+                            participantCount = exercise.participantsUserIds.length;
+
+                        if ($scope.weekSchedules[weekday].length <= 0 || $scope.weekSchedules[weekday].filter(function(e) { return e.daytime == daytime; }).length <= 0) {
+                            // add exercise to weekSchedules, if it's not in there already
+                            var exerciseForTemplate = {
+                                name: exercise.name,
+                                location: exercise.location,
+                                daytime: daytime,
+                                lectureEnd: lectureEnd,
+                                tutor: exercise.tutor,
+                                currentUserParticipates: currentUserParticipates,
+                                participantCount: participantCount
+                            };
+                            $scope.weekSchedules[weekday].push(exerciseForTemplate);
+                        }
                     });
+
+                    // TODO: sollte zukünftig nicht mehr nötig sein
+                    delete $scope.weekSchedules.Samstag;
+                    delete $scope.weekSchedules.Sonntag;
                 }, function (error) {
                     console.log(error);
                 });
 
-                start.setDate(start.getDate() + 7);
-            }
-        };
 
-        $scope.attendExercise = function(weekday, index) {
-            $scope.weekSchedules[weekday][index].currentUserParticipates = true;
-            $scope.weekSchedules[weekday][index].participantCount++;
+                $scope.showDialog = function(weekday) {
+                    var position = $mdPanel.newPanelPosition()
+                        .absolute()
+                        .center();
 
-            var exercise = $scope.weekSchedules[weekday][index],
-                end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
-                start = getExerciseStartDate(weekday),
-                hours = exercise.daytime.split(":")[0],
-                minutes = exercise.daytime.split(":")[1];
+                    var config = {
+                        attachTo: angular.element(document.body),
+                        controller: PanelDialogCtrl,
+                        controllerAs: 'ctrl',
+                        disableParentScroll: this.disableParentScroll,
+                        templateUrl: 'addExerciseDialog.tmpl.html',
+                        hasBackdrop: true,
+                        panelClass: 'custom-dialog',
+                        position: position,
+                        trapFocus: true,
+                        zIndex: 150,
+                        clickOutsideToClose: true,
+                        escapeToClose: true,
+                        focusOnOpen: true,
+                        locals: {
+                            weekSchedules: $scope.weekSchedules,
+                            weekday: weekday,
+                            semester: $scope.semester,
+                            tutors: $scope.tutors
+                        }
+                    };
 
-            start.setHours(hours, minutes, 0, 0);
+                    $mdPanel.open(config);
+                };
 
-            while(start <= end){
-                var exerciseDate = new Date(start).toISOString();
+                $scope.removeExercise = function(weekday, index){
+                    var exercise = $scope.weekSchedules[weekday].splice(index, 1)[0];
 
-                var exerciseToAttend = $scope.exercises.filter(function(e) {
-                    return e.date == exerciseDate;
-                })[0];
+                    // get all weekday-time exercises of the scheduled weekday from now
+                    var end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
+                        start = getExerciseStartDate(weekday),
+                        hours = exercise.daytime.split(":")[0],
+                        minutes = exercise.daytime.split(":")[1];
 
-                exerciseToAttend.participantsUserIds.push($scope.currentUser.id);
+                    start.setHours(hours, minutes, 0, 0);
 
-                var parameters = {exerciseId:exerciseToAttend.id};
-                Exercise.enroll(parameters, function (err, success) {
-                    if(err) console.log(err);
-                });
+                    while(start <= end){
+                        // save current start date because it gets faster updated than the exercise created...
+                        var exerciseDate = new Date(start).toISOString();
 
+                        // TODO: wäre es besser, $scope.exercises durchzuloopen und darauf anhand der id zu löschen? (performance)
+                        Exercise.find({
+                            filter: {
+                                where: {date: exerciseDate}
+                            }
+                        }, function(exercises) {
+                            // delete exercises
+                            exercises.forEach(function(exercise) {
+                                Exercise.deleteById({id: exercise.id}, function(response) {});
+                            });
+                        }, function (error) {
+                            console.log(error);
+                        });
 
-                start.setDate(start.getDate() + 7);
-            }
-        };
+                        start.setDate(start.getDate() + 7);
+                    }
+                };
 
-        $scope.leaveExercise = function(weekday, index) {
-            $scope.weekSchedules[weekday][index].currentUserParticipates = false;
-            $scope.weekSchedules[weekday][index].participantCount--;
-            //var parameters = {exerciseId:exerciseToAttend.id};
-            // Exercise.disenroll(parameters, function (err, success) { ...
+                $scope.attendExercise = function(weekday, index) {
+                    $scope.weekSchedules[weekday][index].currentUserParticipates = true;
+                    $scope.weekSchedules[weekday][index].participantCount++;
+                    updateParticipation(weekday, index, true);
+                };
 
-        };
+                $scope.leaveExercise = function(weekday, index) {
+                    $scope.weekSchedules[weekday][index].currentUserParticipates = false;
+                    $scope.weekSchedules[weekday][index].participantCount--;
+                    updateParticipation(weekday, index, false);
+                };
+
+                function updateParticipation(weekday, index, attend) {
+                    var exercise = $scope.weekSchedules[weekday][index],
+                        end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
+                        start = getExerciseStartDate(weekday),
+                        hours = exercise.daytime.split(":")[0],
+                        minutes = exercise.daytime.split(":")[1];
+
+                    start.setHours(hours, minutes, 0, 0);
+
+                    while(start <= end){
+                        var exerciseDate = new Date(start).toISOString();
+
+                        var exerciseToUpdate = $scope.exercises.filter(function(e) {
+                            return e.date == exerciseDate;
+                        })[0];
+
+                        var parameters;
+                        if(attend) {
+                            exerciseToUpdate.participantsUserIds.push($scope.currentUser.id);
+
+                            parameters = {exerciseId:exerciseToUpdate.id};
+                            Exercise.enroll(parameters, function (err, success) {
+                                if(err) console.log(err);
+                            });
+                        } else {
+                            if (exerciseToUpdate.participantsUserIds.indexOf($scope.currentUser.id)!==-1) {
+                                exerciseToUpdate.participantsUserIds
+                                    .splice(exerciseToUpdate.participantsUserIds.indexOf($scope.currentUser.id), 1);
+
+                                parameters = {exerciseId:exerciseToUpdate.id};
+                                Exercise.disenroll(parameters, function (err, success) {
+                                    if(err) console.log(err);
+                                });
+                            }
+                        }
+
+                        start.setDate(start.getDate() + 7);
+                    }
+                }
+
+            }, function (error) {
+                console.log(error);
+            });
+        }
 
     })
     .controller('PanelDialogCtrl', PanelDialogCtrl);

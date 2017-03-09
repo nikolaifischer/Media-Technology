@@ -105,5 +105,14 @@
   "NEW_SEMESTER": "Create new Semester",
   "START_DATE": "Start Date",
   "END_DATE": "End Date",
-  "NOT_VERIFIED": "Your E-Mail Address has not yet been verified. Please check your Inbox."
+  "NOT_VERIFIED": "Your E-Mail Address has not yet been verified. Please check your Inbox.",
+  "ADMIN_USERS_TEXT": "Here you can assign a user to another term and remove users from the system as admin.",
+  "TERM": "Term",
+  "ENTRY_SAVED": "Entry saved",
+  "ENTRY_DELETED": "Entry deleted",
+  "TUTORS": "Tutors",
+  "STUDENTS": "Students",
+  "PAGINATION_PAGE": "Page",
+  "PAGINATION_ROWS_PER_PAGE": "Rows per page",
+  "PAGINATION_OF": "of"
 }

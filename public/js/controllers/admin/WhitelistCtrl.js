@@ -1,5 +1,5 @@
 angular.module('WhitelistCtrl', [])
-.controller('WhitelistController', function ($location, $scope, PlatformUser, $mdToast, PendingPlatformUser) {
+.controller('WhitelistController', function ($location, $scope, $translate, PlatformUser, $mdToast, PendingPlatformUser) {
 
     $scope.userList = [];
     $scope.showWhiteListButton = false;
@@ -27,6 +27,12 @@ angular.module('WhitelistCtrl', [])
         order: 'email',
         limit: 10,
         page: 1
+    };
+
+    $scope.paginationLabel = {
+        page: $translate.instant('PAGINATION_PAGE'),
+        rowsPerPage: $translate.instant('PAGINATION_ROWS_PER_PAGE'),
+        of: $translate.instant('PAGINATION_OF')
     };
 
     $scope.selectedPendingPlatformUsers = [];
@@ -132,7 +138,6 @@ angular.module('WhitelistCtrl', [])
     $scope.getPendingPlatformUsers = function () {
         PendingPlatformUser.find({}, function(res){
             $scope.pendingPlatformUsers = res;
-            console.log($scope.pendingPlatformUsers);
         })
     };
 
@@ -164,20 +169,20 @@ angular.module('WhitelistCtrl', [])
 
         $mdToast.show(
             $mdToast.simple()
-                .textContent('Eintrag gespeichert')
+                .textContent($translate.instant('ENTRY_SAVED'))
                 .hideDelay(2000)
                 .toastClass("toast")
         );
     };
 
-    $scope.deleteEntry =function($event, user){
+    $scope.deleteEntry = function($event, user){
         PendingPlatformUser.deleteById({
             id: user.id
         }, function(success){
             $scope.getPendingPlatformUsers();
             $mdToast.show(
                 $mdToast.simple()
-                    .textContent('Eintrag gelöscht')
+                    .textContent($translate.instant('ENTRY_DELETED'))
                     .hideDelay(2000)
                     .toastClass("toast")
             );

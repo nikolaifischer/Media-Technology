@@ -22,7 +22,7 @@ angular.module('SemesterCtrl', [])
         $scope.getCurrentSemester(function (semester) {
             if (semester != undefined) {
                 $scope.noCurrentSemester = false;
-                Semester.findOne({filter:{where:{id: semester.id}}}, function (currentSemester) {
+                Semester.findById({id: semester.id}, function (currentSemester) {
                     currentSemester.start_date = new Date(currentSemester.start_date);
                     currentSemester.end_date = new Date(currentSemester.end_date);
                     $scope.semesterinCtrl = currentSemester;
@@ -53,7 +53,7 @@ angular.module('SemesterCtrl', [])
 
             // Update the current Semester
             else {
-                Semester.findOne({id: $scope.semesterinCtrl.id}, function (res) {
+                Semester.findById({id: $scope.semesterinCtrl.id}, function (res) {
                     res.term = $scope.semesterinCtrl.term;
                     res.start_date = $scope.semesterinCtrl.start_date;
                     res.end_date = $scope.semesterinCtrl.end_date;

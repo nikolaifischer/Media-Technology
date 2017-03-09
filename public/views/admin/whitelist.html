@@ -14,12 +14,12 @@
                     <md-card-content class="cardContent">
                         <md-table-container>
                             <table md-row-select="false" multiple="true" md-table ng-model="selectedPendingPlatformUsers">
-                                <thead md-head>
+                                <thead md-head md-order="dbQuery.order">
                                     <tr md-row>
-                                        <th md-column md-order-by="nameToLower"><span>{{ 'EMAIL' | translate }}</span></th>
+                                        <th md-column md-order-by="email"><span>{{ 'EMAIL' | translate }}</span></th>
                                         <th md-column>{{ 'FIRSTNAME' | translate }}</th>
                                         <th md-column>{{ 'LASTNAME' | translate }}</th>
-                                        <th md-column md-order-by="nameToLower"><span>{{ 'TUTOR' | translate }}</span></th>
+                                        <th md-column md-order-by="isTutor"><span>{{ 'TUTOR' | translate }}</span></th>
                                         <th md-column>{{ 'TOOLS' | translate }}</th>
                                     </tr>
                                 </thead>
@@ -59,10 +59,9 @@
                             </table>
                         </md-table-container>
 
-                        <md-table-pagination md-limit="dbQuery.limit"
-                                             md-limit-options="[1,5,10,15]" md-page="dbQuery.page"
+                        <md-table-pagination md-limit="dbQuery.limit" md-limit-options="[1,5,10,15]" md-page="dbQuery.page"
                                              md-total="{{pendingPlatformUsers.length}}" md-page-select="true"
-                                             md-boundary-links="false">
+                                             md-boundary-links="false" md-label="{{paginationLabel}}">
                         </md-table-pagination>
                     </md-card-content>
 

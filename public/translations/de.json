@@ -100,5 +100,14 @@
   "NEW_SEMESTER": "Neues Semester anlegen",
   "START_DATE": "Anfangsdatum",
   "END_DATE": "Enddatum",
-  "NOT_VERIFIED": "Deine E-Mail Adresse wurde noch nicht bestätigt. Bitte überprüfe dein Postfach"
+  "NOT_VERIFIED": "Deine E-Mail Adresse wurde noch nicht bestätigt. Bitte überprüfe dein Postfach",
+  "ADMIN_USERS_TEXT": "Als Admin kannst du hier Nutzer einem anderen Semester zuweisen und aus dem System entfernen.",
+  "TERM": "Semester",
+  "ENTRY_SAVED": "Eintrag gespeichert",
+  "ENTRY_DELETED": "Eintrag gelöscht",
+  "TUTORS": "Tutoren",
+  "STUDENTS": "Studenten",
+  "PAGINATION_PAGE": "Seite",
+  "PAGINATION_ROWS_PER_PAGE": "Einträge pro Seite",
+  "PAGINATION_OF": "von"
 }

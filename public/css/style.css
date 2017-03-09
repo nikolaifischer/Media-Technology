@@ -346,3 +346,9 @@ calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
     color: #009688;
 }
 
+md-table-pagination .label {
+    color: inherit;
+}
+md-table-pagination md-select-value .md-text {
+    display: inline !important;
+}

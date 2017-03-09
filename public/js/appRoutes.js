@@ -39,6 +39,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/admin/dates.html',
             controller: 'DatesController'
         })
+        .when('/admin/users', {
+            templateUrl: 'views/admin/users.html',
+            controller: 'UsersController'
+        })
         .when('/admin/semester', {
             templateUrl: 'views/admin/semester.html',
             controller: 'SemesterController'

@@ -1,0 +1,149 @@
+<div class="jumbotron layout-padding" ng-controller="UsersController">
+    <h2 style="text-align: center;" translate="USER_MGT"></h2>
+
+    <div class="row">
+        <div class="col-sm-0 col-md-2"></div>
+        <div class="col-sm-12 col-md-8">
+            <md-card>
+                <md-card-content style="text-align: center;" translate="ADMIN_USERS_TEXT"></md-card-content>
+            </md-card>
+        </div>
+        <div class="col-sm-0 col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-1"></div>
+
+        <div class="col-sm-12 col-lg-10">
+            <md-card>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader" translate="TUTORS"></h2></md-card-title-text>
+                </md-card-title>
+
+                <md-card-content class="cardContent">
+                    <md-table-container>
+                        <table md-row-select="false" multiple="true" md-table>
+                            <thead md-head md-order="dbQuery.order">
+                            <tr md-row>
+                                <th md-column md-order-by="email"><span>{{ 'EMAIL' | translate }}</span></th>
+                                <th md-column>{{ 'FIRSTNAME' | translate }}</th>
+                                <th md-column md-order-by="name">{{ 'LASTNAME' | translate }}</th>
+                                <th md-column>{{ 'TERM' | translate }}</th>
+                                <th md-column>{{ 'TOOLS' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr md-row md-select="tutor" md-select-id="name" md-auto-select
+                                ng-repeat="tutor in tutors | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">
+                                <td md-cell>
+                                    <md-input-container>
+                                        <input ng-model="tutor.email" aria-label="{{ 'EMAIL' | translate }}" />
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <input ng-model="tutor.first_name" aria-label="{{ 'FIRSTNAME' | translate }}" />
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <input ng-model="tutor.name" aria-label="{{ 'LASTNAME' | translate }}" />
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <md-select ng-model="tutor.semesterId" aria-label="{{ 'TERM' | translate }}"
+                                                   style="min-width: 125px;">
+                                            <md-option ng-selected="term.id == tutor.semesterId" value="{{term.id}}"
+                                                       ng-repeat="term in terms">{{ term.term}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-button style="width:24px; margin: 0px;" ng-click="saveEdit($event, tutor)" class="md-icon-button">
+                                        <md-icon class="md-primary">save</md-icon>
+                                    </md-button>
+                                    <md-button style="width:24px; margin: 0px;" ng-click="deleteEntry($event, tutor)" class="md-icon-button">
+                                        <md-icon class="md-accent">delete</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <md-table-pagination md-limit="dbQuery.limit" md-limit-options="[1,5,10,15]" md-page="dbQuery.page"
+                                         md-total="{{tutors.length}}" md-page-select="true" md-boundary-links="false"
+                                         md-label="{{paginationLabel}}">
+                    </md-table-pagination>
+                </md-card-content>
+            </md-card>
+
+            <md-card>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader" translate="STUDENTS"></h2></md-card-title-text>
+                </md-card-title>
+
+                <md-card-content class="cardContent">
+                    <md-table-container>
+                        <table md-row-select="false" multiple="true" md-table>
+                            <thead md-head md-order="dbQuery.order">
+                            <tr md-row>
+                                <th md-column md-order-by="email"><span>{{ 'EMAIL' | translate }}</span></th>
+                                <th md-column>{{ 'FIRSTNAME' | translate }}</th>
+                                <th md-column md-order-by="name">{{ 'LASTNAME' | translate }}</th>
+                                <th md-column>{{ 'TERM' | translate }}</th>
+                                <th md-column>{{ 'TOOLS' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr md-row md-select="student" md-select-id="name" md-auto-select
+                                ng-repeat="student in students | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">
+                                <td md-cell>
+                                    <md-input-container>
+                                        <input ng-model="student.email" aria-label="{{ 'EMAIL' | translate }}" />
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <input ng-model="student.first_name" aria-label="{{ 'FIRSTNAME' | translate }}" />
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <input ng-model="student.name" aria-label="{{ 'LASTNAME' | translate }}" />
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <md-select ng-model="student.semesterId" aria-label="{{ 'TERM' | translate }}"
+                                                   style="min-width: 125px;">
+                                            <md-option ng-selected="term.id == student.semesterId" value="{{term.id}}"
+                                                       ng-repeat="term in terms">{{ term.term}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-button style="width:24px; margin: 0px;" ng-click="saveEdit($event, student)" class="md-icon-button">
+                                        <md-icon class="md-primary">save</md-icon>
+                                    </md-button>
+                                    <md-button style="width:24px; margin: 0px;" ng-click="deleteEntry($event, student)" class="md-icon-button">
+                                        <md-icon class="md-accent">delete</md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <md-table-pagination md-limit="dbQuery.limit" md-limit-options="[1,5,10,15]" md-page="dbQuery.page"
+                                         md-total="{{students.length}}" md-page-select="true" md-boundary-links="false"
+                                         md-label="{{paginationLabel}}">
+                    </md-table-pagination>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div class="col-sm-12 col-lg-1"></div>
+    </div>
+</div>
