@@ -45,25 +45,22 @@ angular.module('UsersCtrl', []).controller('UsersController', function ($locatio
         of: $translate.instant('PAGINATION_OF')
     };
 
-    // TODO: geht nicht -> "Die Instanz `PlatformUser` ist nicht gültig. Details: `password` can't be blank (value: undefined)."
     $scope.saveEdit = function($event, user) {
-        console.log(user);
-        PlatformUser.findById({id: user.id}, function (res) {
-            //res.prototype$updateAttributes({semesterId: user.semesterId});
-            res.semesterId = user.semesterId;
-            res.$save(function(success){
-                console.log(success);
-            }, function(error) {
-                console.log(error);
-            });
+        PlatformUser.prototype$patchAttributes({id: user.id}, {name:user.name, first_name:user.first_name, email: user.email, semesterId: user.semesterId}, function(res){
+
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent($translate.instant('ENTRY_SAVED'))
+                    .hideDelay(2000)
+                    .toastClass("toast")
+            );
+
+        }, function(err){
+            console.log(err);
         });
 
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent($translate.instant('ENTRY_SAVED'))
-                .hideDelay(2000)
-                .toastClass("toast")
-        );
+
+
     };
 
     $scope.deleteEntry = function($event, user){
