@@ -165,7 +165,7 @@ angular.module('WhitelistCtrl', [])
     };
 
     $scope.saveEdit = function ($event, user) {
-        PendingPlatformUser.prototype$updateAttributes({ id: user.id }, user);
+        PendingPlatformUser.prototype$patchAttributes({ id: user.id }, user);
 
         $mdToast.show(
             $mdToast.simple()
