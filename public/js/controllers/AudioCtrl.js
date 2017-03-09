@@ -46,6 +46,7 @@ angular.module('AudioCtrl', [])
                         //save end time in element
                         var dateObj = new Date(element.date);
                         var endtime = dateObj.setTime(dateObj.getTime() + (element.duration*60*1000));
+                        element.start = $filter('date')(dateObj, 'HH:mm');
                         element.end = $filter('date')(endtime, 'HH:mm');
 
                         //save tutor name in element
@@ -128,10 +129,15 @@ angular.module('AudioCtrl', [])
         $scope.loadPriorities = function () {
             Priority.find({
                 filter: {
-                    where: {groupId: $scope.group.id, labTypeId: $scope.labTypeId}
+                    where: {groupId: $scope.group.id, labTypeId: $scope.labTypeId
+                    //, semesterId = $scope.semester.id
+                    }
                 }
             }, function (prios) {
                 $scope.groupPriorities = prios;
+                angular.forEach($scope.groupPriorities, function (prio) {
+                    prio.priority = parseFloat(prio.priority);
+                });
                 //Check if group already saved 3 priorities
                 $scope.prioCount = 3;
                 $scope.prioCount -= $scope.groupPriorities.length;
