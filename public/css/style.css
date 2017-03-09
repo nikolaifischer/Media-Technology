@@ -3,10 +3,6 @@ body {
     height: auto !important;
 }
 
-.container-fluid {
-    padding: 0px !important;
-}
-
 #navigation-burger {
     margin-right: 20px;
 }
@@ -86,6 +82,12 @@ body {
     .jumbotron {
         padding-top: 30px;
         padding-bottom: 30px;
+    }
+}
+
+@media (max-width: 667px) {
+    #semesterDisplay {
+        display: none;
     }
 }
 
@@ -327,7 +329,7 @@ calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-    max-width: 300px;
+    max-width: 200px;
 }
 
 .delete_button {

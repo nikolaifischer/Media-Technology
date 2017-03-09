@@ -108,11 +108,11 @@
 <body>
 
 <!-- START Side Navi - Only visible on mobile -->
-<md-sidenav ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
+<md-sidenav md-swipe-left="toggleLeft()" ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
             md-whiteframe="4">
 
     <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools" translate="MENU"></h1>
+        <h1 ng-click="toggleLeft()" class="md-toolbar-tools" translate="MENU"></h1>
     </md-toolbar>
 
     <md-content layout-margin>
@@ -121,7 +121,6 @@
         <md-button ng-click="toggleLeft()" href="/video" name="video" aria-label="{{ 'VIDEO_PROJECT' | translate }}" translate="VIDEO_PROJECT"></md-button><br>
         <md-button ng-click="toggleLeft()" href="/photo" name="photo" aria-label="{{ 'PHOTO_PROJECT' | translate }}" translate="PHOTO_PROJECT"></md-button><br>
         <md-button ng-click="toggleLeft()" href="/exercises" name="exercises" aria-label="{{ 'TUTORIALS' | translate }}" translate="TUTORIALS"></md-button><br>
-        <md-button ng-click="toggleLeft()" class="md-accent">x</md-button>
     </md-content>
 
 </md-sidenav>
@@ -131,7 +130,7 @@
 <div class="container-fluid">
     <!-- START Main Toolbar -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="padding: 0px !important">
 
             <md-toolbar class="md-hue-2">
                 <div class="md-toolbar-tools">
@@ -141,7 +140,7 @@
                     <a href="/"><img class="menubar-image" src="images/mtPlanr2.png"/></a>
                     <span flex></span>
 
-                    <span> {{semester.term}}</span>
+                    <span id="semesterDisplay"> {{semester.term}}</span>
 
                     <span flex></span>
 
