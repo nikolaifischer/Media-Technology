@@ -21,7 +21,15 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
         .when('/audio', {
             templateUrl: 'views/audio.html',
-            controller: 'AudioController'
+            controller: 'LabController'
+        })
+        .when('/video', {
+            templateUrl: 'views/video.html',
+            controller: 'LabController'
+        })
+        .when('/photo', {
+            templateUrl: 'views/photo.html',
+            controller: 'LabController'
         })
         .when('/exercises', {
             templateUrl: 'views/exerciseTemplateProvider.html',

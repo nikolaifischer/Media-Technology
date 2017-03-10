@@ -6,7 +6,7 @@ angular.module('mtPlanr', [
     'HomeCtrl',
     'LoginCtrl',
     'ProfileCtrl',
-    'AudioCtrl',
+    'LabCtrl',
     'AdminCtrl',
     'WhitelistCtrl',
     'ExerciseTemplateCtrl',

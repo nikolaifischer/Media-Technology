@@ -103,6 +103,11 @@ body {
 }
 
 .description {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.instruction {
     font-size: 18px;
     margin-bottom: 5px;
 }
