@@ -52,7 +52,7 @@
                                aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
                 </div>
                 <!--Time-->
-                <span ng-show="!isEdit[$index]"><md-icon>access_time</md-icon> {{ object.end}} - {{ object.end }} {{ 'HOURS' | translate }}</span>
+                <span ng-show="!isEdit[$index]"><md-icon>access_time</md-icon> {{ object.start}} - {{ object.end }} {{ 'HOURS' | translate }}</span>
                 <md-input-container ng-show="isEdit[$index]">
                     <input mdc-datetime-picker=""
                            date="true"

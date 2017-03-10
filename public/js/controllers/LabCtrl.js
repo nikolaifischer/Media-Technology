@@ -18,13 +18,14 @@ angular.module('LabCtrl', [])
 
         /****Loads the labs from the DB and displays them on the calendar****/
         $scope.loadLabs = function () {
+            $scope.semester = $scope.selectedSemester;
             groupedElements = {};
             $scope.myTutorLabs = [];
             //Get LabType
             if($scope.labTypeNumber != undefined) {
                 LabType.findOne({
                     filter: {
-                        where: {type: $scope.labTypeNumber /*semesterId: $scope.semester.id*/}
+                        where: {type: $scope.labTypeNumber}
                     }
                 }, function (typelab) {
                     $scope.labType = typelab;
@@ -45,7 +46,7 @@ angular.module('LabCtrl', [])
                     // Find all LabType Labs
                     $scope.labs = Lab.find({
                         filter: {
-                            where: {labTypeId: typelab.id, /*semesterId: $scope.semester.id*/}
+                            where: {labTypeId: typelab.id, semesterId: $scope.semester.id}
                         }
                     }, function (labs) {
                         //Get format for calendar
@@ -59,16 +60,15 @@ angular.module('LabCtrl', [])
 
                             //save end time in element
                             var dateObj = new Date(element.date);
-                            var endtime = dateObj.setTime(dateObj.getTime() + (element.duration * 60 * 1000));
                             element.start = $filter('date')(dateObj, 'HH:mm');
+                            var endtime = dateObj.setTime(dateObj.getTime() + (element.duration * 60 * 1000));
                             element.end = $filter('date')(endtime, 'HH:mm');
 
                             //save tutor name in element
                             PlatformUser.find({
                                 filter: {
                                     where: {
-                                        id: element.tutorId, isTutor: true,
-                                        /*semesterId: $scope.semester.id*/
+                                        id: element.tutorId, isTutor: true
                                     }
                                 }
                             }, function (tutor) {
@@ -151,8 +151,7 @@ angular.module('LabCtrl', [])
         $scope.loadPriorities = function () {
                 Priority.find({
                     filter: {
-                        where: {groupId: $scope.group.id, labTypeId: $scope.labTypeId, //semesterId: $scope.semester.id
-                        }
+                        where: {groupId: $scope.group.id, labTypeId: $scope.labTypeId, semesterId: $scope.semester.id}
                     }
                 }, function (prios) {
                     $scope.groupPriorities = prios;
@@ -204,7 +203,6 @@ angular.module('LabCtrl', [])
         };
 
         /****Get all Tutors****/
-        //Can be deleted if in loadLabs filtered
         $scope.tutors = PlatformUser.find({
             filter: {
                 where: {isTutor: true}
@@ -218,7 +216,7 @@ angular.module('LabCtrl', [])
                 duration: $scope.duration,
                 location: $scope.location,
                 labTypeId: $scope.labTypeId,
-                //semesterId: $scope.semester.id,
+                semesterId: $scope.semester.id,
                 tutorId: $scope.selectedTutor.id
             }, function (lab) {
                 // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
@@ -268,7 +266,7 @@ angular.module('LabCtrl', [])
             //check if there are already priorities saved for the lab
             Priority.find({
                 filter: {
-                    where: {labId: $scope.objects[i].id/*, semesterId: $scope.semester.id*/}
+                    where: {labId: $scope.objects[i].id, semesterId: $scope.semester.id}
                 }
             }, function (res) {
                 if (res.length > 0) {
@@ -300,7 +298,7 @@ angular.module('LabCtrl', [])
         function checkIfPrioExists(selPrio, selLabId, index) {
             Priority.find({
                 filter: {
-                    where: {priority: selPrio, labTypeId: $scope.labTypeId, /*semesterId: $scope.semester.id*/}
+                    where: {priority: selPrio, labTypeId: $scope.labTypeId, semesterId: $scope.semester.id}
                 }
             }, function (res) {
                 //delete Priority if already exists
@@ -316,7 +314,7 @@ angular.module('LabCtrl', [])
                 groupId: $scope.group.id,
                 labId: selLabId,
                 labTypeId: $scope.labTypeId,
-                //semesterId: $scope.semester.id
+                semesterId: $scope.semester.id
             }, function (priority) {
                 $scope.loadPriorities();
                 groupedElements = {};
@@ -332,7 +330,7 @@ angular.module('LabCtrl', [])
         $scope.deletePriority = function (selectedPrio, selectedLabId) {
             Priority.find({
                 filter: {
-                    where: {labId: selectedLabId, groupId: $scope.group.id, /*semesterId: $scope.semester.id*/}
+                    where: {labId: selectedLabId, groupId: $scope.group.id, semesterId: $scope.semester.id}
                 }
             }, function (prio) {
                 Priority.deleteById({id: prio[0].id}, function (err, obj) {

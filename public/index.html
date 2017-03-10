@@ -140,7 +140,9 @@
                     <a href="/"><img class="menubar-image" src="images/mtPlanr2.png"/></a>
                     <span flex></span>
 
-                    <span id="semesterDisplay"> {{semester.term}}</span>
+                    <md-select id="semesterDisplay" ng-model="selectedSemester" ng-change="setSelectedSemester()">
+                        <md-option ng-value="semester" ng-repeat="semester in allSemesters"> {{ semester.term }}</md-option>
+                    </md-select>
 
                     <span flex></span>
 
