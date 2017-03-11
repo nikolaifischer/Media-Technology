@@ -1,7 +1,8 @@
 angular.module('LabtypeCtrl', [])
     .controller('LabtypeController', function ($scope, $http, $route, PlatformUser, Semester, LabType, $window) {
-        angular.element(document).ready(function () {
-            $scope.semester = $scope.selectedSemester;
+
+        $scope.getCurrentSemester(function (semesterRes) {
+            $scope.semester = semesterRes;
 
             $scope.phototype = LabType.findOne({
                 filter: {
@@ -26,10 +27,16 @@ angular.module('LabtypeCtrl', [])
             });
 
             $scope.cancelEditLabtype = function (type) {
-                switch(type) {
-                    case $scope.phototype: $scope.photoEdit = false; break;
-                    case $scope.videotype: $scope.videoEdit = false; break;
-                    case $scope.audiotype: $scope.audioEdit = false; break;
+                switch (type) {
+                    case $scope.phototype:
+                        $scope.photoEdit = false;
+                        break;
+                    case $scope.videotype:
+                        $scope.videoEdit = false;
+                        break;
+                    case $scope.audiotype:
+                        $scope.audioEdit = false;
+                        break;
                 }
             };
 
@@ -48,12 +55,11 @@ angular.module('LabtypeCtrl', [])
                 $scope.photoEdit = false;
             };
 
-            $scope.updatePhotoOpenState = function(state) {
+            $scope.updatePhotoOpenState = function (state) {
                 $scope.phototype.registration_open = state;
                 $scope.phototype.$save();
             };
-            
-            
+
 
             $scope.editVideotype = function () {
                 $scope.videoEdit = true;
@@ -70,7 +76,7 @@ angular.module('LabtypeCtrl', [])
                 $scope.videoEdit = false;
             };
 
-            $scope.updateVideoOpenState = function(state) {
+            $scope.updateVideoOpenState = function (state) {
                 $scope.videotype.registration_open = state;
                 $scope.videotype.$save();
             };
@@ -90,9 +96,11 @@ angular.module('LabtypeCtrl', [])
                 $scope.audioEdit = false;
             };
 
-            $scope.updateAudioOpenState = function(state) {
+            $scope.updateAudioOpenState = function (state) {
                 $scope.audiotype.registration_open = state;
                 $scope.audiotype.$save();
             };
+
+
         });
     });

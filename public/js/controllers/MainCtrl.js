@@ -1,5 +1,4 @@
 angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate, Semester, tmhDynamicLocale) {
-    $scope.allSemesters = [];
     $scope.$root.hideNav = true;
     tmhDynamicLocale.set('de');
     if (PlatformUser.isAuthenticated()) {
@@ -47,28 +46,9 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
 
     };
 
-
-
     $scope.getCurrentSemester(function(semester){
         $scope.semester = semester;
-        $scope.allSemesters = Semester.find({}, function(semesters) {
-            if(semester == undefined) {
-                $scope.selectedSemester = $scope.allSemesters[0];
-            } else {
-                semesters.forEach(function (sem, index) {
-                    if (sem.id == semester.id) {
-                        $scope.selectedSemester = $scope.allSemesters[index];
-                    }
-                })
-            }
-        });
-        $scope.semester = $scope.selectedSemester;
     });
-
-    $scope.setSelectedSemester = function() {
-        $scope.semester = $scope.selectedSemester;
-        //$window.location.reload();
-    };
 
 
     // Controls the side navigation
