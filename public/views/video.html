@@ -132,7 +132,7 @@
     </div>
 
     <!------Saved Priorities-------->
-    <div class="col-md-12 col-sm-12 saved_priorities_container" ng-show="!isTutor">
+    <div class="col-md-12 col-sm-12 saved_priorities_container" ng-show="!isTutor && open">
         <h3>Gespeicherte Prioritäten</h3>
         <div>{{ prioMessage }}</div>
         <div class="prio" ng-repeat="prio in groupPriorities | orderBy: 'groupPriorities.priority':false ">

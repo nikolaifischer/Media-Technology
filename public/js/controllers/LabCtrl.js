@@ -58,6 +58,15 @@ angular.module('LabCtrl', [])
                                 }
                             }
 
+                            //check if group has lab assigned
+                            if(!$scope.open) {
+                                if (element.groupId == $scope.group.id) {
+                                    element.isOurs = true;
+                                } else {
+                                    element.isOurs = false;
+                                }
+                            }
+
                             //save end time in element
                             var dateObj = new Date(element.date);
                             element.start = $filter('date')(dateObj, 'HH:mm');
@@ -99,7 +108,15 @@ angular.module('LabCtrl', [])
 
                                     //Write Labs in calendar
                                     Object.keys(groupedElements).forEach(function (date) {
-                                        MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
+                                        if(!$scope.open) {
+                                            if(date.isOurs) {
+                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content ours'>Termine</div>");
+                                            } else {
+                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
+                                            }
+                                        } else {
+                                            MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
+                                        }
                                     });
                                     if ($scope.key != undefined) {
                                         $scope.dayClick($scope.key);

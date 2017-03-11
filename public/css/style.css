@@ -269,6 +269,11 @@ md-dialog {
     border-radius: 2px;
 }
 
+.calendar_content .ours {
+    background-color: rgb(255, 82, 82);
+
+}
+
 .calendar_content:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 2px -2px rgba(0, 0, 0, .12)
 }
