@@ -24,7 +24,6 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
     // Get the Semester:
     $scope.getCurrentSemester = function(cb) {
         var currDate = new Date();
-
        Semester.findOne({
             filter: {
                 where: {
@@ -68,7 +67,7 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
 
     $scope.setSelectedSemester = function() {
         $scope.semester = $scope.selectedSemester;
-        $window.location.reload();
+        //$window.location.reload();
     };
 
 

@@ -92,6 +92,7 @@
     <script src="js/controllers/admin/UsersCtrl.js"></script>
     <script src="js/controllers/admin/AlgoCtrl.js"></script>
     <script src="js/controllers/admin/SemesterCtrl.js"></script>
+    <script src="js/controllers/admin/LabtypeCtrl.js"></script>
     <script src="js/services/priorityDistributionService.js"></script>
 
 
@@ -140,7 +141,7 @@
                     <a href="/"><img class="menubar-image" src="images/mtPlanr2.png"/></a>
                     <span flex></span>
 
-                    <md-select id="semesterDisplay" ng-model="selectedSemester" ng-change="setSelectedSemester()">
+                    <md-select id="semesterDisplay" aria-label="Semester" ng-model="selectedSemester" ng-change="setSelectedSemester()">
                         <md-option ng-value="semester" ng-repeat="semester in allSemesters"> {{ semester.term }}</md-option>
                     </md-select>
 

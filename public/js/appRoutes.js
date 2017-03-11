@@ -55,6 +55,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/admin/semester.html',
             controller: 'SemesterController'
         })
+        .when('/admin/labtypes', {
+            templateUrl: 'views/admin/labtypes.html',
+            controller: 'LabtypeController'
+        })
 
         .when('/admin/prioritydistribution', {
             templateUrl: 'views/admin/algo.html',

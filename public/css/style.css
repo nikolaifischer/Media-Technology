@@ -345,12 +345,37 @@ calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
     color: rgb(213,0,0);
 }
 
-.lab_details .right-icon {
+.lab_details .right-icon, .labtypeContent .right-icon {
     float: right;
 }
 
 .green_hover:hover {
     color: #009688;
+}
+
+.labtypeContent md-switch {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.labtypeContent {
+    font-size: 18px;
+}
+
+.labtype_details {
+    margin-bottom: 0;
+}
+
+.labtype_details .element {
+    margin-bottom: 15px;
+}
+.labtype_details md-input-container {
+    width: 100%;
+}
+
+.labtypeContent .labtype_label {
+    color: #009688;
+    font-size: 16px;
 }
 
 md-table-pagination .label {

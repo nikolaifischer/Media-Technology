@@ -1,0 +1,162 @@
+<div class="jumbotron layout-padding" ng-controller="LabtypeController">
+    <h2 style="text-align: center;" translate="LABTYPE_MGT"></h2>
+    <div class="col-md-4 col-sm-12">
+        <md-card>
+            <md-card-title class="dashboardCardTitle">
+                <md-card-title-text><h2 class="cardHeader" translate="PHOTO_PROJECT"></h2></md-card-title-text>
+            </md-card-title>
+
+            <md-card-content class="cardContent labtypeContent" flex layout-padding>
+                <div class="labtype_details" ng-show="!photoEdit">
+                    <md-icon class="right-icon green_hover" ng-click="editPhototype()">edit</md-icon>
+                    <div class="element">
+                        <div class="labtype_label">Beschreibung für Studenten:</div>
+                        <div>{{ phototype.description_student }}</div>
+                    </div>
+                    <div class="element">
+                        <div class="labtype_label">Beschreibung für Tutoren:</div>
+                        <div>{{ phototype.description_tutor }}</div>
+                    </div>
+                    <div class="element">
+                        <div class="labtype_label">Deadline für Prioritäten-Auswahl:</div>
+                        <div>{{ phototype.registration_deadline | date: "EEE, dd.MM.y, HH:mm" }}</div>
+                    </div>
+                </div>
+
+                <div class="labtype_details" ng-show="photoEdit">
+                    <md-icon class="right-icon green_hover" ng-click="cancelEditLabtype(phototype)">close</md-icon>
+                    <md-input-container>
+                        <textarea ng-model="editPhotoStudentDesc" placeholder="Beschreibung Student"></textarea>
+                    </md-input-container><br>
+                    <md-input-container>
+                        <textarea ng-model="editPhotoTutorDesc" placeholder="Beschreibung Tutor"></textarea>
+                    </md-input-container><br>
+                    <md-input-container>
+                        <input mdc-datetime-picker=""
+                               date="true"
+                               time="true"
+                               type="text"
+                               id="editPhotoDeadline"
+                               placeholder="Deadline für Prioritäten-Auswahl"
+                               min-date="minDate"
+                               ng-model="editPhotoDeadline"
+                               class ="md-input"
+                               lang="{{lang}}">
+                    </md-input-container><br>
+                </div>
+                <div>
+                    <span>Auswahl von Prioritäten offen:</span><md-switch ng-model="phototype.registration_open" aria-label="Open" ng-change="updatePhotoOpenState(phototype.registration_open)"></md-switch>
+                </div>
+
+                <md-button ng-click="updatePhototype()" class="md-raised md-primary" ng-show="photoEdit"
+                           aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <md-card>
+            <md-card-title class="dashboardCardTitle">
+                <md-card-title-text><h2 class="cardHeader" translate="VIDEO_PROJECT"></h2></md-card-title-text>
+            </md-card-title>
+
+            <md-card-content class="cardContent  labtypeContent" flex layout-padding>
+                <div class="labtype_details" ng-show="!videoEdit">
+                    <md-icon class="right-icon green_hover" ng-click="editVideotype()">edit</md-icon>
+                    <div class="element">
+                        <div class="labtype_label">Beschreibung für Studenten:</div>
+                        <div>{{ videotype.description_student }}</div>
+                    </div>
+                    <div class="element">
+                        <div class="labtype_label">Beschreibung für Tutoren:</div>
+                        <div>{{ videotype.description_tutor }}</div>
+                    </div>
+                    <div class="element">
+                        <div class="labtype_label">Deadline für Prioritäten-Auswahl:</div>
+                        <div>{{ videotype.registration_deadline | date: "EEE, dd.MM.y, HH:mm" }}</div>
+                    </div>
+                </div>
+
+                <div class="labtype_details" ng-show="videoEdit">
+                    <md-icon class="right-icon green_hover" ng-click="cancelEditLabtype(videotype)">close</md-icon>
+                    <md-input-container>
+                        <textarea ng-model="editVideoStudentDesc" placeholder="Beschreibung Student"></textarea>
+                    </md-input-container><br>
+                    <md-input-container>
+                        <textarea ng-model="editVideoTutorDesc" placeholder="Beschreibung Tutor"></textarea>
+                    </md-input-container><br>
+                    <md-input-container>
+                        <input mdc-datetime-picker=""
+                               date="true"
+                               time="true"
+                               type="text"
+                               id="editVideoDeadline"
+                               placeholder="Deadline für Prioritäten-Auswahl"
+                               min-date="minDate"
+                               ng-model="editVideoDeadline"
+                               class ="md-input"
+                               lang="{{lang}}">
+                    </md-input-container><br>
+                </div>
+                <div>
+                    <span>Auswahl von Prioritäten offen:</span><md-switch ng-model="videotype.registration_open" aria-label="Open" ng-change="updateVideoOpenState(videotype.registration_open)"></md-switch>
+                </div>
+
+                <md-button ng-click="updateVideotype()" class="md-raised md-primary" ng-show="videoEdit"
+                           aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <md-card>
+            <md-card-title class="dashboardCardTitle">
+                <md-card-title-text><h2 class="cardHeader" translate="AUDIO_PROJECT"></h2></md-card-title-text>
+            </md-card-title>
+
+            <md-card-content class="cardContent  labtypeContent" flex layout-padding>
+                <div class="labtype_details" ng-show="!audioEdit">
+                    <md-icon class="right-icon green_hover" ng-click="editAudiotype()">edit</md-icon>
+                    <div class="element">
+                        <div class="labtype_label">Beschreibung für Studenten:</div>
+                        <div>{{ audiotype.description_student }}</div>
+                    </div>
+                    <div class="element">
+                        <div class="labtype_label">Beschreibung für Tutoren:</div>
+                        <div>{{ audiotype.description_tutor }}</div>
+                    </div>
+                    <div class="element">
+                        <div class="labtype_label">Deadline für Prioritäten-Auswahl:</div>
+                        <div>{{ audiotype.registration_deadline | date: "EEE, dd.MM.y, HH:mm" }}</div>
+                    </div>
+                </div>
+
+                <div class="labtype_details" ng-show="audioEdit">
+                    <md-icon class="right-icon green_hover" ng-click="cancelEditLabtype(audiotype)">close</md-icon>
+                    <md-input-container>
+                        <textarea ng-model="editAudioStudentDesc" placeholder="Beschreibung Student"></textarea>
+                    </md-input-container><br>
+                    <md-input-container>
+                        <textarea ng-model="editAudioTutorDesc" placeholder="Beschreibung Tutor"></textarea>
+                    </md-input-container><br>
+                    <md-input-container>
+                        <input mdc-datetime-picker=""
+                               date="true"
+                               time="true"
+                               type="text"
+                               id="editAudioDeadline"
+                               placeholder="Deadline für Prioritäten-Auswahl"
+                               min-date="minDate"
+                               ng-model="editAudioDeadline"
+                               class ="md-input"
+                               lang="{{lang}}">
+                    </md-input-container><br>
+                </div>
+                <div>
+                    <span>Auswahl von Prioritäten offen:</span><md-switch ng-model="audiotype.registration_open" aria-label="Open" ng-change="updateAudioOpenState(audiotype.registration_open)"></md-switch>
+                </div>
+
+                <md-button ng-click="updateAudiotype()" class="md-raised md-primary" ng-show="audioEdit"
+                           aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

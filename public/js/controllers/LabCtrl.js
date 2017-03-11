@@ -25,7 +25,7 @@ angular.module('LabCtrl', [])
             if($scope.labTypeNumber != undefined) {
                 LabType.findOne({
                     filter: {
-                        where: {type: $scope.labTypeNumber}
+                        where: {type: $scope.labTypeNumber, semesterId: $scope.semester.id}
                     }
                 }, function (typelab) {
                     $scope.labType = typelab;

@@ -100,6 +100,7 @@
   "DETAILS": "Details",
   "ADMIN_EXERCISE_TEXT": "Als {{role | translate}} kannst du hier Übungen erstellen, damit die Studenten diesen beitreten können.",
   "SEMESTER_MGT": "Semester Verwaltung",
+  "LABTYPE_MGT": "Verwaltung der Praktika",
   "CURRENT_SEMESTER": "Aktuelles Semester",
   "NEW_SEMESTER": "Neues Semester anlegen",
   "START_DATE": "Anfangsdatum",
