@@ -3,6 +3,13 @@ angular.module('AlgoCtrl', [])
 
 
 
+
+
+        // Error Vars
+
+        $scope.showError = false;
+        $scope.errorMessage = '';
+
         // Loading Flags
 
         $scope.labSelect = 1;
@@ -10,6 +17,14 @@ angular.module('AlgoCtrl', [])
         $scope.tutor_labs_loading = true;
         $scope.student_prios_loading = true;
         $scope.labs_created_loading = true;
+        $scope.algo_running = false;
+
+
+        $scope.successfulGroups = [];
+        $scope.unsuccessfulGroups= [];
+
+        $scope.successAlgo=false;
+
 
 
         if (PlatformUser.isAuthenticated()) {
@@ -138,7 +153,14 @@ angular.module('AlgoCtrl', [])
                     }
                 }
             }, function (labtype) {
-                Priority.find({filter: {where: {semesterId: $scope.semester.id, labTypeId: labtype.id }}}, function (prios) {
+                Priority.find({
+                    filter: {
+                        where: {
+                            semesterId: $scope.semester.id,
+                            labTypeId: labtype.id
+                        }
+                    }
+                }, function (prios) {
 
 
                     if (prios.length > 1) {
@@ -148,8 +170,8 @@ angular.module('AlgoCtrl', [])
 
                     $scope.student_prios_loading = false;
                 });
-            }, function(err){
-                $scope.student_prios=false;
+            }, function (err) {
+                $scope.student_prios = false;
                 $scope.student_prios_loading = false;
 
             });
@@ -179,11 +201,11 @@ angular.module('AlgoCtrl', [])
 
                     });
 
-                }, function(err){
+                }, function (err) {
                     $scope.labs_created_loading = false;
                     $scope.labs_created = false;
                 });
-            }, function(err){
+            }, function (err) {
                 $scope.labs_created_loading = false;
                 $scope.labs_created = false;
             });
@@ -192,7 +214,11 @@ angular.module('AlgoCtrl', [])
 
         $scope.distribute = function () {
 
-            /** TODO: Das muss noch parametrisiert werden **/
+
+            saveGroupStatus();
+
+            $scope.algo_running = true;
+            $scope.showResults = true;
 
             var labtypeNumber = $scope.labSelect;
             var labtype;
@@ -266,8 +292,18 @@ angular.module('AlgoCtrl', [])
                                                         token: token,
                                                         groupData: groupData,
                                                         dates: dates
-                                                    }, function (success) {
-                                                        console.log(success);
+                                                    }, function (err, success) {
+                                                        $scope.algo_running = false;
+                                                        if (err) {
+                                                            showSuccess();
+                                                            showError(err.statusText);
+                                                            console.log(err);
+                                                        }
+                                                        else {
+                                                            showSuccess();
+                                                            console.log(success);
+                                                        }
+
                                                     });
 
                                                 }
@@ -294,6 +330,51 @@ angular.module('AlgoCtrl', [])
 
             }, function (error) {
                 console.log(error);
+
+            });
+
+        }
+
+
+        function showError(err) {
+            $scope.errorMessage = err;
+            $scope.showErrorMessage = true;
+        }
+
+        function showSuccess() {
+
+            $scope.successAlgo=true;
+
+            Group.find({filter: {where: {semesterId: $scope.semester.id}}}, function (groups) {
+
+                $scope.successfulGroups = [];
+
+                for (var i = 0; i < groups.length; i++) {
+
+                    if (groups[i].labIds.length > $scope.groupsSave[i].labIds.length) {
+
+                        $scope.successfulGroups.push(groups[i]);
+
+                    }
+                    else{
+                        $scope.unsuccessfulGroups.push(groups[i]);
+                    }
+
+                }
+
+                console.log(successfulGroups);
+
+
+            });
+
+
+        }
+
+        function saveGroupStatus() {
+
+            Group.find({filter: {where: {semesterId: $scope.semester.id}}}, function (groups) {
+
+                $scope.groupsSave = groups;
 
             });
 
