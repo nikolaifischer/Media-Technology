@@ -11,7 +11,9 @@ angular.module('DatesCtrl', [])
             {
                 order: "end_date DESC"
             },
-            function(success){},
+            function(success){
+                $scope.selectedTerm = $scope.terms[0];
+            },
             function(error){
                 console.log(error);
             }
@@ -54,7 +56,7 @@ angular.module('DatesCtrl', [])
         $scope.location = "Amalienstraße 67, Raum 001";
         $scope.duration = 90;
         $scope.description = "Semester Klausur  WS 2016/2017";
-        $scope.selectedTerm = $scope.terms[0];
+       // $scope.selectedTerm = $scope.terms[0];
 
         $scope.createUniqueDate = function() {
             UniqueDate.create({
