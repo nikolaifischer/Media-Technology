@@ -63,7 +63,7 @@ angular.module('DatesCtrl', [])
                 "location": $scope.location,
                 "duration": $scope.duration,
                 "description": $scope.description,
-                "semesterId": $scope.selectedTerm.id
+                "semesterId": $scope.terms[2].id
             }, function (response) {
                 setTimeout(function(){
                     $scope.$apply(function() {

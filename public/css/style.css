@@ -269,9 +269,12 @@ md-dialog {
     border-radius: 2px;
 }
 
-.calendar_content .ours {
+.ours {
     background-color: rgb(255, 82, 82);
+}
 
+.uniquedate {
+    background-color: hotpink;
 }
 
 .calendar_content:hover {

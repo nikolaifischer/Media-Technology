@@ -7,7 +7,7 @@
 
     <div class="col-sm-12 instruction" ng-show="!open">Die Auswahl ist aktuell nicht möglich.</div>
     <div class="col-sm-12 instruction" translate="CHOOSE_VIDEO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}" ng-show="group!=undefined && open && !isTutor"></div>
-    <div class="col-sm-12 instruction" ng-show="group==undefined && !isTutor">Du musst in einer Gruppe sein, um Prioritäten für das Videopraktikum zu speichern.</div>
+    <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open">Du musst in einer Gruppe sein, um Prioritäten für das Videopraktikum zu speichern.</div>
 
 
     <!------Calendar-------->
