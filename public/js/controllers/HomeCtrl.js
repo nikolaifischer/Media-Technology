@@ -267,7 +267,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
 
         function loadGroup() {
 
-            //TODO: Das kann doch mit einer Relation von Platform User aus gemacht werden, wenn die Berechtigungen irgendwann stimmen => Effizienter
             Group.find({}, function (groups) {
 
                 // Success Callback
@@ -281,12 +280,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
                 }
 
                 if (!found) {
-                    console.log("found nothing");
                     $scope.group = undefined;
                     $scope.groupMembers = undefined;
                 }
                 else {
-                    console.log("I found the group");
 
                     Group.groupMembers({
 

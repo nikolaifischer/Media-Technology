@@ -409,6 +409,15 @@ calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
     font-size: 16px;
 }
 
+.checkTableData {
+
+    width: 200px;
+}
+
+.spinner {
+    width: 30px !important;
+}
+
 md-table-pagination .label {
     color: inherit;
 }
