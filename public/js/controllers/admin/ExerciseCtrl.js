@@ -196,7 +196,7 @@ angular.module('ExerciseCtrl', [])
 
     })
     .controller('PanelDialogCtrl', PanelDialogCtrl);
-
+// TODO: darf man da $scope.semester schreiben? wird da nicht das aktuelle Semester überschrieben?
 function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, semester, tutors, Exercise) {
     this._mdPanelRef = mdPanelRef;
     $scope.weekSchedules = weekSchedules;
