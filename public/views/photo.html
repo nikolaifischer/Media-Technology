@@ -7,6 +7,7 @@
 
     <div class="col-sm-12 instruction" ng-show="!open">Die Auswahl ist aktuell nicht möglich.</div>
     <div class="col-sm-12 instruction" translate="CHOOSE_PHOTO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}" ng-show="group!=undefined && open && !isTutor"></div>
+    <div class="col-sm-12 instruction" ng-show="open && isTutor">Die Auswahl ist geöffnet und läuft bis {{ deadline | date: "EEE, dd.MM.y, HH:mm" }}.</div>
     <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open">Du musst in einer Gruppe sein, um Prioritäten für das Fotopraktikum zu speichern.</div>
 
 
@@ -26,7 +27,6 @@
                      day-label-tooltip-format="'EEEE'"
                      day-tooltip-format="'fullDate'"
                      disable-future-selection="false"
-                     clear-data-cache-on-load="true"
                      day-content="setDayContent">
         </calendar-md>
     </div>

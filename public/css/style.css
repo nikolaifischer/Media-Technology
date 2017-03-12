@@ -267,6 +267,7 @@ md-dialog {
     color: white;
     background-color: rgb(0, 150, 136);
     border-radius: 2px;
+    font-size: 14px;
 }
 
 .ours {
@@ -275,6 +276,28 @@ md-dialog {
 
 .uniquedate {
     background-color: hotpink;
+}
+
+.excrs {
+    background-color: #00b0ff;
+}
+
+prktkm {
+    background-color: #536dfe;
+}
+
+.md-dialog-content .md-title {
+    padding: 10px;
+    border-bottom: 1px solid grey;
+}
+
+.md-dialog-content .title {
+    color: rgba(0, 105, 92, 1);
+    font-size: 18px;
+}
+
+.md-dialog-content a {
+    color: rgba(0,0,0,0.87);
 }
 
 .calendar_content:hover {

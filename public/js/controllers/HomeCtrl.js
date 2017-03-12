@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, PlatformUser, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
+angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, PlatformUser, LabType, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
     // Show admins a Pop-up if there is no current semester
     PlatformUser.getCurrent(function (currentUser) {
         if (currentUser.isAdmin) {
@@ -85,10 +85,23 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             $scope.objects = (groupedDates[$scope.key] || []);
             var content = "";
             for (var i=0; i < $scope.objects.length; i++) {
-                content += "<div>"+$scope.objects[i].name+"</div>";
-                content += "<div>"+$scope.objects[i].duration+"</div>";
-                content += "<div>"+$scope.objects[i].location+"</div>";
-                content += "<div>"+$scope.objects[i].description+"</div>";
+                //set start end end time
+                if($scope.objects[i].duration == undefined) {
+                    $scope.objects[i].duration = 90;
+                }
+                var dateObj = new Date($scope.objects[i].date);
+                $scope.objects[i].end = $filter('date')(dateObj.setTime(dateObj.getTime() + ($scope.objects[i].duration * 60 * 1000)), 'HH:mm');
+
+                //format Details for mdDialog
+                content += "<div class='title'>"+$scope.objects[i].name+"</div>";
+                content += "<div>"+$filter("date")($scope.objects[i].date, "HH:mm")+" - "+$scope.objects[i].end+" Uhr</div>";
+                content += "<div><a href='http://maps.google.com/?q={{ object.location }}' target='_blank'>"+$scope.objects[i].location+"</a></div>";
+                if ($scope.objects[i].tutor != undefined) {
+                    content += "<div>" + $scope.objects[i].tutor + "</div>";
+                }
+                if ($scope.objects[i].description != undefined) {
+                    content += "<div>" + $scope.objects[i].description + "</div>";
+                }
                 content += "<br>"
             }
 
@@ -147,8 +160,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
         }
 
         function loadExercises(daysWithContent, uniqueDatesContent) {
-            var daysWithMoreContent = [];
-            var addedUpContent;
             var itemsProcessed = 0;
             $scope.exercises = Exercise.find({
                 filter: {
@@ -157,73 +168,99 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             }, function (exrcs) {
                 exrcs.forEach(function(element) {
                     itemsProcessed++;
-                    if (element.participantsUserIds.indexOf($scope.currentUser.id) > -1) {
-                        var date = element.date.slice(0, 10);
-                        if (groupedDates[date] === undefined) {
-                            groupedDates[date] = [];
+                    if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
+                        if (element.participantsUserIds.indexOf($scope.currentUser.id) > -1) {
+                            writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
                         }
-                        if(groupedDates[date].indexOf(element) === -1) {
-                            groupedDates[date].push(element);
-                        }
-
-                        if (groupedExercises[date] === undefined) {
-                            groupedExercises[date] = [];
-                        }
-                        if(groupedExercises[date].indexOf(element) === -1) {
-                            groupedExercises[date].push(element);
-                        }
-
-                        Object.keys(groupedExercises).forEach(function (date) {
-                            var exercisesContent = "<div class='calendar_content'>Übung</div>";
-                            if(daysWithContent.indexOf(date) > -1) {
-                                addedUpContent = uniqueDatesContent+exercisesContent;
-                            } else {
-                                addedUpContent = exercisesContent;
-                            }
-                            MaterialCalendarData.setDayContent(new Date(date), addedUpContent);
-                            daysWithMoreContent.push(date);
-                        });
-
-                        if(itemsProcessed === exrcs.length) {
-                            loadOurLabs(daysWithMoreContent, addedUpContent);
+                    } else {
+                        if(element.tutor == $scope.currentUser.first_name +" "+$scope.currentUser.name) {
+                            writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
                         }
                     }
                 });
             });
         }
+        function writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed) {
+            var daysWithMoreContent = [];
+            var addedUpContent = "";
+            var date = element.date.slice(0, 10);
+            if (groupedDates[date] === undefined) {
+                groupedDates[date] = [];
+            }
+            if(groupedDates[date].indexOf(element) === -1) {
+                groupedDates[date].push(element);
+            }
+
+            if (groupedExercises[date] === undefined) {
+                groupedExercises[date] = [];
+            }
+            if(groupedExercises[date].indexOf(element) === -1) {
+                groupedExercises[date].push(element);
+            }
+
+            Object.keys(groupedExercises).forEach(function (date) {
+                var exercisesContent = "<div class='calendar_content excrs'>Übung</div>";
+                if(daysWithContent.indexOf(date) > -1) {
+                    addedUpContent = uniqueDatesContent+exercisesContent;
+                } else {
+                    addedUpContent = exercisesContent;
+                }
+                MaterialCalendarData.setDayContent(new Date(date), addedUpContent);
+                daysWithMoreContent.push(date);
+            });
+
+            if(itemsProcessed === exrcs.length) {
+                loadOurLabs(daysWithMoreContent, addedUpContent);
+            }
+        }
 
         function loadOurLabs(daysWithContent, addedUpContent) {
-            var allContent;
-            $scope.ourLabs = Lab.find({
-                filter: {
-                    where: {semesterId: $scope.semester.id, groupId: $scope.group.id}
+            if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
+                $scope.ourLabs = Lab.find({
+                    filter: {
+                        where: {semesterId: $scope.semester.id, groupId: $scope.group.id}
+                    }
+                }, function (labs) {
+                    writeLabs(labs, daysWithContent, addedUpContent);
+                });
+            } else {
+                $scope.ourLabs = Lab.find({
+                    filter: {
+                        where: {semesterId: $scope.semester.id, tutorId: $scope.currentUser.id}
+                    }
+                }, function (labs) {
+                    writeLabs(labs, daysWithContent, addedUpContent);
+                });
+            }
+        }
+        function writeLabs(labs, daysWithContent, addedUpContent) {
+            var allContent = "";
+            labs.forEach(function(element) {
+                var date = element.date.slice(0, 10);
+                LabType.findById({ filter: {where: {id: element.labTypeId}}},function(res) {element.name = res.type_str});
+                PlatformUser.findById({ filter: {where: {id: element.tutorId}}},function(res) {element.tutor = res.first_name+" "+res.name});
+                if (groupedDates[date] === undefined) {
+                    groupedDates[date] = [];
                 }
-            }, function (labs) {
-                labs.forEach(function(element) {
-                    var date = element.date.slice(0, 10);
-                    if (groupedDates[date] === undefined) {
-                        groupedDates[date] = [];
-                    }
-                    if(groupedDates[date].indexOf(element) === -1) {
-                        groupedDates[date].push(element);
-                    }
+                if(groupedDates[date].indexOf(element) === -1) {
+                    groupedDates[date].push(element);
+                }
 
-                    if (groupedLabs[date] === undefined) {
-                        groupedLabs[date] = [];
-                    }
-                    if(groupedLabs[date].indexOf(element) === -1) {
-                        groupedLabs[date].push(element);
-                    }
+                if (groupedLabs[date] === undefined) {
+                    groupedLabs[date] = [];
+                }
+                if(groupedLabs[date].indexOf(element) === -1) {
+                    groupedLabs[date].push(element);
+                }
 
-                    Object.keys(groupedExercises).forEach(function (date) {
-                        var labsContent = "<div class='calendar_content'>Praktikum</div>";
-                        if(daysWithContent.indexOf(date) > -1) {
-                            allContent = addedUpContent+labsContent;
-                        } else {
-                            allContent = labsContent;
-                        }
-                        MaterialCalendarData.setDayContent(new Date(date), allContent);
-                    });
+                Object.keys(groupedExercises).forEach(function (date) {
+                    var labsContent = "<div class='calendar_content prktkm'>Praktikum</div>";
+                    if(daysWithContent.indexOf(date) > -1) {
+                        allContent = addedUpContent+labsContent;
+                    } else {
+                        allContent = labsContent;
+                    }
+                    MaterialCalendarData.setDayContent(new Date(date), allContent);
                 });
             });
         }

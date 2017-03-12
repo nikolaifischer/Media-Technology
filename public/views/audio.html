@@ -7,7 +7,10 @@
 
     <div class="col-sm-12 instruction" ng-show="!open">Die Auswahl ist aktuell nicht möglich.</div>
     <div class="col-sm-12 instruction" translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}" ng-show="group!=undefined && open && !isTutor"></div>
+    <div class="col-sm-12 instruction" ng-show="open && isTutor">Die Auswahl ist geöffnet und läuft bis {{ deadline | date: "EEE, dd.MM.y, HH:mm" }}.</div>
     <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open">Du musst in einer Gruppe sein, um Prioritäten für das Audiopraktikum zu speichern.</div>
+
+
     <!------Calendar-------->
     <div class="col-md-8 col-sm-12">
         <calendar-md flex layout layout-fill
@@ -24,9 +27,7 @@
                      day-label-tooltip-format="'EEEE'"
                      day-tooltip-format="'fullDate'"
                      disable-future-selection="false"
-                     clear-data-cache-on-load="true"
-                     day-content="setDayCont"
-                     id="labCalendar">
+                     day-content="setDayContent">
         </calendar-md>
     </div>
 

@@ -1,7 +1,5 @@
 angular.module('LabCtrl', [])
     .controller('LabController', function ($scope, $filter, $timeout, $log, $q, $http, $route, PlatformUser, Semester, Group, Lab, LabType, Priority, MaterialCalendarData, $window) {
-        $scope.getCurrentSemester(function (semesterRes) {
-            $scope.semester = semesterRes;
 
             $scope.myTutorLabs = [];
             var groupedElements = {};
@@ -20,124 +18,125 @@ angular.module('LabCtrl', [])
 
             /****Loads the labs from the DB and displays them on the calendar****/
             $scope.loadLabs = function () {
-                groupedElements = {};
-                $scope.myTutorLabs = [];
+                $scope.getCurrentSemester(function (semesterRes) {
+                    $scope.semester = semesterRes;
+                    groupedElements = {};
+                    $scope.myTutorLabs = [];
 
-                //Get LabType
-                if($scope.labTypeNumber != undefined) {
-                    LabType.findOne({
-                        filter: {
-                            where: {type: $scope.labTypeNumber, semesterId: $scope.semester.id}
-                        }
-                    }, function (typelab) {
-                        $scope.labType = typelab;
-                        $scope.labTypeId = typelab.id;
-                        getGroup();
-
-                        //check deadlines
-                        if (typelab.registration_open) {
-                            $scope.open = true;
-                        }
-                        var now = new Date();
-                        $scope.deadline = typelab.registration_deadline;
-                        if (now >= $scope.deadline) {
-                            $scope.open = false;
-                            typelab.registration_open = false;
-                            typelab.$save();
-                        }
-                        // Find all LabType Labs
-                        $scope.labs = Lab.find({
+                    //Get LabType
+                    if($scope.labTypeNumber != undefined) {
+                        LabType.findOne({
                             filter: {
-                                where: {labTypeId: typelab.id, semesterId: $scope.semester.id}
+                                where: {type: $scope.labTypeNumber, semesterId: $scope.semester.id}
                             }
-                        }, function (labs) {
-                            //Get format for calendar
-                            labs.forEach(function (element) {
-                                //collect my tutor labs
-                                if ($scope.currentUser.isTutor || $scope.currentUser.isAdmin) {
-                                    if ($scope.currentUser.id == element.tutorId) {
-                                        $scope.myTutorLabs.push(element);
-                                    }
+                        }, function (typelab) {
+                            $scope.labType = typelab;
+                            $scope.labTypeId = typelab.id;
+                            getGroup();
+
+                            //check deadlines
+                            if (typelab.registration_open) {
+                                $scope.open = true;
+                            }
+                            var now = new Date();
+                            $scope.deadline = typelab.registration_deadline;
+                            if (now >= $scope.deadline) {
+                                $scope.open = false;
+                                typelab.registration_open = false;
+                                typelab.$save();
+                            }
+                            // Find all LabType Labs
+                            $scope.labs = Lab.find({
+                                filter: {
+                                    where: {labTypeId: typelab.id, semesterId: $scope.semester.id}
                                 }
-
-                                //check if group has lab assigned
-                                if(!$scope.open) {
-                                    if (element.groupId == $scope.group.id) {
-                                        element.isOurs = true;
-                                    } else {
-                                        element.isOurs = false;
-                                    }
-                                }
-
-                                //save end time in element
-                                var dateObj = new Date(element.date);
-                                element.start = $filter('date')(dateObj, 'HH:mm');
-                                var endtime = dateObj.setTime(dateObj.getTime() + (element.duration * 60 * 1000));
-                                element.end = $filter('date')(endtime, 'HH:mm');
-
-                                //save tutor name in element
-                                PlatformUser.find({
-                                    filter: {
-                                        where: {
-                                            id: element.tutorId, isTutor: true
+                            }, function (labs) {
+                                //Get format for calendar
+                                labs.forEach(function (element) {
+                                    //collect my tutor labs
+                                    if ($scope.currentUser.isTutor || $scope.currentUser.isAdmin) {
+                                        if ($scope.currentUser.id == element.tutorId) {
+                                            $scope.myTutorLabs.push(element);
                                         }
                                     }
-                                }, function (tutor) {
-                                    if (tutor.length > 0) {
-                                        element.tutorName = tutor[0].first_name + " " + tutor[0].name;
+
+                                    //check if group has lab assigned
+                                    if(!$scope.open) {
+                                        if (element.groupId == $scope.group.id) {
+                                            element.isOurs = true;
+                                        } else {
+                                            element.isOurs = false;
+                                        }
                                     }
 
-                                    //Get Selected Priority for each lab and save in element
-                                    Priority.find({
+                                    //save end time in element
+                                    var dateObj = new Date(element.date);
+                                    element.start = $filter('date')(dateObj, 'HH:mm');
+                                    var endtime = dateObj.setTime(dateObj.getTime() + (element.duration * 60 * 1000));
+                                    element.end = $filter('date')(endtime, 'HH:mm');
+
+                                    //save tutor name in element
+                                    PlatformUser.find({
                                         filter: {
-                                            where: {labId: element.id}
-                                        }
-                                    }, function (prio) {
-                                        if ($scope.group != undefined) {
-                                            for (var k = 0; k < prio.length; k++) {
-                                                if (prio[k].groupId == $scope.group.id) {
-                                                    element.selPrio = prio[k].priority;
-                                                }
+                                            where: {
+                                                id: element.tutorId, isTutor: true
                                             }
                                         }
-
-                                        //fill variable for calendar display
-                                        var date = element.date.slice(0, 10);
-                                        if (groupedElements[date] === undefined) {
-                                            groupedElements[date] = [];
+                                    }, function (tutor) {
+                                        if (tutor.length > 0) {
+                                            element.tutorName = tutor[0].first_name + " " + tutor[0].name;
                                         }
-                                        groupedElements[date].push(element);
 
-                                        //Write Labs in calendar
-                                        Object.keys(groupedElements).forEach(function (date) {
-                                            if(!$scope.open) {
-                                                if(date.isOurs) {
-                                                    MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content ours'>Termine</div>");
+                                        //Get Selected Priority for each lab and save in element
+                                        Priority.find({
+                                            filter: {
+                                                where: {labId: element.id}
+                                            }
+                                        }, function (prio) {
+                                            if ($scope.group != undefined) {
+                                                for (var k = 0; k < prio.length; k++) {
+                                                    if (prio[k].groupId == $scope.group.id) {
+                                                        element.selPrio = prio[k].priority;
+                                                    }
+                                                }
+                                            }
+
+                                            //fill variable for calendar display
+                                            var date = element.date.slice(0, 10);
+                                            if (groupedElements[date] === undefined) {
+                                                groupedElements[date] = [];
+                                            }
+                                            groupedElements[date].push(element);
+
+                                            //Write Labs in calendar
+                                            Object.keys(groupedElements).forEach(function (date) {
+                                                if(!$scope.open) {
+                                                    if(date.isOurs) {
+                                                        MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content ours'>Termine</div>");
+                                                    } else {
+                                                        MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
+                                                    }
                                                 } else {
                                                     MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
                                                 }
-                                            } else {
-                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
+                                            });
+                                            if ($scope.key != undefined) {
+                                                $scope.dayClick($scope.key);
                                             }
+                                            return groupedElements;
                                         });
-                                        if ($scope.key != undefined) {
-                                            $scope.dayClick($scope.key);
-                                        }
-                                        return groupedElements;
                                     });
-                                });
 
+                                });
+                            }, function (error) {
+                                console.log(error);
                             });
-                        }, function (error) {
-                            console.log(error);
                         });
-                    });
-                }
+                    }
+                });
             };
 
-            angular.element(document).ready(function () {
-                $scope.loadLabs();
-            });
+            $scope.loadLabs();
 
             /****Get the current group****/
             function getGroup() {
@@ -199,7 +198,6 @@ angular.module('LabCtrl', [])
                 $scope.dayFormat = direction === "vertical" ? "EEEE, MMMM d" : "d";
             };
             $scope.setDayContent = function(date) {
-                console.log(date);
                 return "<div></div>";
             };
             $scope.prevMonth = function () {
@@ -372,5 +370,4 @@ angular.module('LabCtrl', [])
                 $scope.selectedPriority[i].priority = undefined;
                 $scope.showBtns[i] = false;
             };
-        });
     });
