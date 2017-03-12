@@ -42,6 +42,7 @@ angular.module('LabCtrl', [])
                             $scope.deadline = typelab.registration_deadline;
                             if (now >= $scope.deadline) {
                                 $scope.open = false;
+                                $scope.afterDeadline = true;
                                 typelab.registration_open = false;
                                 typelab.$save();
                             }
@@ -61,7 +62,7 @@ angular.module('LabCtrl', [])
                                     }
 
                                     //check if group has lab assigned
-                                    if(!$scope.open) {
+                                    if($scope.afterDeadline && !$scope.isTutor) {
                                         if (element.groupId == $scope.group.id) {
                                             element.isOurs = true;
                                         } else {
@@ -110,15 +111,7 @@ angular.module('LabCtrl', [])
 
                                             //Write Labs in calendar
                                             Object.keys(groupedElements).forEach(function (date) {
-                                                if(!$scope.open) {
-                                                    if(date.isOurs) {
-                                                        MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content ours'>Termine</div>");
-                                                    } else {
-                                                        MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
-                                                    }
-                                                } else {
-                                                    MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
-                                                }
+                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
                                             });
                                             if ($scope.key != undefined) {
                                                 $scope.dayClick($scope.key);

@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, PlatformUser, LabType, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
+angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, PlatformUser, LabType, Lab, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
     // Show admins a Pop-up if there is no current semester
     PlatformUser.getCurrent(function (currentUser) {
         if (currentUser.isAdmin) {
@@ -214,14 +214,14 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             }
         }
 
-        function loadOurLabs(daysWithContent, addedUpContent) {
+        function loadOurLabs(daysWithMoreContent, addedUpContent) {
             if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
                 $scope.ourLabs = Lab.find({
                     filter: {
                         where: {semesterId: $scope.semester.id, groupId: $scope.group.id}
                     }
                 }, function (labs) {
-                    writeLabs(labs, daysWithContent, addedUpContent);
+                    writeLabs(labs, daysWithMoreContent, addedUpContent);
                 });
             } else {
                 $scope.ourLabs = Lab.find({
@@ -229,16 +229,16 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
                         where: {semesterId: $scope.semester.id, tutorId: $scope.currentUser.id}
                     }
                 }, function (labs) {
-                    writeLabs(labs, daysWithContent, addedUpContent);
+                    writeLabs(labs, daysWithMoreContent, addedUpContent);
                 });
             }
         }
-        function writeLabs(labs, daysWithContent, addedUpContent) {
+        function writeLabs(labs, daysWithMoreContent, addedUpContent) {
             var allContent = "";
             labs.forEach(function(element) {
                 var date = element.date.slice(0, 10);
-                LabType.findById({ filter: {where: {id: element.labTypeId}}},function(res) {element.name = res.type_str});
-                PlatformUser.findById({ filter: {where: {id: element.tutorId}}},function(res) {element.tutor = res.first_name+" "+res.name});
+                LabType.findById({id: element.labTypeId},function(res) {element.name = res.type_str});
+                PlatformUser.findById({id: element.tutorId},function(res) {element.tutor = res.first_name+" "+res.name});
                 if (groupedDates[date] === undefined) {
                     groupedDates[date] = [];
                 }
@@ -253,9 +253,9 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
                     groupedLabs[date].push(element);
                 }
 
-                Object.keys(groupedExercises).forEach(function (date) {
+                Object.keys(groupedLabs).forEach(function (date) {
                     var labsContent = "<div class='calendar_content prktkm'>Praktikum</div>";
-                    if(daysWithContent.indexOf(date) > -1) {
+                    if(daysWithMoreContent.indexOf(date) > -1) {
                         allContent = addedUpContent+labsContent;
                     } else {
                         allContent = labsContent;

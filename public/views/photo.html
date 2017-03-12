@@ -5,7 +5,7 @@
     <div class="col-sm-12 description" ng-show="!isTutor">{{ labType.description_student}}</div>
     <div class="col-sm-12 description" ng-show="isTutor">{{ labType.description_tutor}}</div>
 
-    <div class="col-sm-12 instruction" ng-show="!open">Die Auswahl ist aktuell nicht möglich.</div>
+    <div class="col-sm-12 instruction" ng-show="!open">Die Auswahl ist aktuell nicht geöffnet.</div>
     <div class="col-sm-12 instruction" translate="CHOOSE_PHOTO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}" ng-show="group!=undefined && open && !isTutor"></div>
     <div class="col-sm-12 instruction" ng-show="open && isTutor">Die Auswahl ist geöffnet und läuft bis {{ deadline | date: "EEE, dd.MM.y, HH:mm" }}.</div>
     <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open">Du musst in einer Gruppe sein, um Prioritäten für das Fotopraktikum zu speichern.</div>
@@ -86,6 +86,8 @@
                 <br>
                 <!--selected Priority-->
                 <span ng-show="object.selPrio != undefined"><md-icon>label_outline</md-icon> Priorität: {{ object.selPrio }}</span>
+                <!---ourLab-->
+                <span style="color: rgb(255, 82, 82);" ng-show="aferDeadline && !open && !isTutor"><md-icon>group</md-icon> {{ group.name }}</span>
                 <!--UpdateButton-->
                 <md-button ng-click="updateLab($index)" class="md-raised md-primary" ng-show="isEdit[$index]"
                            aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>
