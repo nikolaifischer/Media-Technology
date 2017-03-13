@@ -1,5 +1,5 @@
 angular.module('SemesterCtrl', [])
-    .controller('SemesterController', function ($location, $scope, $resource, $mdToast, $window, PlatformUser, Semester, LabType) {
+    .controller('SemesterController', function ($location, $scope, $resource, $mdToast, $mdDialog, $window, PlatformUser, Semester, LabType) {
 
 
         // Send non-admins back to home page
@@ -13,7 +13,7 @@ angular.module('SemesterCtrl', [])
             });
         }
 
-
+        $scope.terms = [];
 
         $scope.semesterinCtrl = {};
         $scope.semesterinCtrl.start_date = new Date();
@@ -26,12 +26,36 @@ angular.module('SemesterCtrl', [])
                     currentSemester.start_date = new Date(currentSemester.start_date);
                     currentSemester.end_date = new Date(currentSemester.end_date);
                     $scope.semesterinCtrl = currentSemester;
+
+                    $scope.terms = Semester.find(
+                        {
+                            filter: {
+                                where: {
+                                    id: {neq: currentSemester.id}
+                                }
+                            },
+                            order: "end_date DESC"
+                        },
+                        function(success){},
+                        function(error){
+                            console.log(error);
+                        }
+                    );
                 }, function (err) {
                     console.log(err)
                 })
             }
             else {
                 $scope.noCurrentSemester = true;
+                $scope.terms = Semester.find(
+                    {
+                        order: "end_date DESC"
+                    },
+                    function(success){},
+                    function(error){
+                        console.log(error);
+                    }
+                );
             }
 
         });
@@ -67,6 +91,22 @@ angular.module('SemesterCtrl', [])
 
             }
 
+        };
+
+        // TODO: welcher Text im Alert?
+        $scope.removeSemester = function(ev, index){
+            var confirm = $mdDialog.confirm()
+                .title('Soll das Semester wirklich gelöscht werden?')
+                .textContent('Das hat seeehr böse Folgen...')
+                .ariaLabel('Semester löschen')
+                .targetEvent(ev)
+                .ok('Löschen')
+                .cancel('Abbrechen');
+
+            $mdDialog.show(confirm).then(function() {
+                var term = $scope.terms.splice(index, 1)[0];
+                Semester.deleteById({id: term.id}, function(response) {});
+            }, function() {});
         };
 
         function createLabTypes(typeNumber, typeString) {

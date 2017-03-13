@@ -86,15 +86,13 @@
   "REPEAT_PASSWORD_NO_MATCH": "Dies muss deinem zuvor vergebenen Passwort entsprechen.",
   "INPUT_REQUIRED": "Dieses Feld muss befüllt sein.",
   "STUDENT_EXERCISE_TEXT": "Hier kannst du dich für eine Übung anmelden, damit die Termine in deinem Kalender angezeigt werden.",
-  "ADMIN_DATES_TEXT": "Als Admin kannst du hier wichtige Termine erstellen und ein Semester anlegen. Das Anlegen eines Semseters ist wichtig, um alle anderen Dienste dieser App nutzen zu können.",
+  "ADMIN_DATES_TEXT": "Als Admin kannst du hier wichtige Termine wie Klausuren oder die Laborterminvergabe erstellen.",
   "CREATE_TERM": "Semester anlegen",
   "TERM_NAME": "Semestername",
   "GROUP_SIZE": "Gruppengröße",
   "GROUP_SIZE_P": "Gruppengröße (Praktika)",
   "INVALID_NUMBER": "Dieses Feld muss eine Zahl größer 0 haben",
-  "START": "Start",
-  "END": "Ende",
-  "CREATE_UNIQUE_DATES": "Andere Termine (Klausur, Laborterminvergabe, Sonstiges)",
+  "CREATE_UNIQUE_DATES": "Klausur, Laborterminvergaben (Deadlines), Sonstiges",
   "UNIQUE_DATE_NAME": "Um was handelt es sich? (z.B. Klausur)",
   "DESCRIPTION": "Beschreibung",
   "DETAILS": "Details",
@@ -125,5 +123,7 @@
   "CHECK2": "Studenten haben Prioritäten abgegeben",
   "CHECK3": "Jedes Praktikum hat einen Tutor",
   "CHECK4": "Anmeldung geschlossen",
-  "ADMIN_DIST_TEXT": "Hier kann eine automatische Verteilung von Studentengruppen auf Praktikumstermine gestartet werden. Vor dem Beginnen müssen alle Bedinungen unten erfüllt sein."
+  "ADMIN_DIST_TEXT": "Hier kann eine automatische Verteilung von Studentengruppen auf Praktikumstermine gestartet werden. Vor dem Beginnen müssen alle Bedinungen unten erfüllt sein.",
+  "LAST_TERMS": "Bisherige Semester",
+  "NO_PREVIOUS_TERMS": "Keine bisherigen Semester vorhanden"
 }

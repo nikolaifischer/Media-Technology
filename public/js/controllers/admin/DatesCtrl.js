@@ -1,10 +1,16 @@
 angular.module('DatesCtrl', [])
     .controller('DatesController', function ($location, $scope, PlatformUser, Semester, UniqueDate) {
 
-        $scope.termName = "Semestername";
-        $scope.startDate = new Date();
-        $scope.endDate = new Date();
-        $scope.groupSize = 4;
+        // Send non-admins back to home page
+        if (PlatformUser.isAuthenticated()) {
+            PlatformUser.getCurrent(function (currentUser) {
+                if(!currentUser.isAdmin) {
+                    $location.path('/');
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }
 
         $scope.terms = [];
         $scope.terms = Semester.find(
@@ -18,28 +24,6 @@ angular.module('DatesCtrl', [])
                 console.log(error);
             }
         );
-
-        $scope.createTerm = function() {
-            Semester.create({
-                "term": $scope.termName,
-                "start_date": $scope.startDate,
-                "end_date": $scope.endDate,
-                "group_size": $scope.groupSize
-            }, function (response) {
-                setTimeout(function(){
-                    $scope.$apply(function() {
-                        $scope.terms.push(response);
-                    });
-                }, 300);
-            }, function(error){
-                console.log(error);
-            });
-        };
-
-        $scope.removeTerm = function(index){
-            var term = $scope.terms.splice(index, 1)[0];
-            Semester.deleteById({id: term.id}, function(response) {});
-        };
 
         $scope.uniqueDates = [];
         $scope.uniqueDates = UniqueDate.find(
@@ -55,8 +39,7 @@ angular.module('DatesCtrl', [])
         $scope.uniqueDate = new Date();
         $scope.location = "Amalienstraße 67, Raum 001";
         $scope.duration = 90;
-        $scope.description = "Semester Klausur  WS 2016/2017";
-       // $scope.selectedTerm = $scope.terms[0];
+        $scope.description = "Semester Klausur WS 2016/2017";
 
         $scope.createUniqueDate = function() {
             UniqueDate.create({
