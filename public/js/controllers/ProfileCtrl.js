@@ -11,32 +11,6 @@ angular.module('ProfileCtrl', ['ngMaterial']).controller('ProfileController', fu
         })
     }
 
-    // TODO: nicht mehr nötig, oder?
-    /*
-     $scope.save = function () {
-     if (PlatformUser.isAuthenticated()) {
-     if ($scope.currentUser.first_name !== '') {
-     PlatformUser.prototype$updateAttributes({id: $scope.currentUser.id}, {first_name: $scope.currentUser.first_name},
-     function() {
-     $window.location.href = '/profile';
-     },
-     function(error) {
-     console.log(error)
-     });
-     }
-     if ($scope.currentUser.name !== '') {
-     PlatformUser.prototype$updateAttributes({id: $scope.currentUser.id}, {name: $scope.currentUser.name},
-     function() {
-     $window.location.href = '/profile';
-     },
-     function(error) {
-     console.log(error)
-     });
-     }
-     }
-     }
-     */
-
     $scope.showPasswordDialog = function () {
         var position = $mdPanel.newPanelPosition()
             .absolute()

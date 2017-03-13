@@ -428,3 +428,7 @@ md-table-pagination .label {
 md-table-pagination md-select-value .md-text {
     display: inline !important;
 }
+
+.labDescription {
+    font-size: .65em;
+}

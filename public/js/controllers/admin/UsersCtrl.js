@@ -47,14 +47,6 @@ angular.module('UsersCtrl', []).controller('UsersController', function ($locatio
 
     $scope.saveEdit = function($event, user) {
         PlatformUser.prototype$patchAttributes({id: user.id}, {name:user.name, first_name:user.first_name, email: user.email, semesterId: user.semesterId}, function(res){
-
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent($translate.instant('ENTRY_SAVED'))
-                    .hideDelay(2000)
-                    .toastClass("toast")
-            );
-
         }, function(err){
             console.log(err);
         });
@@ -68,12 +60,6 @@ angular.module('UsersCtrl', []).controller('UsersController', function ($locatio
             id: user.id
         }, function(success){
             $scope.getPlatformUsers();
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent($translate.instant('ENTRY_DELETED'))
-                    .hideDelay(2000)
-                    .toastClass("toast")
-            );
         })
     };
 

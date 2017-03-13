@@ -166,13 +166,6 @@ angular.module('WhitelistCtrl', [])
 
     $scope.saveEdit = function ($event, user) {
         PendingPlatformUser.prototype$patchAttributes({ id: user.id }, user);
-
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent($translate.instant('ENTRY_SAVED'))
-                .hideDelay(2000)
-                .toastClass("toast")
-        );
     };
 
     $scope.deleteEntry = function($event, user){
@@ -180,12 +173,6 @@ angular.module('WhitelistCtrl', [])
             id: user.id
         }, function(success){
             $scope.getPendingPlatformUsers();
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent($translate.instant('ENTRY_DELETED'))
-                    .hideDelay(2000)
-                    .toastClass("toast")
-            );
         })
     };
 

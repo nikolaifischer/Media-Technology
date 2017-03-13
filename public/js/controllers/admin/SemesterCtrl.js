@@ -1,5 +1,5 @@
 angular.module('SemesterCtrl', [])
-    .controller('SemesterController', function ($location, $scope, $resource, $mdToast, $mdDialog, $window, PlatformUser, Semester, LabType) {
+    .controller('SemesterController', function ($location, $scope, $resource, $mdToast, $mdDialog, $window, $translate, PlatformUser, Semester, LabType) {
 
 
         // Send non-admins back to home page
@@ -119,8 +119,8 @@ angular.module('SemesterCtrl', [])
                 type_str: typeString,
                 registration_open: false,
                 registration_deadline: $scope.semester.end_date,
-                description_student: 'Default Beschreibung für Studenten',
-                description_tutor: 'Default Beschreibung für Tutoren',
+                description_student: $translate.instant('SOME_DESCRIPTION'),
+                description_tutor: $translate.instant('SOME_DESCRIPTION'),
                 semesterId: $scope.semester.id
             }, function (res) {
 
