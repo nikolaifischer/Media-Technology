@@ -2,9 +2,6 @@ angular.module('AlgoCtrl', [])
     .controller('AlgoController', function (PlatformUser, $location, $scope, PriorityDistribution, LoopBackAuth, Lab, LabType, Priority, Group) {
 
 
-
-
-
         // Error Vars
 
         $scope.showError = false;
@@ -25,6 +22,16 @@ angular.module('AlgoCtrl', [])
 
         $scope.successAlgo=false;
 
+
+        $scope.allGroupMailsSuccess= "";
+        $scope.allGroupMailsFail= "";
+
+
+
+        // Frontend Flags
+
+        $scope.showFailedEmails = false;
+        $scope.showSuccessfulEmails = false;
 
 
         if (PlatformUser.isAuthenticated()) {
@@ -295,7 +302,7 @@ angular.module('AlgoCtrl', [])
                                                     }, function (err, success) {
                                                         $scope.algo_running = false;
                                                         if (err) {
-                                                            showSuccess();
+                                                            showSuccess(); // TODO: Delete this again - just for testing
                                                             showError(err.statusText);
                                                             console.log(err);
                                                         }
@@ -336,14 +343,22 @@ angular.module('AlgoCtrl', [])
         }
 
 
+        /**
+         * Shows Error message if distribution algo failed
+         * @param err The error object
+         */
         function showError(err) {
             $scope.errorMessage = err;
             $scope.showErrorMessage = true;
         }
 
-        function showSuccess() {
 
-            $scope.successAlgo=true;
+        /**
+         * Shows success message if distribution was successful:
+         * Enumerates the Groups which got a date and those which did not.
+         */
+
+        function showSuccess() {
 
             Group.find({filter: {where: {semesterId: $scope.semester.id}}}, function (groups) {
 
@@ -351,30 +366,79 @@ angular.module('AlgoCtrl', [])
 
                 for (var i = 0; i < groups.length; i++) {
 
+
+
                     if (groups[i].labIds.length > $scope.groupsSave[i].labIds.length) {
 
+                        $scope.getGroupEmails(groups[i],"success");
                         $scope.successfulGroups.push(groups[i]);
 
                     }
                     else{
+                        $scope.getGroupEmails(groups[i],"fail");
                         $scope.unsuccessfulGroups.push(groups[i]);
                     }
 
                 }
 
-                console.log(successfulGroups);
+
+                $scope.successAlgo=true;
 
 
             });
 
-
         }
+
+        /**
+         * Helper Method to save groups before the algorithm runs. Is used to determine the difference of the
+         * amount of labs in each groups before and after the algorithm. Needed to generate a success message.
+         */
 
         function saveGroupStatus() {
 
             Group.find({filter: {where: {semesterId: $scope.semester.id}}}, function (groups) {
 
                 $scope.groupsSave = groups;
+
+            });
+
+        }
+
+
+        $scope.getGroupEmails = function (group, status) {
+
+            console.log("Getting Email for group "+group.name);
+            console.log(group.id);
+
+            var mails = [];
+            Group.groupMembers({id: group.id}, function(members){
+                for(var i=0; i<members.length; i++) {
+
+                    mails.push(members[i].email);
+                    var temp;
+
+                    if(status == "success"){
+
+                        if($scope.allGroupMailsSuccess.length>0)
+                            temp = ","+members[i].email;
+                        else
+                            temp = members[i].email;
+
+                        $scope.allGroupMailsSuccess+=temp;
+                    }
+                    else {
+
+                        if($scope.allGroupMailsFail.length>0)
+                            temp = ","+members[i].email;
+                        else
+                            temp = members[i].email;
+
+                        $scope.allGroupMailsFail+=temp;
+                    }
+
+                }
+
+                group.mails = mails;
 
             });
 

@@ -125,5 +125,10 @@
   "CHECK4": "Anmeldung geschlossen",
   "ADMIN_DIST_TEXT": "Hier kann eine automatische Verteilung von Studentengruppen auf Praktikumstermine gestartet werden. Vor dem Beginnen müssen alle Bedinungen unten erfüllt sein.",
   "LAST_TERMS": "Bisherige Semester",
-  "NO_PREVIOUS_TERMS": "Keine bisherigen Semester vorhanden"
+  "NO_PREVIOUS_TERMS": "Keine bisherigen Semester vorhanden",
+  "NO_LAB":"Folgende Gruppen haben keinen Termin erhalten:",
+  "GOT_LAB": "Folgende Gruppen haben einen Termin erhalten:",
+  "FINISHED_DIST":"Verteilung abgeschlossen",
+  "EMAIL_TUT":"Die E-Mails aller Teammitglieder, denen ein Praktikumstermin zugewiesen wurde:",
+  "FAIL_EMAIL_TUT":"Die E-Mails aller Teammitglieder, denen kein Praktikumstermin zugewiesen wurde:"
 }

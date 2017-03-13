@@ -113,14 +113,11 @@
             </md-card>
 
 
-
         </div>
 
 
         <div class="col-sm-12 col-lg-3"></div>
     </div>
-
-
 
 
     <div ng-if="showResults" class="row">
@@ -134,22 +131,76 @@
                     <md-progress-circular ng-if="algo_running"
                                           md-mode="indeterminate"></md-progress-circular>
 
-                 <div> {{errorMessage}}</div>
+                    <div ng-if="successAlgo==false"><h2> Error: </h2> {{errorMessage}}</div>
 
-                    <div ng-if="successAlgo"> <h3>Verteilung abgeschlossen</h3>
-                     <div>
-                            Folgende Gruppen haben einen Termin erhalten:
-
-                         <span ng-repeat="group in successfulGroups">{{group.name}}</span>
-                     </div>
-
-                        <div>
-                            Folgende Gruppen haben keinen Termin erhalten:
+                    <div ng-if="successAlgo"><h3 translate="FINISHED_DIST"></h3>
+                        <div >
+                            <span translate="GOT_LAB"></span>
                             <md-list>
-                                <md-list-item style="color:red;" ng-repeat="group in unsuccessfulGroups"> <span>{{group.name}}</span> <span>{{group.email}}</span></md-list-item>
+                                <md-list-item style="color:red;" ng-repeat="group in successfulGroups">
+                                    <p>{{group.name}}</p>
+                                    <a href="mailto:{{group.mails[0]}}" target="_blank">
+                                        <md-icon aria-label="{{ 'SEND_MAIL' | translate }}" class="white-icon">email
+                                        </md-icon>
+                                    </a></md-list-item>
                             </md-list>
+
+
                         </div>
-                 </div>
+
+                        <md-button ng-show="successfulGroups.length>0" class ="md-raised md-primary" ng-click="showSuccessfulEmails = !showSuccessfulEmails"> Export E-Mails</md-button>
+
+
+
+
+                        <div ng-if="showSuccessfulEmails">
+
+                            <br/>
+                            <br/>
+                            <div translate="EMAIL_TUT"> </div>
+                            <br/>
+                            <br/>
+
+                            <md-input-container class="md-block">
+                                <label>E-Mails</label>
+                                <textarea readonly ng-model="allGroupMailsSuccess" rows="5" md-select-on-focus></textarea>
+                            </md-input-container>
+
+                        </div>
+
+                        <div ng-if="unsuccessfulGroups.length>0">
+                            <span translate="NO_LAB"></span>
+                            <md-list>
+                                <md-list-item style="color:red;" ng-repeat="group in unsuccessfulGroups">
+                                    <p>{{group.name}}</p>
+                                    <a href="mailto:{{group.mails[0]}}" target="_blank">
+                                        <md-icon aria-label="{{ 'SEND_MAIL' | translate }}" class="white-icon">email
+                                        </md-icon>
+                                    </a></md-list-item>
+                            </md-list>
+
+
+                        </div>
+                        <md-button ng-show="unsuccessfulGroups.length>0" class ="md-raised md-primary" ng-click="showFailedEmails = true"> Export E-Mails</md-button>
+
+
+                        <div ng-if="showFailedEmails">
+
+                            <br/>
+                            <br/>
+                            <div translate="FAIL_EMAIL_TUT"></div>
+                            <br/>
+                            <br/>
+
+                            <md-input-container class="md-block">
+                                <label>E-Mails</label>
+                                <textarea readonly ng-model="allGroupMailsFail" rows="5" md-select-on-focus></textarea>
+                            </md-input-container>
+
+                        </div>
+
+
+                    </div>
 
                 </md-card-content>
 
@@ -161,14 +212,11 @@
             </md-card>
 
 
-
         </div>
 
 
         <div class="col-sm-12 col-lg-3"></div>
     </div>
-
-
 
 
 </div>

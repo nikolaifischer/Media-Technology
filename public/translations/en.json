@@ -130,5 +130,10 @@
   "CHECK4": "Closed registration",
   "ADMIN_DIST_TEXT": "Here an automatic distribution of groups onto lab dates can be started. Before you can begin, all check (see below) have to be successful.",
   "LAST_TERMS": "Last terms",
-  "NO_PREVIOUS_TERMS": "There are no previous terms"
+  "NO_PREVIOUS_TERMS": "There are no previous terms",
+  "NO_LAB":"The following groups did not get a lab:",
+  "GOT_LAB": "The following groups got a lab:",
+  "FINISHED_DIST":"Finished Distribution",
+  "EMAIL_TUT":"The E-Mail Addresses of all students who got a lab date",
+  "FAIL_EMAIL_TUT":"The E-Mail Addresses of all students who did not get a lab date"
 }
