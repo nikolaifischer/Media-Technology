@@ -1,3 +1,4 @@
+var dcopy= require('deep-copy');
 module.exports = {
     calculate: function (dates,groups) {
         startAlgo(dates, groups);
@@ -139,25 +140,25 @@ function startAlgo(dataDateInformation, dataGroupInformation){
 
             // backup the group data and the date data of the first round so for the following round the data of the first round is saved and can be used again
             // TODO: Das funktioniert hier nicht. Hier gibt es kein Angular
-            backupGroupData = angular.copy(groupsForDates);
-            backupDateData = angular.copy(datesToChoose); // save all dates which are already assigned
+            backupGroupData = dcopy(groupsForDates);
+            backupDateData = dcopy(datesToChoose); // save all dates which are already assigned
         }else {
             // reset date data to start over or at the end, stop the algo and write data out
             if (lengthOfDate + 1 == lengthDataDateInformation) {
                 if (lengthOfAlgo + 1 == lengthDataDateInformation) {
 
                     // assign the best output to the output to return
-                    finalOutput = angular.copy(betterOutput);
+                    finalOutput = dcopy(betterOutput);
 
                 } else {
 
                     var outputIfBetter = checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRoundToCopy, betterOutput);
 
                     // copy the output to compre in next round
-                    betterOutput = angular.copy(outputIfBetter);
+                    betterOutput = dcopy(outputIfBetter);
 
                     // assign backup data to data for next round.
-                    groupsForDates = angular.copy(backupGroupData);
+                    groupsForDates = dcopy(backupGroupData);
 
                     // minus one the amount of dates to check the first date again.
                     lengthOfDate = -1;
@@ -1074,7 +1075,7 @@ function checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRo
 
     // if it is the first round take the data from that round
     if(firstRoundToCopy == 1) {
-        dataToReturn = angular.copy(groupsForDates);
+        dataToReturn = dcopy(groupsForDates);
     }else{ // start to compare if data from before is better than the data from now
 
         for (var checkForGroupWithoutDate = 0; checkForGroupWithoutDate < lengthDataDateInformation; checkForGroupWithoutDate++) {
@@ -1091,11 +1092,11 @@ function checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRo
 
         // check which object has the least groups without a date. Assign the most to return value.
         if(groupsWithDatesThisRound > groupsWithDatesBefore){
-            dataToReturn = angular.copy(groupsForDates);
+            dataToReturn = dcopy(groupsForDates);
         }else if(groupsWithDatesThisRound < groupsWithDatesBefore){
-            dataToReturn = angular.copy(betterOutput);
+            dataToReturn = dcopy(betterOutput);
         }else if(groupsWithDatesThisRound == groupsWithDatesBefore){
-            dataToReturn = angular.copy(groupsForDates);
+            dataToReturn = dcopy(groupsForDates);
         }
     }
 
