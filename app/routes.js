@@ -22,9 +22,9 @@ module.exports = function(app) {
 
         console.log(req.body);
 
-        PriorityDistributionAlgo.calculate(req.body.dates,req.body.groupData);
+        res.end(PriorityDistributionAlgo.calculate(req.body.dates,req.body.groupData));
 
-        res.end("hallo");
+
 
     });
 
