@@ -1,5 +1,174 @@
 <div class="jumbotron" ng-controller="AlgoController">
 
-    <md-button ng-click="distribute()"> Distribute </md-button>
+    <h2 class="site_headline" translate="PRIORITY_DIST"></h2>
+
+
+    <div class="row">
+        <div class="col-sm-0 col-md-2"></div>
+        <div class="col-sm-12 col-md-8">
+            <md-card>
+                <md-card-content style="text-align: center;" translate="ADMIN_DIST_TEXT"
+                ></md-card-content>
+            </md-card>
+        </div>
+        <div class="col-sm-0 col-md-2"></div>
+    </div>
+    <br/>
+    <br/>
+
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-3"></div>
+
+        <div class="col-sm-12 col-lg-6">
+
+            <div class="md-headline" translate="CHOOSE_LAB_ALGO"></div>
+            <md-input-container>
+                <md-radio-group ng-model="labSelect" ng-change="reload(labSelect)">
+
+                    <md-radio-button value="1">Photo</md-radio-button>
+                    <md-radio-button value="2"> Video</md-radio-button>
+                    <md-radio-button value="3">Audio</md-radio-button>
+
+                </md-radio-group>
+            </md-input-container>
+
+        </div>
+
+
+        <div class="col-sm-12 col-lg-3"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-3"></div>
+
+        <div class="col-sm-12 col-lg-6">
+
+            <md-card>
+                <md-card-title class="dashboardCardTitle">
+                    <md-card-title-text><h2 class="cardHeader"
+                                            translate="START_ALGO"></h2>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content class="cardContent">
+
+                    <md-list>
+                        <md-list-item class="md-2-line">
+                            <p translate="CHECK1">Genug Praktika erstellt</p>
+                            <div>
+                                <md-progress-circular ng-if="labs_created_loading" class="spinner"
+                                                      md-mode="indeterminate"></md-progress-circular>
+                                <md-icon ng-if="labs_created&&!labs_created_loading" style="color:green">done</md-icon>
+                                <md-icon ng-if="!labs_created&&!labs_created_loading" style="color:red">not_interested
+                                </md-icon>
+                            </div>
+                        </md-list-item>
+
+                        <md-list-item class="md-2-line">
+                            <p translate="CHECK2"> Studenten haben Prioritäten abgegeben</p>
+                            <div>
+                                <md-progress-circular ng-if="student_prios_loading" class="spinner"
+                                                      md-mode="indeterminate"></md-progress-circular>
+                                <md-icon ng-if="student_prios &&!student_prios_loading" style="color:green">done
+                                </md-icon>
+                                <md-icon ng-if="!student_prios &&!student_prios_loading" style="color:red">
+                                    not_interested
+                                </md-icon>
+                            </div>
+                        </md-list-item>
+
+                        <md-list-item class="md-2-line">
+                            <p translate="CHECK3"> Jedes Praktikum hat einen Tutor</p>
+                            <div>
+                                <md-progress-circular ng-if="tutor_labs_loading" class="spinner"
+                                                      md-mode="indeterminate"></md-progress-circular>
+                                <md-icon ng-if="tutor_labs&&!tutor_labs_loading" style="color:green">done</md-icon>
+                                <md-icon ng-if="!tutor_labs&&!tutor_labs_loading" style="color:red">not_interested
+                                </md-icon>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-2-line">
+                            <p translate="CHECK4"> Anmeldung geschlossen</p>
+                            <div>
+                                <md-progress-circular ng-if="registration_loading" class="spinner"
+                                                      md-mode="indeterminate"></md-progress-circular>
+                                <md-icon ng-if="registration_closed &&!registration_loading" style="color:green">done
+                                </md-icon>
+                                <md-icon ng-if="!registration_closed && !registration_loading" style="color:red">
+                                    not_interested
+                                </md-icon>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-card-content>
+
+                <!--
+                <md-button ng-disabled="!registration_closed||!tutor_labs||!student_prios||!labs_created" class="md-primary md-raised" ng-click="distribute()"
+                           translate="START"></md-button>
+                           -->
+
+                <md-button class="md-primary md-raised" ng-click="distribute()"
+                           translate="START"></md-button>
+            </md-card>
+
+
+
+        </div>
+
+
+        <div class="col-sm-12 col-lg-3"></div>
+    </div>
+
+
+
+
+    <div ng-if="showResults" class="row">
+        <div class="col-sm-12 col-lg-3"></div>
+
+        <div class="col-sm-12 col-lg-6">
+
+            <md-card>
+                <md-card-content class="cardContent">
+
+                    <md-progress-circular ng-if="algo_running"
+                                          md-mode="indeterminate"></md-progress-circular>
+
+                 <div> {{errorMessage}}</div>
+
+                    <div ng-if="successAlgo"> <h3>Verteilung abgeschlossen</h3>
+                     <div>
+                            Folgende Gruppen haben einen Termin erhalten:
+
+                         <span ng-repeat="group in successfulGroups">{{group.name}}</span>
+                     </div>
+
+                        <div>
+                            Folgende Gruppen haben keinen Termin erhalten:
+                            <md-list>
+                                <md-list-item style="color:red;" ng-repeat="group in unsuccessfulGroups"> <span>{{group.name}}</span> <span>{{group.email}}</span></md-list-item>
+                            </md-list>
+                        </div>
+                 </div>
+
+                </md-card-content>
+
+                <!--
+                <md-button ng-disabled="!registration_closed||!tutor_labs||!student_prios||!labs_created" class="md-primary md-raised" ng-click="distribute()"
+                           translate="START"></md-button>
+                           -->
+
+            </md-card>
+
+
+
+        </div>
+
+
+        <div class="col-sm-12 col-lg-3"></div>
+    </div>
+
+
+
 
 </div>

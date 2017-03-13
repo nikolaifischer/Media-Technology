@@ -114,5 +114,16 @@
   "STUDENTS": "Studenten",
   "PAGINATION_PAGE": "Seite",
   "PAGINATION_ROWS_PER_PAGE": "Einträge pro Seite",
-  "PAGINATION_OF": "von"
+  "PAGINATION_OF": "von",
+  "PRIORITY_DIST": "Prioritätsverteilung",
+  "START_ALGO": "Verteilung starten",
+  "START": "Starten",
+  "CHOOSE_LAB_ALGO": "Praktikumstyp auswählen",
+  "CHOOSE": "Auswählen",
+  "LAB_DIST": "Automatische Verteilung der Praktikatermine",
+  "CHECK1": "Genug Praktika erstellt",
+  "CHECK2": "Studenten haben Prioritäten abgegeben",
+  "CHECK3": "Jedes Praktikum hat einen Tutor",
+  "CHECK4": "Anmeldung geschlossen",
+  "ADMIN_DIST_TEXT": "Hier kann eine automatische Verteilung von Studentengruppen auf Praktikumstermine gestartet werden. Vor dem Beginnen müssen alle Bedinungen unten erfüllt sein."
 }

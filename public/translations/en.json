@@ -119,5 +119,16 @@
   "STUDENTS": "Students",
   "PAGINATION_PAGE": "Page",
   "PAGINATION_ROWS_PER_PAGE": "Rows per page",
-  "PAGINATION_OF": "of"
+  "PAGINATION_OF": "of",
+  "PRIORITY_DIST": "Priority Distribution",
+  "START_ALGO": "Start Distribution",
+  "START": "Start",
+  "CHOOSE_LAB_ALGO": "Choose Lab Type",
+  "CHOOSE": "Choose",
+  "LAB_DIST": "Automatic Distribution Of Lab Dates",
+  "CHECK1": "Enough labs were created",
+  "CHECK2": "Students picked their priorities",
+  "CHECK3": "A tutor is assigned to every lab",
+  "CHECK4": "Closed registration",
+  "ADMIN_DIST_TEXT": "Here an automatic distribution of groups onto lab dates can be started. Before you can begin, all check (see below) have to be successful."
 }
