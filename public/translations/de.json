@@ -130,5 +130,10 @@
   "GOT_LAB": "Folgende Gruppen haben einen Termin erhalten:",
   "FINISHED_DIST":"Verteilung abgeschlossen",
   "EMAIL_TUT":"Die E-Mails aller Teammitglieder, denen ein Praktikumstermin zugewiesen wurde:",
-  "FAIL_EMAIL_TUT":"Die E-Mails aller Teammitglieder, denen kein Praktikumstermin zugewiesen wurde:"
+  "FAIL_EMAIL_TUT":"Die E-Mails aller Teammitglieder, denen kein Praktikumstermin zugewiesen wurde:",
+  "PRIO_MESSAGE": "Ihr müsst noch {{ count }} Prioriotät(en) vergeben.",
+  "PRIO_MESSAGE_DONE": "Deine Gruppe hat bereits alle Prioritäten vergeben.",
+  "SUCCESS_MESSAGE_LAB": "Praktikum erfolgreich erstellt.",
+  "LAB_DELETE_ALERT":"Dieser Termin kann nicht mehr gelöscht werden, da bereits Prioritäten dazu gespeichert wurden.",
+  "LAB_DELETE_CONFIRM": "Diesen Termin löschen?"
 }

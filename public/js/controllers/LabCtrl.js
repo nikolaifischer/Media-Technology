@@ -1,5 +1,5 @@
 angular.module('LabCtrl', [])
-    .controller('LabController', function ($scope, $filter, $timeout, $log, $q, $http, $route, PlatformUser, Semester, Group, Lab, LabType, Priority, MaterialCalendarData, $window) {
+    .controller('LabController', function ($scope, $filter, $timeout, $log, $q, $http, $route, $translate, PlatformUser, Semester, Group, Lab, LabType, Priority, MaterialCalendarData, $window) {
 
             $scope.myTutorLabs = [];
             var groupedElements = {};
@@ -173,9 +173,10 @@ angular.module('LabCtrl', [])
                         $scope.prioCount = 3;
                         $scope.prioCount -= $scope.groupPriorities.length;
                         if($scope.prioCount <= 0) {
-                            $scope.prioMessage = "Deine Gruppe hat bereits alle Prioritäten vergeben."
+                            $scope.prioMessage = $translate.instant("PRIO_MESSAGE_DONE");
                         } else {
-                            $scope.prioMessage = "Ihr müsst noch " + $scope.prioCount + " Prioriotäten vergeben."
+                            $scope.prioMessage = $translate.instant('PRIO_MESSAGE', { count: $scope.prioCount });
+
                         }
                     });
             };
@@ -236,7 +237,7 @@ angular.module('LabCtrl', [])
                     $scope.duration = "";
                     $scope.location = "";
                     $scope.selectedTutor = undefined;
-                    $scope.successMessage = "Praktikum erfolgreich erstellt."
+                    $scope.successMessage = $translate.instant("SUCCESS_MESSAGE_LAB");
 
                 }, function(error){
                     console.log(error);
@@ -281,10 +282,10 @@ angular.module('LabCtrl', [])
                     }
                 }, function (res) {
                     if (res.length > 0) {
-                        alert("Dieses Praktikum kann nicht mehr gelöscht werden, da bereits Prioritäten dazu gespeichert wurden.")
+                        alert($translate.instant("LAB_DELETE_ALERT"));
                     }
                     else {
-                        if (confirm("Diesen Termin löschen?")) {
+                        if (confirm($translate.instant("LAB_DELETE_CONFIRM"))){
                             Lab.deleteById({id: $scope.objects[i].id}, function (res) {
                                 $scope.loadLabs();
                             }, function (err) {

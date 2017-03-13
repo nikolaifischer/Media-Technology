@@ -38,7 +38,7 @@
   "CHOOSE_VIDEO_PRIORITIES_TEXT": "Choose your priorities for the video project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>",
   "CHOOSE_PHOTO_PRIORITIES_TEXT": "Choose your priorities for the photo project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>",
   "PRIORITY": "Priority",
-  "HOURS": "(o'clock?? -> in en.json ändern)",
+  "HOURS": "o'clock",
   "MINUTES": "Minutes",
   "CREATE_NEW_AUDIO_LAB_APPOINTMENT": "Create new appointment for the audio lab",
   "CREATE_NEW_VIDEO_LAB_APPOINTMENT": "Create new appointment for the video lab",
@@ -135,5 +135,10 @@
   "GOT_LAB": "The following groups got a lab:",
   "FINISHED_DIST":"Finished Distribution",
   "EMAIL_TUT":"The E-Mail Addresses of all students who got a lab date",
-  "FAIL_EMAIL_TUT":"The E-Mail Addresses of all students who did not get a lab date"
+  "FAIL_EMAIL_TUT":"The E-Mail Addresses of all students who did not get a lab date",
+  "PRIO_MESSAGE": "You still have to select {{ count }} priorities.",
+  "PRIO_MESSAGE_DONE": "Your group already has selected all priorities",
+  "SUCCESS_MESSAGE_LAB": "Lab Appointment created successfully.",
+  "LAB_DELETE_ALERT":"This date can not be deleted, because there already have been priorities saved.",
+  "LAB_DELETE_CONFIRM":"Delete this date?"
 }
