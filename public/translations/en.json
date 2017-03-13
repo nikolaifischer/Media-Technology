@@ -34,9 +34,9 @@
   "GROUP_NAME": "Name of the group",
   "PROVIDE_CAMPUS_MAIL": "Please provide a \"@campus.lmu.de\" address",
   "CREATE": "Create",
-  "CHOOSE_AUDIO_PRIORITIES_TEXT": "Choose your priorities for the audio project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>",
-  "CHOOSE_VIDEO_PRIORITIES_TEXT": "Choose your priorities for the video project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>",
-  "CHOOSE_PHOTO_PRIORITIES_TEXT": "Choose your priorities for the photo project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>",
+  "CHOOSE_AUDIO_PRIORITIES_TEXT": "Choose your priorities for the audio project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} o' clock</b>.",
+  "CHOOSE_VIDEO_PRIORITIES_TEXT": "Choose your priorities for the video project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} o' clock</b>.",
+  "CHOOSE_PHOTO_PRIORITIES_TEXT": "Choose your priorities for the photo project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} o' clock</b>.",
   "PRIORITY": "Priority",
   "HOURS": "o'clock",
   "MINUTES": "Minutes",
@@ -149,5 +149,8 @@
   "PRIO_MESSAGE_DONE": "Your group already has selected all priorities",
   "SUCCESS_MESSAGE_LAB": "Lab Appointment created successfully.",
   "LAB_DELETE_ALERT":"This date can not be deleted, because there already have been priorities saved.",
-  "LAB_DELETE_CONFIRM":"Delete this date?"
+  "LAB_DELETE_CONFIRM":"Delete this date?",
+  "SELECTION_NOT_OPEN": "The Selection is currently not open.",
+  "SELECTION_OPEN": "The Selection is open and ends at {{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} o' clock.",
+  "NO_GROUP_SELECTION": "You have to be in a group to save priorities for the project.",
 }

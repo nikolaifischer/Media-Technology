@@ -5,10 +5,10 @@
     <div class="col-sm-12 description" ng-show="!isTutor">{{ labType.description_student}}</div>
     <div class="col-sm-12 description" ng-show="isTutor">{{ labType.description_tutor}}</div>
 
-    <div class="col-sm-12 instruction" ng-show="!open">Die Auswahl ist aktuell nicht geöffnet.</div>
-    <div class="col-sm-12 instruction" translate="CHOOSE_VIDEO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}" ng-show="group!=undefined && open && !isTutor"></div>
-    <div class="col-sm-12 instruction" ng-show="open && isTutor">Die Auswahl ist geöffnet und läuft bis {{ deadline | date: "EEE, dd.MM.y, HH:mm" }}.</div>
-    <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open">Du musst in einer Gruppe sein, um Prioritäten für das Videopraktikum zu speichern.</div>
+    <div class="col-sm-12 instruction" ng-show="!open" translate="SELECTION_NOT_OPEN"></div>
+    <div class="col-sm-12 instruction" ng-show="group!=undefined && open && !isTutor" translate="CHOOSE_VIDEO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}"></div>
+    <div class="col-sm-12 instruction" ng-show="open && isTutor" translate="SELECTION_OPEN" translate-values="{ddln:deadline}"></div>
+    <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open" translate="NO_GROUP_SELECTION"></div>
 
 
     <!------Calendar-------->
