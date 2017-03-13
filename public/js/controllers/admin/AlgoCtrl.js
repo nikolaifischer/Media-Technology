@@ -17,12 +17,10 @@ angular.module('AlgoCtrl', [])
         $scope.algo_running = false;
 
 
+        // HELPER VARS
         $scope.successfulGroups = [];
         $scope.unsuccessfulGroups= [];
-
         $scope.successAlgo=false;
-
-
         $scope.allGroupMailsSuccess= "";
         $scope.allGroupMailsFail= "";
 
@@ -47,6 +45,7 @@ angular.module('AlgoCtrl', [])
             }
         }
 
+        // START CHECKS BEFORE ALGO CAN BE STARTED
         $scope.getCurrentSemester(function (semester) {
             $scope.semester = semester;
             checkTutor();
@@ -55,6 +54,8 @@ angular.module('AlgoCtrl', [])
             checkLabs();
         });
 
+
+        // RESTART CHECKS IF LABTYPE IS CHANGED
         $scope.reload = function (labSelect) {
             $scope.labSelect = labSelect;
             $scope.registration_loading = true;
@@ -65,8 +66,6 @@ angular.module('AlgoCtrl', [])
             $scope.tutor_labs = false;
             $scope.student_prios = false;
             $scope.labs_created = false;
-
-            console.log($scope.labSelect);
             checkTutor();
             checkRegistration();
             checkStudentPrios();
@@ -125,7 +124,6 @@ angular.module('AlgoCtrl', [])
                     }
                 }
             }, function (type) {
-                console.log(type);
 
                 if (type.registration_open) {
 
@@ -405,10 +403,14 @@ angular.module('AlgoCtrl', [])
         }
 
 
+        /**
+         * Gets Emails of all Group members and adds them to the group object.
+         * Creates list of all successful/unsuccessful Group-Emails
+         * @param group The Group
+         * @param status "sucessful"/"unsuccessful": Decides to which list a email is pushed
+         */
         $scope.getGroupEmails = function (group, status) {
 
-            console.log("Getting Email for group "+group.name);
-            console.log(group.id);
 
             var mails = [];
             Group.groupMembers({id: group.id}, function(members){
