@@ -35,6 +35,9 @@ angular.module('AlgoCtrl', [])
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
+                if(!$scope.currentUser.isAdmin) {
+                    $location.path("/login");
+                }
             }, function (error) {
                 console.log(error);
             });
@@ -235,18 +238,20 @@ angular.module('AlgoCtrl', [])
                 token = LoopBackAuth.accessTokenId;
                 // Get the right LabType Id:
 
-                LabType.find({filter: {where: {type: labtypeNumber}}}, function (success) {
+                LabType.findOne({filter: {where: {type: labtypeNumber, semesterId: $scope.semester.id}}}, function (success) {
 
                     labtype = success;
 
+                    console.log("Labtype is");
+                    console.log(labtype);
                     // Get all priorities of this labtype:
 
                     // Get the labs
-                    Lab.find({filter: {where: {labTypeId: labtype.id}}}, function (success) {
+                    Lab.find({filter: {where: {labTypeId: labtype.id, semesterId: $scope.semester.id}}}, function (success) {
                         labs = success;
 
                         // Get all Groups
-                        Group.find({}, function (success) {
+                        Group.find({filter: {where: {semesterId: $scope.semester.id}}}, function (success) {
                             groups = success;
                             var groupData = [];
                             for (var i = 0; i < groups.length; i++) {
@@ -254,7 +259,7 @@ angular.module('AlgoCtrl', [])
                                 var choosenDate = [];
                                 Group.priorities({
                                     id: groups[i].id,
-                                    filter: {where: {labtype: labtype.id}}
+                                    filter: {where: {labTypeId: labtype.id}}
                                 }, function (groupPrios) {
                                     for (var j = 0; j < groupPrios.length; j++) {
                                         var choosenDateEl = {priority: groupPrios[j].priority, dateTime: ''};
