@@ -223,125 +223,138 @@ angular.module('AlgoCtrl', [])
         $scope.distribute = function () {
 
 
+
+
             saveGroupStatus();
 
             $scope.algo_running = true;
             $scope.showResults = true;
 
-            var labtypeNumber = $scope.labSelect;
-            var labtype;
-            var labs;
-            var token;
-            var groups;
-            PlatformUser.getCurrent(function (current) {
-                console.log("Started data retrieval");
-                token = LoopBackAuth.accessTokenId;
-                // Get the right LabType Id:
-
-                LabType.findOne({filter: {where: {type: labtypeNumber, semesterId: $scope.semester.id}}}, function (success) {
-
-                    labtype = success;
-
-                    console.log("Labtype is");
-                    console.log(labtype);
-                    // Get all priorities of this labtype:
-
-                    // Get the labs
-                    Lab.find({filter: {where: {labTypeId: labtype.id, semesterId: $scope.semester.id}}}, function (success) {
-                        labs = success;
-
-                        // Get all Groups
-                        Group.find({filter: {where: {semesterId: $scope.semester.id}}}, function (success) {
-                            groups = success;
-                            var groupData = [];
-                            for (var i = 0; i < groups.length; i++) {
-                                var objEl = {groupName: groups[i].name, choosenDate: []};
-                                var choosenDate = [];
-                                Group.priorities({
-                                    id: groups[i].id,
-                                    filter: {where: {labTypeId: labtype.id}}
-                                }, function (groupPrios) {
-                                    for (var j = 0; j < groupPrios.length; j++) {
-                                        var choosenDateEl = {priority: groupPrios[j].priority, dateTime: ''};
-                                        var choosenLabs;
-                                        Lab.find({filter: {where: {id: groupPrios[j].labId}}}, function (success) {
-                                            choosenLabs = success;
-                                            choosenDateEl['dateTime'] = choosenLabs[0].date;
 
 
-                                            if (choosenDate.length < groupPrios.length)
-                                                choosenDate.push(choosenDateEl);
+             var labtype;
+             var allLabs;
+             var allGroups;
+             var allPrios;
+             LabType.findOne({filter:{where: {type: $scope.labSelect, semesterId: $scope.semester.id}}}, function(labtypeRes){
 
-                                            if (choosenDate.length == groupPrios.length) {
+    labtype = labtypeRes;
 
-                                                // Async break condition:
-
-                                                objEl['choosenDate'] = choosenDate;
-                                                groupData.push(objEl);
-
-                                                if (groupData.length == groups.length) {
-
-
-                                                    /**
-                                                     * MAP THE DATA TO THE FORMAT NEEDED IN THE ALGORITHM:
-                                                     */
-
-                                                    var dates = [];
-                                                    for (var i = 0; i < labs.length; i++) {
-                                                        var obj = {dateToCheck: labs[i].date}
-                                                        dates.push(obj);
-                                                    }
-                                                    console.log("The Group Data:");
-                                                    console.log(groupData);
-                                                    console.log("The Dates Data:");
-                                                    console.log(dates);
-
-                                                    // Start the Algo:
-
-                                                    PriorityDistribution.create({
-                                                        token: token,
-                                                        groupData: groupData,
-                                                        dates: dates
-                                                    }, function (err, success) {
-                                                        $scope.algo_running = false;
-                                                        if (err) {
-                                                            showSuccess(); // TODO: Delete this again - just for testing
-                                                            showError(err.statusText);
-                                                            console.log(err);
-                                                        }
-                                                        else {
-                                                            showSuccess();
-                                                            console.log(success);
-                                                        }
-
-                                                    });
-
-                                                }
-                                            }
-
-                                        }, function (err) {
-                                            console.log(err);
-                                        });
+    Lab.find({filter:{where: {labTypeId: labtype.id, semesterId: $scope.semester.id}}}, function(labsRes){
+       allLabs = labsRes;
 
 
-                                    }
-
-                                });
-                            }
-
-                        });
-
-                    });
-
-                }, function (err) {
-                    console.log(err);
-                });
+       Group.find({filter:{where:{semesterId: $scope.semester.id}}}, function(groupsRes) {
+           allGroups = groupsRes;
 
 
-            }, function (error) {
-                console.log(error);
+           Priority.find({filter:{where:{semesterId: $scope.semester.id, labTypeId: labtype.id}}}, function(priosRes){
+               allPrios = priosRes;
 
-            });
+
+               // START BUILDING THE ALGO OBJECTS
+
+               var groups= [];
+               var dates = [];
+
+               for(var i=0; i<allGroups.length; i++){
+
+                   var currentGroup = allGroups[i];
+                   var groupEl= {};
+                   var choosenDate = [];
+                   groupEl["groupName"] = currentGroup.name;
+
+                   for(var j = 0; j<allPrios.length; j++){
+                       var choosenDateEl;
+                       // Filter Prios for Group
+                       if(allPrios[j].groupId == currentGroup.id){
+
+
+                           var labdate =  findDateByLabId(allPrios[j].labId, allLabs);
+                           choosenDateEl = {dateTime: labdate,
+                               priority: allPrios[j].priority
+                           }
+
+                           choosenDate.push(choosenDateEl);
+
+                       }
+
+                   }
+
+                   groupEl["choosenDate"] = choosenDate;
+
+
+                   // THIS GROUP IS FINISHED
+                   // ONLY ADD IT IF AT LEAST 3 PRIOS WERE SET
+                   if(choosenDate.length>=3)
+                        groups.push(groupEl);
+
+               }
+
+               console.log("THE GROUPS");
+               console.log(groups);
+
+
+               // DO THE DATES:
+
+
+               for(var i = 0; i<allLabs.length; i++){
+
+                   var dateEl= {};
+                   var newdate= findDateByLabId(allLabs[i].id, allLabs);
+                   dateEl.dateToCheck = newdate;
+                   dates.push(dateEl);
+               }
+
+               console.log("THE DATES");
+               console.log(dates);
+
+
+               // Start the Algo:
+               PlatformUser.getCurrent(function (current) {
+                   console.log("Starting Algo ...");
+                   token = LoopBackAuth.accessTokenId;
+
+                   PriorityDistribution.create({
+                       token: token,
+                       groupData: groups,
+                       dates: dates
+                   }, function (err, success) {
+                       $scope.algo_running = false;
+                       if (err) {
+                           showSuccess(); // TODO: Delete this again - just for testing
+                           showError(err.statusText);
+                           console.log(err);
+                       }
+                       else {
+                           showSuccess();
+                           console.log(success);
+                       }
+                   });
+               });
+
+
+
+
+
+
+
+
+
+               });
+
+       });
+
+    });
+
+});
+
+
+
+
+
+// .......
+
 
         }
 
@@ -450,6 +463,25 @@ angular.module('AlgoCtrl', [])
             });
 
         }
+
+
+        /**
+         * Helper Method which SYNCHRONOUSLY returns the date of lab
+         * @param id the id of the searched lab
+         * @param allLabs Array with all Labs that have to be searched
+         */
+
+      function findDateByLabId(id, allLabs) {
+
+          for(var i = 0; i<allLabs.length; i++) {
+              if(allLabs[i].id == id){
+                  return allLabs[i].date;
+              }
+          }
+
+          return -1;
+
+      }
 
 
     });
