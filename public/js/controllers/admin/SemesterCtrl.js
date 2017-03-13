@@ -67,10 +67,13 @@ angular.module('SemesterCtrl', [])
                 Semester.create($scope.semesterinCtrl, function (success) {
                     $scope.semester = success;
                     console.log($scope.semester);
-                    createLabTypes(1, 'Foto');
-                    createLabTypes(2, 'Video');
-                    createLabTypes(3, 'Audio');
-
+                    createLabTypes(1, 'Foto', function() {
+                        createLabTypes(2, 'Video', function() {
+                            createLabTypes(3, 'Audio', function() {
+                                $window.location.reload();
+                            });
+                        });
+                    });
                 }, function (err) {
                     console.log(err);
                 });
@@ -109,7 +112,7 @@ angular.module('SemesterCtrl', [])
             }, function() {});
         };
 
-        function createLabTypes(typeNumber, typeString) {
+        function createLabTypes(typeNumber, typeString, callback) {
             console.log(typeNumber);
             LabType.create({
                 type: typeNumber,
@@ -120,8 +123,9 @@ angular.module('SemesterCtrl', [])
                 description_tutor: 'Default Beschreibung für Tutoren',
                 semesterId: $scope.semester.id
             }, function (res) {
-                $window.location.reload();
+
                 console.log(res);
+                callback();
 
             }, function(error){
                 console.log(error);
