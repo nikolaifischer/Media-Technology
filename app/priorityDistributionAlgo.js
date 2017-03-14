@@ -38,8 +38,10 @@ function startAlgo(dataDateInformation, dataGroupInformation){
     // output to return
     var outPutWithDateAndGroup;
 
+    // Output after algo finished
     var finalOutput;
 
+    // dates
     var datesFromGroupBefore;
 
     // first round check if a group is alone on a date
@@ -196,6 +198,7 @@ function convertDateAndAddGroup(finalOutput){
         groupAndDateInformation: []
     };
     for(var groupAndDateData = 0; groupAndDateData < lengthOfFinalOutput; groupAndDateData++){
+        // change the date format
         var dateForGroup = new Date(finalOutput.groupInformation[groupAndDateData].assignedDate);
         groupAndDate.groupAndDateInformation.push({
             "groupName" : finalOutput.groupInformation[groupAndDateData].groupName,
