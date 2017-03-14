@@ -180,3 +180,25 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 
 Tutors and Admins can edit the news panel every user sees when logging in to platform. They can do this
 by pressing the "Edit" button below the news panel and using the HTML-Editor.
+
+
+## Priority Distribution
+
+After the students have prioritized the dates for the labs, the **Admin** can start an automatic distribution of the lab dates.
+In the **Admin Menu** select "Distribution of Lab Dates" and follow the instruction on the screen.
+ 
+Before a distribution should be started, several checks on the date have to be passed:
+
+![](./public/images/readme/dist_checks.png)
+
+After the distribution algorithm finished the Admin is prompted with a screen showing him the groups 
+which were successfully assigned and the groups for which no lab date could be found: There is a small chance that some groups
+picked their priorities in a way that no free labs could be found. In this case the scheduling of Lab Dates should
+be done manually.
+
+If you want to E-Mail those groups, you can either do this one at a time by pressing the mail icon (which will tell you the E-Mail Address of the group creator) next to the group
+or by pressing the "Export Emails" Button. This will display a comma-separated list of E-Mail Addresses which can than be copied
+in your favourite E-Mail program to write an E-Mail.
+
+
+![](./public/images/readme/dist_no_lab.PNG)
