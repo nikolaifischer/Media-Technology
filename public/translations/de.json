@@ -118,7 +118,7 @@
   "START": "Starten",
   "CHOOSE_LAB_ALGO": "Praktikumstyp auswählen",
   "CHOOSE": "Auswählen",
-  "LAB_DIST": "Automatische Verteilung der Praktikatermine",
+  "LAB_DIST": "Verteilung der Praktikatermine",
   "CHECK1": "Genug Praktika erstellt",
   "CHECK2": "Studenten haben Prioritäten abgegeben",
   "CHECK3": "Jedes Praktikum hat einen Tutor",
@@ -147,5 +147,11 @@
   "SELECTION_NOT_OPEN": "Die Auswahl ist momentan nicht geöffnet.",
   "SELECTION_OPEN": "Die Auswahl ist geöffnet und läuft bis {{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} Uhr.",
   "NO_GROUP_SELECTION": "Du musst in einer Gruppe sein, um Prioritäten für das Praktikum zu speichern.",
-
+  "SAVED_PRIOS_TIME": "{{ time | date: 'EEE, dd.MM.y, HH:mm' }} Uhr ",
+  "NO_ASSIGNED_TUTOR_LABS_PHOTO": "Du bist dieses Semester noch bei keinem Fotopraktikum als Betreuer eingetragen.",
+  "NO_ASSIGNED_TUTOR_LABS_VIDEO": "Du bist dieses Semester noch bei keinem Videopraktikum als Betreuer eingetragen.",
+  "NO_ASSIGNED_TUTOR_LABS_AUDIO": "Du bist dieses Semester noch bei keinem Audiopraktikum als Betreuer eingetragen.",
+  "APPOINTMENT": "Termin",
+  "TUTORIAL": "Übung",
+  "LAB": "Praktikum"
 }
