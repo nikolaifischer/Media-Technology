@@ -35,6 +35,7 @@ Edit app.js to point the app to a local API for testing!
 **News**
 
 **Calendar**
+
 In the calendar are displayed all important dates for each user.
 On click you can see details (time, location,...) of the appointment.
 
