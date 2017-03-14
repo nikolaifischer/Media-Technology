@@ -4,7 +4,7 @@ angular.module('AlgoCtrl', [])
 
         // Error Vars
 
-        $scope.showError = false;
+        $scope.showErrorMessage = false;
         $scope.errorMessage = '';
 
         // Loading Flags
@@ -72,6 +72,7 @@ angular.module('AlgoCtrl', [])
             $scope.unsuccessfulGroups = [];
             $scope.allGroupMailsSuccess = "";
             $scope.allGroupMailsFail = "";
+            $scope.showErrorMessage = false;
 
             checkTutor();
             checkRegistration();
@@ -338,7 +339,6 @@ angular.module('AlgoCtrl', [])
                                 }, function (err, success) {
                                     $scope.algo_running = false;
                                     if (err) {
-                                        //showSuccess(); // TODO: Delete this again - just for testing
                                         showError(err.statusText);
                                         console.log(err);
                                     }

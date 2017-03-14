@@ -131,7 +131,7 @@
                     <md-progress-circular ng-if="algo_running"
                                           md-mode="indeterminate"></md-progress-circular>
 
-                    <div ng-if="successAlgo==false"><h2> Error: </h2> {{errorMessage}}</div>
+                    <div ng-if="showErrorMessage"><h2> Error: </h2> {{errorMessage}}</div>
 
                     <div ng-if="successAlgo">
                         <h3 style="margin-bottom: 50px;" translate="FINISHED_DIST"></h3>
