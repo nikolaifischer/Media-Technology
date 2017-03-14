@@ -1,4 +1,4 @@
-# mtPlannr - Media Technology Angular Frontend
+# mtPlanr - Media Technology Angular Frontend
 
 ![](./public/images/readme/homescreen.png)
 
@@ -10,6 +10,9 @@
 5. View in browser at http://localhost:8080
 
 Edit app.js to point the app to a local API for testing!
+
+
+THIS APP CAN ONLY WORK IF PROVIDED A VALID URL FOR A MEDIA TECHNOLOGY API
 
 
 
@@ -27,15 +30,31 @@ Edit app.js to point the app to a local API for testing!
 
 # First Start
 
-1. Log in as Admin
+1. Log in as Admin using the credentials "admin@mt.medien.ifi.lmu.de" and password "mtplanr"
+2. Change the password by selecting the red user icon in the top left corner and clicking "Profile"
 2. A pop-up appears which allows you to create a new Semester. Do this to avoid errors.
 3. Access the "Admin Tools" by selecting the red user icon in the top left corner and click "Admin Tools"
+4. From here you can configure the app.
+
+![](./public/images/readme/admin_tools.PNG)
+
+-------------
 
 ## Home
 
+![](./public/images/readme/home_detail.png)
+
+The home screen is where a user gets important information depending on his role.
+For example a student will see: 
+
 **Group**
 
+The group the user is a member of including names and email addresses of other group members.
+
+
 **News**
+
+Current information about the course, provided by tutors or admins.
 
 **Calendar**
 
@@ -64,6 +83,9 @@ register accounts for this platform.
 A User is identified by his/her E-Mail Address. If a user is not present on the whitelist, he can not create an account for this Platform.
 
 After user successfully registered his entry is deleted from the whitelist, as it is not longer needed.
+
+![](./public/images/readme/whitelists.PNG)
+
 
 **Edit the whitelist**
 
