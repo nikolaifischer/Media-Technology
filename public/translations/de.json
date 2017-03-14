@@ -153,5 +153,9 @@
   "NO_ASSIGNED_TUTOR_LABS_AUDIO": "Du bist dieses Semester noch bei keinem Audiopraktikum als Betreuer eingetragen.",
   "APPOINTMENT": "Termin",
   "TUTORIAL": "Übung",
-  "LAB": "Praktikum"
+  "LAB": "Praktikum",
+  "MY_TUTOR_LABS_PHOTO": "Von mir betreute Fotopraktika",
+  "MY_TUTOR_LABS_VIDEO": "Von mir betreute Videopraktika",
+  "MY_TUTOR_LABS_AUDIO": "Von mir betreute Audiopraktika",
+  "SAVED_PRIORITIES": "Gespeicherte Prioritäten"
 }

@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, PlatformUser, LabType, Lab, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
+angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, $translate, PlatformUser, LabType, Lab, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
 
     // Show admins a Pop-up if there is no current semester
     PlatformUser.getCurrent(function (currentUser) {
@@ -148,7 +148,8 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
 
                 //write unique dates in calendar
                 Object.keys(groupedUniques).forEach(function (date) {
-                    uniqueDatesContent = "<div class='calendar_content uniquedate' translate='APPOINTMENT'></div>";
+                    var udString = $translate.instant("APPOINTMENT");
+                    uniqueDatesContent = "<div class='calendar_content uniquedate'>"+udString+"</div>";
                     MaterialCalendarData.setDayContent(new Date(date), uniqueDatesContent);
                     daysWithContent.push(date);
                 });
@@ -207,7 +208,8 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
 
         //write exercices in calendar
         Object.keys(groupedExercises).forEach(function (date) {
-            var exercisesContent = "<div class='calendar_content excrs' translate='TUTORIAL'></div>";
+            var tutString = $translate.instant("TUTORIAL");
+            var exercisesContent = "<div class='calendar_content excrs' translate='TUTORIAL'>"+tutString+"</div>";
             //if day already has unique dates, add up content; else write only exercises
             if(daysWithContent.indexOf(date) > -1) {
                 addedUpContent = uniqueDatesContent+exercisesContent;
@@ -273,7 +275,8 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
 
             //write labs in calendar
             Object.keys(groupedLabs).forEach(function (date) {
-                var labsContent = "<div class='calendar_content prktkm' translate='LAB'></div>";
+                var labString = $translate.instant("LAB");
+                var labsContent = "<div class='calendar_content prktkm'>"+labString+"</div>";
                 //if day already has unique dates or exercises, add up content; else write only labs
                 if(daysWithMoreContent.indexOf(date) > -1) {
                     allContent = addedUpContent+labsContent;

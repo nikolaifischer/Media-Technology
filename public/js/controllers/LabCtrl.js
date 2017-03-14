@@ -58,6 +58,7 @@ angular.module('LabCtrl', [])
                                     if ($scope.currentUser.isTutor || $scope.currentUser.isAdmin) {
                                         if ($scope.currentUser.id == element.tutorId) {
                                             $scope.myTutorLabs.push(element);
+                                            $scope.myTutorLabs.sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);} );
                                         }
                                     }
 
@@ -108,6 +109,7 @@ angular.module('LabCtrl', [])
                                                 groupedElements[date] = [];
                                             }
                                             groupedElements[date].push(element);
+                                            groupedElements[date].sort(function(a,b) {return (a.start > b.start) ? 1 : ((b.start > a.start) ? -1 : 0);} );
 
                                             //Write Labs in calendar
                                             Object.keys(groupedElements).forEach(function (date) {
@@ -165,6 +167,7 @@ angular.module('LabCtrl', [])
                             where: {groupId: $scope.group.id, labTypeId: $scope.labTypeId, semesterId: $scope.semester.id}
                         }
                     }, function (prios) {
+                        prios.sort(function(a,b) {return (a.priority > b.priority) ? 1 : ((b.priority > a.priority) ? -1 : 0);} );
                         $scope.groupPriorities = prios;
                         angular.forEach($scope.groupPriorities, function (prio) {
                             prio.priority = parseFloat(prio.priority);
@@ -208,6 +211,12 @@ angular.module('LabCtrl', [])
                 $scope.key = $filter("date")(date, "yyyy-MM-dd");
 
                 $scope.objects = (groupedElements[$scope.key] || []);
+                console.log($scope.objects);
+
+
+
+
+
                 for (var i = 0; i < $scope.objects.length; i++) {
                     $scope.selectedPriority[i] = undefined;
                     $scope.showBtns[i] = false;
@@ -247,6 +256,7 @@ angular.module('LabCtrl', [])
 
             /****Edit and Update Lab****/
             $scope.editLab = function (i) {
+                console.log(i);
                 $scope.isEdit[i] = true;
                 $scope.editDateTime[i] = $scope.objects[i].date;
                 $scope.editDuration[i] = $scope.objects[i].duration;
