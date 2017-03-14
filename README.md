@@ -140,6 +140,8 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * Set a deadline for the priority selection. After this date, students will not be able to select priorities.
 * Open the priority selection with the switch (do this when enough Lab appointments for the respective LabType are created).
 
+![](./public/images/readme/labtype_mngmnt.png)
+
 **Create Labs**
 
 * As Admin or Tutor go to the tab where you want to create a new Lab appointment (Photo project, Video project or Audio project)
@@ -147,6 +149,8 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * Hit the "Create" button. If the creation was successfully there will be a success message below the formular and the new appointment will be shown on the respective date in the calendar.
 * Click on the day in the calendar to see details of the lab appointment on the right.
 * Lab appointments that you are assigned as tutor are displayed below the formular. You can click on them to see details.
+
+![](./public/images/readme/create_lab.png)
 
 **Edit or delete Labs**
 
@@ -159,6 +163,8 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
    * Right of the calendar, click on the trash can icon of the lab appointment you want to delete
    * Confirm in the alert popup that you want to delete the appointment
    * Labs on which a group already saved a priority can not be deleted
+   
+![](./public/images/readme/edit_lab.png)
 
 **Save/Delete Priorities**
 
@@ -172,6 +178,8 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * You can there delete priorities by clicking the trash can icon next to the saved priority.
 * If you select and save a priority that already has been saved to another date, the priority date is updated.
 * The algorithm only considers groups that have 3 saved priorities by the deadline time.
+
+![](./public/images/readme/save_priority.png)
 
 
 ## News
