@@ -47,14 +47,14 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 
 * As Admin select LabType Management in the Admin Tools.
 * Edit the descriptions for Tutors and Students. These description will be shown in the respective lab tab.
-* Set a deadline for the priority selection. After this date, studentes will not be able to select priorities automatically.
+* Set a deadline for the priority selection. After this date, students will not be able to select priorities.
 * Open the priority selection with the switch (do this when enough Lab appointments for the respective LabType are created).
 
 **Create Labs**
 
 * As Admin or Tutor go to the tab where you want to create a new Lab appointment (Photo project, Video project or Audio project)
-* Below the calendar you can set date and time, duration, location and tutor
-* Hit the "create" button. If the creation was successfully there will be a success message below the formular and the new appointment will be shown on the respective date in the calendar.
+* Below the calendar you can set date and time, duration, location and tutor of the appointment.
+* Hit the "Create" button. If the creation was successfully there will be a success message below the formular and the new appointment will be shown on the respective date in the calendar.
 * Click on the day in the calendar to see details of the lab appointment on the right.
 
 **Edit or delete Labs**
@@ -66,13 +66,13 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
    * After you made some changes click the "Save" Button
 * Delete
    * Right of the calendar, click on the trash can icon of the lab appointment you want to delete
-   * Confirm in the alert-window that you want to delete the appointment
+   * Confirm in the alert popup that you want to delete the appointment
    * Labs on which a group already saved a priority can not be deleted
 
 **Save/Delete Priorities**
 
-* As Student who is member in a group you can select 3 date priorities for each of the LabTypes.
-* If the selection is opened by the admin go to the tab where you want to save priorities (Photo project, Video project or Audio project).
+* A Student who is member in a group you can select 3 date priorities for each of the LabTypes.
+* If the selection is opened by the admin go to the tab where you want to save priorities as a student (Photo project, Video project or Audio project).
 * On top of the calendar you see if the selection is open, the time of the deadline and if you are in a group and can save priorities.
 * Click on a calendar day where "Dates" are displayed in color.
 * Right of the calendar you see each lab appointment that takes place on the clicked day.
