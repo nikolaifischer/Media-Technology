@@ -56,6 +56,7 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * Below the calendar you can set date and time, duration, location and tutor of the appointment.
 * Hit the "Create" button. If the creation was successfully there will be a success message below the formular and the new appointment will be shown on the respective date in the calendar.
 * Click on the day in the calendar to see details of the lab appointment on the right.
+* Lab appointments that you are assigned as tutor are displayed below the formular. You can click on them to see details.
 
 **Edit or delete Labs**
 
