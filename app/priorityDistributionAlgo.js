@@ -1,14 +1,16 @@
 var dcopy= require('deep-copy');
 module.exports = {
     calculate: function (dates,groups) {
-        var aa = startAlgo(dates, groups);
+        var groupAndDateDataToReturn = startAlgo(dates, groups);
 
-        console.log(aa);
+        //----------ONLY FOR TESTING
+        console.log(groupAndDateDataToReturn);
+        //-------------------------
 
+        //return groupAndDateDataToReturn;
         return;
     }
 };
-
 
 
 // assign as many groups to the dates as possible
@@ -41,7 +43,7 @@ function startAlgo(dataDateInformation, dataGroupInformation){
     // Output after algo finished
     var finalOutput;
 
-    // dates
+    // dates from all the groups
     var datesFromGroupBefore;
 
     // first round check if a group is alone on a date
@@ -156,6 +158,7 @@ function startAlgo(dataDateInformation, dataGroupInformation){
                     // assign the best output to the output to return
                     finalOutput = dcopy(betterOutput);
 
+                    // convert the groups object to the most important data ( group name and the give date )
                     outPutWithDateAndGroup = convertDateAndAddGroup(finalOutput);
 
                 } else {
@@ -193,16 +196,18 @@ function startAlgo(dataDateInformation, dataGroupInformation){
 
 //convert the date string and add the group to it
 function convertDateAndAddGroup(finalOutput){
+    // length of the final output
     var lengthOfFinalOutput = finalOutput.groupInformation.length;
     var groupAndDate = {
         groupAndDateInformation: []
     };
+    // initialize an object of the groups with date data
     for(var groupAndDateData = 0; groupAndDateData < lengthOfFinalOutput; groupAndDateData++){
         // change the date format
         var dateForGroup = new Date(finalOutput.groupInformation[groupAndDateData].assignedDate);
         groupAndDate.groupAndDateInformation.push({
             "groupName" : finalOutput.groupInformation[groupAndDateData].groupName,
-            "choosenDate" : dateForGroup
+            "givenDate" : dateForGroup
         });
     }
     return groupAndDate;
