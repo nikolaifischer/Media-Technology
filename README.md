@@ -1,4 +1,4 @@
-# mtPlannr - Media Technology Angular Frontend
+# mtPlanr - Media Technology Angular Frontend
 
 ![](./public/images/readme/homescreen.png)
 
@@ -10,6 +10,9 @@
 5. View in browser at http://localhost:8080
 
 Edit app.js to point the app to a local API for testing!
+
+
+THIS APP CAN ONLY WORK IF PROVIDED A VALID URL FOR A MEDIA TECHNOLOGY API
 
 
 
@@ -27,15 +30,31 @@ Edit app.js to point the app to a local API for testing!
 
 # First Start
 
-1. Log in as Admin
+1. Log in as Admin using the credentials "admin@mt.medien.ifi.lmu.de" and password "mtplanr"
+2. Change the password by selecting the red user icon in the top left corner and clicking "Profile"
 2. A pop-up appears which allows you to create a new Semester. Do this to avoid errors.
 3. Access the "Admin Tools" by selecting the red user icon in the top left corner and click "Admin Tools"
+4. From here you can configure the app.
+
+![](./public/images/readme/admin_tools.PNG)
+
+-------------
 
 ## Home
 
+![](./public/images/readme/home_detail.png)
+
+The home screen is where a user gets important information depending on his role.
+For example a student will see: 
+
 **Group**
 
+The group the user is a member of including names and email addresses of other group members.
+
+
 **News**
+
+Current information about the course, provided by tutors or admins.
 
 **Calendar**
 
@@ -65,6 +84,9 @@ A User is identified by his/her E-Mail Address. If a user is not present on the 
 
 After user successfully registered his entry is deleted from the whitelist, as it is not longer needed.
 
+![](./public/images/readme/whitelists.PNG)
+
+
 **Edit the whitelist**
 
 * As an **Admin**  navigate to the Admin Tools and select "Whitelist Management"
@@ -82,6 +104,30 @@ After user successfully registered his entry is deleted from the whitelist, as i
     * If it's correct you can click on "Save"
 * You can also specify user rights in the whitelist. If a user should have tutor rights when
 he is creating his account, flip the tutor switch to "on".
+
+
+## Groups
+
+Students of the course have to be organized into **groups** to participate in **labs** (see below). Groups have to be of a certain size, which is configurable in the "Semester Management" in the Admin tools.
+When a student logs into the platform and is not yet part of a group a message appears on the homescreen,
+asking the user to join a group. A click on the message takes the user to the group menu:
+
+![](./public/images/readme/groups.png)
+
+**Joining a Group**
+
+In the Group Menu the user can either:
+* Create a new group by putting in the E-Mail addresses of the other team members (who also have an account)
+* Join a random group: This will let the user join a group with free spaces or create a new one if there is none. After that other student can randomly join this group.
+
+**Leaving a Group**
+
+If a user wants to leave a group, he can do so by pressing the read "Leave" button on the home-screen.
+
+**ATTENTION**: If a user leaves a group all other members are also removed from the group and have to organize themselves in groups
+again.
+
+
 
 ## Labs
 
@@ -126,3 +172,11 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * You can there delete priorities by clicking the trash can icon next to the saved priority.
 * If you select and save a priority that already has been saved to another date, the priority date is updated.
 * The algorithm only considers groups that have 3 saved priorities by the deadline time.
+
+
+## News
+
+![](./public/images/readme/news.png)
+
+Tutors and Admins can edit the news panel every user sees when logging in to platform. They can do this
+by pressing the "Edit" button below the news panel and using the HTML-Editor.
