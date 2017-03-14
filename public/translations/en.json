@@ -152,5 +152,5 @@
   "LAB_DELETE_CONFIRM":"Delete this date?",
   "SELECTION_NOT_OPEN": "The Selection is currently not open.",
   "SELECTION_OPEN": "The Selection is open and ends at {{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} o' clock.",
-  "NO_GROUP_SELECTION": "You have to be in a group to save priorities for the project.",
+  "NO_GROUP_SELECTION": "You have to be in a group to save priorities for the project."
 }

@@ -146,6 +146,6 @@
   "LAB_DELETE_CONFIRM": "Diesen Termin löschen?",
   "SELECTION_NOT_OPEN": "Die Auswahl ist momentan nicht geöffnet.",
   "SELECTION_OPEN": "Die Auswahl ist geöffnet und läuft bis {{ ddln | date: 'EEE, dd.MM.y, HH:mm' }} Uhr.",
-  "NO_GROUP_SELECTION": "Du musst in einer Gruppe sein, um Prioritäten für das Praktikum zu speichern.",
+  "NO_GROUP_SELECTION": "Du musst in einer Gruppe sein, um Prioritäten für das Praktikum zu speichern."
 
 }
