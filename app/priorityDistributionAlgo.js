@@ -1,17 +1,18 @@
 var dcopy= require('deep-copy');
 module.exports = {
     calculate: function (dates,groups) {
-        startAlgo(dates, groups);
+        var aa = startAlgo(dates, groups);
+
+        console.log(aa);
+
         return;
     }
 };
 
 
+
 // assign as many groups to the dates as possible
 function startAlgo(dataDateInformation, dataGroupInformation){
-
-
-    console.log("Priority Distribution Algorithm was started");
 
     // the length of the date
     var lengthDataDateInformation = dataDateInformation.length;
@@ -35,7 +36,11 @@ function startAlgo(dataDateInformation, dataGroupInformation){
     var betterOutput;
 
     // output to return
-    var finalOutput
+    var outPutWithDateAndGroup;
+
+    var finalOutput;
+
+    var datesFromGroupBefore;
 
     // first round check if a group is alone on a date
     var firstRoundCheck = 1;
@@ -139,7 +144,6 @@ function startAlgo(dataDateInformation, dataGroupInformation){
             firstRoundCheck = 0;
 
             // backup the group data and the date data of the first round so for the following round the data of the first round is saved and can be used again
-            // TODO: Das funktioniert hier nicht. Hier gibt es kein Angular
             backupGroupData = dcopy(groupsForDates);
             backupDateData = dcopy(datesToChoose); // save all dates which are already assigned
         }else {
@@ -150,15 +154,20 @@ function startAlgo(dataDateInformation, dataGroupInformation){
                     // assign the best output to the output to return
                     finalOutput = dcopy(betterOutput);
 
+                    outPutWithDateAndGroup = convertDateAndAddGroup(finalOutput);
+
                 } else {
 
-                    var outputIfBetter = checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRoundToCopy, betterOutput);
+                    var outputIfBetter = checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRoundToCopy, betterOutput, datesToChoose, datesFromGroupBefore);
 
                     // copy the output to compre in next round
                     betterOutput = dcopy(outputIfBetter);
 
                     // assign backup data to data for next round.
                     groupsForDates = dcopy(backupGroupData);
+
+                    // all dates from the groups before
+                    datesFromGroupBefore = dcopy(datesToChoose);
 
                     // minus one the amount of dates to check the first date again.
                     lengthOfDate = -1;
@@ -177,7 +186,23 @@ function startAlgo(dataDateInformation, dataGroupInformation){
     }
 
     // return best value and leave algorithm
-    return finalOutput;
+    return outPutWithDateAndGroup;
+}
+
+//convert the date string and add the group to it
+function convertDateAndAddGroup(finalOutput){
+    var lengthOfFinalOutput = finalOutput.groupInformation.length;
+    var groupAndDate = {
+        groupAndDateInformation: []
+    };
+    for(var groupAndDateData = 0; groupAndDateData < lengthOfFinalOutput; groupAndDateData++){
+        var dateForGroup = new Date(finalOutput.groupInformation[groupAndDateData].assignedDate);
+        groupAndDate.groupAndDateInformation.push({
+            "groupName" : finalOutput.groupInformation[groupAndDateData].groupName,
+            "choosenDate" : dateForGroup
+        });
+    }
+    return groupAndDate;
 }
 
 // collect all the group data locally
@@ -200,7 +225,6 @@ function getGroupOfDates(dataGroupInformation) {
             "activeFlagPrioThree" : 1
         });
     }
-    console.log(groupsForDates);
     return groupsForDates;
 }
 
@@ -1066,7 +1090,7 @@ function assignGroupThreePriosDates(whichPrioChoosen, groupWithHighestPrioOneOnT
 }
 
 // check for the least groups without dates.
-function checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRoundToCopy, betterOutput){
+function checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRoundToCopy, betterOutput, datesToChoose, datesFromGroupBefore){
 
     var groupsWithDatesThisRound = 0;
     var groupsWithDatesBefore = 0;
@@ -1079,13 +1103,13 @@ function checkForBetterOutput(groupsForDates, lengthDataDateInformation, firstRo
     }else{ // start to compare if data from before is better than the data from now
 
         for (var checkForGroupWithoutDate = 0; checkForGroupWithoutDate < lengthDataDateInformation; checkForGroupWithoutDate++) {
-            if (groupsForDates.groupInformation[checkForGroupWithoutDate].assignedFlag == 1) {
+            if (datesToChoose.dateInformation[checkForGroupWithoutDate].dateAvail  == 1) {
                 groupsWithDatesThisRound++;
             }
         }
 
         for (var checkForGroupWithoutDateBefore = 0; checkForGroupWithoutDateBefore < lengthDataDateInformation; checkForGroupWithoutDateBefore++) {
-            if (betterOutput.groupInformation[checkForGroupWithoutDate].assignedFlag == 1) {
+            if (datesFromGroupBefore.dateInformation[checkForGroupWithoutDateBefore].dateAvail == 1) {
                 groupsWithDatesBefore++;
             }
         }
