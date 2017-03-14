@@ -27,6 +27,7 @@ Edit app.js to point the app to a local API for testing!
 
 1. Log in as Admin
 2. A pop-up appears which allows you to create a new Semester. Do this to avoid errors.
+3. Access the "Admin Tools" by selecting the red user icon in the top left corner and click "Admin Tools"
 
 ## Home
 
@@ -52,15 +53,33 @@ Tutor:
 Admin:
 * Unique Dates (Exam,...)
 
-## Whitelists
+
+## Whitelists (User Creation)
 
 Whitelists are used to allow only specific users (participants of the course) to
 register accounts for this platform.
 
-**Create or edit the whitelist**
+A User is identified by his/her E-Mail Address. If a user is not present on the whitelist, he can not create an account for this Platform.
 
-* As an Admin click on the red user icon in the top left corner
-* Upload a CSV... TODO HIER WEITER
+After user successfully registered his entry is deleted from the whitelist, as it is not longer needed.
+
+**Edit the whitelist**
+
+* As an **Admin**  navigate to the Admin Tools and select "Whitelist Management"
+* This will take you to a view of the current whitelist
+* To Edit an entry just type something and press save
+* To Delete an entry press the red trash icon
+* To **add** entries to the white list you can either:
+  * Add it manually by pressing the "add" Button at the buttom of the list and typing a name
+  and email
+  * Upload a **Uniworx** CSV file with the participants of a course
+    * Press Upload CSV
+    * Select the CSV from your computer
+    * After the Upload you will be prompted the parsed data, check if it is correct
+    * If it is not correct edit the csv and reupload it
+    * If it's correct you can click on "Save"
+* You can also specify user rights in the whitelist. If a user should have tutor rights when
+he is creating his account, flip the tutor switch to "on".
 
 ## Labs
 
