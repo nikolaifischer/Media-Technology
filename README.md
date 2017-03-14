@@ -28,6 +28,29 @@ Edit app.js to point the app to a local API for testing!
 1. Log in as Admin
 2. A pop-up appears which allows you to create a new Semester. Do this to avoid errors.
 
+## Home
+
+**Group**
+
+**News**
+
+**Calendar**
+
+In the calendar are displayed all important dates for each user.
+On click you can see details (time, location,...) of the appointment.
+
+Student:
+* Unique Dates (Exam,...)
+* Exercises he/she assigned to in exercises tab
+* Labs his/her group got assigned to after the algorithm processed the priorities
+
+Tutor:
+* Unique Dates (Exam,...)
+* Exercises he/she is assigned to as tutor
+* Labs he/she is assigned to as tutor
+
+Admin:
+* Unique Dates (Exam,...)
 
 ## Whitelists
 
@@ -72,8 +95,8 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 
 **Save/Delete Priorities**
 
-* A Student who is member in a group you can select 3 date priorities for each of the LabTypes.
-* If the selection is opened by the admin go to the tab where you want to save priorities as a student (Photo project, Video project or Audio project).
+* As Student who is member in a group you can select 3 date priorities for each of the LabTypes.
+* If the selection is opened by the admin go to the tab where you want to save priorities (Photo project, Video project or Audio project).
 * On top of the calendar you see if the selection is open, the time of the deadline and if you are in a group and can save priorities.
 * Click on a calendar day where "Dates" are displayed in color.
 * Right of the calendar you see each lab appointment that takes place on the clicked day.
