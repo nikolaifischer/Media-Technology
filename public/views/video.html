@@ -128,7 +128,7 @@
         <!------My Tutor Labs-------->
         <div class=my_labs" ng-show="currentUser.isTutor">
             <h3>Von mir betreute Videopraktika</h3>
-            <div ng-show="myTutorLabs.length == 0">Du bist dieses Semester bei keinem Videopraktikum als Betreuer eingetragen.</div>
+            <div ng-show="myTutorLabs.length == 0" translate="NO_ASSIGNED TUTOR_LABS_VIDEO"></div>
             <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myTutorLabs | orderBy: 'labs.date':true "><md-icon class="green_hover">event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr</div><br>
         </div>
     </div>
@@ -139,7 +139,7 @@
         <div>{{ prioMessage }}</div>
         <div class="prio" ng-repeat="prio in groupPriorities | orderBy: 'groupPriorities.priority':false ">
             <div class="prio_number">{{ prio.priority | number }}</div>
-            <div class="prio_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in labs | filter: {id: prio.labId}">{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }} Uhr </div>
+            <div class="prio_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in labs | filter: {id: prio.labId}" translate="SAVED_PRIOS_TIME" translate-values="{time:lab.date}"></div>
             <md-icon class= "delete_button" ng-click="deletePriority(prio.priority, prio.labId)">delete</md-icon><br>
         </div>
     </div>
