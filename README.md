@@ -1,5 +1,7 @@
 # mtPlannr - Media Technology Angular Frontend
 
+![](./public/images/readme/homescreen.png)
+
 ## Installation
 1. Download the repository
 2. Install npm modules: `npm install`
