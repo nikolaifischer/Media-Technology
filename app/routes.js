@@ -1,37 +1,27 @@
 var PriorityDistributionAlgo = require('./priorityDistributionAlgo');
-module.exports = function(app) {
+module.exports = function (app) {
 
-	// server routes ===========================================================
-	// handle things like api calls
-	// authentication routes
+    // server routes ===========================================================
+    // handle things like api calls
+    // authentication routes
 
-	// frontend routes =========================================================
-	// route to handle all angular requests
-
-    app.get('/app/prioritydistribution', function(req, res){
-
-    	console.log(req);
+    // frontend routes =========================================================
 
 
+    app.post('/app/prioritydistribution', function (req, res) {
 
-        res.end("hallo");
 
-    });
-
-    app.post('/app/prioritydistribution', function(req, res){
-
-        console.log(req.body);
-
-        res.end(PriorityDistributionAlgo.calculate(req.body.dates,req.body.groupData));
-
+        var response = PriorityDistributionAlgo.calculate(req.body.dates, req.body.groupData);
+        res.json(response);
 
 
     });
 
-	app.get('*', function(req, res) {
-		res.sendfile('./public/index.html');
-	});
 
+    // route to handle all angular requests
+    app.get('*', function (req, res) {
+        res.sendfile('./public/index.html');
+    });
 
 
 };

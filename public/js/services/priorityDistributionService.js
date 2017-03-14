@@ -8,8 +8,12 @@ angular.module('PriorityDistributionService', []).factory('PriorityDistribution'
 
         create : function(data, cb) {
             $http.post('/app/prioritydistribution', data).then(function(success){
-                console.log(data);
-                cb(undefined, success);
+
+                if(success.hasOwnProperty("error")){
+                    cb(success,undefined);
+                }
+                else
+                    cb(undefined, success);
 
             }, function(err) {cb(err, undefined);});
         }

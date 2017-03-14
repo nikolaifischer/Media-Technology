@@ -133,11 +133,12 @@
 
                     <div ng-if="successAlgo==false"><h2> Error: </h2> {{errorMessage}}</div>
 
-                    <div ng-if="successAlgo"><h3 translate="FINISHED_DIST"></h3>
+                    <div ng-if="successAlgo">
+                        <h3 style="margin-bottom: 50px;" translate="FINISHED_DIST"></h3>
                         <div >
-                            <span translate="GOT_LAB"></span>
+                            <div style="margin-bottom: 30px;" translate="GOT_LAB"></div>
                             <md-list>
-                                <md-list-item style="color:red;" ng-repeat="group in successfulGroups">
+                                <md-list-item ng-repeat="group in successfulGroups">
                                     <p>{{group.name}}</p>
                                     <a href="mailto:{{group.mails[0]}}" target="_blank">
                                         <md-icon aria-label="{{ 'SEND_MAIL' | translate }}" class="white-icon">email
@@ -168,8 +169,12 @@
 
                         </div>
 
+                        <br/>
+                        <br/>
+                        <md-divider style="margin-bottom: 30px; margin-top: 30px;" ng-if="unsuccessfulGroups.length>0"></md-divider>
+
                         <div ng-if="unsuccessfulGroups.length>0">
-                            <span translate="NO_LAB"></span>
+                            <div style="margin-bottom: 30px;" translate="NO_LAB"></div>
                             <md-list>
                                 <md-list-item style="color:red;" ng-repeat="group in unsuccessfulGroups">
                                     <p>{{group.name}}</p>

@@ -7,8 +7,8 @@ module.exports = {
         console.log(groupAndDateDataToReturn);
         //-------------------------
 
-        //return groupAndDateDataToReturn;
-        return;
+        return groupAndDateDataToReturn;
+
     }
 };
 
