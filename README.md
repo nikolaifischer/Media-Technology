@@ -243,7 +243,7 @@ email and term. The users are divided in Tutors and Students.
 
 ![](./public/images/readme/user_mgt.PNG)
 
-## Semester Mgt
+## Semester Management
 
 As admin you can edit the current term in the Semester Management tool and delete previous terms if not needed any
 longer. Consider that all data depending on the deleted term is also lost!
