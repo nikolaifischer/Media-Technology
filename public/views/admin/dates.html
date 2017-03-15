@@ -21,55 +21,74 @@
                 </md-card-title>
 
                 <md-card-content class="cardContent" flex layout-padding>
+                    <!-- create-form used for creating new appointments like exams -->
                     <md-list-item class="md-2-line">
                         <div class="md-list-item-text">
                             <form name="createUniqueDateForm">
                                 <div layout="row" layout-sm="column" layout-align-sm="end stretch" style="min-height: 50px">
-                                    <div flex-gt-sm="90" layout layout-wrap layout-align-sm="end stretch" layout-xs="column" layout-align-xs="center stretch">
+                                    <div flex-gt-sm="90" layout layout-wrap layout-align-sm="end stretch"
+                                         layout-xs="column" layout-align-xs="center stretch">
                                         <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
-                                            <input type="text" ng-model="uniqueDateName" ng-required="true" name="uniqueDateName"
-                                                   placeholder="{{ 'UNIQUE_DATE_NAME' | translate }}">
+                                            <input type="text" ng-model="uniqueDateName" name="uniqueDateName"
+                                                   ng-required="true" placeholder="{{ 'UNIQUE_DATE_NAME' | translate }}">
                                             <div ng-messages="createUniqueDateForm.uniqueDateName.$error">
                                                 <div ng-message="required" translate="INPUT_REQUIRED"></div>
                                             </div>
                                         </md-input-container>
+
                                         <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
-                                            <input mdc-datetime-picker="" date="true" time="true" type="text" ng-required="true"
-                                                   name="uniqueDate" placeholder="{{ 'DATETIME' | translate }}"
-                                                   ng-model="uniqueDate" lang="{{lang}}" format="DD.MM.Y HH:mm">
+                                            <input mdc-datetime-picker="" date="true" time="true" type="text"
+                                                   ng-required="true" name="uniqueDate" format="DD.MM.Y HH:mm"
+                                                   ng-model="uniqueDate" lang="{{lang}}"
+                                                   placeholder="{{ 'DATETIME' | translate }}">
                                             <div ng-messages="createUniqueDateForm.uniqueDate.$error">
                                                 <div ng-message="required" translate="INPUT_REQUIRED"></div>
                                             </div>
                                         </md-input-container>
+
                                         <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
-                                            <input type="text" ng-model="location" placeholder="{{ 'LOCATION' | translate }}">
+                                            <input type="text" ng-model="location"
+                                                   placeholder="{{ 'LOCATION' | translate }}">
                                         </md-input-container>
+
                                         <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
-                                            <input type="number" ng-model="duration" name="duration"
-                                                   placeholder="{{ 'DURATION_MINUTES' | translate }}" ng-pattern="/^[1-9][0-9]*$/">
+                                            <input type="number" ng-model="duration" ng-pattern="/^[1-9][0-9]*$/"
+                                                   placeholder="{{ 'DURATION_MINUTES' | translate }}" name="duration">
                                             <div ng-messages="createUniqueDateForm.duration.$error">
                                                 <div ng-message-exp="['pattern']" translate="INVALID_NUMBER"></div>
                                             </div>
                                         </md-input-container>
+
                                         <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
-                                            <input type="text" ng-model="description" placeholder="{{ 'DESCRIPTION' | translate }}">
+                                            <input type="text" ng-model="description"
+                                                   placeholder="{{ 'DESCRIPTION' | translate }}">
                                         </md-input-container>
+
                                         <md-input-container flex-gt-md="33" flex-gt-sm="50" flex-sm="100">
-                                            <md-select ng-model="selectedTerm" name="selectedTerm" placeholder="{{ 'TERM_NAME' | translate }}">
-                                                <md-option ng-value="term" ng-repeat="term in terms">{{term.term}}</md-option>
+                                            <md-select ng-model="selectedTerm" name="selectedTerm"
+                                                       placeholder="{{ 'TERM_NAME' | translate }}">
+                                                <md-option ng-value="term" ng-repeat="term in terms">
+                                                    {{term.term}}
+                                                </md-option>
                                             </md-select>
                                         </md-input-container>
-                                    </div><div layout flex-gt-sm="10" layout-align-gt-sm="end center" layout-align-sm="center center">
-                                    <md-button class="md-icon-button" ng-click="createUniqueDate()">
-                                        <md-icon class="md-primary">add</md-icon>
-                                        <md-tooltip md-direction="right">{{ 'CREATE' | translate }}</md-tooltip>
-                                    </md-button>
-                                </div>
+                                    </div>
+
+                                    <div layout flex-gt-sm="10" layout-align-gt-sm="end center"
+                                         layout-align-sm="center center">
+                                        <md-button class="md-icon-button" ng-click="createUniqueDate()">
+                                            <md-icon class="md-primary">add</md-icon>
+                                            <md-tooltip md-direction="right">{{ 'CREATE' | translate }}</md-tooltip>
+                                        </md-button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                     </md-list-item>
+
                     <md-divider></md-divider>
+
+                    <!-- list of all appointments so far with the ability to remove an appointment -->
                     <md-list>
                         <md-list-item class="md-2-line" ng-repeat-start="uniqueDate in uniqueDates">
                             <div class="md-list-item-text">
@@ -77,16 +96,22 @@
                                     <div flex-xs="80" flex-gt-xs="90"  layout layout-wrap>
                                         <h3 style="font-weight: bold; min-width: 200px;" flex-gt-sm="25">{{uniqueDate.name}}</h3>
                                         <span>{{uniqueDate.date | date: "dd.MM.y HH:mm"}}</span>
-                                        <span ng-show="uniqueDate.duration">&nbsp;({{ 'DURATION_MINUTES' | translate }}: {{uniqueDate.duration}})</span>
-                                        <a style="padding-left: 15px; min-width: 200px;" ng-show="!showDetails"
-                                           ng-click="showDetails=true">{{ 'DETAILS' | translate }}</a>
+                                        <span ng-show="uniqueDate.duration">
+                                            ({{ 'DURATION_MINUTES' | translate }}: {{uniqueDate.duration}})
+                                        </span>
+                                        <a style="padding-left: 15px; min-width: 200px;" ng-show="!showDetails" ng-click="showDetails=true">
+                                            {{ 'DETAILS' | translate }}
+                                        </a>
                                         <div ng-show="showDetails" style="padding-left: 15px; font-style: italic;" flex="100">
                                             <span ng-show="uniqueDate.description">&laquo;{{uniqueDate.description}}&raquo;</span>
                                             <span ng-show="uniqueDate.location"> - {{uniqueDate.location}}</span>
                                             <span ng-repeat="term in terms | filter:uniqueDate.semesterId">
-                                                ({{term.term}})</span>
+                                                ({{term.term}})
+                                            </span>
                                         </div>
-                                    </div><div layout flex-xs="20" flex-gt-xs="10" layout-align="end center">
+                                    </div>
+
+                                    <div layout flex-xs="20" flex-gt-xs="10" layout-align="end center">
                                         <md-button ng-click="removeUniqueDate($index)" class="md-icon-button">
                                             <md-icon class="md-accent">delete</md-icon>
                                             <md-tooltip md-direction="right">{{ 'DELETE' | translate }}</md-tooltip>
@@ -95,8 +120,9 @@
                                 </div>
                             </div>
                         </md-list-item>
+
                         <md-divider ng-repeat-end></md-divider>
-                        <md-list>
+                    <md-list>
                 </md-card-content>
             </md-card>
         </div>

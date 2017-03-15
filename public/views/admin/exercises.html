@@ -1,3 +1,4 @@
+<!-- amin/tutor exercise template for creating and removing exercises -->
 <div class="jumbotron adminExercise layout-padding" ng-controller="ExerciseController">
     <h2 style="text-align: center;" translate="TUTORIAL_MGT"></h2>
 
@@ -5,13 +6,14 @@
         <div class="col-sm-0 col-md-2"></div>
         <div class="col-sm-12 col-md-8">
             <md-card>
-                <md-card-content style="text-align: center;" translate="ADMIN_EXERCISE_TEXT"
-                                 translate-values="{role:role}"></md-card-content>
+                <md-card-content style="text-align: center;" translate="ADMIN_EXERCISE_TEXT" translate-values="{role:role}">
+                </md-card-content>
             </md-card>
         </div>
         <div class="col-sm-0 col-md-2"></div>
     </div>
 
+    <!-- display the weekSchedules of the exercises -->
     <div class="row">
         <div class="col-sm-12">
             <md-card>
@@ -22,8 +24,8 @@
                                 <span translate="{{weekday}}"></span>
                             </div>
                         </md-toolbar>
-
                         <md-list>
+                            <!-- show all scheduled exercises for each weekday -->
                             <md-list-item class="md-3-line" ng-repeat-start="exercise in exercises">
                                 <div class="md-list-item-text">
                                     <h3 style="font-weight: bold; margin-top: 5px;">{{exercise.name}}</h3>
@@ -37,6 +39,7 @@
                                 </div>
                             </md-list-item>
                             <md-divider ng-repeat-end></md-divider>
+                            <!-- show a create button for each weekday -->
                             <md-list-item class="md-3-line" style="padding: 12px 0;">
                                 <div class="md-list-item-text">
                                     <md-button class="md-icon-button add-exercise-dialog-open-button" ng-click="showDialog(weekday, $event)">
@@ -53,7 +56,7 @@
         </div>
     </div>
 
-    <!-- dialog -->
+    <!-- dialog for the create-exercise form -->
     <script type="text/ng-template" id="addExerciseDialog.tmpl.html">
         <div role="dialog" aria-label="{{ 'CREATE_TUTORIAL' | translate: {weekday:weekday} }}" layout="column" layout-align="center center">
             <md-toolbar>
@@ -74,13 +77,15 @@
                             <div ng-message="required" translate="INPUT_REQUIRED"></div>
                         </div>
                     </md-input-container>
+
                     <md-input-container class="md-block">
-                        <input type="text" ng-model="exerciseLocation[weekday]" ng-required="true" name="exerciseLoction"
-                               placeholder="{{ 'LOCATION' | translate }}">
+                        <input ng-model="exerciseLocation[weekday]" ng-required="true" name="exerciseLoction"
+                               placeholder="{{ 'LOCATION' | translate }}" type="text">
                         <div ng-messages="createExercise.exerciseLoction.$error">
                             <div ng-message="required" translate="INPUT_REQUIRED"></div>
                         </div>
                     </md-input-container>
+
                     <md-input-container class="md-block">
                         <input type="time" ng-model="exerciseTime[weekday]" ng-required="true" name="exerciseTime"
                                placeholder="{{ 'TIME' | translate }}">
@@ -88,10 +93,11 @@
                             <div ng-message="required" translate="INPUT_REQUIRED"></div>
                         </div>
                     </md-input-container>
+
                     <md-input-container class="md-block">
-                        <md-select class="dialogSelect" ng-model="exerciseTutor[weekday]" placeholder="{{ 'TUTOR' | translate }}"
-                                   ng-required="true" name="exerciseTutor">
-                            <md-option ng-value="tutor" ng-repeat="tutor in exerciseTutor"> {{ tutor }}</md-option>
+                        <md-select class="dialogSelect" ng-model="exerciseTutor[weekday]" name="exerciseTutor"
+                                   ng-required="true" placeholder="{{ 'TUTOR' | translate }}">
+                            <md-option ng-value="tutor" ng-repeat="tutor in exerciseTutor">{{ tutor }}</md-option>
                         </md-select>
                         <div ng-messages="createExercise.exerciseTutor.$error">
                             <div ng-message="required" translate="INPUT_REQUIRED"></div>
@@ -99,8 +105,9 @@
                     </md-input-container>
 
                     <div layout="row" class="action-dialog-button">
-                        <md-button ng-click="addExercise(weekday)" class="md-primary" style="width: 100%;"
-                            ng-disabled="createExercise.$invalid" aria-label="{{ 'CREATE' | translate }}" translate="CREATE">
+                        <md-button class="md-primary" style="width: 100%;" ng-disabled="createExercise.$invalid"
+                                   ng-click="addExercise(weekday)" aria-label="{{ 'CREATE' | translate }}"
+                                   translate="CREATE">
                         </md-button>
                     </div>
                 </form>

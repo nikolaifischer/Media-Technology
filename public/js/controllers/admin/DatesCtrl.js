@@ -12,6 +12,7 @@ angular.module('DatesCtrl', [])
             });
         }
 
+        // get all terms for the assignment of an appointment in the create-form
         $scope.terms = [];
         $scope.terms = Semester.find(
             {
@@ -25,22 +26,29 @@ angular.module('DatesCtrl', [])
             }
         );
 
+        // get all appointments that exist for the list on the web page
         $scope.uniqueDates = [];
         $scope.uniqueDates = UniqueDate.find(
             {
-                order: "date ASC"
+                order: "date DESC"
             },
             function(success){},
             function(error){
                 console.log(error);
             }
         );
+
+        // prefill the create-form for a new appointment
         $scope.uniqueDateName = "Klausur";
         $scope.uniqueDate = new Date();
-        $scope.location = "Amalienstraße 67, Raum 001";
+        $scope.location = "Hgb, M140";
         $scope.duration = 90;
         $scope.description = "Semester Klausur WS 2016/2017";
 
+        /**
+         * function for creating new appointments like exams, called when admin clicks on the create button
+         * the appointment attributes are set in the create-form
+         */
         $scope.createUniqueDate = function() {
             UniqueDate.create({
                 "name": $scope.uniqueDateName,
@@ -60,6 +68,10 @@ angular.module('DatesCtrl', [])
             });
         };
 
+        /**
+         * function for removing appointments, called when admin clicks on the delete button next to an appointment
+         * @param index for removing the appointment from the appointment list on the web page
+         */
         $scope.removeUniqueDate = function(index){
             var uniqueDate = $scope.uniqueDates.splice(index, 1)[0];
             UniqueDate.deleteById({id: uniqueDate.id}, function(response) {});

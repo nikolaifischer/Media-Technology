@@ -1,3 +1,4 @@
+<!-- student exercise template for attending and leaving exercises -->
 <div class="jumbotron adminExercise layout-padding" ng-controller="ExerciseController">
     <h2 style="text-align: center;" translate="TUTORIALS"></h2>
 
@@ -11,6 +12,7 @@
         <div class="col-sm-0 col-md-2"></div>
     </div>
 
+    <!-- display the weekSchedules of the exercises -->
     <div class="row">
         <div class="col-sm-12">
             <md-card>
@@ -22,13 +24,15 @@
                             </div>
                         </md-toolbar>
 
+                        <!-- show all scheduled exercises for each weekday with the option to attend or leave one -->
                         <md-list>
                             <md-list-item class="md-3-line" ng-repeat-start="exercise in exercises">
                                 <div class="md-list-item-text">
                                     <h3>{{exercise.name}}</h3>
                                     <span>{{exercise.location}}</span><br>
                                     <span>{{exercise.daytime}} - {{exercise.lectureEnd}}</span><br>
-                                    <span translate="PARTICIPANTS_COUNT" translate-values="{count:exercise.participantCount}"></span>
+                                    <span translate="PARTICIPANTS_COUNT"
+                                          translate-values="{count:exercise.participantCount}"></span>
                                     <md-button ng-if="exercise.currentUserParticipates"
                                                ng-click="leaveExercise(weekday, $index)" class="md-icon-button">
                                         <md-icon class="md-accent">directions_run</md-icon>

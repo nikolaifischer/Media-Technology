@@ -1,3 +1,5 @@
+<!-- This template decides based on the user's role (admin / tutor / student),
+     which exercise template to show on the exercise page -->
 <div ng-controller="ExerciseTemplateController">
     <div ng-include="" src="'/views/admin/exercises.html'" ng-if="currentUser.isTutor || currentUser.isAdmin"></div>
     <div ng-include="" src="'/views/exercises.html'" ng-if="!currentUser.isTutor && !currentUser.isAdmin"></div>

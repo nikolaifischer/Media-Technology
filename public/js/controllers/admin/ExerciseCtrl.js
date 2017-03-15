@@ -1,17 +1,18 @@
 angular.module('ExerciseCtrl', [])
     .controller('ExerciseController', function ($location, $scope, $filter, Semester, PlatformUser, Exercise, $mdToast, $mdPanel) {
 
+        // This Controller is used for both the admin/tutor- and the student- exercise template
+        // The decision, which template to show (based on the user role), is made in the ExerciseTemplateController
+
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (current) {
                 $scope.currentUser = current;
 
-
-                // wird nur für Erklärungstext beim Admin oder Tutor verwendet, keine Studenten berücksichtigt!
+                // needed for the explaining text at top of the admin/tutor template
                 $scope.role = ($scope.currentUser.isAdmin) ? "ADMIN" : "TUTOR";
 
                 // get tutors for selection in the dialog
                 $scope.tutors = [];
-
                 PlatformUser.find({
                     filter: {
                         where: {isTutor: true}
@@ -22,6 +23,7 @@ angular.module('ExerciseCtrl', [])
                     })
                 });
 
+                // needed for displaying the weekly exercises
                 $scope.weekSchedules = {
                     "Montag": [],
                     "Dienstag": [],
@@ -30,25 +32,26 @@ angular.module('ExerciseCtrl', [])
                     "Freitag": []
                 };
 
-                // Get all exercises of current semester from db
+                // get all exercises of current semester from the db and write them into weekSchedules
                 $scope.exercises = Exercise.find({
                     filter: {
                         where: {semesterId: $scope.semester.id}
                     }
                 }, function(exercises) {
-                    // group exercise dates to weekly exercises for display in schedule
+                    // group exercise dates to weekly exercises for displaying in schedule on the web page
                     exercises.forEach(function(exercise) {
                         var dateObj = new Date(exercise.date),
                             weekday = $filter('date')(dateObj, 'EEEE'),
                             daytime = $filter('date')(dateObj, 'HH:mm'),
                             endtime = dateObj.setTime(dateObj.getTime() + (1.5*60*60*1000)),
                             lectureEnd = $filter('date')(endtime, 'HH:mm'),
-                            currentUserParticipates = (exercise.participantsUserIds.filter(function(e) {
-                               return e == $scope.currentUser.id;
-                            }).length > 0),
+                            currentUserParticipates = (exercise.participantsUserIds
+                                .filter( function(e) { return e == $scope.currentUser.id; })
+                                .length > 0),
                             participantCount = exercise.participantsUserIds.length;
 
-                        if ($scope.weekSchedules[weekday].length <= 0 || $scope.weekSchedules[weekday].filter(function(e) { return e.daytime == daytime; }).length <= 0) {
+                        if ($scope.weekSchedules[weekday].length <= 0 ||
+                            $scope.weekSchedules[weekday].filter(function(e) { return e.daytime == daytime; }).length <= 0) {
                             // add exercise to weekSchedules, if it's not in there already
                             var exerciseForTemplate = {
                                 name: exercise.name,
@@ -66,7 +69,10 @@ angular.module('ExerciseCtrl', [])
                     console.log(error);
                 });
 
-
+                /**
+                 * function for showing the dialog for creating an exercise (for admin/tutor template)
+                 * @param weekday is set by the respective add button that was clicked to open the dialog
+                 */
                 $scope.showDialog = function(weekday) {
                     var position = $mdPanel.newPanelPosition()
                         .absolute()
@@ -97,59 +103,91 @@ angular.module('ExerciseCtrl', [])
                     $mdPanel.open(config);
                 };
 
+                /**
+                 * function to remove existing exercises in the admin/tutor template
+                 * @param weekday
+                 * @param index
+                 * weekday and index come from the respective delete button, which identifies the exercise schedule
+                 */
                 $scope.removeExercise = function(weekday, index){
+                    // remove the exercise from the web page
                     var exercise = $scope.weekSchedules[weekday].splice(index, 1)[0];
 
-                    // get all weekday-time exercises of the scheduled weekday from now
+                    // get the time period, in which the exercises have to be removed
                     var end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
                         start = getExerciseStartDate(weekday),
                         hours = exercise.daytime.split(":")[0],
                         minutes = exercise.daytime.split(":")[1];
-
                     start.setHours(hours, minutes, 0, 0);
 
+                    // get all exercises with the scheduled weekday in the previously defined period
+                    // for deleting them from the db
                     while(start <= end){
-                        // save current start date because it gets faster updated than the exercise created...
                         var exerciseDate = new Date(start).toISOString();
 
                         Exercise.find({
                             filter: {
                                 where: {date: exerciseDate}
                             }
-                        }, function(exercises) {
-                            // delete exercises
-                            exercises.forEach(function(exercise) {
+                        }, function(exercise) {
+                            // only one exercise should be returned, delete it
+                            exercise.forEach(function(exercise) {
                                 Exercise.deleteById({id: exercise.id}, function(response) {});
                             });
                         }, function (error) {
                             console.log(error);
                         });
 
+                        // go on with the next exercise date of this schedule (weekday and daytime)
                         start.setDate(start.getDate() + 7);
                     }
                 };
 
+                /**
+                 * function to assign a student to an exercise schedule, called when student clicks the attend button
+                 * @param weekday
+                 * @param index
+                 * weekday and index come from the respective attend button, which identifies the exercise schedule
+                 */
                 $scope.attendExercise = function(weekday, index) {
+                    // update weekSchedules for the correct view on the web page
                     $scope.weekSchedules[weekday][index].currentUserParticipates = true;
                     $scope.weekSchedules[weekday][index].participantCount++;
+                    // add student to all relevant exercises of this schedule in the db
                     updateParticipation(weekday, index, true);
                 };
 
+                /**
+                 * function to remove a student's participation from an exercise schedule, called when student clicks
+                 * the leave button
+                 * @param weekday
+                 * @param index
+                 * weekday and index come from the respective leave button, which identifies the exercise schedule
+                 */
                 $scope.leaveExercise = function(weekday, index) {
                     $scope.weekSchedules[weekday][index].currentUserParticipates = false;
                     $scope.weekSchedules[weekday][index].participantCount--;
                     updateParticipation(weekday, index, false);
                 };
 
+                /**
+                 * internal function for updating a student's participation in an exercise schedule,
+                 * called by attendExercise() and leaveExercise()
+                 * @param weekday
+                 * @param index
+                 * @param attend
+                 */
                 function updateParticipation(weekday, index, attend) {
+                    // get the time period, in which the exercises have to be updated
                     var exercise = $scope.weekSchedules[weekday][index],
                         end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
                         start = getExerciseStartDate(weekday),
                         hours = exercise.daytime.split(":")[0],
                         minutes = exercise.daytime.split(":")[1];
-
                     start.setHours(hours, minutes, 0, 0);
 
+                    // get all exercises with the scheduled weekday in the previously defined period
+                    // for updating them in the db
                     while(start <= end){
                         var exerciseDate = new Date(start).toISOString();
 
@@ -159,6 +197,7 @@ angular.module('ExerciseCtrl', [])
 
                         var parameters;
                         if(attend) {
+                            // add the student's participation to the exercise
                             exerciseToUpdate.participantsUserIds.push($scope.currentUser.id);
 
                             parameters = {exerciseId:exerciseToUpdate.id};
@@ -166,6 +205,7 @@ angular.module('ExerciseCtrl', [])
                                 if(err) console.log(err);
                             });
                         } else {
+                            // remove the student's participation if it exists
                             if (exerciseToUpdate.participantsUserIds.indexOf($scope.currentUser.id)!==-1) {
                                 exerciseToUpdate.participantsUserIds
                                     .splice(exerciseToUpdate.participantsUserIds.indexOf($scope.currentUser.id), 1);
@@ -177,6 +217,7 @@ angular.module('ExerciseCtrl', [])
                             }
                         }
 
+                        // go on with the next exercise date of this schedule (weekday and daytime)
                         start.setDate(start.getDate() + 7);
                     }
                 }
@@ -189,8 +230,21 @@ angular.module('ExerciseCtrl', [])
     })
     .controller('PanelDialogCtrl', PanelDialogCtrl);
 
+/**
+ * function used for the create-exercise dialog in the admin/tutor template
+ * @param mdPanelRef
+ * @param $scope
+ * @param $filter
+ * @param weekSchedules
+ * @param weekday
+ * @param semester
+ * @param tutors
+ * @param Exercise
+ * @constructor
+ */
 function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, semester, tutors, Exercise) {
     this._mdPanelRef = mdPanelRef;
+    // create the scope variables for the create-exercise form
     $scope.weekSchedules = weekSchedules;
     $scope.weekday = weekday;
     $scope.term = semester;
@@ -199,6 +253,11 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
     $scope.exerciseTime = {};
     $scope.exerciseTutor = tutors;
 
+    /**
+     * function to create an exercise schedule and add exercise dates to the db, called when admin/tutor clicks the
+     * create button in the dialog form
+     * @param weekday
+     */
     $scope.addExercise = function(weekday){
         var lectureEnd = new Date($scope.exerciseTime[weekday]);
         lectureEnd.setTime(lectureEnd.getTime() + (1.5*60*60*1000));
@@ -216,16 +275,15 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
                 $scope.weekSchedules[weekday].push(newExercise);
             });
 
-            // get all dates of the scheduled weekday from now
+            // get the time period, in which the exercises have to be updated
             var end = new Date($scope.term.end_date).setHours(23, 59, 59, 0),
                 start = getExerciseStartDate(weekday),
                 hours = $filter('date')($scope.exerciseTime[weekday], 'HH'),
                 minutes = $filter('date')($scope.exerciseTime[weekday], 'mm');
-
             start.setHours(hours, minutes, 0, 0);
 
+            // create an exercise in the db for each date of the respective weekday in the defined time period
             while(start <= end){
-                // save current start date because it gets faster updated than the exercise created...
                 var exerciseDate = new Date(start);
 
                 Exercise.create({
@@ -239,6 +297,7 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
                     console.log(error);
                 });
 
+                // go on with the next exercise date of this schedule (weekday and daytime)
                 start.setDate(start.getDate() + 7);
             }
 
@@ -247,6 +306,9 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
     };
 }
 
+/**
+ * function for closing the create-exercise dialog, called when the close button is clicked
+ */
 PanelDialogCtrl.prototype.closeDialog = function() {
     var panelRef = this._mdPanelRef;
 
@@ -256,6 +318,11 @@ PanelDialogCtrl.prototype.closeDialog = function() {
     });
 };
 
+/**
+ * function for calculating the next start date of the time period
+ * @param weekday
+ * @returns {Date}
+ */
 function getExerciseStartDate(weekday) {
     var currentDay = new Date().getDay(),
         weekdayNumbers = {"Montag":1, "Dienstag": 2, "Mittwoch": 3, "Donnerstag": 4, "Freitag": 5},
