@@ -173,7 +173,7 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * On top of the calendar you see if the selection is open, the time of the deadline and if you are in a group and can save priorities.
 * Click on a calendar day where "Appointments" are displayed in color.
 * Right of the calendar you see each lab appointment that takes place on the clicked day.
-* On the dropdown of each appointment you can select prioritiy 1, 2 or 3 and save it by hitting the "Save" button next to the dropdown.
+* On the dropdown of each appointment you can select priority 1, 2 or 3 and save it by hitting the "Save" button next to the dropdown.
 * Already saved priorities for your group are displayed below the calendar.
 * You can there delete priorities by clicking the trash can icon next to the saved priority.
 * If you select and save a priority that already has been saved to another date, the priority date is updated.
@@ -194,7 +194,11 @@ by pressing the "Edit" button below the news panel and using the HTML-Editor.
 
 After the students have prioritized the dates for the labs, the **Admin** can start an automatic distribution of the lab dates.
 In the **Admin Menu** select "Distribution of Lab Dates" and follow the instruction on the screen.
- 
+
+The automatic distribution is done by an algorithm. The algorithm selects dates for the groups, based on the priorities given by the groups on dates.
+In the beginning, a high (1) priority is preferred to a low (3) priority. After groups get low on dates, groups with less dates get preferred to groups with more dates.
+In the end, the dates will get distributed fair and reasonable to all groups.
+
 Before a distribution should be started, several checks on the date have to be passed:
 
 ![](./public/images/readme/dist_checks.png)
