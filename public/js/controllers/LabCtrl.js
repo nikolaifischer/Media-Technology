@@ -112,7 +112,6 @@ angular.module('LabCtrl', [])
                                             groupedElements[date].sort(function(a,b) {return (a.start > b.start) ? 1 : ((b.start > a.start) ? -1 : 0);} );
 
                                             //Write Labs in calendar
-                                            // TODO: prüfen, ob Übersetzung "Termine" so klappt
                                             Object.keys(groupedElements).forEach(function (date) {
                                                 var appointments = $translate.instant("APPOINTMENTS");
                                                 MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>"+appointments+"</div>");
@@ -237,7 +236,6 @@ angular.module('LabCtrl', [])
                     semesterId: $scope.semester.id,
                     tutorId: $scope.selectedTutor.id
                 }, function (lab) {
-                    // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
                     $scope.loadLabs();
                     $scope.dateTime = "";
                     $scope.duration = "";
