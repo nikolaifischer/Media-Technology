@@ -210,3 +210,42 @@ in your favourite E-Mail program to write an E-Mail.
 
 
 ![](./public/images/readme/dist_no_lab.PNG)
+
+## Weekly Exercises
+
+The exercises can be managed by clicking on the Exercises tab in the menu. The displayed content depends on the user's role:
+* As Student you can attend an exercise by clicking the add-member icon next to an exercise appointment or leave an exercise by clicking the red running man icon.
+
+![](./public/images/readme/student_exercises.PNG)
+
+* As Admin or Tutor you can create exercises by clicking on the plus button of a certain weekday and fill in the form in the popup dialog.
+
+![](./public/images/readme/exercise_dialog.PNG)
+
+You can also delete exercises by clicking on the red trash icon next to an exercise.
+
+![](./public/images/readme/admin_exercises.PNG)
+
+## Schedule Management
+
+As Admin you can create various appointments e.g. for exams or other important dates, which are then displayed in the
+calendar of each user of the platform. Over the Schedule Management panel in the Admin tools you get to the page,
+where you can create and delete such appointments, either by filling in the form for creating or clicking the red trash
+icon next to an exisiting appointment for deleting it.
+
+![](./public/images/readme/schedule_mgt.PNG)
+
+## User Management
+
+As Admin you can manage the users of the platform by going to the user management page over the User Management panel in
+the Admin tools. There you can delete users by clicking the red trash icon next to one or edit his properties like name,
+email and term. The users are divided in Tutors and Students.
+
+![](./public/images/readme/user_mgt.PNG)
+
+## Semester Mgt
+
+As admin you can edit the current term in the Semester Management tool and delete previous terms if not needed any
+longer. Consider that all data depending on the deleted term is also lost!
+
+![](./public/images/readme/term_mgt.PNG)
