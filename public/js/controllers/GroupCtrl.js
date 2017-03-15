@@ -1,6 +1,16 @@
 angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', function($scope, PlatformUser,Group, $window) {
 
-    $scope.groupMembers = [{email:"gianna@campus.lmu.de"},{email:"orlando@campus.lmu.de"},{email:"jacky@campus.lmu.de"}];
+
+    $scope.groupMembers = [];
+
+    // Build Frontend depending on the group size in the current semester
+    $scope.getCurrentSemester(function(semester){
+
+        for(var i = 0; i<semester.group_size-1;i++){
+            $scope.groupMembers.push({email:""});
+        }
+
+    });
     $scope.groupName;
     $scope.errorMessage="";
     $scope.showError = false;
