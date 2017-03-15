@@ -255,10 +255,9 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
         var allContent = "";
         labs.forEach(function(element) {
             var date = element.date.slice(0, 10);
-            console.log(element.tutorId);
             //Set name and tutor name of date
             LabType.findById({id: element.labTypeId},function(res) {element.name = res.type_str});
-            PlatformUser.findById({id: element.tutorId},function(res) {element.tutor = res.first_name+" "+res.name});
+            PlatformUser.findOne({filter:{where:{id: element.tutorId}}},function(res) {element.tutor = res.first_name+" "+res.name});
 
             //collect all dates in groupedDates with calendar format
             if (groupedDates[date] === undefined) {
