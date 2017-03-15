@@ -369,7 +369,7 @@ calendar-md md-content > md-content.calendar > :not(:first-child) > *.active {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
-    max-width: 200px;
+    max-width: 303px;
 }
 
 .delete_button {
