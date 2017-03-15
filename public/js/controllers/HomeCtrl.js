@@ -100,6 +100,9 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             if ($scope.objects[i].tutor != undefined) {
                 content += "<div>" + $scope.objects[i].tutor + "</div>";
             }
+            if ($scope.objects[i].groupName != undefined) {
+                content += "<div>" + $scope.objects[i].groupName + "</div>";
+            }
             if ($scope.objects[i].description != undefined) {
                 content += "<div>" + $scope.objects[i].description + "</div>";
             }
@@ -186,17 +189,26 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
                 exrcs.forEach(function (element) {
                     itemsProcessed++;
                     //for admin/tutor load all exercises where user is tutor
-                    if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
-                        if (element.participantsUserIds.indexOf($scope.currentUser.id) > -1) {
+                    if ($scope.currentUser.isAdmin || $scope.currentUser.isTutor) {
+                        if (element.tutor == $scope.currentUser.first_name + " " + $scope.currentUser.name) {
                             writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
+                        } else {
+                            if(itemsProcessed == exrcs.length) {
+                                loadOurLabs(daysWithMoreContent, addedUpContent);
+                            }
                         }
                     }
                     //for student load all exercises where user participates
                     else {
-                        if (element.tutor == $scope.currentUser.first_name + " " + $scope.currentUser.name) {
+                        if (element.participantsUserIds.indexOf($scope.currentUser.id) > -1) {
                             writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
+                        } else {
+                            if(itemsProcessed == exrcs.length) {
+                                loadOurLabs(daysWithMoreContent, addedUpContent);
+                            }
                         }
                     }
+
                 });
             }
         });
@@ -243,10 +255,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
     //Second, load all lab dates
     function loadOurLabs(daysWithMoreContent, addedUpContent) {
         //for admin/tutor load all labs where user is tutor
-        if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
+        if ($scope.currentUser.isAdmin || $scope.currentUser.isTutor) {
             $scope.ourLabs = Lab.find({
                 filter: {
-                    where: {semesterId: $scope.semester.id, groupId: $scope.group.id}
+                    where: {semesterId: $scope.semester.id, tutorId: $scope.currentUser.id}
                 }
             }, function (labs) {
                 writeLabs(labs, daysWithMoreContent, addedUpContent);
@@ -256,7 +268,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
         else {
             $scope.ourLabs = Lab.find({
                 filter: {
-                    where: {semesterId: $scope.semester.id, tutorId: $scope.currentUser.id}
+                    where: {semesterId: $scope.semester.id, groupId: $scope.group.id}
                 }
             }, function (labs) {
                 writeLabs(labs, daysWithMoreContent, addedUpContent);
@@ -269,7 +281,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             var date = element.date.slice(0, 10);
             //Set name and tutor name of date
             LabType.findById({id: element.labTypeId},function(res) {element.name = res.type_str});
-            PlatformUser.findOne({filter:{where:{id: element.tutorId}}},function(res) {element.tutor = res.first_name+" "+res.name});
+            PlatformUser.find({filter:{where:{id: element.tutorId}}},function(res) {if(res.length>0){element.tutor = res[0].first_name+" "+res[0].name}});
+            if(element.groupId != undefined && ($scope.currentUser.isAdmin || $scope.currentUser.isTutor)) {
+                Group.find({filter:{where:{id: element.groupId}}}, function(res) {if(res.length>0){element.groupName = res[0].name}});
+            }
 
             //collect all dates in groupedDates with calendar format
             if (groupedDates[date] === undefined) {
