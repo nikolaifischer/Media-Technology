@@ -1,9 +1,10 @@
 angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast,$mdDialog, $location, vcRecaptchaService) {
 
 
+    // Do not show Navigation in Login Window
     $scope.$root.hideNav = true;
 
-
+    // FRONTEND FLAGS
     $scope.registerFlag = false;
     $scope.whitelisted = true;
     $scope.wrongLogin = false;
@@ -12,21 +13,22 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.registerCaptchaId;
 
     // name and first_name have to be set to an arbitrary String else the API will return an error. They are ignored.
-    // TODO: kann man bei first_name und name nicht einfach leere '' setzen?
     $scope.user = {
-        email: 'kevin@campus.lmu.de',
-        password: 'Test1234',
-        repeatpassword: 'Test1234',
+        email: '',
+        password: '',
+        repeatpassword: '',
         first_name: 'This is ignored but has to be a String',
         name: 'This is ignored but has to be a String'
     };
 
-    // TODO: das sollte eigentlich mal entfernt werden für den Live-Betrieb
     $scope.registeredUser = {
-        email: "kevin@campus.lmu.de",
-        password: "test"
+        email: "",
+        password: ""
     };
 
+    /**
+     * Login the User
+     */
     $scope.login = function () {
         PlatformUser.login($scope.registeredUser,
             function (response) {
@@ -49,8 +51,10 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     };
 
 
-    // Show No-Semester Pop-up
-
+    /**
+     * Show dialog stating that the registration was successful but the user has to confirm his E-Mail Address.
+     * @param ev
+     */
     $scope.showVerify = function (ev) {
 
         // Show the user a message
@@ -72,16 +76,16 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
         });
     };
 
+    /**
+     * Register the User
+     */
     $scope.register = function () {
         PlatformUser.create($scope.user,
             function (response) {
 
-
                 $scope.showVerify();
 
 
-
-               // $scope.login();
             },
             function (errorResponse) {
                 if (errorResponse.status == 403) {
@@ -95,6 +99,12 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
         );
     };
 
+
+    /**
+     * Frontend Methods for Captcha Creation
+     * @param id: id of the Captcha
+     */
+
     $scope.setLoginWidgetId = function(id) {
         $scope.loginCaptchaId=id;
     }
@@ -102,9 +112,6 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.setRegisterWidgetId = function(id) {
         $scope.registerCaptchaId=id;
     }
-
-
-
 
 
 

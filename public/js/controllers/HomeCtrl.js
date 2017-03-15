@@ -293,6 +293,9 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
 
     /**********Group Code***********/
 
+    /**
+     * Load the Group of the User from DB
+     */
     function loadGroup() {
 
         Group.find({}, function (groups) {
@@ -339,8 +342,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
     }
 
 
-    // Leave Group
-
+    /**
+     * Shows the confirm Dialog, allowing the user to leave a Group
+     * @param ev
+     */
     $scope.showLeaveGroupConfirm = function (ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
@@ -370,8 +375,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
     };
 
 
-    // Show No-Semester Pop-up
-
+    /**
+     * Shows a pop-up reminding the admin that there is no current semester selected.
+     * @param ev
+     */
     $scope.showNoSemester = function (ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
@@ -385,6 +392,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
         $mdDialog.show(confirm).then(function () {
             //ok-callback
 
+            // Take admin to the semester screen
             $location.url('/admin/semester');
 
         }, function () {

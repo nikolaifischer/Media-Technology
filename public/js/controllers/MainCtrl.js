@@ -1,6 +1,12 @@
 angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate, Semester, tmhDynamicLocale) {
     $scope.$root.hideNav = true;
-    tmhDynamicLocale.set('de');
+
+    // Set default language to german
+    if( $rootScope.lang==undefined)
+        tmhDynamicLocale.set('de');
+    else {
+        tmhDynamicLocale.set($rootScope.lang);
+    }
     if (PlatformUser.isAuthenticated()) {
         $scope.$root.hideNav = false;
         PlatformUser.getCurrent(function (currentUser) {
@@ -81,7 +87,7 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
     };
 
 
-    // Translation
+    // Translation switch:
     $scope.switchEn = function (){
         $scope.translationLang= "English";
         tmhDynamicLocale.set('en');

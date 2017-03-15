@@ -225,6 +225,11 @@ angular.module('AlgoCtrl', [])
         }
 
 
+        /**
+         * Gathers all data, needed for the priority-based distribution algorithm,
+         * Starts the algorithm and calls methods which process the results.
+         *
+         */
         $scope.distribute = function () {
 
 
@@ -563,13 +568,12 @@ angular.module('AlgoCtrl', [])
                     // Silently fail if there already is a relation
                 });
 
-                // Wait for the Writes in the Loop to finish
+
 
 
             }
 
-
-
+            // Wait for the Writes in the Loop to finish
             setTimeout(function(){
                 cb();
             }, 500);
