@@ -171,7 +171,7 @@ There are 3 LabTypes (Photo, Video and Audio). Every Group has to select 3 Prior
 * As Student who is member in a group you can select 3 date priorities for each of the LabTypes.
 * If the selection is opened by the admin go to the tab where you want to save priorities (Photo project, Video project or Audio project).
 * On top of the calendar you see if the selection is open, the time of the deadline and if you are in a group and can save priorities.
-* Click on a calendar day where "Dates" are displayed in color.
+* Click on a calendar day where "Appointments" are displayed in color.
 * Right of the calendar you see each lab appointment that takes place on the clicked day.
 * On the dropdown of each appointment you can select prioritiy 1, 2 or 3 and save it by hitting the "Save" button next to the dropdown.
 * Already saved priorities for your group are displayed below the calendar.

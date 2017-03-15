@@ -114,7 +114,8 @@ angular.module('LabCtrl', [])
                                             //Write Labs in calendar
                                             // TODO: prüfen, ob Übersetzung "Termine" so klappt
                                             Object.keys(groupedElements).forEach(function (date) {
-                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>{{ 'APPOINTMENTS' | translate }}</div>");
+                                                var appointments = $translate.instant("APPOINTMENTS");
+                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>"+appointments+"</div>");
                                             });
                                             if ($scope.key != undefined) {
                                                 $scope.dayClick($scope.key);
@@ -212,11 +213,6 @@ angular.module('LabCtrl', [])
                 $scope.key = $filter("date")(date, "yyyy-MM-dd");
 
                 $scope.objects = (groupedElements[$scope.key] || []);
-                console.log($scope.objects);
-
-
-
-
 
                 for (var i = 0; i < $scope.objects.length; i++) {
                     $scope.selectedPriority[i] = undefined;
@@ -257,7 +253,6 @@ angular.module('LabCtrl', [])
 
             /****Edit and Update Lab****/
             $scope.editLab = function (i) {
-                console.log(i);
                 $scope.isEdit[i] = true;
                 $scope.editDateTime[i] = $scope.objects[i].date;
                 $scope.editDuration[i] = $scope.objects[i].duration;
@@ -273,7 +268,6 @@ angular.module('LabCtrl', [])
             };
             $scope.updateLab = function (i) {
                 Lab.findById({id: $scope.objects[i].id}, function (lab) {
-                    console.log(lab);
                     lab.date = $scope.editDateTime[i];
                     lab.duration = $scope.editDuration[i];
                     lab.location = $scope.editLocation[i];
