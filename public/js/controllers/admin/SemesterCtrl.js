@@ -99,16 +99,17 @@ angular.module('SemesterCtrl', [])
         // TODO: welcher Text im Alert?
         $scope.removeSemester = function(ev, index){
             var confirm = $mdDialog.confirm()
-                .title('Soll das Semester wirklich gelöscht werden?')
-                .textContent('Das hat seeehr böse Folgen...')
-                .ariaLabel('Semester löschen')
+                .title($translate.instant('REALLY_DELETE_TERM'))
+                .textContent($translate.instant('TERM_DATA_GETS_LOST'))
+                .ariaLabel($translate.instant('DELETE_TERM'))
                 .targetEvent(ev)
-                .ok('Löschen')
-                .cancel('Abbrechen');
+                .ok($translate.instant('DELETE'))
+                .cancel($translate.instant('CANCEL'));
 
             $mdDialog.show(confirm).then(function() {
                 var term = $scope.terms.splice(index, 1)[0];
                 Semester.deleteById({id: term.id}, function(response) {});
+                // TODO: sollten da nicht alle Daten bezogen auf das Semester gelöscht werden?
             }, function() {});
         };
 

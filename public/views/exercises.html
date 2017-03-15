@@ -29,15 +29,18 @@
                                     <span>{{exercise.location}}</span><br>
                                     <span>{{exercise.daytime}} - {{exercise.lectureEnd}}</span><br>
                                     <span translate="PARTICIPANTS_COUNT" translate-values="{count:exercise.participantCount}"></span>
-                                    <md-button ng-if="exercise.currentUserParticipates" ng-click="leaveExercise(weekday, $index)" class="md-icon-button">
+                                    <md-button ng-if="exercise.currentUserParticipates"
+                                               ng-click="leaveExercise(weekday, $index)" class="md-icon-button">
                                         <md-icon class="md-accent">directions_run</md-icon>
                                         <md-tooltip md-direction="right">{{ 'LEAVE_EXERCISE' | translate }}</md-tooltip>
                                     </md-button>
-                                    <md-button ng-if="!exercise.currentUserParticipates && exercise.participantCount<20" ng-click="attendExercise(weekday, $index)" class="md-icon-button">
+                                    <md-button ng-if="!exercise.currentUserParticipates && exercise.participantCount<20"
+                                               ng-click="attendExercise(weekday, $index)" class="md-icon-button">
                                         <md-icon class="md-primary">group_add</md-icon>
                                         <md-tooltip md-direction="right">{{ 'ATTEND_EXERCISE' | translate }}</md-tooltip>
                                     </md-button>
-                                    <md-button ng-if="!exercise.currentUserParticipates && exercise.participantCount>=20" class="md-icon-button">
+                                    <md-button ng-if="!exercise.currentUserParticipates && exercise.participantCount>=20"
+                                               class="md-icon-button">
                                         <md-icon>block</md-icon>
                                         <md-tooltip md-direction="right">{{ 'COURSE_FULL' | translate }}</md-tooltip>
                                     </md-button>

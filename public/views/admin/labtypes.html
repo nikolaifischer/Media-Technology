@@ -58,7 +58,9 @@
                     </md-input-container><br>
                 </div>
                 <div>
-                    <span translate="PRIORITY_SELECTION_OPEN"></span><md-switch ng-model="phototype.registration_open" aria-label="Open" ng-change="updatePhotoOpenState(phototype.registration_open)"></md-switch>
+                    <span translate="PRIORITY_SELECTION_OPEN"></span>
+                    <md-switch ng-model="phototype.registration_open" aria-label="{{ 'PRIORITY_SELECTION_OPEN' | translate }}"
+                               ng-change="updatePhotoOpenState(phototype.registration_open)"></md-switch>
                 </div>
 
                 <md-button ng-click="updatePhototype()" class="md-raised md-primary" ng-show="photoEdit"
@@ -113,7 +115,9 @@
                     </md-input-container><br>
                 </div>
                 <div>
-                    <span translate="PRIORITY_SELECTION_OPEN"></span><md-switch ng-model="videotype.registration_open" aria-label="Open" ng-change="updateVideoOpenState(videotype.registration_open)"></md-switch>
+                    <span translate="PRIORITY_SELECTION_OPEN"></span>
+                    <md-switch ng-model="videotype.registration_open" aria-label="{{ 'PRIORITY_SELECTION_OPEN' | translate }}"
+                               ng-change="updateVideoOpenState(videotype.registration_open)"></md-switch>
                 </div>
 
                 <md-button ng-click="updateVideotype()" class="md-raised md-primary" ng-show="videoEdit"
@@ -168,7 +172,9 @@
                     </md-input-container><br>
                 </div>
                 <div>
-                    <span translate="PRIORITY_SELECTION_OPEN"></span><md-switch ng-model="audiotype.registration_open" aria-label="Open" ng-change="updateAudioOpenState(audiotype.registration_open)"></md-switch>
+                    <span translate="PRIORITY_SELECTION_OPEN"></span>
+                    <md-switch ng-model="audiotype.registration_open" aria-label="{{ 'PRIORITY_SELECTION_OPEN' | translate }}"
+                               ng-change="updateAudioOpenState(audiotype.registration_open)"></md-switch>
                 </div>
 
                 <md-button ng-click="updateAudiotype()" class="md-raised md-primary" ng-show="audioEdit"

@@ -6,7 +6,8 @@
     <div class="col-sm-12 description" ng-show="isTutor">{{ labType.description_tutor}}</div>
 
     <div class="col-sm-12 instruction" ng-show="!open" translate="SELECTION_NOT_OPEN"></div>
-    <div class="col-sm-12 instruction" ng-show="group!=undefined && open && !isTutor" translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}"></div>
+    <div class="col-sm-12 instruction" ng-show="group!=undefined && open && !isTutor"
+         translate="CHOOSE_AUDIO_PRIORITIES_TEXT" translate-values="{groupname:group.name, ddln:deadline}"></div>
     <div class="col-sm-12 instruction" ng-show="open && isTutor" translate="SELECTION_OPEN" translate-values="{ddln:deadline}"></div>
     <div class="col-sm-12 instruction" ng-show="!isTutor && group==undefined && open" translate="NO_GROUP_SELECTION"></div>
 
@@ -43,7 +44,8 @@
                 <!--Select Priority-->
                 <div ng-show="object.selPrio == undefined && !isTutor && group!=undefined && open" >
                     <md-input-container >
-                        <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}" ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)">
+                        <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}"
+                                   ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)">
                             <md-option ng-value="priority" ng-repeat="priority in priorities">{{ priority }}</md-option>
                         </md-select>
                         <md-icon class ="green_hover" ng-show="showBtns[$index]" ng-click="resetSelect($index)">close</md-icon>
@@ -71,7 +73,8 @@
                     <input type="text" ng-model="editDuration[$index]" placeholder="{{ 'DURATION_MINUTES' | translate }}">
                 </md-input-container>
                 <!--Location-->
-                <span ng-show="!isEdit[$index]"><md-icon>place</md-icon><a href="http://maps.google.com/?q={{ object.location }}" target="_blank"> {{ object.location }}</a></span>
+                <span ng-show="!isEdit[$index]"><md-icon>place</md-icon>
+                    <a href="http://maps.google.com/?q={{ object.location }}" target="_blank"> {{ object.location }}</a></span>
                 <md-input-container ng-show="isEdit[$index]">
                     <input type="text" ng-model="editLocation[$index]" placeholder="{{ 'LOCATION' | translate }}">
                 </md-input-container>
@@ -85,7 +88,7 @@
                 </md-input-container>
                 <br>
                 <!--selected Priority-->
-                <span ng-show="object.selPrio != undefined && open"><md-icon>label_outline</md-icon> Priorität: {{ object.selPrio }}</span>
+                <span ng-show="object.selPrio != undefined && open"><md-icon>label_outline</md-icon> {{ 'PRIORITY' | translate }}: {{ object.selPrio }}</span>
                 <!---ourLab-->
                 <span style="color: rgb(255, 82, 82);" ng-show="aferDeadline && !open && !isTutor"><md-icon>group</md-icon> {{ group.name }}</span>
                 <!--UpdateButton-->
@@ -130,7 +133,9 @@
         <div class=my_labs" ng-show="currentUser.isTutor">
             <h3 translate="MY_TUTOR_LABS_AUDIO"></h3>
             <div ng-show="myTutorLabs.length == 0" translate="NO_ASSIGNED TUTOR_LABS_AUDIO"></div>
-            <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myTutorLabs"><md-icon class="green_hover">event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }}</div><br>
+            <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myTutorLabs">
+                <md-icon class="green_hover">event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }}
+            </div><br>
         </div>
     </div>
 
@@ -140,7 +145,9 @@
         <div>{{ prioMessage }}</div>
         <div class="prio" ng-repeat="prio in groupPriorities">
             <div class="prio_number">{{ prio.priority | number }}</div>
-            <div class="prio_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in labs | filter: {id: prio.labId}" translate="SAVED_PRIOS_TIME" translate-values="{time:lab.date}"></div>
+            <div class="prio_date" ng-click="dayClick(lab.date.slice(0,10))"
+                 ng-repeat="lab in labs | filter: {id: prio.labId}" translate="SAVED_PRIOS_TIME"
+                 translate-values="{time:lab.date}"></div>
             <md-icon class= "delete_button" ng-click="deletePriority(prio.priority, prio.labId)">delete</md-icon><br>
         </div>
     </div>

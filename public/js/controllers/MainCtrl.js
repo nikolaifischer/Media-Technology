@@ -62,7 +62,6 @@ angular.module('MainCtrl', []).controller('MainController', function ($scope, $l
     $scope.logout = function () {
         return PlatformUser.logout(
             function (response) {
-                console.log("logged out");
                 delete $window.sessionStorage.token;
                 $window.location.href = '/login';
             },

@@ -109,19 +109,24 @@
 <body>
 
 <!-- START Side Navi - Only visible on mobile -->
-<md-sidenav md-swipe-left="toggleLeft()" ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left" md-disable-backdrop
-            md-whiteframe="4">
+<md-sidenav md-swipe-left="toggleLeft()" ng-if="!$root.hideNav" class="md-sidenav-left " md-component-id="left"
+            md-disable-backdrop md-whiteframe="4">
 
     <md-toolbar class="md-theme-indigo">
         <h1 ng-click="toggleLeft()" class="md-toolbar-tools" translate="MENU"></h1>
     </md-toolbar>
 
     <md-content layout-margin>
-        <md-button ng-click="toggleLeft()" href="/" name="home" aria-label="{{ 'OVERVIEW' | translate }}" translate="OVERVIEW"></md-button><br>
-        <md-button ng-click="toggleLeft()" href="/photo" name="photo" aria-label="{{ 'PHOTO_PROJECT' | translate }}" translate="PHOTO_PROJECT"></md-button><br>
-        <md-button ng-click="toggleLeft()" href="/video" name="video" aria-label="{{ 'VIDEO_PROJECT' | translate }}" translate="VIDEO_PROJECT"></md-button><br>
-        <md-button ng-click="toggleLeft()" href="/audio" name="audio" aria-label="{{ 'AUDIO_PROJECT' | translate }}" translate="AUDIO_PROJECT"></md-button><br>
-        <md-button ng-click="toggleLeft()" href="/exercises" name="exercises" aria-label="{{ 'TUTORIALS' | translate }}" translate="TUTORIALS"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/" name="home" aria-label="{{ 'OVERVIEW' | translate }}"
+                   translate="OVERVIEW"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/photo" name="photo" aria-label="{{ 'PHOTO_PROJECT' | translate }}"
+                   translate="PHOTO_PROJECT"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/video" name="video" aria-label="{{ 'VIDEO_PROJECT' | translate }}"
+                   translate="VIDEO_PROJECT"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/audio" name="audio" aria-label="{{ 'AUDIO_PROJECT' | translate }}"
+                   translate="AUDIO_PROJECT"></md-button><br>
+        <md-button ng-click="toggleLeft()" href="/exercises" name="exercises" aria-label="{{ 'TUTORIALS' | translate }}"
+                   translate="TUTORIALS"></md-button><br>
     </md-content>
 
 </md-sidenav>
@@ -147,9 +152,9 @@
 
                     <!--Translation Switch-->
                     <span>
-                        <img aria-label="Switch to German" class="lang_changer" ng-if="translationLang=='English'"
+                        <img aria-label="Zu Deutsch wechseln" class="lang_changer" ng-if="translationLang=='English'"
                              src="./resources/images/icons/german.png" ng-click="switchDe()">
-                        <img class="lang_changer" ng-if="translationLang=='Deutsch'"
+                        <img aria-label="Switch to English" class="lang_changer" ng-if="translationLang=='Deutsch'"
                              src="./resources/images/icons/english.png" ng-click="switchEn()">
                         <md-tooltip md-direction="left">
                             {{'CHANGE_LANG' | translate}}

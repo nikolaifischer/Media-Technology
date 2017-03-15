@@ -1,5 +1,5 @@
 angular.module('LabCtrl', [])
-    .controller('LabController', function ($scope, $filter, $timeout, $log, $q, $http, $route, $translate, PlatformUser, Semester, Group, Lab, LabType, Priority, MaterialCalendarData, $window) {
+    .controller('LabController', function ($scope, $filter, $timeout, $log, $q, $http, $route, $translate, PlatformUser, Semester, Group, Lab, LabType, Priority, MaterialCalendarData) {
 
             $scope.myTutorLabs = [];
             var groupedElements = {};
@@ -112,8 +112,9 @@ angular.module('LabCtrl', [])
                                             groupedElements[date].sort(function(a,b) {return (a.start > b.start) ? 1 : ((b.start > a.start) ? -1 : 0);} );
 
                                             //Write Labs in calendar
+                                            // TODO: prüfen, ob Übersetzung "Termine" so klappt
                                             Object.keys(groupedElements).forEach(function (date) {
-                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>Termine</div>");
+                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>{{ 'APPOINTMENTS' | translate }}</div>");
                                             });
                                             if ($scope.key != undefined) {
                                                 $scope.dayClick($scope.key);

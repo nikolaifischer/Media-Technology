@@ -12,6 +12,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     $scope.registerCaptchaId;
 
     // name and first_name have to be set to an arbitrary String else the API will return an error. They are ignored.
+    // TODO: kann man bei first_name und name nicht einfach leere '' setzen?
     $scope.user = {
         email: 'kevin@campus.lmu.de',
         password: 'Test1234',
@@ -20,6 +21,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
         name: 'This is ignored but has to be a String'
     };
 
+    // TODO: das sollte eigentlich mal entfernt werden für den Live-Betrieb
     $scope.registeredUser = {
         email: "kevin@campus.lmu.de",
         password: "test"
@@ -33,7 +35,7 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
                 $window.location.href = '/';
             },
             function (errorResponse) {
-                if(errorResponse.data.error.message.includes("Anmeldung fehlgeschlagen, da die E-Mail-Adresse nicht bestätigt wurde")){
+                if(errorResponse.data.error.message.includes($translate.instant("LOGIN_FAILED_EMAIL_NOT_CONFIRMED"))){
                     $scope.notVerified = true;
                 }
                 else {
@@ -53,8 +55,8 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
 
         // Show the user a message
         var confirm = $mdDialog.confirm()
-            .title('Registrierung erfolgreich')
-            .textContent('Bitte überprüfe dein E-Mail Postfach und klicke auf den Bestätigungslink bevor du dich einloggst!')
+            .title($translate.instant("REGISTRATION_SUCCESSFUL"))
+            .textContent($translate.instant("CONFIRM_EMAIL"))
             .targetEvent(ev)
             .ok('OK');
 

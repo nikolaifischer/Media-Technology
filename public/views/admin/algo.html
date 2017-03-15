@@ -26,9 +26,9 @@
             <md-input-container>
                 <md-radio-group ng-model="labSelect" ng-change="reload(labSelect)">
 
-                    <md-radio-button value="1">Photo</md-radio-button>
-                    <md-radio-button value="2"> Video</md-radio-button>
-                    <md-radio-button value="3">Audio</md-radio-button>
+                    <md-radio-button value="1">{{ 'PHOTO_PROJECT' | translate }}</md-radio-button>
+                    <md-radio-button value="2">{{ 'VIDEO_PROJECT' | translate }}</md-radio-button>
+                    <md-radio-button value="3">{{ 'AUDIO_PROJECT' | translate }}</md-radio-button>
 
                 </md-radio-group>
             </md-input-container>
@@ -55,7 +55,7 @@
 
                     <md-list>
                         <md-list-item class="md-2-line">
-                            <p translate="CHECK1">Genug Praktika erstellt</p>
+                            <p translate="CHECK1"></p>
                             <div>
                                 <md-progress-circular ng-if="labs_created_loading" class="spinner"
                                                       md-mode="indeterminate"></md-progress-circular>
@@ -66,7 +66,7 @@
                         </md-list-item>
 
                         <md-list-item class="md-2-line">
-                            <p translate="CHECK2"> Studenten haben Prioritäten abgegeben</p>
+                            <p translate="CHECK2"></p>
                             <div>
                                 <md-progress-circular ng-if="student_prios_loading" class="spinner"
                                                       md-mode="indeterminate"></md-progress-circular>
@@ -79,7 +79,7 @@
                         </md-list-item>
 
                         <md-list-item class="md-2-line">
-                            <p translate="CHECK3"> Jedes Praktikum hat einen Tutor</p>
+                            <p translate="CHECK3"></p>
                             <div>
                                 <md-progress-circular ng-if="tutor_labs_loading" class="spinner"
                                                       md-mode="indeterminate"></md-progress-circular>
@@ -89,7 +89,7 @@
                             </div>
                         </md-list-item>
                         <md-list-item class="md-2-line">
-                            <p translate="CHECK4"> Anmeldung geschlossen</p>
+                            <p translate="CHECK4"></p>
                             <div>
                                 <md-progress-circular ng-if="registration_loading" class="spinner"
                                                       md-mode="indeterminate"></md-progress-circular>
@@ -131,7 +131,7 @@
                     <md-progress-circular ng-if="algo_running"
                                           md-mode="indeterminate"></md-progress-circular>
 
-                    <div ng-if="showErrorMessage"><h2> Error: </h2> {{errorMessage}}</div>
+                    <div ng-if="showErrorMessage"><h2 translate="ERROR"></h2> {{errorMessage}}</div>
 
                     <div ng-if="successAlgo">
                         <h3 style="margin-bottom: 50px;" translate="FINISHED_DIST"></h3>
@@ -149,10 +149,10 @@
 
                         </div>
 
-                        <md-button ng-show="successfulGroups.length>0" class ="md-raised md-primary" ng-click="showSuccessfulEmails = !showSuccessfulEmails"> Export E-Mails</md-button>
-
-
-
+                        <md-button ng-show="successfulGroups.length>0" class ="md-raised md-primary"
+                                   ng-click="showSuccessfulEmails = !showSuccessfulEmails">
+                            {{ 'EXPORT_EMAILS' | translate }}
+                        </md-button>
 
                         <div ng-if="showSuccessfulEmails">
 
@@ -163,7 +163,7 @@
                             <br/>
 
                             <md-input-container class="md-block">
-                                <label>E-Mails</label>
+                                <label translate="EMAILS"></label>
                                 <textarea readonly ng-model="allGroupMailsSuccess" rows="5" md-select-on-focus></textarea>
                             </md-input-container>
 
@@ -186,7 +186,8 @@
 
 
                         </div>
-                        <md-button ng-show="unsuccessfulGroups.length>0" class ="md-raised md-primary" ng-click="showFailedEmails = true"> Export E-Mails</md-button>
+                        <md-button ng-show="unsuccessfulGroups.length>0" class ="md-raised md-primary"
+                                   ng-click="showFailedEmails = true">{{ 'EXPORT_EMAILS' | translate }}</md-button>
 
 
                         <div ng-if="showFailedEmails">
@@ -198,7 +199,7 @@
                             <br/>
 
                             <md-input-container class="md-block">
-                                <label>E-Mails</label>
+                                <label translate="EMAILS"></label>
                                 <textarea readonly ng-model="allGroupMailsFail" rows="5" md-select-on-focus></textarea>
                             </md-input-container>
 

@@ -46,13 +46,13 @@ angular.module('UsersCtrl', []).controller('UsersController', function ($locatio
     };
 
     $scope.saveEdit = function($event, user) {
-        PlatformUser.prototype$patchAttributes({id: user.id}, {name:user.name, first_name:user.first_name, email: user.email, semesterId: user.semesterId}, function(res){
-        }, function(err){
+        PlatformUser.prototype$patchAttributes(
+            {id: user.id},
+            {name:user.name, first_name:user.first_name, email: user.email, semesterId: user.semesterId},
+        function(res){},
+        function(err){
             console.log(err);
         });
-
-
-
     };
 
     $scope.deleteEntry = function($event, user){

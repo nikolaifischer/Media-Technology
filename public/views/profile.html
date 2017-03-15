@@ -6,18 +6,6 @@
         <div class="col-sm-12 col-lg-10">
             <table class="table profileDataTable">
                 <tbody>
-                    <!--TODO: Code erstmal da lassen, falls mal nötig
-                    <tr>
-                        <th scope="row" width="100">Vorname:</th>
-                        <td>
-                            <span id="currentUser.first_name" ng-if="!editModeFirstname">{{currentUser.first_name}}</span>
-                            <md-icon ng-click="editKeyword(currentUser); editModeFirstname = true">mode_edit</md-icon>
-                            <span ng-if="editModeFirstname">
-                                <input ng-model="currentUser.first_name" />
-                                <md-icon ng-click="save(); editModeFirstname = false">save</md-icon>
-                            </span>
-                        </td>
-                    </tr-->
                     <tr>
                         <th scope="row" width="100" translate="NAME"></th>
                         <td>{{currentUser.first_name}} {{currentUser.name}}</td>
@@ -44,7 +32,7 @@
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2 translate="CHANGE_PASSWORD"></h2>
-                    <md-button  class="custom-dialog-close-button md-icon-button" ng-click="ctrl.closePasswortDialog()">
+                    <md-button class="custom-dialog-close-button md-icon-button" ng-click="ctrl.closePasswortDialog()">
                         <md-icon class="md-primary">close</md-icon>
                     </md-button>
                 </div>

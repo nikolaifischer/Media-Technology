@@ -344,12 +344,12 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
     $scope.showLeaveGroupConfirm = function (ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
-            .title('Willst du die Gruppe wirklich verlassen und löschen?')
-            .textContent('Dies kann nicht mehr rückgängig gemacht werden - Alle anderen Gruppenmitglieder verlassen ebenfalls die Gruppe')
-            .ariaLabel('Gruppe verlassen')
+            .title($translate.instant('REALLY_LEAVE_GROUP'))
+            .textContent($translate.instant('GROUP_LEAVE_NOT_UNDOABLE'))
+            .ariaLabel($translate.instant('LEAVE_GRUPPE'))
             .targetEvent(ev)
-            .ok('Ja')
-            .cancel('Nein');
+            .ok($translate.instant('YES'))
+            .cancel($translate.instant('NO'));
 
         $mdDialog.show(confirm).then(function () {
             //ok-callback
@@ -375,12 +375,12 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
     $scope.showNoSemester = function (ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
-            .title('Kein Semester gewählt!')
-            .textContent('Bevor du beginnst solltest du ein Semester erstellen. Möchtest du das jetzt tun?')
-            .ariaLabel('Kein Semester gewählt')
+            .title($translate.instant('NO_TERM_SELECTED'))
+            .textContent($translate.instant('SHOULD_CREATE_TERM'))
+            .ariaLabel($translate.instant('NO_TERM_SELECTED'))
             .targetEvent(ev)
-            .ok('Ja')
-            .cancel('Nein');
+            .ok($translate.instant('YES'))
+            .cancel($translate.instant('NO'));
 
         $mdDialog.show(confirm).then(function () {
             //ok-callback

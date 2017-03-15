@@ -39,7 +39,7 @@ angular.module('WhitelistCtrl', [])
 
 
     // only tutors and admins should reach the admin route
-    // TODO: warum Tutoren, wenn sie sowieso nichts ändern können (wegen fehlender Berechtigung)
+    // TODO: warum Tutoren, wenn sie sowieso nichts ändern können (wegen fehlender Berechtigung)?
     if (PlatformUser.isAuthenticated()) {
         PlatformUser.getCurrent(function (currentUser) {
             if(!(currentUser.isTutor||currentUser.isAdmin)) {

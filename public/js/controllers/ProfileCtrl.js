@@ -49,7 +49,7 @@ function PasswortDialogCtrl(mdPanelRef, $scope, $mdToast, PlatformUser, $window)
                     // TODO: input error statt toast
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('Neues Passwort stimmmt nicht mit Wiederholung überein')
+                            .textContent($translate.instant("NEW_PASSWORD_NOT_MATCHING_REPEAT"))
                             .hideDelay(3000)
                             .toastClass("toast")
                     );
@@ -59,7 +59,6 @@ function PasswortDialogCtrl(mdPanelRef, $scope, $mdToast, PlatformUser, $window)
 
                 PlatformUser.changePassword({newPassword: $scope.currentUser.newPassword}, function(success){
 
-                    console.log("Changed PW");
                     $window.location.href="/login";
 
                 }, function(err){

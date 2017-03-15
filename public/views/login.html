@@ -32,9 +32,8 @@
                             </div>
                         </md-input-container>
 
-                        <div ng-model="loginCaptcha" vc-recaptcha class="centeredCaptcha"  on-create="setLoginWidgetId(widgetId)"
-                                key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"
-                        ></div>
+                        <div ng-model="loginCaptcha" vc-recaptcha class="centeredCaptcha"
+                             on-create="setLoginWidgetId(widgetId)" key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"></div>
 
                         <md-button style="width: 100%;" type="submit" class="md-raised md-primary" ng-click="login()" ng-disabled="loginForm.$invalid"
                                    translate="LOGIN" aria-label="{{ 'LOGIN' | translate}}"></md-button>
@@ -61,11 +60,7 @@
                         <md-input-container class="md-block">
                             <input ng-required="true" type="email" placeholder="{{ 'EMAIL' | translate }}"
                                    ng-model="user.email" ng-pattern="/^.+@.+\..+$/" name="registerMail">
-                            <!--div ng-messages="whitelisted">
-                                <span ng-show="!whitelisted" translate="EMAIL_NOT_WHITELISTED"></span>
-                            </div-->
                             <div ng-messages="registerForm.registerMail.$error">
-                                <!--div ng-message="required">This is required.</div-->
                                 <span ng-show="!whitelisted" translate="EMAIL_NOT_WHITELISTED"></span>
                                 <div ng-message-exp="['required', 'pattern']" translate="EMAIL_NOT_REAL"></div>
                             </div>
@@ -97,11 +92,11 @@
                         <div style="padding-top: 20px; text-align: center;" ng-if="wrongCaptcha" ng-messages="wrongCaptcha">
                             <span ng-show="wrongCaptcha"> {{'WRONG_CAPTCHA' | translate }}</span>
                         </div>
-                        <div ng-model="registerCaptcha" vc-recaptcha class="centeredCaptcha"  on-create="setRegisterWidgetId(widgetId)"
-                             key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"
-                        ></div>
-                        <md-button type="submit" style="width: 100%;" class="md-raised md-primary" ng-click="register()" ng-disabled="registerForm.$invalid"
-                                   translate="REGISTER" aria-label="{{ 'REGISTER' | translate}}"></md-button>
+                        <div ng-model="registerCaptcha" vc-recaptcha class="centeredCaptcha"
+                             on-create="setRegisterWidgetId(widgetId)" key= "'6LfhmRMUAAAAAH6qMVZhj6mhCzFTc0B2v7NdJY9Q'"></div>
+                        <md-button type="submit" style="width: 100%;" class="md-raised md-primary" ng-click="register()"
+                                   ng-disabled="registerForm.$invalid" translate="REGISTER"
+                                   aria-label="{{ 'REGISTER' | translate}}"></md-button>
                     </form>
                 </md-card-content>
 

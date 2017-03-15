@@ -1,5 +1,5 @@
 angular.module('LabtypeCtrl', [])
-    .controller('LabtypeController', function ($scope, $http, $route, PlatformUser, Semester, LabType, $window) {
+    .controller('LabtypeController', function ($scope, $http, $route, PlatformUser, Semester, LabType) {
 
         $scope.getCurrentSemester(function (semesterRes) {
             $scope.semester = semesterRes;

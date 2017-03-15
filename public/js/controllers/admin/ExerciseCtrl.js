@@ -22,15 +22,12 @@ angular.module('ExerciseCtrl', [])
                     })
                 });
 
-                // TODO: zukünftig sollte es Samstag und Sonntag nicht geben
                 $scope.weekSchedules = {
                     "Montag": [],
                     "Dienstag": [],
                     "Mittwoch": [],
                     "Donnerstag": [],
-                    "Freitag": [],
-                    "Samstag": [],
-                    "Sonntag": []
+                    "Freitag": []
                 };
 
                 // Get all exercises of current semester from db
@@ -65,10 +62,6 @@ angular.module('ExerciseCtrl', [])
                             $scope.weekSchedules[weekday].push(exerciseForTemplate);
                         }
                     });
-
-                    // TODO: sollte zukünftig nicht mehr nötig sein
-                    delete $scope.weekSchedules.Samstag;
-                    delete $scope.weekSchedules.Sonntag;
                 }, function (error) {
                     console.log(error);
                 });
@@ -119,7 +112,6 @@ angular.module('ExerciseCtrl', [])
                         // save current start date because it gets faster updated than the exercise created...
                         var exerciseDate = new Date(start).toISOString();
 
-                        // TODO: wäre es besser, $scope.exercises durchzuloopen und darauf anhand der id zu löschen? (performance)
                         Exercise.find({
                             filter: {
                                 where: {date: exerciseDate}
@@ -196,12 +188,12 @@ angular.module('ExerciseCtrl', [])
 
     })
     .controller('PanelDialogCtrl', PanelDialogCtrl);
-// TODO: darf man da $scope.semester schreiben? wird da nicht das aktuelle Semester überschrieben?
+
 function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, semester, tutors, Exercise) {
     this._mdPanelRef = mdPanelRef;
     $scope.weekSchedules = weekSchedules;
     $scope.weekday = weekday;
-    $scope.semester = semester;
+    $scope.term = semester;
     $scope.exerciseName = {};
     $scope.exerciseLocation = {};
     $scope.exerciseTime = {};
@@ -225,7 +217,7 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
             });
 
             // get all dates of the scheduled weekday from now
-            var end = new Date($scope.semester.end_date).setHours(23, 59, 59, 0),
+            var end = new Date($scope.term.end_date).setHours(23, 59, 59, 0),
                 start = getExerciseStartDate(weekday),
                 hours = $filter('date')($scope.exerciseTime[weekday], 'HH'),
                 minutes = $filter('date')($scope.exerciseTime[weekday], 'mm');
@@ -239,7 +231,7 @@ function PanelDialogCtrl(mdPanelRef, $scope, $filter, weekSchedules, weekday, se
                 Exercise.create({
                     "name": newExercise.name,
                     "date": exerciseDate,
-                    "semesterId": $scope.semester.id,
+                    "semesterId": $scope.term.id,
                     "location": newExercise.location,
                     "tutor": newExercise.tutor
                 }, function(response) {

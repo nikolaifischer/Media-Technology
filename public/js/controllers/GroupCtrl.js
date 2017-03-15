@@ -1,6 +1,6 @@
-angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', function($scope, PlatformUser,Group, $window,$mdToast) {
+angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', function($scope, PlatformUser,Group, $window) {
 
-    $scope.groupMembers = [{email:"gianna@campus.lmu.de"},{email:"orlando@campus.lmu.de"},{email:"jacky@campus.lmu.de"}]
+    $scope.groupMembers = [{email:"gianna@campus.lmu.de"},{email:"orlando@campus.lmu.de"},{email:"jacky@campus.lmu.de"}];
     $scope.groupName;
     $scope.errorMessage="";
     $scope.showError = false;
@@ -24,19 +24,19 @@ angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', funct
 
             // Show Localized Error Message:
             if(err.data.error.message.indexOf("is already enrolled")>-1){
-                $scope.errorMessage = "Du kannst keine Gruppe erstellen, da du bereits Mitglied in einer bist.";
+                $scope.errorMessage = $translate.instant('ALREADY_IN_GROUP');
                 $scope.showError = true;
             }
             else if (err.data.error.message.indexOf("Invalid number of members")>-1) {
-                $scope.errorMessage = "Deine Gruppe hat zu wenige Mitglieder";
+                $scope.errorMessage = $translate.instant('NOT_ENOUGH_MEMBERS');
                 $scope.showError = true;
             }
             else if (err.data.error.message.indexOf("Some of the specified email addresses")>-1) {
-                $scope.errorMessage= "Eine oder mehrere E-Mails sind nicht auf dieser Platform angemeldet.";
+                $scope.errorMessage = $translate.instant('EMAILS_NOT_REGISTERED');
                 $scope.showError = true;
             }
             else if (err.data.error.message.indexOf("emails array may not contain own email address")>-1) {
-                $scope.errorMessage= "Du darfst nicht deine eigene E-Mail Adresse hinzufügen. Du bist automatisch Teil der erstellten Gruppe.";
+                $scope.errorMessage = $translate.instant('OWN_EMAIL_NOT_ALLOWED');
                 $scope.showError = true;
             }
             else if (err.data.error.message.indexOf ("is already enrolled for group with id" )>-1) {
@@ -44,9 +44,8 @@ angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', funct
                 $scope.showError = true;
             }
 
-
         })
-    }
+    };
 
     $scope.randomJoin = function() {
         Group.randomJoin( function(myGroup) {
