@@ -1,14 +1,12 @@
 var dcopy= require('deep-copy');
 module.exports = {
     calculate: function (dates,groups) {
+
+        // start the algo with data
         var groupAndDateDataToReturn = startAlgo(dates, groups);
 
-        //----------ONLY FOR TESTING
-        console.log(groupAndDateDataToReturn);
-        //-------------------------
-
+        // return the given dates for the groups
         return groupAndDateDataToReturn;
-
     }
 };
 
