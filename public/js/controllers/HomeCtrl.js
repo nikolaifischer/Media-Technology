@@ -133,60 +133,72 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
                 where: {semesterId: $scope.semester.id}
             }
         }, function (dates) {
-            dates.forEach(function (element) {
-                itemsProcessed++;
-                //collect all dates in groupedDates with calendar format
-                var date = element.date.slice(0, 10);
-                if (groupedDates[date] === undefined) {
-                    groupedDates[date] = [];
-                }
-                groupedDates[date].push(element);
+            if(dates.length === 0) {
+                loadExercises(daysWithContent, uniqueDatesContent);
+            }
+            else {
+                dates.forEach(function (element) {
+                    itemsProcessed++;
+                    //collect all dates in groupedDates with calendar format
+                    var date = element.date.slice(0, 10);
+                    if (groupedDates[date] === undefined) {
+                        groupedDates[date] = [];
+                    }
+                    groupedDates[date].push(element);
 
-                //collect all unique dates in groupedUniques with calendar format
-                if (groupedUniques[date] === undefined) {
-                    groupedUniques[date] = [];
-                }
-                groupedUniques[date].push(element);
+                    //collect all unique dates in groupedUniques with calendar format
+                    if (groupedUniques[date] === undefined) {
+                        groupedUniques[date] = [];
+                    }
+                    groupedUniques[date].push(element);
 
-                //write unique dates in calendar
-                Object.keys(groupedUniques).forEach(function (date) {
-                    var udString = $translate.instant("APPOINTMENT");
-                    uniqueDatesContent = "<div class='calendar_content uniquedate'>"+udString+"</div>";
-                    MaterialCalendarData.setDayContent(new Date(date), uniqueDatesContent);
-                    daysWithContent.push(date);
+                    //write unique dates in calendar
+                    Object.keys(groupedUniques).forEach(function (date) {
+                        var udString = $translate.instant("APPOINTMENT");
+                        uniqueDatesContent = "<div class='calendar_content uniquedate'>" + udString + "</div>";
+                        MaterialCalendarData.setDayContent(new Date(date), uniqueDatesContent);
+                        daysWithContent.push(date);
+                    });
+
+                    //After all unique dates are processed, load exercieses
+                    if (itemsProcessed === dates.length) {
+                        loadExercises(daysWithContent, uniqueDatesContent);
+                    }
                 });
-
-                //After all unique dates are processed, load exercieses
-                if(itemsProcessed === dates.length) {
-                    loadExercises(daysWithContent, uniqueDatesContent);
-                }
-            });
+            }
         });
     }
 
     //Second, load all exercice dates
     function loadExercises(daysWithContent, uniqueDatesContent) {
+        var daysWithMoreContent = [];
+        var addedUpContent = "";
         var itemsProcessed = 0;
         $scope.exercises = Exercise.find({
             filter: {
                 where: {semesterId: $scope.semester.id}
             }
         }, function (exrcs) {
-            exrcs.forEach(function(element) {
-                itemsProcessed++;
-                //for admin/tutor load all exercises where user is tutor
-                if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
-                    if (element.participantsUserIds.indexOf($scope.currentUser.id) > -1) {
-                        writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
+            if (exrcs.length === 0) {
+                loadOurLabs(daysWithMoreContent, addedUpContent);
+            }
+            else {
+                exrcs.forEach(function (element) {
+                    itemsProcessed++;
+                    //for admin/tutor load all exercises where user is tutor
+                    if (!$scope.currentUser.isAdmin && !$scope.currentUser.isTutor) {
+                        if (element.participantsUserIds.indexOf($scope.currentUser.id) > -1) {
+                            writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
+                        }
                     }
-                }
-                //for student load all exercises where user participates
-                else {
-                    if(element.tutor == $scope.currentUser.first_name +" "+$scope.currentUser.name) {
-                        writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
+                    //for student load all exercises where user participates
+                    else {
+                        if (element.tutor == $scope.currentUser.first_name + " " + $scope.currentUser.name) {
+                            writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed);
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     }
     function writeExercises(element, exrcs, daysWithContent, uniqueDatesContent, itemsProcessed) {
@@ -322,7 +334,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
 
                     }, function (members) {
                         $scope.groupMembers = members;
-                        console.log(members);
 
                     }, function (error) {
                         console.log("There was an error while fetching the group members");
