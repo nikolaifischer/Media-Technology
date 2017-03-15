@@ -109,7 +109,6 @@ angular.module('SemesterCtrl', [])
             $mdDialog.show(confirm).then(function() {
                 var term = $scope.terms.splice(index, 1)[0];
                 Semester.deleteById({id: term.id}, function(response) {});
-                // TODO: sollten da nicht alle Daten bezogen auf das Semester gelöscht werden?
             }, function() {});
         };
 

@@ -112,9 +112,9 @@ angular.module('LabCtrl', [])
                                             groupedElements[date].sort(function(a,b) {return (a.start > b.start) ? 1 : ((b.start > a.start) ? -1 : 0);} );
 
                                             //Write Labs in calendar
-                                            // TODO: prüfen, ob Übersetzung "Termine" so klappt
                                             Object.keys(groupedElements).forEach(function (date) {
-                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>{{ 'APPOINTMENTS' | translate }}</div>");
+                                                var appointments = $translate.instant("APPOINTMENTS");
+                                                MaterialCalendarData.setDayContent(new Date(date), "<div class='calendar_content'>"+appointments+"</div>");
                                             });
                                             if ($scope.key != undefined) {
                                                 $scope.dayClick($scope.key);
@@ -212,11 +212,6 @@ angular.module('LabCtrl', [])
                 $scope.key = $filter("date")(date, "yyyy-MM-dd");
 
                 $scope.objects = (groupedElements[$scope.key] || []);
-                console.log($scope.objects);
-
-
-
-
 
                 for (var i = 0; i < $scope.objects.length; i++) {
                     $scope.selectedPriority[i] = undefined;
@@ -241,7 +236,6 @@ angular.module('LabCtrl', [])
                     semesterId: $scope.semester.id,
                     tutorId: $scope.selectedTutor.id
                 }, function (lab) {
-                    // TODO: All the Labs are reloaded from the DB. This is pretty inefficent.
                     $scope.loadLabs();
                     $scope.dateTime = "";
                     $scope.duration = "";
@@ -257,7 +251,6 @@ angular.module('LabCtrl', [])
 
             /****Edit and Update Lab****/
             $scope.editLab = function (i) {
-                console.log(i);
                 $scope.isEdit[i] = true;
                 $scope.editDateTime[i] = $scope.objects[i].date;
                 $scope.editDuration[i] = $scope.objects[i].duration;
@@ -273,7 +266,6 @@ angular.module('LabCtrl', [])
             };
             $scope.updateLab = function (i) {
                 Lab.findById({id: $scope.objects[i].id}, function (lab) {
-                    console.log(lab);
                     lab.date = $scope.editDateTime[i];
                     lab.duration = $scope.editDuration[i];
                     lab.location = $scope.editLocation[i];

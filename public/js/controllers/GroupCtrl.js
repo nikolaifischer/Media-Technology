@@ -1,18 +1,30 @@
 angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', function($scope, PlatformUser,Group, $window) {
 
-    $scope.groupMembers = [{email:"gianna@campus.lmu.de"},{email:"orlando@campus.lmu.de"},{email:"jacky@campus.lmu.de"}];
+
+    $scope.groupMembers = [];
+
+    // Build Frontend depending on the group size in the current semester
+    $scope.getCurrentSemester(function(semester){
+
+        for(var i = 0; i<semester.group_size-1;i++){
+            $scope.groupMembers.push({email:""});
+        }
+
+    });
     $scope.groupName;
     $scope.errorMessage="";
     $scope.showError = false;
 
 
+    /**
+     * Creates Group with provided E-Mail Adresses of members
+     * Takes the user back to the Homepage after the creation
+     */
     $scope.createGroup = function() {
         var emailArr = [];
         for(var i =0; i<$scope.groupMembers.length; i++) {
             emailArr.push($scope.groupMembers[i].email);
         }
-        console.log(emailArr);
-        //Group.createByMail(groupMembers);
         var parameters = {"emails":emailArr, "name": $scope.groupName};
         Group.createByMail(parameters, function(res){
 
@@ -20,7 +32,8 @@ angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', funct
 
 
         }, function(err){
-            console.log(err.data.error.message);
+
+            // ERROR-HANDLING:
 
             // Show Localized Error Message:
             if(err.data.error.message.indexOf("is already enrolled")>-1){
@@ -40,13 +53,16 @@ angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', funct
                 $scope.showError = true;
             }
             else if (err.data.error.message.indexOf ("is already enrolled for group with id" )>-1) {
-                $scope.errorMessage = err.data.error.message;       // TODO: String Magic and translate to German
+                $scope.errorMessage = err.data.error.message;
                 $scope.showError = true;
             }
 
         })
     };
 
+    /**
+     * Adds the user to a random group with a free space and then takes him to the homepage
+     */
     $scope.randomJoin = function() {
         Group.randomJoin( function(myGroup) {
             $window.location.href = '/';

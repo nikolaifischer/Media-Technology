@@ -1,7 +1,10 @@
 angular.module('WhitelistCtrl', [])
 .controller('WhitelistController', function ($location, $scope, $translate, PlatformUser, $mdToast, PendingPlatformUser) {
 
+    // Users uploaded via CSV
     $scope.userList = [];
+
+    // Front-End Flags
     $scope.showWhiteListButton = false;
     $scope.showUpload = false;
     $scope.pendingPlatformUsers = null;
@@ -39,10 +42,9 @@ angular.module('WhitelistCtrl', [])
 
 
     // only tutors and admins should reach the admin route
-    // TODO: warum Tutoren, wenn sie sowieso nichts ändern können (wegen fehlender Berechtigung)?
     if (PlatformUser.isAuthenticated()) {
         PlatformUser.getCurrent(function (currentUser) {
-            if(!(currentUser.isTutor||currentUser.isAdmin)) {
+            if(!(currentUser.isAdmin)) {
                 $location.path('/');
             }
         }, function (error) {
@@ -50,6 +52,9 @@ angular.module('WhitelistCtrl', [])
         });
     }
 
+    /**
+     * Whitelist as CSV Upload routine.
+     */
     $scope.uploadFile = function(){
         $scope.loading = true;
         var file = document.getElementById('userUpload').files[0],
@@ -110,9 +115,7 @@ angular.module('WhitelistCtrl', [])
                     }
                 }
             }
-            console.log(csvToJSON);
             $scope.userList = csvToJSON.Praktikum;
-            console.log("Upload");
             // For some reason this is needed here: Without it the scope does not update propably.
             $scope.$apply(function(){
                 $scope.loading = false;
@@ -141,9 +144,11 @@ angular.module('WhitelistCtrl', [])
         })
     };
 
+    /**
+     * Saves the userlist in the $scope to the DB
+     * The userlist is parsed from a csv file.
+     */
     $scope.saveToPendingPlatformUsers = function () {
-        // TODO Check if email is already in the DB => In Backend
-        console.log("saving");
 
         // Extract the fields we want to save (right now only the email):
         var saveArr=[];
@@ -176,14 +181,19 @@ angular.module('WhitelistCtrl', [])
         })
     };
 
+
+    /**
+     * Discards current uploaded user list.
+     */
     $scope.deleteUpload = function(){
-        //TODO: Die selbe Datei kann noch nicht 2 mal hintereinander hochgeladen werden (Wegen dem Change Handler)
         $scope.userList = [];
         $scope.showWhiteListButton=false;
     };
 
+    // Initial Load of the current Whitelist
     $scope.getPendingPlatformUsers();
 
+    // Change Handler for the CSV Upload Button
 }).directive('fileOnChange', function() {
     return {
         restrict: 'A',

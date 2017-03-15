@@ -132,7 +132,7 @@
         <!------My Tutor Labs-------->
         <div class=my_labs" ng-show="currentUser.isTutor">
             <h3 translate="MY_TUTOR_LABS_AUDIO"></h3>
-            <div ng-show="myTutorLabs.length == 0" translate="NO_ASSIGNED TUTOR_LABS_AUDIO"></div>
+            <div ng-show="myTutorLabs.length == 0" translate="NO_ASSIGNED_TUTOR_LABS_AUDIO"></div>
             <div class="lab_date" ng-click="dayClick(lab.date.slice(0,10))" ng-repeat="lab in myTutorLabs">
                 <md-icon class="green_hover">event_available</md-icon>{{ lab.date | date: "EEE, dd.MM.y, HH:mm" }}
             </div><br>
