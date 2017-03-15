@@ -12,7 +12,10 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
                 }
             });
         } else {
-            loadUniqueDates();
+            $scope.getCurrentSemester(function (response) {
+                $scope.semester = response;
+                loadUniqueDates();
+            });
         }
     });
 
@@ -131,7 +134,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             }
         }, function (dates) {
             dates.forEach(function (element) {
-                console.log(element);
                 itemsProcessed++;
                 //collect all dates in groupedDates with calendar format
                 var date = element.date.slice(0, 10);
@@ -255,7 +257,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $l
             var date = element.date.slice(0, 10);
             //Set name and tutor name of date
             LabType.findById({id: element.labTypeId},function(res) {element.name = res.type_str});
-            PlatformUser.findById({id: element.tutorId},function(res) {element.tutor = res.first_name+" "+res.name});
+            PlatformUser.findOne({id: element.tutorId},function(res) {element.tutor = res.first_name+" "+res.name});
 
             //collect all dates in groupedDates with calendar format
             if (groupedDates[date] === undefined) {
