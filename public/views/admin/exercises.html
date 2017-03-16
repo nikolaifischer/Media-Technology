@@ -29,8 +29,14 @@
                             <md-list-item class="md-3-line" ng-repeat-start="exercise in exercises">
                                 <div class="md-list-item-text">
                                     <h3 style="font-weight: bold; margin-top: 5px;">{{exercise.name}}</h3>
-                                    <span><md-icon class="tiny">account_balance</md-icon> {{exercise.location}}</span><br>
-                                    <span><md-icon class="tiny">schedule</md-icon> {{exercise.daytime}} - {{exercise.lectureEnd}}</span><br>
+                                    <span>
+                                        <md-icon class="tiny">place</md-icon>
+                                        <a href="http://maps.google.com/?q={{ exercise.location }}"
+                                           target="_blank"> {{ exercise.location }}</a>
+                                    </span><br>
+                                    <span>
+                                        <md-icon class="tiny">schedule</md-icon> {{exercise.daytime}} - {{exercise.lectureEnd}}
+                                    </span><br>
                                     <span><md-icon class="tiny">school</md-icon> {{exercise.tutor}}</span>
                                     <md-button ng-click="removeExercise(weekday, $index)" class="md-icon-button">
                                         <md-icon class="md-accent">delete</md-icon>
@@ -42,7 +48,8 @@
                             <!-- show a create button for each weekday -->
                             <md-list-item class="md-3-line" style="padding: 12px 0;">
                                 <div class="md-list-item-text">
-                                    <md-button class="md-icon-button add-exercise-dialog-open-button" ng-click="showDialog(weekday, $event)">
+                                    <md-button class="md-icon-button add-exercise-dialog-open-button"
+                                               ng-click="showDialog(weekday, $event)">
                                         <md-icon class="md-primary">add</md-icon>
                                         <md-tooltip md-direction="right">{{ 'ADD' | translate }}</md-tooltip>
                                     </md-button>

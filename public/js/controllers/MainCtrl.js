@@ -55,7 +55,7 @@ angular.module('MainCtrl', [])
        })
 
     };
-    // TODO: dieser Aufruf schmeißt nen Fehler, wenn kein Semester definiert ist. Kann man das nicht irgendwie verhindern?
+
     $scope.getCurrentSemester(function(semester){
         $scope.semester = semester;
     });

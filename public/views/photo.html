@@ -80,7 +80,7 @@
                 </md-input-container>
                 <br>
                 <!--Tutor-->
-                <span ng-show="!isEdit[$index]"><md-icon>person</md-icon> {{ object.tutorName }}</span>
+                <span ng-show="!isEdit[$index]"><md-icon>school</md-icon> {{ object.tutorName }}</span>
                 <md-input-container ng-show="isEdit[$index]">
                     <md-select ng-model="editSelectedTutor[$index]" placeholder="{{ 'TUTOR' | translate }}">
                         <md-option ng-value="tutor" ng-repeat="tutor in tutors"> {{ tutor.first_name}} {{ tutor.name }}</md-option>

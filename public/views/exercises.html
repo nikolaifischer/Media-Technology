@@ -29,8 +29,13 @@
                             <md-list-item class="md-3-line" ng-repeat-start="exercise in exercises">
                                 <div class="md-list-item-text">
                                     <h3>{{exercise.name}}</h3>
-                                    <span>{{exercise.location}}</span><br>
-                                    <span>{{exercise.daytime}} - {{exercise.lectureEnd}}</span><br>
+                                    <span><md-icon class="tiny">place</md-icon>
+                                        <a href="http://maps.google.com/?q={{ exercise.location }}"
+                                           target="_blank"> {{ exercise.location }}</a></span><br>
+                                    <span>
+                                        <md-icon class="tiny">schedule</md-icon> {{exercise.daytime}} - {{exercise.lectureEnd}}
+                                    </span><br>
+                                    <span><md-icon class="tiny">school</md-icon> {{exercise.tutor}}</span><br>
                                     <span translate="PARTICIPANTS_COUNT"
                                           translate-values="{count:exercise.participantCount}"></span>
                                     <md-button ng-if="exercise.currentUserParticipates"
