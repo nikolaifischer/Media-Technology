@@ -60,6 +60,7 @@ angular.module('AlgoCtrl', [])
         // RESTART CHECKS IF LABTYPE IS CHANGED
         $scope.reload = function (labSelect) {
             $scope.labSelect = labSelect;
+            $scope.successAlgo=false;
             $scope.registration_loading = true;
             $scope.tutor_labs_loading = true;
             $scope.student_prios_loading = true;
@@ -576,7 +577,7 @@ angular.module('AlgoCtrl', [])
             // Wait for the Writes in the Loop to finish
             setTimeout(function(){
                 cb();
-            }, 500);
+            }, 1000);
 
 
         }
