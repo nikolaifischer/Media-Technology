@@ -249,7 +249,6 @@ email and term. The users are divided in Tutors and Students.
 
 ## Semester Management
 
-As admin you can edit the current term in the Semester Management tool and delete previous terms if not needed any
-longer. Consider that all data depending on the deleted term is also lost!
+As admin you can create a term and edit the current term in the Semester Management tool, and also view previous terms.
 
 ![](./public/images/readme/term_mgt.PNG)
