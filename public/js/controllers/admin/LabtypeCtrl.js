@@ -1,6 +1,8 @@
 angular.module('LabtypeCtrl', [])
     .controller('LabtypeController', function ($scope, $http, $route, PlatformUser, Semester, LabType) {
 
+        // Controller for managing the different lab types (foto, video, audio)
+
         $scope.getCurrentSemester(function (semesterRes) {
             $scope.semester = semesterRes;
 

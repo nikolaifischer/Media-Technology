@@ -1,6 +1,7 @@
 angular.module('SemesterCtrl', [])
     .controller('SemesterController', function ($location, $scope, $resource, $mdToast, $mdDialog, $window, $translate, PlatformUser, Semester, LabType) {
 
+        // Controller for managing the terms
 
         // Send non-admins back to home page
         if (PlatformUser.isAuthenticated()) {
@@ -14,41 +15,43 @@ angular.module('SemesterCtrl', [])
         }
 
         $scope.terms = [];
-
         $scope.semesterinCtrl = {};
         $scope.semesterinCtrl.start_date = new Date();
         $scope.semesterinCtrl.end_date = new Date();
         $scope.noCurrentSemester = false;
+
+        /**
+         * function for getting the current term (if there is one) and all previous terms
+         */
         $scope.getCurrentSemester(function (semester) {
             if (semester != undefined) {
+                // if there is a current term, fill in the form with it's data
                 $scope.noCurrentSemester = false;
+                // get data of current term for displaying and changing
                 Semester.findById({id: semester.id}, function (currentSemester) {
                     currentSemester.start_date = new Date(currentSemester.start_date);
                     currentSemester.end_date = new Date(currentSemester.end_date);
                     $scope.semesterinCtrl = currentSemester;
-
-                    $scope.terms = Semester.find(
-                        {
-                            filter: {
-                                where: {
-                                    id: {neq: currentSemester.id}
-                                }
-                            },
-                            order: "end_date DESC"
+                    // get all previous terms without the current for displaying in web page
+                    $scope.terms = Semester.find({
+                        filter: {
+                            where: {
+                                id: {neq: currentSemester.id}
+                            }
                         },
-                        function(success){},
-                        function(error){
-                            console.log(error);
-                        }
-                    );
+                        order: "end_date DESC"
+                    },
+                    function(success){},
+                    function(error){
+                        console.log(error);
+                    });
                 }, function (err) {
                     console.log(err)
                 })
-            }
-            else {
+            } else {
                 $scope.noCurrentSemester = true;
-                $scope.terms = Semester.find(
-                    {
+                // get all terms for displaying in web page
+                $scope.terms = Semester.find({
                         order: "end_date DESC"
                     },
                     function(success){},
@@ -57,16 +60,17 @@ angular.module('SemesterCtrl', [])
                     }
                 );
             }
-
         });
 
+        /**
+         * function for creating a term (with creating the respective lab types) and saving changes in the current term
+         * called when submitting the form
+         */
         $scope.saveSemester = function () {
-
-            // Create a new Semester
+            // if there is no current term, create a new one
             if ($scope.noCurrentSemester) {
                 Semester.create($scope.semesterinCtrl, function (success) {
                     $scope.semester = success;
-                    console.log($scope.semester);
                     createLabTypes(1, 'Foto', function() {
                         createLabTypes(2, 'Video', function() {
                             createLabTypes(3, 'Audio', function() {
@@ -78,9 +82,8 @@ angular.module('SemesterCtrl', [])
                     console.log(err);
                 });
 
-            }
-            // Update the current Semester
-            else {
+            } else {
+                // update the current term
                 Semester.findById({id: $scope.semesterinCtrl.id}, function (res) {
                     res.term = $scope.semesterinCtrl.term;
                     res.start_date = $scope.semesterinCtrl.start_date;
@@ -88,32 +91,19 @@ angular.module('SemesterCtrl', [])
                     res.group_size = $scope.semesterinCtrl.group_size;
                     res.$save();
 
-                    // A Reload is needed here, to update the Semester in the MainCtrl.
+                    // A reload is needed here, to update the term in the MainController
                     $window.location.reload();
-                })
-
+                });
             }
-
         };
 
-        // TODO: welcher Text im Alert?
-        $scope.removeSemester = function(ev, index){
-            var confirm = $mdDialog.confirm()
-                .title($translate.instant('REALLY_DELETE_TERM'))
-                .textContent($translate.instant('TERM_DATA_GETS_LOST'))
-                .ariaLabel($translate.instant('DELETE_TERM'))
-                .targetEvent(ev)
-                .ok($translate.instant('DELETE'))
-                .cancel($translate.instant('CANCEL'));
-
-            $mdDialog.show(confirm).then(function() {
-                var term = $scope.terms.splice(index, 1)[0];
-                Semester.deleteById({id: term.id}, function(response) {});
-            }, function() {});
-        };
-
+        /**
+         * function for creating the lab types for a term, called when creating a new term
+         * @param typeNumber (1, 2 or 3)
+         * @param typeString ('Foto', 'Video' or 'Audio')
+         * @param callback needed for reloading the page when all lab types are created
+         */
         function createLabTypes(typeNumber, typeString, callback) {
-            console.log(typeNumber);
             LabType.create({
                 type: typeNumber,
                 type_str: typeString,
@@ -123,14 +113,10 @@ angular.module('SemesterCtrl', [])
                 description_tutor: $translate.instant('SOME_DESCRIPTION'),
                 semesterId: $scope.semester.id
             }, function (res) {
-
-                console.log(res);
                 callback();
-
             }, function(error){
                 console.log(error);
             });
         }
-
 
     });

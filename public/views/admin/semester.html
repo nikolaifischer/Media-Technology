@@ -11,11 +11,11 @@
         <div class="col-sm-0 col-md-2"></div>
     </div>
 
+    <!-- form for creating a new term or updating the current term -->
     <div class="row">
         <div class="col-sm-12 col-lg-1"></div>
 
         <div class="col-sm-12 col-lg-10">
-
             <md-card>
                 <md-card-title class="dashboardCardTitle">
                     <md-card-title-text ng-if="!noCurrentSemester">
@@ -27,11 +27,10 @@
                 </md-card-title>
 
                 <md-card-content class="cardContent">
-
-
                     <form name="createTermForm">
                         <div layout="row" layout-sm="column" layout-align-sm="end stretch" style="min-height: 50px">
-                            <div flex-gt-sm="90" layout layout-wrap layout-align-sm="end stretch" layout-xs="column" layout-align-xs="center stretch">
+                            <div flex-gt-sm="90" layout layout-wrap layout-align-sm="end stretch" layout-xs="column"
+                                 layout-align-xs="center stretch">
                                 <md-input-container flex-gt-sm="50" flex-sm="100">
                                     <md-icon>info_outline</md-icon>
                                     <input type="text" ng-model="semesterinCtrl.term" ng-required="true" name="termName"
@@ -40,6 +39,7 @@
                                         <div ng-message="required" translate="INPUT_REQUIRED"></div>
                                     </div>
                                 </md-input-container>
+
                                 <md-input-container flex-gt-sm="50" flex-sm="100">
                                     <md-icon>group</md-icon>
                                     <input step="1" ng-model="semesterinCtrl.group_size" ng-required="true" name="groupSize"
@@ -48,40 +48,44 @@
                                         <div ng-message-exp="['pattern', 'required']" translate="INVALID_NUMBER"></div>
                                     </div>
                                 </md-input-container>
+
                                 <md-input-container flex-gt-sm="50" flex-sm="100">
                                     <md-icon>schedule</md-icon>
                                     <input mdc-datetime-picker="" date="true" time="false" type="text" ng-required="true"
-                                           name="startDate" placeholder="{{ 'START_DATE' | translate }}" format ="DD.MM.YYYY"
-                                           ng-model="semesterinCtrl.start_date" lang="{{lang}}" class="md-input">
+                                           name="startDate" placeholder="{{ 'START_DATE' | translate }}" lang="{{lang}}"
+                                           ng-model="semesterinCtrl.start_date" format="DD.MM.YYYY" class="md-input">
                                     <div ng-messages="createTermForm.startDate.$error">
                                         <div ng-message="required" translate="INPUT_REQUIRED"></div>
                                     </div>
                                 </md-input-container>
+
                                 <md-input-container flex-gt-sm="50" flex-sm="100">
                                     <md-icon>update</md-icon>
                                     <input mdc-datetime-picker="" date="true" time="false" type="text" ng-required="true"
-                                           name="endDate" placeholder="{{ 'END_DATE' | translate }}" format ="DD.MM.YYYY"
-                                           ng-model="semesterinCtrl.end_date" lang="{{lang}}" class="md-input">
+                                           name="endDate" placeholder="{{ 'END_DATE' | translate }}" lang="{{lang}}"
+                                           ng-model="semesterinCtrl.end_date" format ="DD.MM.YYYY" class="md-input">
                                     <div ng-messages="createTermForm.endDate.$error">
                                         <div ng-message="required" translate="INPUT_REQUIRED"></div>
                                     </div>
                                 </md-input-container>
-                            </div><div layout flex-gt-sm="10" layout-align-gt-sm="end center" layout-align-sm="center center">
-                            <md-button class="md-icon-button" ng-click="saveSemester()">
-                                <md-icon class="md-primary">save</md-icon>
-                                <md-tooltip md-direction="right">{{ 'SAVE' | translate }}</md-tooltip>
-                            </md-button>
-                        </div>
+                            </div>
+
+                            <div layout flex-gt-sm="10" layout-align-gt-sm="end center" layout-align-sm="center center">
+                                <md-button class="md-icon-button" ng-click="saveSemester()">
+                                    <md-icon class="md-primary">save</md-icon>
+                                    <md-tooltip md-direction="right">{{ 'SAVE' | translate }}</md-tooltip>
+                                </md-button>
+                            </div>
                         </div>
                     </form>
-
                 </md-card-content>
-
+            </md-card>
         </div>
 
         <div class="col-sm-12 col-lg-1"></div>
     </div>
 
+    <!-- list of the previous terms -->
     <div class="row">
         <div class="col-sm-12 col-lg-1"></div>
 
@@ -97,21 +101,18 @@
                         <md-list-item class="md-2-line" ng-repeat-start="term in terms">
                             <div class="md-list-item-text">
                                 <div layout="row" style="min-height: 50px">
-                                    <div flex-xs="80" flex-gt-xs="90"  layout layout-wrap>
+                                    <div flex layout layout-wrap>
                                         <h3 style="font-weight: bold; min-width: 200px;" flex-gt-sm="25">{{term.term}}</h3>
-                                        <span style="min-width: 200px;">{{term.start_date | date}} - {{term.end_date | date}}
-                                        ({{ 'GROUP_SIZE' | translate }}: {{term.group_size}})</span>
-                                    </div><div layout flex-xs="20" flex-gt-xs="10" layout-align="end center">
-                                    <md-button ng-click="removeSemester($event, $index)" class="md-icon-button">
-                                        <md-icon class="md-accent">delete</md-icon>
-                                        <md-tooltip md-direction="right">{{ 'DELETE' | translate }}</md-tooltip>
-                                    </md-button>
-                                </div>
+                                        <span style="min-width: 200px;">
+                                            {{term.start_date | date}} - {{term.end_date | date}}
+                                            ({{ 'GROUP_SIZE' | translate }}: {{term.group_size}})
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </md-list-item>
                         <md-divider ng-repeat-end></md-divider>
-                        <md-list>
+                    <md-list>
                 </md-card-content>
             </md-card>
         </div>

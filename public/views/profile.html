@@ -1,8 +1,10 @@
 <div class="jumbotron" ng-controller="ProfileController">
     <h2 class="text-center" translate="MY_PROFILE"></h2>
 
+    <!-- user info -->
     <div class="row">
         <div class="col-sm-12 col-lg-1"></div>
+
         <div class="col-sm-12 col-lg-10">
             <table class="table profileDataTable">
                 <tbody>
@@ -17,16 +19,18 @@
                     <tr>
                         <th scope="row" width="100" translate="PASSWORD"></th>
                         <td>
-                            <a href="#" class="change-password-dialog-open-button" ng-click="showPasswordDialog($event)" translate="CHANGE_PASSWORD"></a>
+                            <a href="#" class="change-password-dialog-open-button" ng-click="showPasswordDialog($event)"
+                               translate="CHANGE_PASSWORD"></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
         <div class="col-sm-12 col-lg-1"></div>
     </div>
 
-    <!-- dialog -->
+    <!-- dialog with the change-password form -->
     <script type="text/ng-template" id="changePasswortDialog.tmpl.html">
         <div role="dialog" aria-label="{{ 'CHANGE_PASSWORD' | translate }}" layout="column" layout-align="center center">
             <md-toolbar>
@@ -45,19 +49,25 @@
                                name="newPassword" ng-model="currentUser.newPassword" minlength="8">
                         <md-icon class="md-primary">
                             info_outline
-                            <md-tooltip md-direction="left" style="z-index: 1000">{{ 'PASSWORD_REQUIREMENTS' | translate }}</md-tooltip>
+                            <md-tooltip md-direction="left" style="z-index: 1000">
+                                {{ 'PASSWORD_REQUIREMENTS' | translate }}
+                            </md-tooltip>
                         </md-icon>
                         <div ng-messages="changePasswordForm.newPassword.$error">
-                            <div ng-message-exp="['required', 'pattern', 'minlength']" translate="PASSWORD_REQUIREMENTS"></div>
+                            <div ng-message-exp="['required', 'pattern', 'minlength']"
+                                 translate="PASSWORD_REQUIREMENTS"></div>
                         </div>
                     </md-input-container>
+
                     <md-input-container class="md-block">
-                        <input type="password" ng-required="true" ng-pattern="currentUser.newPassword" name="repeatNewPassword"
-                               placeholder="{{ 'REPEAT_NEW_PASSWORD' | translate }}" ng-model="currentUser.repeatNewPassword">
+                        <input type="password" ng-required="true" ng-pattern="currentUser.newPassword"
+                               name="repeatNewPassword" placeholder="{{ 'REPEAT_NEW_PASSWORD' | translate }}"
+                               ng-model="currentUser.repeatNewPassword">
                         <div ng-messages="changePasswordForm.repeatNewPassword.$error">
                             <div ng-message-exp="['required', 'pattern']" translate="REPEAT_PASSWORD_NO_MATCH"></div>
                         </div>
                     </md-input-container>
+
                     <div layout="row" class="action-dialog-button">
                         <md-button ng-click="changePassword()" class="md-primary" style="width: 100%;"
                                    translate="SAVE_NEW_PASSWORD" aria-label="{{ 'SAVE_NEW_PASSWORD' | translate }}"

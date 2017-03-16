@@ -15,6 +15,7 @@
         <div class="col-sm-12 col-lg-1"></div>
 
         <div class="col-sm-12 col-lg-10">
+            <!-- list of tutors with ability to change users attributes -->
             <md-card>
                 <md-card-title class="dashboardCardTitle">
                     <md-card-title-text><h2 class="cardHeader" translate="TUTORS"></h2></md-card-title-text>
@@ -32,6 +33,7 @@
                                 <th md-column>{{ 'TOOLS' | translate }}</th>
                             </tr>
                             </thead>
+
                             <tbody md-body>
                             <tr md-row md-select="tutor" md-select-id="name" md-auto-select
                                 ng-repeat="tutor in tutors | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">
@@ -79,6 +81,7 @@
                 </md-card-content>
             </md-card>
 
+            <!-- list of students with ability to change users attributes -->
             <md-card>
                 <md-card-title class="dashboardCardTitle">
                     <md-card-title-text><h2 class="cardHeader" translate="STUDENTS"></h2></md-card-title-text>
@@ -96,6 +99,7 @@
                                 <th md-column>{{ 'TOOLS' | translate }}</th>
                             </tr>
                             </thead>
+
                             <tbody md-body>
                             <tr md-row md-select="student" md-select-id="name" md-auto-select
                                 ng-repeat="student in students | orderBy: dbQuery.order | limitTo: dbQuery.limit : (dbQuery.page -1) * dbQuery.limit">

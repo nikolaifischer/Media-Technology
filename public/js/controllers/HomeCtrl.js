@@ -1,4 +1,8 @@
-angular.module('HomeCtrl', []).controller('HomeController', function ($scope, $location, $translate, PlatformUser, LabType, Lab, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
+angular.module('HomeCtrl', [])
+    .controller('HomeController', function ($scope, $location, $translate, PlatformUser, LabType, Lab, Group, UniqueDate, Exercise, MaterialCalendarData, $window, $filter, $resource, $mdDialog, NewsEntry) {
+
+    // Controller for the elements of the home page (overview)
+    // groups panel for students, news panel and calendar panel for all users
 
     // Show admins a Pop-up if there is no current semester
     PlatformUser.getCurrent(function (currentUser) {

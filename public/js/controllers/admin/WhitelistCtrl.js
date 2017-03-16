@@ -1,5 +1,8 @@
 angular.module('WhitelistCtrl', [])
-.controller('WhitelistController', function ($location, $scope, $translate, PlatformUser, $mdToast, PendingPlatformUser) {
+    .controller('WhitelistController', function ($location, $scope, $translate, PlatformUser, $mdToast, PendingPlatformUser) {
+
+    // Controller for managing the whitelist, which represents not yet registered users, who are allowed to register
+    // on the platform
 
     // Users uploaded via CSV
     $scope.userList = [];

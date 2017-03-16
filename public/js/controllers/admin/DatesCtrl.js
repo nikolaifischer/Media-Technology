@@ -1,6 +1,8 @@
 angular.module('DatesCtrl', [])
     .controller('DatesController', function ($location, $scope, PlatformUser, Semester, UniqueDate) {
 
+        // Controller for managing UniqueDates (e.g. exams)
+
         // Send non-admins back to home page
         if (PlatformUser.isAuthenticated()) {
             PlatformUser.getCurrent(function (currentUser) {

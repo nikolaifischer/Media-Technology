@@ -1,10 +1,12 @@
-angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginController', function ($scope, PlatformUser, $window, $mdToast,$mdDialog, $location, vcRecaptchaService) {
+angular.module('LoginCtrl', ['ngMaterial','ngMessages'])
+    .controller('LoginController', function ($scope, PlatformUser, $window, $mdToast, $mdDialog, $location, $translate, vcRecaptchaService) {
 
+    // Controller for the login and registration process
 
-    // Do not show Navigation in Login Window
+    // Do not show the navigation panel on the login page
     $scope.$root.hideNav = true;
 
-    // FRONTEND FLAGS
+    // frontend flags
     $scope.registerFlag = false;
     $scope.whitelisted = true;
     $scope.wrongLogin = false;
@@ -27,20 +29,18 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
     };
 
     /**
-     * Login the User
+     * function for the user login, called when submitting the login form
      */
     $scope.login = function () {
         PlatformUser.login($scope.registeredUser,
             function (response) {
-                console.log(response.id);
                 $window.sessionStorage.token = response.id;
                 $window.location.href = '/';
             },
             function (errorResponse) {
                 if(errorResponse.data.error.message.includes($translate.instant("LOGIN_FAILED_EMAIL_NOT_CONFIRMED"))){
                     $scope.notVerified = true;
-                }
-                else {
+                } else {
                     $scope.wrongLogin = true;
                 }
 
@@ -50,71 +50,60 @@ angular.module('LoginCtrl', ['ngMaterial','ngMessages']).controller('LoginContro
         );
     };
 
-
     /**
-     * Show dialog stating that the registration was successful but the user has to confirm his E-Mail Address.
+     * Show dialog stating that the registration was successful but the user has to confirm his email address
+     * called when registration was successful (the submitted email address was whitelisted)
      * @param ev
      */
     $scope.showVerify = function (ev) {
-
-        // Show the user a message
+        // show the user a success message
         var confirm = $mdDialog.confirm()
             .title($translate.instant("REGISTRATION_SUCCESSFUL"))
             .textContent($translate.instant("CONFIRM_EMAIL"))
+            .ariaLabel($translate.instant('REGISTRATION_SUCCESSFUL'))
             .targetEvent(ev)
             .ok('OK');
 
         $mdDialog.show(confirm).then(function () {
-            //ok-callback
-
-            // Switch back to the Login Screen
-            $scope.registerFlag=false;
-
+            // ok-callback
+            // switch back to the login screen
+            $scope.registerFlag = false;
         }, function () {
-            // Do nothing
-
         });
     };
 
     /**
-     * Register the User
+     * function for registering, called when submitting the registration form
      */
     $scope.register = function () {
         PlatformUser.create($scope.user,
             function (response) {
-
+                // show the registration-successful dialog
                 $scope.showVerify();
-
-
             },
             function (errorResponse) {
                 if (errorResponse.status == 403) {
+                    // submitted email address was not on the whitelist
                     $scope.whitelisted = false;
                     vcRecaptchaService.reload($scope.registerCaptchaId);
-                }
-                else {
+                } else {
                     console.log(errorResponse);
                 }
             }
         );
     };
 
-
     /**
-     * Frontend Methods for Captcha Creation
+     * Frontend methods for Captcha creation
      * @param id: id of the Captcha
      */
 
     $scope.setLoginWidgetId = function(id) {
         $scope.loginCaptchaId=id;
-    }
-
+    };
     $scope.setRegisterWidgetId = function(id) {
         $scope.registerCaptchaId=id;
-    }
-
-
-
+    };
 });
 
 

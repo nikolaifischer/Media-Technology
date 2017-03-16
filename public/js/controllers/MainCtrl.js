@@ -1,4 +1,8 @@
-angular.module('MainCtrl', []).controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate, Semester, tmhDynamicLocale) {
+angular.module('MainCtrl', [])
+    .controller('MainController', function ($scope, $location, $timeout, $mdSidenav, $window, PlatformUser, $rootScope, $translate, Semester, tmhDynamicLocale) {
+
+    // Controller for main functions of the app (get current term, logout, menu, language switch)
+
     $scope.$root.hideNav = true;
 
     // Set default language to german

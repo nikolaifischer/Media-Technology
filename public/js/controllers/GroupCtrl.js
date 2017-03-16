@@ -1,5 +1,7 @@
-angular.module('GroupCtrl', ['ngMaterial' ]).controller('GroupController', function($scope, PlatformUser,Group, $window) {
+angular.module('GroupCtrl', ['ngMaterial' ])
+    .controller('GroupController', function($scope, PlatformUser,Group, $window, $translate) {
 
+    // Controller for creating and joining groups as a student
 
     $scope.groupMembers = [];
 

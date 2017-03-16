@@ -45,7 +45,6 @@
 
             <md-button ng-click="saveEditor()" ng-show="currentUser.isTutor || currentUser.isAdmin"
                        class="md-raised md-primary">{{ 'SAVE' | translate }}</md-button>
-            <!-- TODO: der Button dürfte nicht mehr "bearbeiten" heißen, wenn der Editor schon offen ist -->
             <md-button ng-click="hideEditor = !hideEditor" ng-show="currentUser.isTutor || currentUser.isAdmin"
                        class="md-raised md-primary">{{ 'EDIT' | translate }}</md-button>
         </div>

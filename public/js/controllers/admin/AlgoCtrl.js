@@ -1,6 +1,7 @@
 angular.module('AlgoCtrl', [])
     .controller('AlgoController', function (PlatformUser, $location, $scope, PriorityDistribution, LoopBackAuth, Lab, LabType, Priority, Group) {
 
+        // Functions related to the algorithm, which distributes labs to students based on their priorities
 
         // Error Vars
 
