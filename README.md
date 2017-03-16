@@ -2,6 +2,27 @@
 
 ![](./public/images/readme/homescreen.png)
 
+
+## Content
+* [Installation](#installation)
+* [General Information](#general-information)
+* [First Start](#first-start)
+* [Home](#home)
+* [Whitelists](#whitelists)
+* [Groups](#groups)
+* [Labs](#labs)
+* [News](#news)
+* [Priority Distribution](#priority-distribution)
+* [Weekly Exercises](#weekly-exercises)
+* [Schedule Management](#schedule-management)
+* [User Management](#user-management)
+* [Semester Management](#semester-management)
+
+
+
+
+
+
 ## Installation
 1. Download the repository
 2. Install npm modules: `npm install`
@@ -75,7 +96,8 @@ Admin:
 * Unique Dates (Exam,...)
 
 
-## Whitelists (User Creation)
+## Whitelists 
+**(User Creation)**
 
 Whitelists are used to allow only specific users (participants of the course) to
 register accounts for this platform.
