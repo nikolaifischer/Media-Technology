@@ -290,6 +290,10 @@ md-dialog {
     background-color: #536dfe;
 }
 
+.my-group {
+    color: #536dfe;
+}
+
 .md-dialog-content .md-title {
     padding: 10px;
     border-bottom: 1px solid grey;

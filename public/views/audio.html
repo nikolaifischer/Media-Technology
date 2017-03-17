@@ -90,7 +90,7 @@
                 <!--selected Priority-->
                 <span ng-show="object.selPrio != undefined && open"><md-icon>label_outline</md-icon> {{ 'PRIORITY' | translate }}: {{ object.selPrio }}</span>
                 <!---ourLab-->
-                <span style="color: rgb(255, 82, 82);" ng-show="aferDeadline && !open && !isTutor"><md-icon>group</md-icon> {{ group.name }}</span>
+                <span class="my-group" ng-show="isOurs && !open && !isTutor"><md-icon>group</md-icon> {{ group.name }}</span>
                 <!--UpdateButton-->
                 <md-button ng-click="updateLab($index)" class="md-raised md-primary" ng-show="isEdit[$index]"
                            aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>

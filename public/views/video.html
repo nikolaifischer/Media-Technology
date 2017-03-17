@@ -42,7 +42,7 @@
                 <md-icon class="right-icon green_hover" ng-click="cancelEditLab($index)" ng-show="isTutor && isEdit[$index]">close</md-icon>
                 <md-icon class="right-icon delete_button" ng-click="deleteLab($index)" ng-show="isTutor && !isEdit[$index]">delete</md-icon>
                 <!--Select Priority-->
-                <div ng-show="object.selPrio == undefined && !isTutor && group!=undefined" >
+                <div ng-show="object.selPrio == undefined && !isTutor && group!=undefined && open" >
                     <md-input-container >
                         <md-select ng-model="selectedPriority[$index].priority" placeholder="{{ 'PRIORITY' | translate }}"
                                    ng-change="selectedPriority[$index].objectId = object.id; showButtons(selectedPriority[$index].priority, $index)">
@@ -88,9 +88,9 @@
                 </md-input-container>
                 <br>
                 <!--selected Priority-->
-                <span ng-show="object.selPrio != undefined"><md-icon>label_outline</md-icon> {{ 'PRIORITY' | translate }}: {{ object.selPrio }}</span>
+                <span ng-show="object.selPrio != undefined && open"><md-icon>label_outline</md-icon> {{ 'PRIORITY' | translate }}: {{ object.selPrio }}</span>
                 <!---ourLab-->
-                <span style="color: rgb(255, 82, 82);" ng-show="aferDeadline && !open && !isTutor"><md-icon>group</md-icon> {{ group.name }}</span>
+                <span class="my-group" ng-show="isOurs && !open && !isTutor"><md-icon>group</md-icon> {{ group.name }}</span>
                 <!--UpdateButton-->
                 <md-button ng-click="updateLab($index)" class="md-raised md-primary" ng-show="isEdit[$index]"
                            aria-label="{{ 'SAVE' | translate }}" translate="SAVE"></md-button>

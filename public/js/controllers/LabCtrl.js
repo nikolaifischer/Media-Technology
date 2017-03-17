@@ -1,7 +1,7 @@
 angular.module('LabCtrl', [])
     .controller('LabController', function ($scope, $filter, $timeout, $log, $q, $http, $route, $translate, PlatformUser, Semester, Group, Lab, LabType, Priority, MaterialCalendarData) {
 
-    // Controller for creating lab appointments (as tutor) and setting priorities on labs (as student)
+    // Controller for creating/editing/deleting lab appointments (as tutor or admin) and setting priorities on labs (as student)
 
     $scope.myTutorLabs = [];
     var groupedElements = {};

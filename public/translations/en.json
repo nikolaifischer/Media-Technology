@@ -43,7 +43,7 @@
   "CHOOSE_VIDEO_PRIORITIES_TEXT": "Choose your priorities for the video project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>.",
   "CHOOSE_PHOTO_PRIORITIES_TEXT": "Choose your priorities for the photo project for your group <span class='highlight-text'>{{groupname}}</span>.<br>The deadline for the registration is on <b>{{ ddln | date: 'EEE, dd.MM.y, HH:mm' }}</b>.",
   "PRIORITY": "Priority",
-  "HOURS": "o'clock",
+  "HOURS": "",
   "MINUTES": "Minutes",
   "CREATE_NEW_AUDIO_LAB_APPOINTMENT": "Create new appointment for the audio lab",
   "CREATE_NEW_VIDEO_LAB_APPOINTMENT": "Create new appointment for the video lab",
