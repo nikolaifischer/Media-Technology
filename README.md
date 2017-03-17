@@ -21,6 +21,15 @@
 
 
 
+## Deployment
+
+Surf to mtplanr.herokuapp.com to test the app with test data.
+
+Warning: Some of the test data is randomly created and might not make sense. 
+For a clean Start Backend has to be started using the production_seed.js
+ 
+(See Backend [Readme](https://gitlab.lrz.de/nikolaifischer/mt-common-api) for more info)
+
 
 
 ## Installation
@@ -34,6 +43,8 @@ Edit app.js to point the app to a local API for testing!
 
 
 THIS APP CAN ONLY WORK IF PROVIDED A VALID URL FOR A MEDIA TECHNOLOGY API
+
+
 
 
 
