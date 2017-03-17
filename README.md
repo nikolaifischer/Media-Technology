@@ -230,7 +230,7 @@ In the **Admin Menu** select "Distribution of Lab Dates" and follow the instruct
 
 The automatic distribution is done by an algorithm. The algorithm selects dates for the groups, based on the priorities given by the groups on dates.
 In the beginning, a high (1) priority is preferred to a low (3) priority. After groups get low on dates, groups with less dates get preferred to groups with more dates.
-In the end, the dates will get distributed fair and reasonable to all groups.
+In the end, the dates will get distributed fair and reasonable to all groups. Description of algorithm(only in german) -> https://github.com/nikolaifischer/Media-Technology/wiki/Algorithmus-Beschreibung
 
 Before a distribution should be started, several checks on the date have to be passed:
 
